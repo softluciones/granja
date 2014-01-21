@@ -24,9 +24,9 @@ class Cheque extends AppModel {
         var $actsAs = array(
             'MeioUpload' => array('filename')
         );
-        public $virtualFields = array(
+    /*    public $virtualFields = array(
             'chequess'=>'Cheque.numerodecheque'
-        );
+        );*/
 
 /**
  * Validation rules
