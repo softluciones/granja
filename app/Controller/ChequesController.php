@@ -16,7 +16,7 @@ class ChequesController extends AppController {
 	var $paginate = array(
                 'limit' => 10,
                 'order' => array(
-                'Cheque.fechacobro' => 'DESC','Cheque.fechacobro' => 'DESC',
+                'Cheque.fechacobro' => 'DESC'
                 )
               ); 
 
@@ -28,8 +28,7 @@ class ChequesController extends AppController {
         public function reporteinteres($id=null){
             $hoy=date("Y-m-d");
             $id=$this->params['pass'][0];
-            $deudainteres=$this->params['pass'][1];
-            $montopagado=$this->params['pass'][2];
+           
             $sqltotal="select count(*) as total from solointereses where cheque_id=".$id;
             $total=  $this->Cheque->query($sqltotal);
             $numerocheque="select numerodecheque from cheques where id=".$id;
@@ -37,31 +36,15 @@ class ChequesController extends AppController {
             $sql="Select monto, montointereses, fecha from solointereses where cheque_id=".$id." order by cheque_id desc, id desc";
             $consulta=  $this->Cheque->query($sql);
             $dif=  $this->diferencia($hoy,$consulta[0]['solointereses']['fecha']);
-            debug($dif);
-            debug($consulta);
+            #debug($dif);
+            #debug($consulta);
             $tot=$total[0][0]['total'];
             $acum=0;
             $fecha=$consulta[0]['solointereses']['fecha'];
-            echo "Vista de los intereses hasta el dia de hoy del cheque # ".$num[0]['cheques']['numerodecheque']."<br>";
-            for($i=0;$i<$dif;$i++){
-                $acum=$acum+$consulta[0]['solointereses']['montointereses'];
-                echo $fecha." ".$consulta[0]['solointereses']['montointereses']." Bs<br>";
-                $fecha++;
-            }
-            echo "Total de intereses acumulados hasta hoy: ".$acum." Bs<br>";
-            echo "total de monto+montointereses: ".(intval($consulta[0]['solointereses']['monto'])+intval($acum))." Bs<br>";
-            echo "Monto en deuda es: ".$consulta[0]['solointereses']['monto']." Bs<br>";
-            echo "Monto pagado a deuda ".$montopagado." Bs<br>";
-            echo "total menos lo que pago: (".$consulta[0]['solointereses']['monto']."-".$montopagado.")+".$acum."=".((intval($consulta[0]['solointereses']['monto'])-intval($montopagado))+intval($acum));
+            #echo "Vista de los intereses hasta el dia de hoy del cheque # ".$num[0]['cheques']['numerodecheque']."<br>";
             
-            $montomasintereses=(intval($consulta[0]['solointereses']['monto'])+intval($acum));
-            $totalrestante=((intval($consulta[0]['solointereses']['monto'])-intval($montopagado))+intval($acum));
-            
-            
-            
-            
-            exit(0);
-            $this->set(compact('consulta'));
+            #exit(0);
+            $this->set(compact('dif','consulta','fecha','acum','num','montointeresestoo'));
             
         }
         public function index() {
@@ -207,15 +190,15 @@ class ChequesController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-            $this->recursive = 2;
+            $this->Cheque->recursive = 3;
 		if (!$this->Cheque->exists($id)) {
 			throw new NotFoundException(__('Invalid cheque'));
 		}
 		$options = array('conditions' => array('Cheque.' . $this->Cheque->primaryKey => $id));
                 $cheque=$this->Cheque->find('first', $options);
                 $opciones2= array('conditions' => array('Cheque.cheque_id' => $id));
-                $relacionados = $this->Cheque->find('first',$opciones2);
-                #debug($relacionados);
+                $relacionados = $this->Cheque->find('all',$opciones2);
+                debug($relacionados);
 		$this->set(compact('cheque','relacionados'));
 	}
 
@@ -275,39 +258,31 @@ class ChequesController extends AppController {
                         
                         $dias=$this->diferencia($this->request->data['Cheque']['fecharecibido'],$this->request->data['Cheque']['fechacobro']);
                         $this->request->data['Cheque']['dias']=$dias;
-                        
-                        #debug($dias);
-                        
-                        #debug($this->request->data['Cheque']['dias']);
-                        
-                      #  debug($this->data);
                         $fecha1= new DateTime($this->data['Cheque']['fecharecibido']);
                         $fecha2 = new DateTime($this->data['Cheque']['fechacobro']);
                         $this->request->data['Cheque']['fecharecibido']=$fecha1->format('Y-m-d');
                         $this->request->data['Cheque']['fechacobro']=$fecha2->format('Y-m-d');
-                       
-                     	if ($this->Cheque->save($this->request->data)) {
+                        $id1= $this->request->data['Cheque']['cheques_id'];
+                     	if ($this->Cheque->save($this->request->data)) {                                
                                 $this->chequeinteresesinsert();
                                 $cheque_ids=  $this->Cheque->getLastInsertID();
                                 $this->Session->setFlash(__('El cheque ha sido guardado.'));
-				return $this->redirect(array('action' => 'view',$this->request->data['Cheque']['cheque_id']));
+				return $this->redirect(array('controller'=>'chequeestadocheques','action' => 'add2/'.$cheque_ids,$id1));
 			} else {
 				$this->Session->setFlash(__('El cheque no ha sido guardado'));
 			}
 		}
-		$bancos = $this->Cheque->Banco->find('list');
-                $muestra=0;
-		
-                    $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres')));
-                    
-               
+		$bancos = $this->Cheque->Banco->find('list',array('fields'=>'nombre'));
+                $muestra=0;		
+                    $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres')));      
                 $id_cheque = $this->Cheque->find('list',array('fields'=>array('id','numerodecheque'),'conditions'=>array(
                     'Cheque.id'=>$id)));
 		$interese = $this->Cheque->Interese->find('list',array('fields'=>array('id','rango')));
 		$users = $this->Cheque->User->find('list');
+                $cheque = $this->Cheque->find('all',array('conditions'=>array('Cheque.id'=>$id)));
                 $x=$this->Cheque->query("select id, username from users where id=".$this->Auth->user('id')."");
                 $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
-		$this->set(compact('bancos', 'clientes', 'interese', 'users','id_cheque','id'));
+		$this->set(compact('bancos', 'clientes', 'interese', 'users','id_cheque','id','cheque'));
 	}
         public function add($id=null) {
 		if ($this->request->is('post')) {
