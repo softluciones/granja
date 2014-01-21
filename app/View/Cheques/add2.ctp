@@ -12,45 +12,87 @@ $("#datepicker1").datepicker();
 
   });
   </script>
+ <style>
+      th{
+          background: #ffffff;
+      }
+      tbody tr:hover th{
+          background: #ffffff;
+      }
+      li.menu{
+          text-align: center;
+      }
+  </style>
 <div class="cheques form">
-<?php echo $this->Form->create('Cheque',array('type'=>'file')); ?>
-	<fieldset>
-		<legend><?php echo __('Agregar Cheque a Pago'); ?></legend>
-	<?php
-        
-        echo $this->Form->input('banco_id');
-        echo $this->Form->input('id',array('type'=>'hidden'));
-		echo $this->Form->input('cliente_id');
-		echo $this->Form->input('numerodecuenta',array('label'=>'Nro. de Cuenta'));
-		echo $this->Form->input('numerodecheque',array('label'=>'Nro. de Cheque'));
-		echo $this->Form->input('monto');
-		echo $this->Form->input('interese_id',array('label'=>'Interes'));
-		echo $this->Form->input('filename',array('type'=>'file','label'=>'Imagen del Cheque'));
-		echo $this->Form->input('dir',array('type'=>'hidden'));
-		echo $this->Form->input('fecharecibido',array('label'=>'Fecha de Recibido','id'=>'datepicker','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly','value'=> date('d-m-Y')));
-		echo $this->Form->input('fechacobro',array('label'=>'Fecha de Cobro','id'=>'datepicker1','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly'));
-		echo $this->Form->input('dias',array('type'=>'hidden'));
-		echo $this->Form->input('cobrado',array('options'=>array(
+<?php echo $this->Form->create('Cheque',array('type'=>'file')); 
+
+?>
+	
+                <table>
+                    <thead>
+       
+                 <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
+         <div align="center">Agregar Cheque <?php echo " para pago de cheque Nro. ".$cheque[0]['Cheque']['numerodecheque']." ";?></div>
+                 </th>
+            
+         </thead>
+                    <tr>
+                        <th colspan="3"><?php echo $this->Form->input('cliente_id');
+                        echo $this->Form->input('cheques_id',array('value'=>$cheque[0]['Cheque']['id'],'type'=>'hidden'));?></th>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->Form->input('banco_id'); ?></th>
+                        <th><?php echo $this->Form->input('numerodecuenta',array('label'=>'Nro. de Cuenta')); ?></th>
+                        <th><?php echo $this->Form->input('numerodecheque',array('label'=>'Nro. de Cheque')); ?></th>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->Form->input('monto'); ?></th>
+                        <th><?php echo $this->Form->input('interese_id',array('label'=>'Interes')); ?></th>
+                        <th><?php echo $this->Form->input('filename',array('type'=>'file','label'=>'Imagen del Cheque')); ?></th>
+                    </tr>
+                    <tr>
+
+                        <th><?php echo $this->Form->input('fecharecibido',array('label'=>'Fecha de Recibido','id'=>'datepicker','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly')); ?></th>
+                        <th><?php echo $this->Form->input('fechacobro',array('label'=>'Fecha de Cobro','id'=>'datepicker1','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly')); ?></th>
+
+                        <th><?php echo $this->Form->input('cobrado',array('options'=>array(
                                ''=>'Seleccione','1'=>'Por Cobrar','2'=>'Cobrado','0'=>'Devuelto'
-                )));
-                echo $this->Form->input('cheque_id',array('label'=>'Cheque a Pagar','type'=>'select','options'=>$id_cheque));
-		echo $this->Form->input('user_id', array('label'=>'Usuario de Registro'));
+                ))); ?></th>
+                     
+                    </tr>
+                    <tr>
+                        <th>   <?php echo $this->Form->input('cheque_id',array('label'=>'Cheque a Pagar','type'=>'select','options'=>$id_cheque)); ?>
+                   </th>
+                        <th><?php echo $this->Form->input('user_id'); ?></th>
+                        <th><?php echo $this->Form->end(__('Guardar')); ?></th>
+                        
+                    </tr>
+                </table>
+	<?php
+		
+		
+		echo $this->Form->input('dir',array('type'=>'hidden'));
+		
+		
+		echo $this->Form->input('dias',array('type'=>'hidden'));
 		
 		
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Guardar')); ?>
+
 </div>
+  <br></br>
 <div class="actions">
-	<h3><?php echo __('Acciones'); ?></h3>
+	
 	<ul>
 
-		<li><?php echo $this->Html->link(__('Listar Cheques'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('Listar Bancos'), array('controller' => 'bancos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Banco'), array('controller' => 'bancos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Listar Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Listar Usuarios'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Usuario'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		</ul>
+		<li class="menu"><?php echo $this->Html->link(__('Listar Cheques'), array('action' => 'index')); ?></li>
+		<li class="menu"><?php echo $this->Html->link(__('Listar Bancos'), array('controller' => 'bancos', 'action' => 'index')); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Nuevo Banco'), array('controller' => 'bancos', 'action' => 'add')); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Lista de Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Nuevo Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Listar Intereses'), array('controller' => 'interese', 'action' => 'index')); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Nuevo Interes'), array('controller' => 'interese', 'action' => 'add')); ?> </li>
+		
+	</ul>
 </div>
