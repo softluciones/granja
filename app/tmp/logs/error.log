@@ -1,0 +1,345 @@
+2014-01-07 15:05:55 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+Exception Attributes: array (
+  'config' => 'default',
+)
+Request URL: /gravimon/proyecto/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\ConnectionManager.php(93): ConnectionManager::_getConnectionObject('default')
+#1 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(3288): ConnectionManager::getDataSource('default')
+#2 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(1107): Model->setDataSource('default')
+#3 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(3310): Model->setSource('users')
+#4 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(1318): Model->getDataSource()
+#5 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\Helper\FormHelper.php(199): Model->schema()
+#6 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\Helper\FormHelper.php(451): FormHelper->_introspectModel('User', 'fields')
+#7 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\View\Users\login.ctp(4): FormHelper->create('User')
+#8 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\View.php(931): include('C:\Users\Betmar...')
+#9 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\View.php(893): View->_evaluate('C:\Users\Betmar...', Array)
+#10 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\View.php(462): View->_render('C:\Users\Betmar...')
+#11 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Controller.php(952): View->render(NULL, NULL)
+#12 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(194): Controller->render()
+#13 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#14 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2014-01-07 15:12:58 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+Exception Attributes: array (
+  'config' => 'default',
+)
+Request URL: /gravimon/proyecto/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\ConnectionManager.php(93): ConnectionManager::_getConnectionObject('default')
+#1 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(3288): ConnectionManager::getDataSource('default')
+#2 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(1107): Model->setDataSource('default')
+#3 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(3310): Model->setSource('users')
+#4 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(1318): Model->getDataSource()
+#5 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\Helper\FormHelper.php(199): Model->schema()
+#6 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\Helper\FormHelper.php(451): FormHelper->_introspectModel('User', 'fields')
+#7 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\View\Users\login.ctp(4): FormHelper->create('User')
+#8 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\View.php(931): include('C:\Users\Betmar...')
+#9 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\View.php(893): View->_evaluate('C:\Users\Betmar...', Array)
+#10 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\View.php(462): View->_render('C:\Users\Betmar...')
+#11 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Controller.php(952): View->render(NULL, NULL)
+#12 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(194): Controller->render()
+#13 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#14 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2014-01-07 15:13:07 Error: [MissingDatasourceConfigException] The datasource configuration "default" was not found in database.php
+Exception Attributes: array (
+  'config' => 'default',
+)
+Request URL: /gravimon/proyecto/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\ConnectionManager.php(93): ConnectionManager::_getConnectionObject('default')
+#1 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(3288): ConnectionManager::getDataSource('default')
+#2 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(1107): Model->setDataSource('default')
+#3 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(3310): Model->setSource('users')
+#4 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(1318): Model->getDataSource()
+#5 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\Helper\FormHelper.php(199): Model->schema()
+#6 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\Helper\FormHelper.php(451): FormHelper->_introspectModel('User', 'fields')
+#7 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\View\Users\login.ctp(4): FormHelper->create('User')
+#8 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\View.php(931): include('C:\Users\Betmar...')
+#9 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\View.php(893): View->_evaluate('C:\Users\Betmar...', Array)
+#10 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\View\View.php(462): View->_render('C:\Users\Betmar...')
+#11 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Controller.php(952): View->render(NULL, NULL)
+#12 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(194): Controller->render()
+#13 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#14 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2014-01-07 16:55:46 Error: [MissingControllerException] Controller class Favicon.icoController could not be found.
+Exception Attributes: array (
+  'class' => 'Favicon.icoController',
+  'plugin' => NULL,
+)
+Request URL: /gravimon/proyecto/favicon.ico
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-07 16:55:50 Error: [MissingControllerException] Controller class Favicon.icoController could not be found.
+Exception Attributes: array (
+  'class' => 'Favicon.icoController',
+  'plugin' => NULL,
+)
+Request URL: /gravimon/proyecto/favicon.ico
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-07 16:55:53 Error: [MissingControllerException] Controller class Favicon.icoController could not be found.
+Exception Attributes: array (
+  'class' => 'Favicon.icoController',
+  'plugin' => NULL,
+)
+Request URL: /gravimon/proyecto/favicon.ico
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-07 17:21:18 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Cheque.cobrado!' in 'where clause'
+Request URL: /gravimon/proyecto/cheques
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Cheque`...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT `Cheque`...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(1077): DboSource->fetchAll('SELECT `Cheque`...', false)
+#4 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(2750): DboSource->read(Object(Cheque), Array)
+#5 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(2722): Model->_readDataSource('all', Array)
+#6 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Component\PaginatorComponent.php(198): Model->find('all', Array)
+#7 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Controller.php(1079): PaginatorComponent->paginate('Cheque', Array, Array)
+#8 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\Controller\ChequesController.php(47): Controller->paginate('Cheque', Array)
+#9 [internal function]: ChequesController->index()
+#10 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#11 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#12 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#13 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2014-01-07 17:21:36 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Cheque.cobrado!' in 'where clause'
+Request URL: /gravimon/proyecto/cheques
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Cheque`...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT `Cheque`...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(1077): DboSource->fetchAll('SELECT `Cheque`...', false)
+#4 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(2750): DboSource->read(Object(Cheque), Array)
+#5 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(2722): Model->_readDataSource('all', Array)
+#6 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Component\PaginatorComponent.php(198): Model->find('all', Array)
+#7 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Controller.php(1079): PaginatorComponent->paginate('Cheque', Array, Array)
+#8 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\Controller\ChequesController.php(47): Controller->paginate('Cheque', Array)
+#9 [internal function]: ChequesController->index()
+#10 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#11 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#12 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#13 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2014-01-07 17:37:44 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Cheque.cobrado1' in 'where clause'
+Request URL: /gravimon/proyecto/cheques
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Cheque`...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT `Cheque`...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Datasource\DboSource.php(1077): DboSource->fetchAll('SELECT `Cheque`...', false)
+#4 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(2750): DboSource->read(Object(Cheque), Array)
+#5 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Model\Model.php(2722): Model->_readDataSource('all', Array)
+#6 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Component\PaginatorComponent.php(198): Model->find('all', Array)
+#7 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Controller.php(1079): PaginatorComponent->paginate('Cheque', Array, Array)
+#8 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\Controller\ChequesController.php(50): Controller->paginate('Cheque', Array)
+#9 [internal function]: ChequesController->index()
+#10 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#11 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#12 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#13 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\gravimon\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2014-01-11 11:15:41 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Users\Mirlay\Documents\USB\root\proyecto\app\View\Cheques\index.ctp, line 210]
+2014-01-11 11:15:41 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /proyecto/cheques
+Stack Trace:
+#0 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Users\Mirlay...', 210)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Users\Mirlay...', 210, Array)
+#2 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Users\Mirlay...', 210, Array)
+#3 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-11 11:25:07 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Users\Mirlay\Documents\USB\root\proyecto\app\View\Cheques\index.ctp, line 211]
+2014-01-11 11:25:08 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /proyecto/cheques
+Stack Trace:
+#0 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Users\Mirlay...', 211)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Users\Mirlay...', 211, Array)
+#2 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Users\Mirlay...', 211, Array)
+#3 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-11 11:27:18 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Users\Mirlay\Documents\USB\root\proyecto\app\View\Cheques\index.ctp, line 169]
+2014-01-11 11:27:18 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /proyecto/cheques
+Stack Trace:
+#0 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Users\Mirlay...', 169)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Users\Mirlay...', 169, Array)
+#2 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Users\Mirlay...', 169, Array)
+#3 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-11 11:29:57 Error: Fatal Error (4): syntax error, unexpected 'endforeach' (T_ENDFOREACH) in [C:\Users\Mirlay\Documents\USB\root\proyecto\app\View\Cheques\index.ctp, line 209]
+2014-01-11 11:29:57 Error: [FatalErrorException] syntax error, unexpected 'endforeach' (T_ENDFOREACH)
+Request URL: /proyecto/cheques
+Stack Trace:
+#0 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Users\Mirlay...', 209)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Users\Mirlay...', 209, Array)
+#2 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Users\Mirlay...', 209, Array)
+#3 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-11 11:38:05 Error: [MethodNotAllowedException] Method Not Allowed
+Request URL: /proyecto/cheques/delete/110
+Stack Trace:
+#0 C:\Users\Mirlay\Documents\USB\root\proyecto\app\Controller\ChequesController.php(470): CakeRequest->onlyAllow('post', 'delete')
+#1 [internal function]: ChequesController->delete('110')
+#2 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#3 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#4 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#5 C:\Users\Mirlay\Documents\USB\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#6 {main}
+2014-01-11 11:38:26 Error: [MethodNotAllowedException] Method Not Allowed
+Request URL: /proyecto/cheques/delete/106
+Stack Trace:
+#0 C:\Users\Mirlay\Documents\USB\root\proyecto\app\Controller\ChequesController.php(470): CakeRequest->onlyAllow('post', 'delete')
+#1 [internal function]: ChequesController->delete('106')
+#2 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#3 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#4 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#5 C:\Users\Mirlay\Documents\USB\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#6 {main}
+2014-01-11 11:38:39 Error: [MissingActionException] Action ChequesController::d() could not be found.
+Exception Attributes: array (
+  'controller' => 'ChequesController',
+  'action' => 'd',
+)
+Request URL: /proyecto/cheques/d
+Stack Trace:
+#0 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#1 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#2 C:\Users\Mirlay\Documents\USB\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2014-01-11 12:18:15 Error: Fatal Error (1): Call to a member function format() on a non-object in [C:\Users\Mirlay\Documents\USB\root\proyecto\app\View\Cheques\index.ctp, line 204]
+2014-01-11 12:18:15 Error: [FatalErrorException] Call to a member function format() on a non-object
+Request URL: /proyecto/cheques
+Stack Trace:
+#0 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'C:\Users\Mirlay...', 204)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'C:\Users\Mirlay...', 204, Array)
+#2 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'C:\Users\Mirlay...', 204, Array)
+#3 C:\Users\Mirlay\Documents\USB\root\proyecto\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-14 22:26:52 Error: [CakeLogException] Could not load class File
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Log\LogEngineCollection.php(42): LogEngineCollection::_getLogger('File')
+#1 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Log\CakeLog.php(199): LogEngineCollection->load('debug', Array)
+#2 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\app\Config\bootstrap.php(105): CakeLog::config('debug', Array)
+#3 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Core\Configure.php(94): include('C:\Users\Betmar...')
+#4 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\bootstrap.php(171): Configure::bootstrap(true)
+#5 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Console\ShellDispatcher.php(130): require('C:\Users\Betmar...')
+#6 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Console\ShellDispatcher.php(100): ShellDispatcher->_bootstrap()
+#7 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Console\ShellDispatcher.php(56): ShellDispatcher->_initEnvironment()
+#8 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Console\ShellDispatcher.php(67): ShellDispatcher->__construct(Array)
+#9 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\app\Console\cake.php(37): ShellDispatcher::run(Array)
+#10 {main}
+2014-01-14 22:27:31 Error: [CakeLogException] Could not load class File
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Log\LogEngineCollection.php(42): LogEngineCollection::_getLogger('File')
+#1 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Log\CakeLog.php(199): LogEngineCollection->load('debug', Array)
+#2 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\app\Config\bootstrap.php(105): CakeLog::config('debug', Array)
+#3 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Core\Configure.php(94): include('C:\Users\Betmar...')
+#4 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\bootstrap.php(171): Configure::bootstrap(true)
+#5 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Console\ShellDispatcher.php(130): require('C:\Users\Betmar...')
+#6 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Console\ShellDispatcher.php(100): ShellDispatcher->_bootstrap()
+#7 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Console\ShellDispatcher.php(56): ShellDispatcher->_initEnvironment()
+#8 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\lib\Cake\Console\ShellDispatcher.php(67): ShellDispatcher->__construct(Array)
+#9 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\despacho\app\Console\cake.php(37): ShellDispatcher::run(Array)
+#10 {main}
+2014-01-15 21:33:21 Error: [MissingControllerException] Controller class ProduccionsController could not be found.
+Exception Attributes: array (
+  'class' => 'ProduccionsController',
+  'plugin' => NULL,
+)
+Request URL: /proyecto/produccions
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-15 21:34:16 Error: [MissingControllerException] Controller class ProduccionsController could not be found.
+Exception Attributes: array (
+  'class' => 'ProduccionsController',
+  'plugin' => NULL,
+)
+Request URL: /proyecto/produccions
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-15 21:36:14 Error: [MissingControllerException] Controller class ProduccionsController could not be found.
+Exception Attributes: array (
+  'class' => 'ProduccionsController',
+  'plugin' => NULL,
+)
+Request URL: /proyecto/produccions
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-15 21:36:47 Error: [MissingControllerException] Controller class ProduccionsController could not be found.
+Exception Attributes: array (
+  'class' => 'ProduccionsController',
+  'plugin' => NULL,
+)
+Request URL: /proyecto/produccions
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-15 21:36:52 Error: [MissingControllerException] Controller class ProduccionsController could not be found.
+Exception Attributes: array (
+  'class' => 'ProduccionsController',
+  'plugin' => NULL,
+)
+Request URL: /proyecto/produccions
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-15 22:04:03 Error: Fatal Error (64): Cannot redeclare Role::parentNode() in [C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\app\Model\Role.php, line 63]
+2014-01-15 22:04:03 Error: [FatalErrorException] Cannot redeclare Role::parentNode()
+Request URL: /proyecto/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(64, 'Cannot redeclar...', 'C:\Users\Betmar...', 63)
+#1 [internal function]: ErrorHandler::handleError(64, 'Cannot redeclar...', 'C:\Users\Betmar...', 63, Array)
+#2 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 64, 'Cannot redeclar...', 'C:\Users\Betmar...', 63, Array)
+#3 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-01-16 15:03:25 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /proyecto/img/uploads/cheque/filename/adalid_I.jpg
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-16 15:41:29 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /proyecto/img/uploads/cheque/filename/adalid_2_fw.png
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-21 07:49:13 Error: [MissingControllerException] Controller class ReporteinteresesController could not be found.
+Exception Attributes: array (
+  'class' => 'ReporteinteresesController',
+  'plugin' => NULL,
+)
+Request URL: /proyecto/reporteintereses
+Stack Trace:
+#0 C:\Users\Mirlay\Documents\USB\root\proyecto\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-01-21 08:45:13 Error: [MissingControllerException] Controller class ReporteinteresesController could not be found.
+Exception Attributes: array (
+  'class' => 'ReporteinteresesController',
+  'plugin' => NULL,
+)
+Request URL: /proyecto0/reporteintereses
+Stack Trace:
+#0 C:\Users\Mirlay\Documents\USB\root\proyecto0\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
