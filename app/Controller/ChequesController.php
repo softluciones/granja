@@ -532,7 +532,7 @@ class ChequesController extends AppController {
                                   $p++;
                                 $this->request->data['Solointerese']['montointereses']=$p;
                                 $this->request->data['Chequeinterese']['montodescuentointeres'] = $p*$y[0]['cheques']['dias'];
-                                $this->request->data['Chequeinterese']['montoentregado']=$this->request->data['Cheque']['monto']-$p;
+                                $this->request->data['Chequeinterese']['montoentregado']=$this->request->data['Cheque']['monto']-$p*$y[0]['cheques']['dias'];
                             }
 
                             $sql="delete from chequeinterese where cheque_id=".$id;
