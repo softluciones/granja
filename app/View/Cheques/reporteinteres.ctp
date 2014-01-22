@@ -1,4 +1,5 @@
 
+<?php if($id!=NULL){ ?>
 <h2>Lista diaria de intereses del cheque # <?php echo $num[0]['cheques']['numerodecheque']; ?></h2>
             <table>
                     <tr>
@@ -24,5 +25,8 @@
                         <th><?php echo $montointerestoo; ?> Bs</th>
                     </tr>
             </table>
-            
+<?php }else{
+    
+    echo "Aun no han creado cheques o estas accediendo ilegalmente";
+}?>
 
