@@ -16,7 +16,8 @@ class ChequesController extends AppController {
 	var $paginate = array(
                 'limit' => 10,
                 'order' => array(
-                'Cheque.fechacobro' => 'DESC'
+                'Cheque.fechacobro' => 'DESC',
+                    'Cheque.ChequeEstadocheque.created'=> 'DESC'
                 )
               ); 
 
