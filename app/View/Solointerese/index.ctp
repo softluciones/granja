@@ -3,9 +3,11 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-                        <th><?php echo $this->Paginator->sort('monto'); ?></th>
+			<th><?php echo $this->Paginator->sort('monto'); ?></th>
 			<th><?php echo $this->Paginator->sort('montointereses'); ?></th>
 			<th><?php echo $this->Paginator->sort('cheque_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('interes'); ?></th>
+			<th><?php echo $this->Paginator->sort('estado'); ?></th>
 			<th><?php echo $this->Paginator->sort('fecha'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -13,10 +15,12 @@
 	<tr>
 		<td><?php echo h($solointerese['Solointerese']['id']); ?>&nbsp;</td>
 		<td><?php echo h($solointerese['Solointerese']['monto']); ?>&nbsp;</td>
-                <td><?php echo h($solointerese['Solointerese']['montointereses']); ?>&nbsp;</td>
+		<td><?php echo h($solointerese['Solointerese']['montointereses']); ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($solointerese['Cheque']['numerodecheque'], array('controller' => 'cheques', 'action' => 'view', $solointerese['Cheque']['id'])); ?>
 		</td>
+		<td><?php echo h($solointerese['Solointerese']['interes']); ?>&nbsp;</td>
+		<td><?php echo h($solointerese['Solointerese']['estado']); ?>&nbsp;</td>
 		<td><?php echo h($solointerese['Solointerese']['fecha']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $solointerese['Solointerese']['id'])); ?>

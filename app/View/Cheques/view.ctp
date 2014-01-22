@@ -196,15 +196,15 @@ input[type=submit],
 			<td><?php echo $chequeEstadocheque['User']['username']; ?></td>
 			<td class="acciones">
                             <?php 
-                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view', $chequeEstadocheque['id'])));
+                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller' => 'ChequeEstadocheques','action' => 'view', $chequeEstadocheque['id'])));
  ?>
 				
 				<?php
-                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('action' => 'edit', $chequeEstadocheque['id'])));
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'ChequeEstadocheques','action' => 'edit', $chequeEstadocheque['id'])));
                             ?>
 				<?php
                                 $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
-                                                 echo $this->Html->link($imagen, array('action' => 'delete', $chequeEstadocheque['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $chequeEstadocheque['id'])));
+                                                 echo $this->Html->link($imagen, array('controller' => 'ChequeEstadocheques','action' => 'delete', $chequeEstadocheque['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $chequeEstadocheque['id'])));
                          ?>
 			</td>
 		</tr>
@@ -217,7 +217,7 @@ input[type=submit],
       
 	<div class="actions">
 		<ul>
-			<li align="center"><?php echo $this->Html->link(__('Nuevo Edo. Cheque'), array('controller' => 'ChequeEstadocheques', 'action' => 'add',$chequeEstadocheque['cheque_id'])); ?> </li>
+			<li align="center"><?php echo $this->Html->link(__('Nuevo Edo. Cheque'), array('controller' => 'ChequeEstadocheques', 'action' => 'add/'.$chequeEstadocheque['cheque_id'],0)); ?> </li>
 		</ul>
 	</div>
 

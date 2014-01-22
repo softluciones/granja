@@ -53,12 +53,23 @@ class ChequeEstadochequesController extends AppController {
  * @return void
  */
 	public function add($id=null) {
-             
-                
+               $id=$this->params['pass'][0];
+               $res=$this->params['pass'][1];
 		if ($this->request->is('post')) {
 			$this->ChequeEstadocheque->create();
 			if ($this->ChequeEstadocheque->save($this->request->data)) {
-				$this->Session->setFlash(__('El cheque estado del cheque ha sido guardado.'));
+                                if($res!=0){
+                                    $sql="SELECT nomenclatura FROM estadocheques e, cheque_estadocheques c 
+                                        WHERE estadocheque_id=e.id
+                                        AND cheque_id=".$id." order by c.id desc";
+                                        $z=  $this->ChequeEstadocheque->query($sql);
+                                        
+                                    $sql="UPDATE solointereses SET 
+                                            estado='".$z[0]['e']['nomenclatura']."' where id=".$res;
+                                    $this->ChequeEstadocheque->query($sql);
+                                    $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado con exito'));
+                                }else
+                                $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado.'));
 				return $this->redirect(array('controller'=>'cheques','action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('El cheque estado del cheque no ha sido guardado. Intentalo de nuevo'));
@@ -144,11 +155,11 @@ class ChequeEstadochequesController extends AppController {
 		if (!$this->ChequeEstadocheque->exists()) {
 			throw new NotFoundException(__('Cheque estado del cheque invalida'));
 		}
-		$this->request->onlyAllow('post', 'delete');
+		//$this->request->onlyAllow('post', 'delete');
 		if ($this->ChequeEstadocheque->delete()) {
 			$this->Session->setFlash(__('El cheque estado del cheque ha sido eliminada'));
 		} else {
 			$this->Session->setFlash(__('El cheque estado del cheque no ha sido eliminada. Intentalo de nuevo y revisa.'));
 		}
-		return $this->redirect(array('action' => 'index'));
+		return $this->redirect(array('controller' => 'Cheques','action' => 'view',$id));
 	}}

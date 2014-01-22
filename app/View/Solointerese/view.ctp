@@ -6,6 +6,11 @@
 			<?php echo h($solointerese['Solointerese']['id']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Monto'); ?></dt>
+		<dd>
+			<?php echo h($solointerese['Solointerese']['monto']); ?>
+			&nbsp;
+		</dd>
 		<dt><?php echo __('Montointereses'); ?></dt>
 		<dd>
 			<?php echo h($solointerese['Solointerese']['montointereses']); ?>
@@ -14,6 +19,16 @@
 		<dt><?php echo __('Cheque'); ?></dt>
 		<dd>
 			<?php echo $this->Html->link($solointerese['Cheque']['numerodecheque'], array('controller' => 'cheques', 'action' => 'view', $solointerese['Cheque']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Interes'); ?></dt>
+		<dd>
+			<?php echo h($solointerese['Solointerese']['interes']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Estado'); ?></dt>
+		<dd>
+			<?php echo h($solointerese['Solointerese']['estado']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Fecha'); ?></dt>

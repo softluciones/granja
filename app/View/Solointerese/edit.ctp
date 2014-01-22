@@ -4,8 +4,11 @@
 		<legend><?php echo __('Edit Solointerese'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
+		echo $this->Form->input('monto');
 		echo $this->Form->input('montointereses');
 		echo $this->Form->input('cheque_id');
+		echo $this->Form->input('interes');
+		echo $this->Form->input('estado');
 		echo $this->Form->input('fecha');
 	?>
 	</fieldset>
