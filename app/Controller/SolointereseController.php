@@ -56,7 +56,8 @@ class SolointereseController extends AppController {
 			}
 		}
 		$cheques = $this->Solointerese->Cheque->find('list');
-		$this->set(compact('cheques'));
+		$interese = $this->Solointerese->Interese->find('list');
+		$this->set(compact('cheques', 'interese'));
 	}
 
 /**
@@ -82,7 +83,8 @@ class SolointereseController extends AppController {
 			$this->request->data = $this->Solointerese->find('first', $options);
 		}
 		$cheques = $this->Solointerese->Cheque->find('list');
-		$this->set(compact('cheques'));
+		$interese = $this->Solointerese->Interese->find('list');
+		$this->set(compact('cheques', 'interese'));
 	}
 
 /**

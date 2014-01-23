@@ -224,7 +224,7 @@ class ChequesController extends AppController {
             $this->request->data['Chequeinterese']['user_id'] = $this->Auth->user('id');
             $this->request->data['Solointerese']['cheque_id'] =$this->request->data['Chequeinterese']['cheque_id'] = $cheque_ids;
             $this->request->data['Solointerese']['monto']=$this->request->data['Chequeinterese']['montocheque'] = $this->request->data['Cheque']['monto'];    
-            $this->request->data['Chequeinterese']['estadocheque'] = $this->request->data['Cheque']['cobrado'];
+            $this->request->data['Solointerese']['cobrado']=$this->request->data['Chequeinterese']['estadocheque'] = $this->request->data['Cheque']['cobrado'];
             
             $sql="select dias, cobrado, interese_id from cheques where id=".$cheque_ids;
             
@@ -258,16 +258,19 @@ class ChequesController extends AppController {
             
             $this->Cheque->Chequeinterese->save($this->request->data);
             
+            
             $insert="INSERT INTO 
                      solointereses (monto,
                                     montointereses,
                                     cheque_id,
                                     interes,
+                                    cobrado,
                                     fecha)
                      VALUES(".$this->request->data['Solointerese']['monto'].",
                             ".$this->request->data['Solointerese']['montointereses'].",
                             ".$this->request->data['Solointerese']['cheque_id'].",
                             ".$this->request->data['Solointerese']['interes'].",
+                            ".$this->request->data['Solointerese']['cobrado'].",
                             NOW())";
             $this->Cheque->query($insert);
             $sql="select id from solointereses where cheque_id=".$cheque_ids." order by cheque_id desc";
@@ -464,15 +467,27 @@ class ChequesController extends AppController {
                 
                 
                 $this->Cheque->Chequeinterese->save($this->request->data);
+                $sql="SELECT nomenclatura FROM estadocheques e, cheque_estadocheques c 
+                                        WHERE estadocheque_id=e.id
+                                        AND cheque_id=".$id." order by c.id desc";
+                $z=  $this->Cheque->query($sql);
+
                 $insert="INSERT INTO 
-                     solointereses (monto,
-                                    montointereses,
-                                    cheque_id,
-                                    fecha)
-                     VALUES(".$this->request->data['Solointerese']['monto'].",
-                            ".$this->request->data['Solointerese']['montointereses'].",
-                            ".$this->request->data['Solointerese']['cheque_id'].",
-                            NOW())";
+                         solointereses (monto,
+                                        montointereses,
+                                        cheque_id,
+                                        interes,
+                                        estado,
+                                        cobrado,
+                                        fecha)
+                         VALUES(".$this->request->data['Solointerese']['monto'].",
+                                ".$this->request->data['Solointerese']['montointereses'].",
+                                ".$this->request->data['Solointerese']['cheque_id'].",
+                                ".$this->request->data['Solointerese']['interes'].",
+                                '".$this->request->data['Solointerese']['estado']."',
+                                ".$cobrado.",
+                                NOW())";
+                $this->Cheque->query($insert);
             $this->Cheque->query($insert);
                 
                 /*
@@ -566,18 +581,26 @@ class ChequesController extends AppController {
 
                             $this->Cheque->Chequeinterese->save($this->request->data);
 
+                            $sql="SELECT nomenclatura FROM estadocheques e, cheque_estadocheques c 
+                                        WHERE estadocheque_id=e.id
+                                        AND cheque_id=".$id." order by c.id desc";
+                            $z=  $this->ChequeEstadocheque->query($sql);
+
                             $insert="INSERT INTO 
-                                    solointereses (monto,
-                                                   montointereses,
-                                                   cheque_id,
-                                                   interes,
-                                                   fecha)
-                                    VALUES(".$this->request->data['Solointerese']['monto'].",
-                                           ".$this->request->data['Solointerese']['montointereses'].",
-                                           ".$this->request->data['Solointerese']['cheque_id'].",
-                                           ".$this->request->data['Solointerese']['interes'].",
-                                           NOW())";
-                           $this->Cheque->query($insert);
+                                     solointereses (monto,
+                                                    montointereses,
+                                                    cheque_id,
+                                                    interes,
+                                                    estado,
+                                                    cobrado,
+                                                    fecha)
+                                     VALUES(".$this->request->data['Solointerese']['monto'].",
+                                            ".$this->request->data['Solointerese']['montointereses'].",
+                                            ".$this->request->data['Solointerese']['cheque_id'].",
+                                            ".$this->request->data['Solointerese']['interes'].",
+                                            '".$this->request->data['Solointerese']['estadi']."',    
+                                            NOW())";
+                            $this->Cheque->query($insert);
                             
                             $this->Session->setFlash(__('El cheque ha sido editado.'));
 				return $this->redirect(array('action' => 'view',$id));

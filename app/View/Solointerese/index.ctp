@@ -6,8 +6,9 @@
 			<th><?php echo $this->Paginator->sort('monto'); ?></th>
 			<th><?php echo $this->Paginator->sort('montointereses'); ?></th>
 			<th><?php echo $this->Paginator->sort('cheque_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('interes'); ?></th>
+			<th><?php echo $this->Paginator->sort('interese_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('estado'); ?></th>
+			<th><?php echo $this->Paginator->sort('cobrado'); ?></th>
 			<th><?php echo $this->Paginator->sort('fecha'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -19,8 +20,14 @@
 		<td>
 			<?php echo $this->Html->link($solointerese['Cheque']['numerodecheque'], array('controller' => 'cheques', 'action' => 'view', $solointerese['Cheque']['id'])); ?>
 		</td>
-		<td><?php echo h($solointerese['Solointerese']['interes']); ?>&nbsp;</td>
+		<td><?php 
+				if($solointerese['Interese']['porcentaje']==null)
+				echo $this->Html->link($solointerese['Interese']['montofijo'], array('controller' => 'interese', 'action' => 'view', $solointerese['Interese']['id']))." Bs"; 
+				else
+				echo $this->Html->link($solointerese['Interese']['porcentaje'], array('controller' => 'interese', 'action' => 'view', $solointerese['Interese']['id']))." %"; 
+				?>&nbsp;</td>
 		<td><?php echo h($solointerese['Solointerese']['estado']); ?>&nbsp;</td>
+		<td><?php echo h($solointerese['Solointerese']['cobrado']); ?>&nbsp;</td>
 		<td><?php echo h($solointerese['Solointerese']['fecha']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $solointerese['Solointerese']['id'])); ?>
@@ -50,5 +57,7 @@
 		<li><?php echo $this->Html->link(__('New Solointerese'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('List Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Solointerese'), array('controller' => 'solointerese', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Interese'), array('controller' => 'solointerese', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

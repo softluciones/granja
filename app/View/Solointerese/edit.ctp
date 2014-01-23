@@ -7,8 +7,9 @@
 		echo $this->Form->input('monto');
 		echo $this->Form->input('montointereses');
 		echo $this->Form->input('cheque_id');
-		echo $this->Form->input('interes');
+		echo $this->Form->input('interese_id');
 		echo $this->Form->input('estado');
+		echo $this->Form->input('cobrado');
 		echo $this->Form->input('fecha');
 	?>
 	</fieldset>
@@ -22,5 +23,7 @@
 		<li><?php echo $this->Html->link(__('List Solointerese'), array('action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('List Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Solointerese'), array('controller' => 'solointerese', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Interese'), array('controller' => 'solointerese', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
