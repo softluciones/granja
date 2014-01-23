@@ -117,13 +117,26 @@ class ChequeEstadochequesController extends AppController {
 	public function edit($id = null) {
                
             $this->ChequeEstadocheque->recursive=2;
+            $id=$this->params['pass'][0];
+            $res=$this->params['pass'][1];
 		if (!$this->ChequeEstadocheque->exists($id)) {
 			throw new NotFoundException(__('Invalido estado de cheque'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->ChequeEstadocheque->save($this->request->data)) {
+                                if($res!=0){
+                                    $sql="SELECT nomenclatura FROM estadocheques e, cheque_estadocheques c 
+                                        WHERE estadocheque_id=e.id
+                                        AND cheque_id=".$id." order by c.id desc";
+                                        $z=  $this->ChequeEstadocheque->query($sql);
+                                        
+                                    $sql="UPDATE solointereses SET 
+                                            estado='".$z[0]['e']['nomenclatura']."' where id=".$res;
+                                    $this->ChequeEstadocheque->query($sql);
+                                    $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado con exito'));
+                                }else
 				$this->Session->setFlash(__('El estado del cheque estado del cheque ha sido Modificado.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('controller'=>'cheques','action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('El estado de cheque estado del cheque no ha sido Modificado. Intente nuevamente'));
 			}

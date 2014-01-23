@@ -196,11 +196,11 @@ input[type=submit],
 			<td><?php echo $chequeEstadocheque['User']['username']; ?></td>
 			<td class="acciones">
                             <?php 
-                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller' => 'ChequeEstadocheques','action' => 'view', $chequeEstadocheque['id'])));
+                                
  ?>
 				
 				<?php
-                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'ChequeEstadocheques','action' => 'edit', $chequeEstadocheque['id'])));
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'ChequeEstadocheques','action' => 'edit/', $chequeEstadocheque['id'],0)));
                             ?>
 				<?php
                                 $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));

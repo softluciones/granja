@@ -570,10 +570,12 @@ class ChequesController extends AppController {
                                     solointereses (monto,
                                                    montointereses,
                                                    cheque_id,
+                                                   interes,
                                                    fecha)
                                     VALUES(".$this->request->data['Solointerese']['monto'].",
                                            ".$this->request->data['Solointerese']['montointereses'].",
                                            ".$this->request->data['Solointerese']['cheque_id'].",
+                                           ".$this->request->data['Solointerese']['interes'].",
                                            NOW())";
                            $this->Cheque->query($insert);
                             
