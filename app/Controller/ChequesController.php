@@ -534,9 +534,9 @@ class ChequesController extends AppController {
                             $this->request->data['Solointerese']['cheque_id'] =$this->request->data['Chequeinterese']['cheque_id'] = $id;
                             $this->request->data['Solointerese']['monto']=$this->request->data['Chequeinterese']['montocheque'] = $this->request->data['Cheque']['monto'];    
                             $this->request->data['Chequeinterese']['estadocheque'] = $this->request->data['Cheque']['cobrado'];
-                            $sql="select dias, cobrado from cheques where id=".$id;
+                            $sql="select dias, cobrado, interese_id from cheques where id=".$id;
                             $y=  $this->Cheque->query($sql);
-
+                            $this->request->data['Solointerese']['interes']=$y[0]['cheques']['interese_id'];
                             //debug($y);
                             $sql="SELECT PORCENTAJE, MONTOFIJO
                                     FROM INTERESES I, CHEQUES C
