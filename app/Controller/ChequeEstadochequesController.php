@@ -115,26 +115,30 @@ class ChequeEstadochequesController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-               
+               $id=$this->params['pass'][0];
+               $res=$this->params['pass'][1];
             $this->ChequeEstadocheque->recursive=2;
-            $id=$this->params['pass'][0];
-            $res=$this->params['pass'][1];
+            
 		if (!$this->ChequeEstadocheque->exists($id)) {
 			throw new NotFoundException(__('Invalido estado de cheque'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->ChequeEstadocheque->save($this->request->data)) {
-                                if($res!=0){
+                                
                                     $sql="SELECT nomenclatura FROM estadocheques e, cheque_estadocheques c 
                                         WHERE estadocheque_id=e.id
-                                        AND cheque_id=".$id." order by c.id desc";
+                                        AND cheque_id=".$res." order by c.id desc";
                                         $z=  $this->ChequeEstadocheque->query($sql);
-                                        
+                                    
+                                    $sql="SELECT id from solointereses where cheque_id=".$res." order by id desc";
+                                    $res=  $this->ChequeEstadocheque->query($sql);
+                                    debug($res);
+                                    
                                     $sql="UPDATE solointereses SET 
-                                            estado='".$z[0]['e']['nomenclatura']."' where id=".$res;
+                                            estado='".$z[0]['e']['nomenclatura']."' where id=".$res[0]['solointereses']['id'];
                                     $this->ChequeEstadocheque->query($sql);
-                                    $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado con exito'));
-                                }else
+                                
+                                
 				$this->Session->setFlash(__('El estado del cheque estado del cheque ha sido Modificado.'));
 				return $this->redirect(array('controller'=>'cheques','action' => 'index'));
 			} else {

@@ -200,7 +200,7 @@ input[type=submit],
  ?>
 				
 				<?php
-                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'ChequeEstadocheques','action' => 'edit/', $chequeEstadocheque['id'],0)));
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'ChequeEstadocheques','action' => 'edit/'.$chequeEstadocheque['id'], $cheque['Cheque']['id'])));
                             ?>
 				<?php
                                 $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
