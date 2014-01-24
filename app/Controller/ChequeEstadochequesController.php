@@ -75,14 +75,14 @@ class ChequeEstadochequesController extends AppController {
                                                 solointereses (monto,
                                                                montointereses,
                                                                cheque_id,
-                                                               interes,
+                                                               interese_id,
                                                                estado,
                                                                cobrado,
                                                                fecha)
                                                 VALUES(".$d[0]['solointereses']['monto'].",
                                                        ".$d[0]['solointereses']['montointereses'].",
                                                        ".$d[0]['solointereses']['cheque_id'].",
-                                                       ".$d[0]['solointereses']['interes'].",
+                                                       ".$d[0]['solointereses']['interese_id'].",
                                                        '".$z[0]['e']['nomenclatura']."',
                                                        NOW())";
                                         
