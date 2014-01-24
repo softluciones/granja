@@ -176,7 +176,7 @@ echo $this->Form->label('Búsqueda') ?>
      <table style="width:50%;">
          <thead>
              <tr>
-                 <th colspan="4" style="background: ">
+                 <th colspan="4">
          <div align="center"> LEYENDA DE COLORES </div>
                  </th>
              </tr>
@@ -198,9 +198,9 @@ echo $this->Form->label('Búsqueda') ?>
 
        ?>
 <h2 style="clear: both">
-    <?php #debug($sumas); 
+    <?php 
             echo __('Cheques por cobrar y devueltos '); echo $this->Html->image("actualizar.fw.png", array("alt" => "Agregar Cheque",'width' => '30', 'heigth' => '30','title'=>'Intereses a aumentar','url' => array('action' => 'index'))); ?></h2>
-        <?php   ?>
+        
 	<table cellpadding="0" cellspacing="0" align="center" style="width:100%">
             <thead>
 	<tr>
@@ -274,8 +274,7 @@ echo $this->Form->label('Búsqueda') ?>
                  $cheque['Cheque']['modified']=new Datetime($cheque['Cheque']['modified']);
                 $cheque['Cheque']['modified'] = $cheque['Cheque']['modified']->format('d/m/Y H:i:s');
                 $hoy=date("d/m/Y");
-         ?>
-        	 <?php 	
+        
 			$cantidad = count($cheque['ChequeEstadocheque'])-1;
 			$estado=$cheque['ChequeEstadocheque'][$cantidad]['Estadocheque']['nomenclatura'];
 			$cobrado=$cheque['Cheque']['cobrado'];
@@ -288,7 +287,7 @@ echo $this->Form->label('Búsqueda') ?>
 				/*cuando se confia en el cliente y se le ha pagado antes de cobrar el cheque*/
 				if($estado=='R'){
 	 ?>
-		<?php /*esto pinta de azul #528CE0*/ ?>
+	
 		<tr style="background: #528CE0; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
@@ -359,8 +358,9 @@ echo $this->Form->label('Búsqueda') ?>
 		if($cobrado==0){
 			/*el cheque fue devuelto por el banco. el cliente nos debe el monto del cheque mas intereses diarios*/
 			if($estado=='R'){
-			?>
-			<?php /*eso se pinta de rojo */?>
+			/*eso se pinta de rojo */
+                            ?>
+			
 			<tr style="background: #f00; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
@@ -569,7 +569,7 @@ echo $this->Form->label('Búsqueda') ?>
 					<?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
 						echo $this->Html->link($imagen, array('action' => 'delete', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
 			 </td>
-		?>
+		
 		
 		<?php }}}} ?>
 		<?php 
@@ -712,7 +712,7 @@ echo $this->Form->label('Búsqueda') ?>
 					<?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
 						echo $this->Html->link($imagen, array('action' => 'delete', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
 			 </td>
-		?>
+		
 		
 		<?php }}}} ?>
 <?php  endforeach; ?>
