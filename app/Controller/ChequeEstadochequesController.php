@@ -58,19 +58,48 @@ class ChequeEstadochequesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->ChequeEstadocheque->create();
 			if ($this->ChequeEstadocheque->save($this->request->data)) {
-                                if($res!=0){
+                                
                                     $sql="SELECT nomenclatura FROM estadocheques e, cheque_estadocheques c 
                                         WHERE estadocheque_id=e.id
                                         AND cheque_id=".$id." order by c.id desc";
                                         $z=  $this->ChequeEstadocheque->query($sql);
+                                     $sql="select cobrado from cheques where id=".$id;   
+                                        #debug($z);
+                                     if($res==0){   
+                                        $sql="select * from solointereses where cheque_id=".$id." order by cheque_id desc";
+                                        $d=  $this->ChequeEstadocheque->query($sql);
                                         
+                                        
+                                        
+                                        $insert="INSERT INTO 
+                                                solointereses (monto,
+                                                               montointereses,
+                                                               cheque_id,
+                                                               interese_id,
+                                                               estado,
+                                                               cobrado,
+                                                               fecha)
+                                                VALUES(".$d[0]['solointereses']['monto'].",
+                                                       ".$d[0]['solointereses']['montointereses'].",
+                                                       ".$d[0]['solointereses']['cheque_id'].",
+                                                       ".$d[0]['solointereses']['interese_id'].",
+                                                       '".$z[0]['e']['nomenclatura']."',
+                                                       NOW())";
+                                        
+                                        
+                                       $mensaje=$this->ChequeEstadocheque->query($insert);
+                                       
+                                       $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado.'));
+                                       return $this->redirect(array('controller'=>'cheques','action' => 'index'));
+                                     }else{
                                     $sql="UPDATE solointereses SET 
                                             estado='".$z[0]['e']['nomenclatura']."' where id=".$res;
-                                    $this->ChequeEstadocheque->query($sql);
-                                    $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado con exito'));
-                                }else
-                                $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado.'));
+                                     $this->ChequeEstadocheque->query($sql);
+                                     $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado.'));
 				return $this->redirect(array('controller'=>'cheques','action' => 'index'));
+                                     }
+                                   
+                                
 			} else {
 				$this->Session->setFlash(__('El cheque estado del cheque no ha sido guardado. Intentalo de nuevo'));
 			}
@@ -115,15 +144,32 @@ class ChequeEstadochequesController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-               
+               $id=$this->params['pass'][0];
+               $res=$this->params['pass'][1];
             $this->ChequeEstadocheque->recursive=2;
+            
 		if (!$this->ChequeEstadocheque->exists($id)) {
 			throw new NotFoundException(__('Invalido estado de cheque'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->ChequeEstadocheque->save($this->request->data)) {
+                                
+                                    $sql="SELECT nomenclatura FROM estadocheques e, cheque_estadocheques c 
+                                        WHERE estadocheque_id=e.id
+                                        AND cheque_id=".$res." order by c.id desc";
+                                        $z=  $this->ChequeEstadocheque->query($sql);
+                                    
+                                    $sql="SELECT id from solointereses where cheque_id=".$res." order by id desc";
+                                    $res=  $this->ChequeEstadocheque->query($sql);
+                                    debug($res);
+                                    
+                                    $sql="UPDATE solointereses SET 
+                                            estado='".$z[0]['e']['nomenclatura']."' where id=".$res[0]['solointereses']['id'];
+                                    $this->ChequeEstadocheque->query($sql);
+                                
+                                
 				$this->Session->setFlash(__('El estado del cheque estado del cheque ha sido Modificado.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('controller'=>'cheques','action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('El estado de cheque estado del cheque no ha sido Modificado. Intente nuevamente'));
 			}

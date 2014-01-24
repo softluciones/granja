@@ -4,6 +4,7 @@ App::uses('AppModel', 'Model');
  * Solointerese Model
  *
  * @property Cheque $Cheque
+ * @property Interese $Interese
  */
 class Solointerese extends AppModel {
 
@@ -57,7 +58,7 @@ class Solointerese extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'interes' => array(
+		'interese_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -68,6 +69,16 @@ class Solointerese extends AppModel {
 			),
 		),
 		'estado' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'cobrado' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -100,6 +111,13 @@ class Solointerese extends AppModel {
 		'Cheque' => array(
 			'className' => 'Cheque',
 			'foreignKey' => 'cheque_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Interese' => array(
+			'className' => 'Interese',
+			'foreignKey' => 'interese_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

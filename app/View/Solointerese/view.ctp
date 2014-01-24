@@ -21,14 +21,19 @@
 			<?php echo $this->Html->link($solointerese['Cheque']['numerodecheque'], array('controller' => 'cheques', 'action' => 'view', $solointerese['Cheque']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Interes'); ?></dt>
+		<dt><?php echo __('Interese Id'); ?></dt>
 		<dd>
-			<?php echo h($solointerese['Solointerese']['interes']); ?>
+			<?php echo h($solointerese['Solointerese']['interese_id']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Estado'); ?></dt>
 		<dd>
 			<?php echo h($solointerese['Solointerese']['estado']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Cobrado'); ?></dt>
+		<dd>
+			<?php echo h($solointerese['Solointerese']['cobrado']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Fecha'); ?></dt>
@@ -47,5 +52,7 @@
 		<li><?php echo $this->Html->link(__('New Solointerese'), array('action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Solointerese'), array('controller' => 'solointerese', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Interese'), array('controller' => 'solointerese', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
