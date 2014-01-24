@@ -33,25 +33,24 @@ class ChequesController extends AppController {
             $tot=$total[0][0]['total'];
             
             if($id!=null&&$tot!=0){
-            $hoy=date("Y-m-d");
-            
-           
-            $sqltotal="select count(*) as total from solointereses where cheque_id=".$id;
-            $total=  $this->Cheque->query($sqltotal);
-            $numerocheque="select numerodecheque from cheques where id=".$id;
-            $num=  $this->Cheque->query($numerocheque);
-            $sql="Select * from solointereses where cheque_id=".$id." order by cheque_id desc, id desc";
-            $consulta=  $this->Cheque->query($sql);
-            $dif=  $this->diferencia($hoy,$consulta[0]['solointereses']['fecha']);
-            #debug($dif);
-            #debug($consulta);
-            $tot=$total[0][0]['total'];
-            $acum=0;
-            $fecha=$consulta[0]['solointereses']['fecha'];
-            #echo "Vista de los intereses hasta el dia de hoy del cheque # ".$num[0]['cheques']['numerodecheque']."<br>";
-            
-            #exit(0);
-            $this->set(compact('id','dif','consulta','fecha','acum','num','montointeresestoo'));
+                
+                $hoy=date("Y-m-d");
+                $sqltotal="select count(*) as total from solointereses where cheque_id=".$id;
+                $total=  $this->Cheque->query($sqltotal);
+                $numerocheque="select numerodecheque from cheques where id=".$id;
+                $num=  $this->Cheque->query($numerocheque);
+                $sql="Select * from solointereses where cheque_id=".$id." order by cheque_id desc, id desc";
+                $consulta=  $this->Cheque->query($sql);
+                $dif=  $this->diferencia($hoy,$consulta[0]['solointereses']['fecha']);
+                #debug($dif);
+                #debug($consulta);
+                $tot=$total[0][0]['total'];
+                $acum=0;
+                $fecha=$consulta[0]['solointereses']['fecha'];
+                #echo "Vista de los intereses hasta el dia de hoy del cheque # ".$num[0]['cheques']['numerodecheque']."<br>";
+
+                #exit(0);
+                $this->set(compact('id','dif','consulta','fecha','acum','num','montointeresestoo'));
             }
             else{
                 $id=null;

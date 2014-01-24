@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 16-01-2014 a las 15:47:14
+-- Tiempo de generación: 24-01-2014 a las 22:01:34
 -- Versión del servidor: 5.6.13
 -- Versión de PHP: 5.4.16
 
@@ -19,8 +19,260 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `granjagalonesentrega`
 --
-CREATE DATABASE IF NOT EXISTS `granjagalonesentrega` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `granjagalonesentrega` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `granjagalonesentrega`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `acos`
+--
+
+CREATE TABLE IF NOT EXISTS `acos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `foreign_key` int(10) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `lft` int(10) DEFAULT NULL,
+  `rght` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=129 ;
+
+--
+-- Volcado de datos para la tabla `acos`
+--
+
+INSERT INTO `acos` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `rght`) VALUES
+(1, NULL, NULL, NULL, 'controllers', 1, 256),
+(2, 1, NULL, NULL, 'Bancos', 2, 15),
+(3, 2, NULL, NULL, 'index', 3, 4),
+(4, 2, NULL, NULL, 'view', 5, 6),
+(5, 2, NULL, NULL, 'add', 7, 8),
+(6, 2, NULL, NULL, 'edit', 9, 10),
+(7, 2, NULL, NULL, 'delete', 11, 12),
+(8, 2, NULL, NULL, 'logout', 13, 14),
+(9, 1, NULL, NULL, 'Capitals', 16, 29),
+(10, 9, NULL, NULL, 'index', 17, 18),
+(11, 9, NULL, NULL, 'view', 19, 20),
+(12, 9, NULL, NULL, 'add', 21, 22),
+(13, 9, NULL, NULL, 'edit', 23, 24),
+(14, 9, NULL, NULL, 'delete', 25, 26),
+(15, 9, NULL, NULL, 'logout', 27, 28),
+(16, 1, NULL, NULL, 'ChequeEstadocheques', 30, 45),
+(17, 16, NULL, NULL, 'index', 31, 32),
+(18, 16, NULL, NULL, 'view', 33, 34),
+(19, 16, NULL, NULL, 'add', 35, 36),
+(20, 16, NULL, NULL, 'edit', 37, 38),
+(21, 16, NULL, NULL, 'delete', 39, 40),
+(22, 16, NULL, NULL, 'logout', 41, 42),
+(23, 1, NULL, NULL, 'Chequeinterese', 46, 59),
+(24, 23, NULL, NULL, 'index', 47, 48),
+(25, 23, NULL, NULL, 'view', 49, 50),
+(26, 23, NULL, NULL, 'add', 51, 52),
+(27, 23, NULL, NULL, 'edit', 53, 54),
+(28, 23, NULL, NULL, 'delete', 55, 56),
+(29, 23, NULL, NULL, 'logout', 57, 58),
+(30, 1, NULL, NULL, 'Cheques', 60, 87),
+(31, 30, NULL, NULL, 'index', 61, 62),
+(32, 30, NULL, NULL, 'index2', 63, 64),
+(33, 30, NULL, NULL, 'devueltos', 65, 66),
+(34, 30, NULL, NULL, 'postdatados', 67, 68),
+(35, 30, NULL, NULL, 'view', 69, 70),
+(36, 30, NULL, NULL, 'add2', 71, 72),
+(37, 30, NULL, NULL, 'add', 73, 74),
+(38, 30, NULL, NULL, 'editadevuelto', 75, 76),
+(39, 30, NULL, NULL, 'edit', 77, 78),
+(40, 30, NULL, NULL, 'delete', 79, 80),
+(41, 30, NULL, NULL, 'logout', 81, 82),
+(42, 1, NULL, NULL, 'Clientes', 88, 101),
+(43, 42, NULL, NULL, 'index', 89, 90),
+(44, 42, NULL, NULL, 'view', 91, 92),
+(45, 42, NULL, NULL, 'add', 93, 94),
+(46, 42, NULL, NULL, 'edit', 95, 96),
+(47, 42, NULL, NULL, 'delete', 97, 98),
+(48, 42, NULL, NULL, 'logout', 99, 100),
+(49, 1, NULL, NULL, 'Cuentas', 102, 115),
+(50, 49, NULL, NULL, 'index', 103, 104),
+(51, 49, NULL, NULL, 'view', 105, 106),
+(52, 49, NULL, NULL, 'add', 107, 108),
+(53, 49, NULL, NULL, 'edit', 109, 110),
+(54, 49, NULL, NULL, 'delete', 111, 112),
+(55, 49, NULL, NULL, 'logout', 113, 114),
+(56, 1, NULL, NULL, 'Estadocheques', 116, 129),
+(57, 56, NULL, NULL, 'index', 117, 118),
+(58, 56, NULL, NULL, 'view', 119, 120),
+(59, 56, NULL, NULL, 'add', 121, 122),
+(60, 56, NULL, NULL, 'edit', 123, 124),
+(61, 56, NULL, NULL, 'delete', 125, 126),
+(62, 56, NULL, NULL, 'logout', 127, 128),
+(63, 1, NULL, NULL, 'Gestiondecobranzas', 130, 143),
+(64, 63, NULL, NULL, 'index', 131, 132),
+(65, 63, NULL, NULL, 'view', 133, 134),
+(66, 63, NULL, NULL, 'add', 135, 136),
+(67, 63, NULL, NULL, 'edit', 137, 138),
+(68, 63, NULL, NULL, 'delete', 139, 140),
+(69, 63, NULL, NULL, 'logout', 141, 142),
+(70, 1, NULL, NULL, 'Interese', 144, 157),
+(71, 70, NULL, NULL, 'index', 145, 146),
+(72, 70, NULL, NULL, 'view', 147, 148),
+(73, 70, NULL, NULL, 'add', 149, 150),
+(74, 70, NULL, NULL, 'edit', 151, 152),
+(75, 70, NULL, NULL, 'delete', 153, 154),
+(76, 70, NULL, NULL, 'logout', 155, 156),
+(77, 1, NULL, NULL, 'Pages', 158, 163),
+(78, 77, NULL, NULL, 'display', 159, 160),
+(79, 77, NULL, NULL, 'logout', 161, 162),
+(80, 1, NULL, NULL, 'Pagos', 164, 177),
+(81, 80, NULL, NULL, 'index', 165, 166),
+(82, 80, NULL, NULL, 'view', 167, 168),
+(83, 80, NULL, NULL, 'add', 169, 170),
+(84, 80, NULL, NULL, 'edit', 171, 172),
+(85, 80, NULL, NULL, 'delete', 173, 174),
+(86, 80, NULL, NULL, 'logout', 175, 176),
+(87, 1, NULL, NULL, 'Pagoterceros', 178, 191),
+(88, 87, NULL, NULL, 'index', 179, 180),
+(89, 87, NULL, NULL, 'view', 181, 182),
+(90, 87, NULL, NULL, 'add', 183, 184),
+(91, 87, NULL, NULL, 'edit', 185, 186),
+(92, 87, NULL, NULL, 'delete', 187, 188),
+(93, 87, NULL, NULL, 'logout', 189, 190),
+(94, 1, NULL, NULL, 'Roles', 192, 205),
+(95, 94, NULL, NULL, 'index', 193, 194),
+(96, 94, NULL, NULL, 'view', 195, 196),
+(97, 94, NULL, NULL, 'add', 197, 198),
+(98, 94, NULL, NULL, 'edit', 199, 200),
+(99, 94, NULL, NULL, 'delete', 201, 202),
+(100, 94, NULL, NULL, 'logout', 203, 204),
+(101, 1, NULL, NULL, 'Rols', 206, 219),
+(102, 101, NULL, NULL, 'index', 207, 208),
+(103, 101, NULL, NULL, 'view', 209, 210),
+(104, 101, NULL, NULL, 'add', 211, 212),
+(105, 101, NULL, NULL, 'edit', 213, 214),
+(106, 101, NULL, NULL, 'delete', 215, 216),
+(107, 101, NULL, NULL, 'logout', 217, 218),
+(108, 1, NULL, NULL, 'Tipopagos', 220, 233),
+(109, 108, NULL, NULL, 'index', 221, 222),
+(110, 108, NULL, NULL, 'view', 223, 224),
+(111, 108, NULL, NULL, 'add', 225, 226),
+(112, 108, NULL, NULL, 'edit', 227, 228),
+(113, 108, NULL, NULL, 'delete', 229, 230),
+(114, 108, NULL, NULL, 'logout', 231, 232),
+(115, 1, NULL, NULL, 'Users', 234, 249),
+(116, 115, NULL, NULL, 'index', 235, 236),
+(117, 115, NULL, NULL, 'login', 237, 238),
+(118, 115, NULL, NULL, 'logout', 239, 240),
+(119, 115, NULL, NULL, 'view', 241, 242),
+(120, 115, NULL, NULL, 'add', 243, 244),
+(121, 115, NULL, NULL, 'edit', 245, 246),
+(122, 115, NULL, NULL, 'delete', 247, 248),
+(123, 1, NULL, NULL, 'AclExtras', 250, 251),
+(124, 1, NULL, NULL, 'Solointerese', 252, 255),
+(125, 124, NULL, NULL, 'index', 253, 254),
+(126, 30, NULL, NULL, 'reporteintereses', 83, 84),
+(127, 30, NULL, NULL, 'reporteinteres', 85, 86),
+(128, 16, NULL, NULL, 'add2', 43, 44);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `aros`
+--
+
+CREATE TABLE IF NOT EXISTS `aros` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `foreign_key` int(10) DEFAULT NULL,
+  `alias` varchar(255) DEFAULT NULL,
+  `lft` int(10) DEFAULT NULL,
+  `rght` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Volcado de datos para la tabla `aros`
+--
+
+INSERT INTO `aros` (`id`, `parent_id`, `model`, `foreign_key`, `alias`, `lft`, `rght`) VALUES
+(1, NULL, 'Role', 1, NULL, 1, 6),
+(2, NULL, 'Role', 2, NULL, 7, 10),
+(3, NULL, 'Role', 3, NULL, 11, 12),
+(4, NULL, 'Role', 4, NULL, 13, 16),
+(5, 1, 'User', 2, NULL, 2, 3),
+(6, 1, 'User', 3, NULL, 4, 5),
+(7, 2, 'User', 1, NULL, 8, 9),
+(8, 4, 'User', 4, NULL, 14, 15);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `aros_acos`
+--
+
+CREATE TABLE IF NOT EXISTS `aros_acos` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `aro_id` int(10) NOT NULL,
+  `aco_id` int(10) NOT NULL,
+  `_create` varchar(2) NOT NULL DEFAULT '0',
+  `_read` varchar(2) NOT NULL DEFAULT '0',
+  `_update` varchar(2) NOT NULL DEFAULT '0',
+  `_delete` varchar(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ARO_ACO_KEY` (`aro_id`,`aco_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
+
+--
+-- Volcado de datos para la tabla `aros_acos`
+--
+
+INSERT INTO `aros_acos` (`id`, `aro_id`, `aco_id`, `_create`, `_read`, `_update`, `_delete`) VALUES
+(1, 1, 30, '1', '1', '1', '1'),
+(2, 1, 1, '1', '1', '1', '1'),
+(3, 2, 31, '1', '1', '1', '1'),
+(4, 2, 30, '1', '1', '1', '1'),
+(5, 2, 40, '-1', '-1', '-1', '-1'),
+(6, 3, 30, '1', '1', '1', '1'),
+(7, 3, 40, '-1', '-1', '-1', '-1'),
+(8, 3, 39, '-1', '-1', '-1', '-1'),
+(9, 3, 38, '-1', '-1', '-1', '-1'),
+(10, 1, 16, '1', '1', '1', '1'),
+(11, 2, 19, '1', '1', '1', '1'),
+(12, 2, 17, '1', '1', '1', '1'),
+(13, 2, 18, '1', '1', '1', '1'),
+(14, 2, 39, '-1', '-1', '-1', '-1'),
+(15, 2, 83, '1', '1', '1', '1'),
+(16, 2, 82, '1', '1', '1', '1'),
+(17, 2, 90, '1', '1', '1', '1'),
+(18, 2, 89, '1', '1', '1', '1'),
+(19, 2, 42, '1', '1', '1', '1'),
+(20, 2, 47, '-1', '-1', '-1', '-1'),
+(21, 2, 70, '1', '1', '1', '1'),
+(22, 2, 75, '-1', '-1', '-1', '-1'),
+(23, 2, 2, '1', '1', '1', '1'),
+(24, 2, 7, '-1', '-1', '-1', '-1'),
+(25, 3, 45, '1', '1', '1', '1'),
+(26, 3, 43, '1', '1', '1', '1'),
+(27, 3, 46, '1', '1', '1', '1'),
+(28, 3, 44, '1', '1', '1', '1'),
+(29, 3, 31, '1', '1', '1', '1'),
+(30, 3, 35, '1', '1', '1', '1'),
+(31, 3, 37, '1', '1', '1', '1'),
+(32, 3, 80, '1', '1', '1', '1'),
+(33, 3, 84, '-1', '-1', '-1', '-1'),
+(34, 3, 85, '-1', '-1', '-1', '-1'),
+(35, 3, 87, '-1', '-1', '-1', '-1'),
+(36, 3, 19, '1', '1', '1', '1'),
+(37, 4, 42, '1', '1', '1', '1'),
+(38, 4, 47, '-1', '-1', '-1', '-1'),
+(39, 4, 35, '1', '1', '1', '1'),
+(40, 4, 82, '1', '1', '1', '1'),
+(41, 1, 124, '1', '1', '1', '1'),
+(42, 1, 126, '1', '1', '1', '1'),
+(43, 1, 127, '1', '1', '1', '1'),
+(44, 1, 128, '1', '1', '1', '1'),
+(45, 2, 128, '1', '1', '1', '1'),
+(46, 3, 128, '1', '1', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -76,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `capital` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `chequecodigo` (`cheque_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -96,16 +348,14 @@ CREATE TABLE IF NOT EXISTS `chequeinterese` (
   PRIMARY KEY (`id`),
   KEY `fk_chequeinterese_cheque1_idx` (`cheque_id`),
   KEY `fk_chequeinterese_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=120 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=227 ;
 
 --
 -- Volcado de datos para la tabla `chequeinterese`
 --
 
 INSERT INTO `chequeinterese` (`id`, `montocheque`, `montodescuentointeres`, `montoentregado`, `estadocheque`, `created`, `cheque_id`, `user_id`) VALUES
-(117, 100000, 3000, 97000, 1, '2014-01-16 10:53:24', 146, 1),
-(118, 10100, 102, 0, 0, '2014-01-16 10:54:47', 147, 1),
-(119, 10000, 100, 9900, 1, '2014-01-16 10:54:30', 147, 1);
+(226, 100000, 1000, 99000, 1, '2014-01-24 07:10:06', 221, 1);
 
 -- --------------------------------------------------------
 
@@ -138,15 +388,14 @@ CREATE TABLE IF NOT EXISTS `cheques` (
   KEY `fk_cheque_cheque1_idx` (`cheque_id`),
   KEY `fk_cheque_user1_idx` (`user_id`),
   KEY `fk_interese_id_x` (`interese_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=148 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=222 ;
 
 --
 -- Volcado de datos para la tabla `cheques`
 --
 
 INSERT INTO `cheques` (`id`, `banco_id`, `cliente_id`, `created`, `modified`, `numerodecuenta`, `numerodecheque`, `monto`, `interese_id`, `filename`, `dir`, `fecharecibido`, `fechacobro`, `dias`, `cobrado`, `cheque_id`, `user_id`) VALUES
-(146, 4, 3, '2014-01-16 08:09:04', '2014-01-16 10:53:24', '999888777', '889988', 100000, 6, 'adalid_2_fw.png', 'img\\uploads\\cheque\\filename', '2014-01-16 00:00:00', '2014-01-18 00:00:00', 3, 1, NULL, 1),
-(147, 4, 8, '2014-01-16 10:54:30', '2014-01-16 10:54:30', '887378', '9940', 10100, 6, 'adalid_I.jpg', 'img\\uploads\\cheque\\filename', '2014-01-16 00:00:00', '2014-01-16 00:00:00', 1, 0, NULL, 1);
+(221, 3, 7, '2014-01-24 07:10:06', '2014-01-24 07:10:06', '8930', '9103', 100000, 6, 'cheque_devuelto_anverso-61.jpg', 'img\\uploads\\cheque\\filename', '2014-01-24 00:00:00', '2014-01-24 00:00:00', 1, 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -165,15 +414,14 @@ CREATE TABLE IF NOT EXISTS `cheque_estadocheques` (
   KEY `fk_cheque_estadocheque_cheque1_idx` (`cheque_id`),
   KEY `fk_cheque_estadocheque_estadocheque1_idx` (`estadocheque_id`),
   KEY `fk_cheque_estadocheque_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=60 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=124 ;
 
 --
 -- Volcado de datos para la tabla `cheque_estadocheques`
 --
 
 INSERT INTO `cheque_estadocheques` (`id`, `created`, `modified`, `cheque_id`, `estadocheque_id`, `user_id`) VALUES
-(58, '2014-01-16 08:09:06', '2014-01-16 08:09:06', 146, 1, 1),
-(59, '2014-01-16 10:54:32', '2014-01-16 10:54:32', 147, 1, 1);
+(123, '2014-01-24 07:10:10', '2014-01-24 07:10:10', 221, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -256,19 +504,17 @@ CREATE TABLE IF NOT EXISTS `estadocheques` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_estadocheque_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `estadocheques`
 --
 
 INSERT INTO `estadocheques` (`id`, `nombre`, `nomenclatura`, `descripcion`, `user_id`) VALUES
-(1, 'Cheque por cobrar', 'R', 'cuando el cheque ya es pagado al cliente', 1),
-(2, 'Cheque por pagar', 'CHPP', 'Cheque a cambiar en banco y luego pagar', 1),
-(3, 'Abono Deuda', 'AbnD', 'Paga a deuda, baja los intereses', 1),
-(4, 'Abono Intereses', 'AbnI', 'abona en intereses de deuda.', 1),
-(5, 'Cheque por pagar y nuestro', 'R(pn)', 'cheque cobrado y aun no se le paga al cliente', 1),
-(6, 'Abono Cliente', 'AbnC', 'Cuando se le da el dinero deuda cliente', 1);
+(1, 'Nuestro', 'R', 'cuando el cheque ya es pagado al cliente', 1),
+(2, 'Cliente', 'C', 'Cheque a cambiar en banco y luego pagar', 1),
+(3, 'Abono de Gravimon a Cliente', 'AbnGC', 'Debemos al cliente desc deuda gravi a cliente', 1),
+(4, 'Abono de Cliente a Gravimon', 'AbnCG', 'cliente nos debe en cheque este devuelto', 1);
 
 -- --------------------------------------------------------
 
@@ -405,19 +651,21 @@ CREATE TABLE IF NOT EXISTS `solointereses` (
   `monto` int(11) NOT NULL,
   `montointereses` int(11) NOT NULL,
   `cheque_id` int(11) NOT NULL,
+  `interese_id` int(11) NOT NULL,
+  `estado` varchar(11) NOT NULL,
+  `cobrado` int(11) NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `cheque_solointerese` (`cheque_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+  KEY `cheque_solointerese` (`cheque_id`),
+  KEY `interes` (`interese_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=110 ;
 
 --
 -- Volcado de datos para la tabla `solointereses`
 --
 
-INSERT INTO `solointereses` (`id`, `monto`, `montointereses`, `cheque_id`, `fecha`) VALUES
-(20, 100000, 1000, 146, '2014-01-16'),
-(21, 10000, 100, 147, '2014-01-16'),
-(22, 0, 102, 147, '2014-01-16');
+INSERT INTO `solointereses` (`id`, `monto`, `montointereses`, `cheque_id`, `interese_id`, `estado`, `cobrado`, `fecha`) VALUES
+(109, 100000, 1000, 221, 6, 'R', 1, '2014-01-24');
 
 -- --------------------------------------------------------
 
@@ -466,7 +714,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role_id`, `nombre`, `apellido`) VALUES
-(1, 'jose', '8b5393ea82b50dd0b65232224271bd930ec801ea', 2, 'jose ivan', 'zapata ramirez'),
+(1, 'jose', '8b5393ea82b50dd0b65232224271bd930ec801ea', 1, 'jose ivan', 'zapata ramirez'),
 (2, 'jose1', '8b5393ea82b50dd0b65232224271bd930ec801ea', 1, 'pedro', 'gomez'),
 (3, 'reinaldo', '8b5393ea82b50dd0b65232224271bd930ec801ea', 1, 'reinaldo', 'preguntar'),
 (4, 'secretaria', '8b5393ea82b50dd0b65232224271bd930ec801ea', 4, 'Luisa', 'Perez');
@@ -568,7 +816,8 @@ ALTER TABLE `pagoterceros`
 -- Filtros para la tabla `solointereses`
 --
 ALTER TABLE `solointereses`
-  ADD CONSTRAINT `solointereses_ibfk_1` FOREIGN KEY (`cheque_id`) REFERENCES `cheques` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `solointereses_ibfk_1` FOREIGN KEY (`cheque_id`) REFERENCES `cheques` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solointereses_ibfk_2` FOREIGN KEY (`interese_id`) REFERENCES `intereses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tipopagos`
