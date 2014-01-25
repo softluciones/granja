@@ -251,7 +251,7 @@ input[type=submit],
       
 	<div class="actions">
 		<ul>
-			<li align="center"><?php echo $this->Html->link(__('Nuevo Edo. Cheque'), array('controller' => 'ChequeEstadocheques', 'action' => 'add/'.$chequeEstadocheque['cheque_id'],0)); ?> </li>
+			<li align="center"><?php echo $this->Html->link(__('Nuevo'), array('controller' => 'ChequeEstadocheques', 'action' => 'add/'.$chequeEstadocheque['cheque_id'],0)); ?> </li>
 		</ul>
 	</div>
 
@@ -323,11 +323,7 @@ input[type=submit],
 <?php endif; ?>
 </br>
 </div>
-	<div class="actions">
-		<ul>
-			<li align="center"><?php echo $this->Html->link(__('Nuevo Interes'), array('controller' => 'chequeinterese', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
+	
 </div>
    
 </div>
