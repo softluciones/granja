@@ -1,25 +1,57 @@
+<style>
+
+input[type=submit],
+.acciones ul li a,
+.accionrs a {
+        background: none;
+        padding: 0px;
+        border: none;
+        -webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: none;
+	text-decoration: none;
+	text-shadow: 0;
+	min-width: 0;
+	-moz-box-shadow: 0;
+	-webkit-box-shadow: none;
+	box-shadow: 0;
+}
+.acciones ul li a:hover,
+.acciones a:hover {
+	background: none;
+        padding: 0px;
+        border: none;
+}
+
+</style>
 <div class="clientes index">
-	<h2><?php echo __('Clientes'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
+ <div class="box">
+	<div class="title">        
+            <strong style="color:#333; font-size:14px;"><div align="center" style="font-size: 20px;">Clientes</div></strong>
+                       </div>
+         <div class="content pages">
+             <div class="row">
+	<table cellpadding="0">
+            <thead >
+	<tr style="height: 30px;">
+			
+			
 			<th><?php echo $this->Paginator->sort('cedula'); ?></th>
 			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
 			<th><?php echo $this->Paginator->sort('apellido'); ?></th>
 			<th><?php echo $this->Paginator->sort('apodo'); ?></th>
 			<th><?php echo $this->Paginator->sort('negocio'); ?></th>
 			<th><?php echo $this->Paginator->sort('direccion'); ?></th>
-			<th><?php echo $this->Paginator->sort('telefonofijo'); ?></th>
-			<th><?php echo $this->Paginator->sort('telefonocelular'); ?></th>
+			<th><?php echo $this->Paginator->sort('telefonofijo','Fijo'); ?></th>
+			<th><?php echo $this->Paginator->sort('telefonocelular','Celular'); ?></th>
 			<th><?php echo $this->Paginator->sort('email'); ?></th>
-			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
+			<th><?php echo $this->Paginator->sort('user_id', 'Usuario'); ?></th>
+			<th class="actions"><?php echo __('Acciones'); ?></th>
+        </tr>
+        </thead>
 	<?php foreach ($clientes as $cliente): ?>
 	<tr>
-		<td><?php echo h($cliente['Cliente']['id']); ?>&nbsp;</td>
-		<td><?php echo h($cliente['Cliente']['created']); ?>&nbsp;</td>
+		
 		<td><?php echo h($cliente['Cliente']['cedula']); ?>&nbsp;</td>
 		<td><?php echo h($cliente['Cliente']['nombre']); ?>&nbsp;</td>
 		<td><?php echo h($cliente['Cliente']['apellido']); ?>&nbsp;</td>
@@ -32,7 +64,7 @@
 		<td>
 			<?php echo $this->Html->link($cliente['User']['username'], array('controller' => 'users', 'action' => 'view', $cliente['User']['id'])); ?>
 		</td>
-                <td class="actions">
+                <td class="acciones">
                     
                         <?php 
                                                 echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view',$cliente['Cliente']['id'])));
@@ -53,30 +85,32 @@
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de {:count} en total, iniciando en {:start}, terminando en {:end}')
 	));
 	?>	</p>
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->prev('< ' . __('Anterior'), array(), null, array('class' => 'prev disabled'));
 		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Paginator->next(__('Siguiente') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
+        </div>
+             </div>
+     </div>
 </div>
+<br></br>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	
 	<ul>
-		<li><?php echo $this->Html->link(__('New Cliente'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cuentas'), array('controller' => 'cuentas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cuenta'), array('controller' => 'cuentas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Pagos'), array('controller' => 'pagos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Pago'), array('controller' => 'pagos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Pagoterceros'), array('controller' => 'pagoterceros', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Pagotercero'), array('controller' => 'pagoterceros', 'action' => 'add')); ?> </li>
+		<li align="center"><?php echo $this->Html->link(__('Nuevo Cliente'), array('action' => 'add')); ?></li>
+		<li align="center"><?php echo $this->Html->link(__('Listar Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
+		<li align="center"><?php echo $this->Html->link(__('Nuevo Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
+		<li align="center"><?php echo $this->Html->link(__('Listar Cuentas'), array('controller' => 'cuentas', 'action' => 'index')); ?> </li>
+		<li align="center"><?php echo $this->Html->link(__('Nueva Cuenta'), array('controller' => 'cuentas', 'action' => 'add')); ?> </li>
+		<li align="center"><?php echo $this->Html->link(__('Listar Pagos'), array('controller' => 'pagos', 'action' => 'index')); ?> </li>
+		<li align="center"><?php echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add')); ?> </li>
+		<li align="center"><?php echo $this->Html->link(__('Listar Pagoterceros'), array('controller' => 'pagoterceros', 'action' => 'index')); ?> </li>
+		<li align="center"><?php echo $this->Html->link(__('Nuevo Pagotercero'), array('controller' => 'pagoterceros', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

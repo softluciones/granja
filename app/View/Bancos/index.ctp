@@ -33,7 +33,7 @@ input[type=submit],
                        </div>
          <div class="content pages">
              <div class="row">
-	<table cellpadding="0" cellspacing="0">
+	<table cellpadding="0">
             <thead>
                 <tr style="height: 30px;">
 			
