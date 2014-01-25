@@ -210,7 +210,7 @@ class ChequesController extends AppController {
                 $cheque=$this->Cheque->find('first', $options);
                 $opciones2= array('conditions' => array('Cheque.cheque_id' => $id));
                 $relacionados = $this->Cheque->find('all',$opciones2);
-                #debug($relacionados);
+               #debug($cheque);
 		$this->set(compact('cheque','relacionados'));
 	}
 

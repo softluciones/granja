@@ -42,7 +42,9 @@ input[type=submit],
     </tr>
     <tr style="background:#ffffff;">
         <td><?php echo __('Numero de cheque: '); echo h($cheque['Cheque']['numerodecheque']); ?></td>        
-        <td><?php echo __('Monto: '); echo h($cheque['Cheque']['monto']); ?></td>
+        <td><?php echo __('Monto: '); 
+        $monto=$cheque['Cheque']['monto'];
+        echo h($cheque['Cheque']['monto']); ?></td>
          <th style="background:#ffffff;"><?php echo __('Intereses: '); echo $this->Html->link($cheque['Interese']['rango'], array('controller' => 'interese', 'action' => 'view', $cheque['Interese']['id'])); ?></td>
        
     </tr>
@@ -77,7 +79,7 @@ input[type=submit],
                                     echo h('Devuelto'); ?></td>
     </tr>
     <tr style="background:#ffffff;">
-        <td style="background:#ffffff;"><?php if($cheque['Cheque']['cheque_id']!=null){ echo __('Cheque a Pagar: '); echo $this->Html->link($cheque['Cheque']['numerodecheque'], array('controller' => 'cheques', 'action' => 'view', $cheque['Cheque']['id'])); } ?></td>
+        <td style="background:#ffffff;"><?php if($cheque['Cheque']['cheque_id']!=null){ echo __('Cheque a Pagar: '); echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array('controller' => 'cheques', 'action' => 'view', $cheque['Cheque1']['id'])); } ?></td>
         <td style="background:#ffffff;"><?php echo __('Usuario: '); echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
         <th style="background:#ffffff;"></th>
     </tr>
@@ -106,11 +108,13 @@ input[type=submit],
                 <th><?php echo __('Monto Interes'); ?></th>
 		<th><?php echo __('Monto de Cheque'); ?></th>
                 <th><?php echo __('Monto Cancelado'); ?></th>
+                <th><?php echo __('Diferencia'); ?></th>
                 <th><?php echo __('Cobrado'); ?></th>
                  <th><?php echo __('Edo.'); ?></th>                 
                  <th><?php echo __('Fecha Recib.'); ?></th>
                  <th><?php echo __('Fecha Cobro'); ?></th>
-		<th class="actions"><?php echo __('Acciones'); ?></th>
+                 <th><?php echo __('Usuario'); ?></th>
+                 <th class="actions" style="width:10%"><?php echo __('Acciones'); ?></th>
 	</tr>
         </thead>
 	<?php 
@@ -122,20 +126,47 @@ input[type=submit],
 			<td><?php echo $chequeEstadocheque['Cheque']['numerodecheque']; ?></td>
 			<td><?php echo $chequeEstadocheque['Cheque']['dias']; ?></td>
 			<td><?php echo $chequeEstadocheque['Interese']['rango']; ?></td>
-                        <td><?php echo $chequeEstadocheque['Cheque']['monto']; ?></td>
-                        <td><?php echo $chequeEstadocheque['Cheque']['']; ?></td>
+                        <td><?php echo $chequeEstadocheque['Chequeinterese'][0]['montodescuentointeres']; ?></td>
+                        <td><?php echo $monto; ?></td>
+                        <td><?php echo $chequeEstadocheque['Chequeinterese'][0]['montoentregado']; ?></td>
+                        <td><?php echo $monto-$chequeEstadocheque['Chequeinterese'][0]['montoentregado']; ?></td>
+                        <td><?php 
+                        if($chequeEstadocheque['Cheque']['cobrado']==0){
+                            echo "Devuelto";
+                        }
+                        if($chequeEstadocheque['Cheque']['cobrado']==1){
+                            echo "Por Cobrar";
+                        }
+                        if($chequeEstadocheque['Cheque']['cobrado']==2){
+                            echo "Cobrado";
+                        }
+                        ?></td>
+                        <td><?php $estado=count($chequeEstadocheque['ChequeEstadocheque']);
+                            if($estado>0){
+                                echo $chequeEstadocheque['ChequeEstadocheque'][$estado-1]['Estadocheque']['nomenclatura'];
+                            }
+                        ?></td>
+                        <td><?php 
+                        $cobro = new Datetime($chequeEstadocheque['Cheque']['fechacobro']);
+                        $cobro = $cobro->format('d-m-Y');
+                        echo $cobro; ?></td>
+                        <td><?php 
+                        $cobro = new Datetime($chequeEstadocheque['Cheque']['fecharecibido']);
+                        $cobro = $cobro->format('d-m-Y');
+                        echo $cobro; ?></td>
+                        
 			<td><?php echo $chequeEstadocheque['User']['username']; ?></td>
 			<td class="acciones">
                             <?php 
-                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller'=>'Cheques','action' => 'view', $chequeEstadocheque['Cheque']['numerodecheque'])));
+                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller'=>'Cheques','action' => 'view', $chequeEstadocheque['Cheque']['id'])));
  ?>
 				
 				<?php
-                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controllers'=>'Cheques','action' => 'edit', $chequeEstadocheque['Cheque']['numerodecheque'])));
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controllers'=>'Cheques','action' => 'edit', $chequeEstadocheque['Cheque']['id'])));
                             ?>
 				<?php
                                 $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
-                                                 echo $this->Html->link($imagen, array('action' => 'delete', $chequeEstadocheque['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $chequeEstadocheque['id'])));
+                                                 echo $this->Html->link($imagen, array('action' => 'delete', $chequeEstadocheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $chequeEstadocheque['Cheque']['id'])));
                          ?>
 				
 				</td>
