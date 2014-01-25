@@ -31,33 +31,45 @@ class ChequesController extends AppController {
             
             $total=  $this->Cheque->query($sqltotal);
             $tot=$total[0][0]['total'];
-            
             if($id!=null&&$tot!=0){
-            $hoy=date("Y-m-d");
-            
-           
-            $sqltotal="select count(*) as total from solointereses where cheque_id=".$id;
-            $total=  $this->Cheque->query($sqltotal);
-            $numerocheque="select numerodecheque from cheques where id=".$id;
-            $num=  $this->Cheque->query($numerocheque);
-            $sql="Select * from solointereses where cheque_id=".$id." order by cheque_id desc, id desc";
-            $consulta=  $this->Cheque->query($sql);
-            $dif=  $this->diferencia($hoy,$consulta[0]['solointereses']['fecha']);
-            #debug($dif);
-            #debug($consulta);
-            $tot=$total[0][0]['total'];
-            $acum=0;
-            $fecha=$consulta[0]['solointereses']['fecha'];
-            #echo "Vista de los intereses hasta el dia de hoy del cheque # ".$num[0]['cheques']['numerodecheque']."<br>";
-            
-            #exit(0);
-            $this->set(compact('id','dif','consulta','fecha','acum','num','montointeresestoo'));
-            }
-            else{
+                $sql="SELECT * FROM solointereses WHERE cheque_id=".$id." order by id desc, cheque_id desc";
+                $solointereses=  $this->Cheque->query($sql);
+                debug($solointereses);
+
+                $solointeresestotal=count($solointereses);
+
+                for($i=0;$i<$solointeresestotal; $i++){
+                    $sql="select * from intereses where id=".$solointereses[$i]['solointereses']['interese_id'];
+                    $idintereses[$i]=  $this->Cheque->query($sql);
+                }
+                $sql="SELECT fechacobro, fecharecibido from cheques where id=".$id;
+                $chequera=$this->Cheque->query($sql);
+                
+                debug($chequera);   
+                $fecharecibido=new DateTime($chequera[0]['cheques']['fecharecibido']);
+                $fecharecibido=$fecharecibido->format("Y-m-d");
+                $fechacobro=new DateTime($chequera[0]['cheques']['fechacobro']);
+                $fechacobro=$fechacobro->format("Y-m-d");
+                
+                for($i=0;$i<$solointeresestotal;$i++){
+                    if($solointereses[$i]['solointereses']['cobrado']==0){
+                        $dif[$i][0]=$solointereses[$i]['solointereses']['cobrado'];
+                        $dif[$i][1]=  $this->diferencia($fechacobro, date('Y-m-d'));
+                    }
+                    else{
+                        if($solointereses[$i]['solointereses']['cobrado']==1){
+                            $dif[$i][0]=$solointereses[$i]['solointereses']['cobrado'];
+                            $dif[$i][1]=  $this->diferencia($fecharecibido, $fechacobro);
+                        }
+                    }
+                }
+                debug($dif);
+                
+                $this->set(compact('solointereses','solointeresetotal','idintereses','dif','id'));
+            }else{
                 $id=null;
                 $this->set(compact('id'));
             }
-            
         }
         public function index() {
 		$this->Cheque->recursive = 2;
