@@ -87,6 +87,11 @@ input[type=submit],
 
     
     </br>
+<div class="actions">
+		<ul>
+			<li  align="center"><?php echo $this->Html->link(__('Historial cheque'), array('action' => 'reporteinteres',$cheque['Cheque']['id'])); ?> </li>
+		</ul>
+	</div>
   <?php if($cheque['Cheque']['cobrado']==0){ ?>
 <div class="box">
   
