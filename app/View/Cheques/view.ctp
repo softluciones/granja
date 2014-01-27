@@ -103,18 +103,19 @@ input[type=submit],
 		
 		<th><?php echo __('Banco'); ?></th>
 		<th><?php echo __('Nro de Cheque'); ?></th>
+                <th><?php echo __('Monto de Cheque'); ?></th>
 		<th><?php echo __('Días'); ?></th>
 		<th><?php echo __('Interes'); ?></th>
                 <th><?php echo __('Monto Interes'); ?></th>
-		<th><?php echo __('Monto de Cheque'); ?></th>
+		<th><?php echo __('Monto de Cheque a pagar'); ?></th>
                 <th><?php echo __('Monto Cancelado'); ?></th>
                 <th><?php echo __('Diferencia'); ?></th>
                 <th><?php echo __('Cobrado'); ?></th>
                  <th><?php echo __('Edo.'); ?></th>                 
-                 <th><?php echo __('Fecha Recib.'); ?></th>
-                 <th><?php echo __('Fecha Cobro'); ?></th>
+                 <th style="width:7%"><?php echo __('Fecha Recib.'); ?></th>
+                 <th style="width:7%"><?php echo __('Fecha Cobro'); ?></th>
                  <th><?php echo __('Usuario'); ?></th>
-                 <th class="actions" style="width:10%"><?php echo __('Acciones'); ?></th>
+                 <th class="actions" style="width:7%"><?php echo __('Acciones'); ?></th>
 	</tr>
         </thead>
 	<?php 
@@ -124,6 +125,8 @@ input[type=submit],
 			
 			<td><?php echo $chequeEstadocheque['Banco']['nombre']; ?></td>
 			<td><?php echo $chequeEstadocheque['Cheque']['numerodecheque']; ?></td>
+                        <td><?php echo $chequeEstadocheque['Cheque']['monto']; ?></td>
+                        
 			<td><?php echo $chequeEstadocheque['Cheque']['dias']; ?></td>
 			<td><?php echo $chequeEstadocheque['Interese']['rango']; ?></td>
                         <td><?php echo $chequeEstadocheque['Chequeinterese'][0]['montodescuentointeres']; ?></td>
@@ -162,7 +165,7 @@ input[type=submit],
  ?>
 				
 				<?php
-                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controllers'=>'Cheques','action' => 'edit', $chequeEstadocheque['Cheque']['id'])));
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller'=>'Cheques','action' => 'edit', $chequeEstadocheque['Cheque']['id'])));
                             ?>
 				<?php
                                 $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
@@ -248,7 +251,7 @@ input[type=submit],
       
 	<div class="actions">
 		<ul>
-			<li align="center"><?php echo $this->Html->link(__('Nuevo Edo. Cheque'), array('controller' => 'ChequeEstadocheques', 'action' => 'add/'.$chequeEstadocheque['cheque_id'],0)); ?> </li>
+			<li align="center"><?php echo $this->Html->link(__('Nuevo'), array('controller' => 'ChequeEstadocheques', 'action' => 'add/'.$chequeEstadocheque['cheque_id'],0)); ?> </li>
 		</ul>
 	</div>
 
@@ -262,7 +265,7 @@ input[type=submit],
     <div class="content pages">
         <div class="row">
 	<?php if (!empty($cheque['Chequeinterese'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
+	<table cellpadding = "0">
             <thead>
 	<tr>
 		<th><?php echo __('Interes'); ?></th>
@@ -320,11 +323,7 @@ input[type=submit],
 <?php endif; ?>
 </br>
 </div>
-	<div class="actions">
-		<ul>
-			<li align="center"><?php echo $this->Html->link(__('Nuevo Interes'), array('controller' => 'chequeinterese', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
+	
 </div>
    
 </div>

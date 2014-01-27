@@ -1,0 +1,2 @@
+Debe editar la insercion de cheques que pagan cheque.
+- Cuando el cheque es cobrado, descuenta al otro cheque.

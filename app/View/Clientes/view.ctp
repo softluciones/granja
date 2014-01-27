@@ -217,10 +217,10 @@
 	</div>
 </div>
 </div>
-
+<br></br>
 <div class="actions">
     
-	<h3><?php echo __('Actions'); ?></h3>
+	
 	<ul>
 		<li><?php echo $this->Html->link(__('Edit Cliente'), array('action' => 'edit', $cliente['Cliente']['id'])); ?> </li>
 		<li><?php echo $this->Form->postLink(__('Delete Cliente'), array('action' => 'delete', $cliente['Cliente']['id']), null, __('Are you sure you want to delete # %s?', $cliente['Cliente']['id'])); ?> </li>

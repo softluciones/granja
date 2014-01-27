@@ -76,7 +76,7 @@ $("#datepicker1").datepicker();
 		
 		
 	?>
-	</fieldset>
+
 
 </div>
   <br></br>

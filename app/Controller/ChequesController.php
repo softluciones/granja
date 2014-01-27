@@ -560,7 +560,7 @@ class ChequesController extends AppController {
                         $fecha2 = new DateTime($this->data['Cheque']['fechacobro']);
                         $this->request->data['Cheque']['fecharecibido']=$fecha1->format('Y-m-d');
                         $this->request->data['Cheque']['fechacobro']=$fecha2->format('Y-m-d');
-                        
+                        debug($this->request->data);
                         if ($this->Cheque->save($this->request->data)) {
                             $this->request->data['Chequeinterese']['user_id'] = $this->Auth->user('id');
                             $this->request->data['Solointerese']['cheque_id'] =$this->request->data['Chequeinterese']['cheque_id'] = $id;
