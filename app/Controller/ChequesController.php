@@ -71,8 +71,8 @@ class ChequesController extends AppController {
                     }
                 }
                 
-                debug("dif");
-                debug($dif);
+                /*debug("dif");
+                debug($dif);*/
                 
                 $this->set(compact('solointereses','solointeresestotal','idintereses','dif','id'));
             }else{
@@ -381,22 +381,17 @@ class ChequesController extends AppController {
 	}
         
         private function diferencia($fecha1,$fecha2){
+                $format="Y-m-d";
+                $datetime1 = new DateTime($fecha1);
+                $datetime1=$datetime1->format($format);
+                $datetime2 = new DateTime($fecha2);
+                $datetime2=$datetime2->format($format);
+                $datetime1 = date_create($datetime1);
+                $datetime2 = date_create($datetime2);
+                $interval = date_diff($datetime1, $datetime2);
+                $dias=$interval->format("%R%a");
+                $dias=$dias+1;
                 
-                $fecha1=new DateTime($fecha1);
-                $fecha2=new DateTime($fecha2);
-                $fecha1=$fecha1->format('Y-m-d');
-                $fecha2=$fecha2->format('Y-m-d');
-                /*debug($fecha1);
-                debug($fecha2);*/
-                #$y=new DateTime($fecha1);
-                #$y=$y->format('Y-m-d');
-                $date1 = $fecha1;
-                $date2 = $fecha2;
-                $diff = abs(strtotime($date2) - strtotime($date1));
-                $years = floor($diff / (365*60*60*24));
-                $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-                $dias = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-                $dias++;
                 return $dias;
          }
          public function editadevuelto($id=null){
