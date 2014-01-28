@@ -199,7 +199,13 @@ echo $this->Form->label('Búsqueda') ?>
        ?>
 <h2 style="clear: both">
     <?php 
-            echo __('Cheques por cobrar y devueltos '); echo $this->Html->image("actualizar.fw.png", array("alt" => "Agregar Cheque",'width' => '30', 'heigth' => '30','title'=>'Intereses a aumentar','url' => array('action' => 'index'))); ?></h2>
+            echo __('Cheques por cobrar y devueltos ');
+            if($var==1){
+                 echo $this->Html->image("actualizar.fw.png", array("alt" => "Agregar Cheque",'width' => '30', 'heigth' => '30','title'=>'Intereses a aumentar','url' => array('action' => 'aumentarinteres'))); 
+                $var=0;
+            }
+            ?></h2>
+            
         
 	<table cellpadding="0" cellspacing="0" align="center" style="width:100%">
             <thead>
@@ -386,6 +392,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
+                    <?php echo $this->Html->image("historial.fw.png", array("alt" => "Historial",'width' => '18', 'heigth' => '18','title'=>'Historial','url' => array('action' => 'reporteinteres', $cheque['Cheque']['id'])));?>
                     <?php echo $this->Html->image("cobrado.fw.png", array("alt" => "Cobrado",'width' => '18', 'heigth' => '18','title'=>'Cobrado','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],2)));?>
                     <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view', $cheque['Cheque']['id'])));?>
 					

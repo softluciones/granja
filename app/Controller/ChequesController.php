@@ -26,6 +26,50 @@ class ChequesController extends AppController {
  *
  * @return void
  */
+        public function aumentarinteres(){
+            /*hago una consulta a todos los cheques que son devueltos*/
+            $sql="SELECT * FROM cheques WHERE cobrado=0";
+            $chequesdevueltos=  $this->Cheque->query($sql);
+            
+            
+            $totalcheques=count($chequesdevueltos);
+            for($i=0;$i<$totalcheques;$i++){
+                $sql="SELECT * FROM solointereses WHERE cheque_id=".$chequesdevueltos[$i]['cheques']['id']." and cobrado=0";
+                $solointereses[$i]=$this->Cheque->query($sql);
+                $sql="SELECT * FROM chequeinterese WHERE cheque_id=".$chequesdevueltos[$i]['cheques']['id']." and estadocheque=0";
+                $chequera[$i]=$this->Cheque->query($sql);
+                
+            }
+            
+           
+            $totalintereses=  count($solointereses);
+            
+            for($i=0;$i<$totalintereses;$i++){
+                $acum[$i][0]=0;
+                $acum[$i][1]=0;
+                $format="Y-m-d";
+                $fecharecibido=new DateTime($chequesdevueltos[$i]['cheques']['fechacobro']);
+                $fecharecibido=$fecharecibido->format($format);
+                $fechacobro=date($format);
+                
+                $dif=$this->diferencia($fecharecibido,$fechacobro);
+                
+                for($j=0;$j<$dif;$j++){
+                    $acum[$i][0]=$acum[$i][0]+$solointereses[$i][0]['solointereses']['montointereses'];
+                }
+                $acum[$i][1]=$solointereses[$i][0]['solointereses']['cheque_id'];
+            }
+            $totalchequera=count($chequera);
+            for($i=0;$i<$totalchequera;$i++){
+                $sql="UPDATE chequeinterese SET 
+                    montodescuentointeres=".$acum[$i][0].", 
+                    created=NOW() where cheque_id=".$acum[$i][1];
+                $modificando=  $this->Cheque->query($sql);
+            }
+            
+            return $this->redirect(array('action' => 'index'));
+            
+        }
         public function reporteinteres($id=null){
             if($id==null){
                 $id=-1;
@@ -60,13 +104,13 @@ class ChequesController extends AppController {
                 $sql="SELECT fechacobro, fecharecibido from cheques where id=".$id;
                 $chequera=$this->Cheque->query($sql);
                 
-                /*debug("chequera");
-                debug($chequera);   */
+                
                 $fecharecibido=new DateTime($chequera[0]['cheques']['fecharecibido']);
                 $fecharecibido=$fecharecibido->format("Y-m-d");
                 $fechacobro=new DateTime($chequera[0]['cheques']['fechacobro']);
                 $fechacobro=$fechacobro->format("Y-m-d");
-                
+                /*debug("chequera");
+                debug($chequera);   */
                 for($i=0;$i<$solointeresestotal;$i++){
                     if($solointereses[$i]['solointereses']['cobrado']==0){
                         $dif[$i][0]=$solointereses[$i]['solointereses']['cobrado'];
@@ -89,6 +133,19 @@ class ChequesController extends AppController {
                 $this->set(compact('id'));
             }
         }
+        public  function bandera(){
+            $sql="SELECT * FROM solointereses WHERE cobrado=0";
+            $bandera=  $this->Cheque->query($sql);
+            $total=count($bandera);
+            if($total>0){
+                for($i=0;$i<$total;$i++){
+                    if($bandera[$i]['solointereses']['fecha']<date("Y-m-d")){
+                        return 1;
+                    }
+                }
+                return 0;
+            }
+        }
         public function index() {
 		$this->Cheque->recursive = 2;
                 $sumas=  $this->Cheque->query("SELECT cobrado, 
@@ -97,10 +154,9 @@ class ChequesController extends AppController {
                                             WHERE cobrado =1
                                             OR cobrado =0
                                             GROUP BY cobrado
-                                           ORDER BY COBRADO"); 
-                                            
-                //debug($sumas);
-               //jose y bet son novios ahora yo jose se
+                                            ORDER BY COBRADO"); 
+                
+                $var= $this->bandera();
                 if($this->data){  
                     
                     if($this->data['Cheque']['selector']=="1"){
@@ -151,7 +207,7 @@ class ChequesController extends AppController {
                                     array('Cheque.cobrado'=>'0')))));
                      $this->set(compact('sumas','yabusco'));
                   }
-	 	
+                  $this->set(compact('var'));
                
 	}
         public function index2() {
