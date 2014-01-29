@@ -1,6 +1,7 @@
-<h2>Lista de interes segun su estado del cheque # <?php echo $this->Html->link($idcheque, array('controller' => 'cheques', 'action' => 'view', $id)) ?></h2>
+
 <?php
     if($id!=null){ ?>
+    <h2>Lista de interes segun su estado del cheque # <?php echo $this->Html->link($idcheque, array('controller' => 'cheques', 'action' => 'view', $id)) ?></h2>
         <table>
                     
                     <?php for($i=0;$i<$solointeresestotal;$i++){
@@ -56,7 +57,35 @@
                                     <th>Cheque</th>
                                     <th>Estado</th>
                                 </tr>
-                         <?php }
+                         <?php }else{
+                             if($dif[$i][0]==2&&$solointereses[$i]['solointereses']['estado']=='C'){ ?>
+                                 <tr style="background: #F39814">
+                                    <th colspan="6">Cuando el cheque es cobrado y el estado es C</th>
+                                </tr>
+                                <tr style="background: #C6E746">
+                                    <th>Fecha</th>
+                                    <th>Monto intereses</th>
+                                    <th>Monto fijo Total</th>
+                                    <th>Interes cobrado</th>
+                                    <th>Cheque</th>
+                                    <th>Estado</th>
+                                </tr>
+                        <?php     }else{
+                            if($dif[$i][0]==2&&$solointereses[$i]['solointereses']['estado']=='R'){?>
+                                <tr style="background: #F39814">
+                                    <th colspan="6">Cuando el cheque es cobrado y el estado es R</th>
+                                </tr>
+                                <tr style="background: #C6E746">
+                                    <th>Fecha</th>
+                                    <th>Monto intereses</th>
+                                    <th>Monto fijo Total</th>
+                                    <th>Interes cobrado</th>
+                                    <th>Cheque</th>
+                                    <th>Estado</th>
+                                </tr>
+                            <?php }
+                        }
+                         }
                       }
                       }
                         }
@@ -120,7 +149,26 @@
                                     <th><?php echo $total[$i]." Bs"; ?></th>
                                     <th colspan="3"></th>
                                 </tr>
-                          <?php }
+                          <?php }else{
+                              if($dif[$i][0]==2&&$solointereses[$i]['solointereses']['estado']=='C'){?>
+                                  <?php $total[$i]=$acum[$i]; ?>
+                                <tr style="background: gold;">
+                                    <th>Deuda de solo intereses</th>
+                                    <th><?php echo $acum[$i]." Bs"; ?></th>
+                                    <th><?php echo $total[$i]." Bs"; ?></th>
+                                    <th colspan="3"></th>
+                                </tr>
+                              <?php }else{
+                                  if($dif[$i][0]==2&&$solointereses[$i]['solointereses']['estado']=='R'){ ?>
+                                  <?php $total[$i]=$acum[$i]; ?>
+                                <tr style="background: gold;">
+                                    <th>Deuda - Intereses</th>
+                                    <th><?php echo $acum[$i]." Bs"; ?></th>
+                                    <th><?php echo $total[$i]." Bs"; ?></th>
+                                    <th colspan="3"></th>
+                                </tr>
+                              <?php   }}
+                          }
                        }
                     }}} ?>
         </table>

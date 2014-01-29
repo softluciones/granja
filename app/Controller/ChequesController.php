@@ -80,18 +80,19 @@ class ChequesController extends AppController {
             $tot=$total[0][0]['total'];
             if($id!=1&&$tot!=0){
                 
-                $sql="SELECT * FROM solointereses WHERE cheque_id=".$id." order by id desc, cheque_id desc";
-                $solointereses=  $this->Cheque->query($sql);
+                
                 
                 $sqltotal="select * from cheques where id=".$id;
             
                 $total=  $this->Cheque->query($sqltotal);
                 $idcheque=$total[0]['cheques']['numerodecheque'];
-                /*debug("solointereses");
-                debug($solointereses);*/
+                debug("solointereses");
+                $sql="SELECT * FROM solointereses WHERE cheque_id=".$id." order by id desc, cheque_id desc";
+                $solointereses=  $this->Cheque->query($sql);
 
-                $solointeresestotal=count($solointereses);
-                
+                $O=$solointeresestotal=count($solointereses);
+                debug($solointereses[$O-1]['solointereses']['fecha']);
+                debug($solointereses[$O-1]['solointereses']['monto']);
                 /*debug("solointeresestotal");
                 debug($solointeresestotal);*/
                 for($i=0;$i<$solointeresestotal; $i++){
@@ -109,17 +110,31 @@ class ChequesController extends AppController {
                 $fecharecibido=$fecharecibido->format("Y-m-d");
                 $fechacobro=new DateTime($chequera[0]['cheques']['fechacobro']);
                 $fechacobro=$fechacobro->format("Y-m-d");
+                $debug=new DateTime($solointereses[$O-1]['solointereses']['fecha']);
+                $debug=$debug->format("Y-m-d");
+                $debug2=new DateTime($solointereses[0]['solointereses']['fecha']);
+                $debug2=$debug2->format("Y-m-d");
                 /*debug("chequera");
-                debug($chequera);   */
+                debug($chequera);*/   
                 for($i=0;$i<$solointeresestotal;$i++){
                     if($solointereses[$i]['solointereses']['cobrado']==0){
-                        $dif[$i][0]=$solointereses[$i]['solointereses']['cobrado'];
-                        $dif[$i][1]=  $this->diferencia($fechacobro, date('Y-m-d'));
+                        if($solointereses[0]['solointereses']['cobrado']==2){
+                            $dif[$i][0]=$solointereses[$i]['solointereses']['cobrado'];
+                            $dif[$i][1]=  $this->diferencia($debug, $debug2);
+                        }else{
+                            $dif[$i][0]=$solointereses[$i]['solointereses']['cobrado'];
+                            $dif[$i][1]=  $this->diferencia($fechacobro, date('Y-m-d'));
+                        }
                     }
                     else{
                         if($solointereses[$i]['solointereses']['cobrado']==1){
                             $dif[$i][0]=$solointereses[$i]['solointereses']['cobrado'];
                             $dif[$i][1]=  $this->diferencia($fecharecibido, $fechacobro);
+                        }else{
+                            if($solointereses[$i]['solointereses']['cobrado']==2){
+                                $dif[$i][0]=$solointereses[$i]['solointereses']['cobrado'];
+                                $dif[$i][1]=  $this->diferencia($debug,$debug2);
+                            }
                         }
                     }
                 }
@@ -554,6 +569,11 @@ class ChequesController extends AppController {
                                         WHERE estadocheque_id=e.id
                                         AND cheque_id=".$id." order by c.id desc";
                 $z=  $this->Cheque->query($sql);
+                $sql="SELECT * FROM solointereses WHERE cheque_id=".$id." order by id desc, cheque_id desc";
+                $solointereses=  $this->Cheque->query($sql);
+                $O=$totalll=count($solointereses);
+                
+                
 
                 $insert="INSERT INTO 
                          solointereses (monto,
@@ -563,8 +583,8 @@ class ChequesController extends AppController {
                                         estado,
                                         cobrado,
                                         fecha)
-                         VALUES(".$this->request->data['Solointerese']['monto'].",
-                                ".$this->request->data['Solointerese']['montointereses'].",
+                         VALUES(".$solointereses[$O-1]['solointereses']['monto'].",
+                                ".$solointereses[$O-1]['solointereses']['montointereses'].",
                                 ".$this->request->data['Solointerese']['cheque_id'].",
                                 ".$this->request->data['Solointerese']['interese_id'].",
                                 '".$z[0]['e']['nomenclatura']."',
@@ -588,17 +608,20 @@ class ChequesController extends AppController {
                  /*debug($selecta);
                  exit(0);*/
                  $cobrado=$this->request->data['Cheque']['cobrado'] = $tipo;
+                 $this->request->data['Solointerese']['interese_id']=$interes=$this->request->data['Cheque']['interese_id'];
                  $this->Cheque->save($this->request->data);
                  $this->request->data['Chequeinterese']['user_id'] = $this->Auth->user('id');
                 $this->request->data['Chequeinterese']['cheque_id'] = $id;
                 $this->request->data['Solointerese']['monto']=$this->request->data['Chequeinterese']['montocheque'] = $monto[0]['chequeinterese']['montocheque'];    
                 $this->request->data['Chequeinterese']['estadocheque'] = $tipo;
-                $this->request->data['Chequeinterese']['montodescuentointeres']= $monto[0]['chequeinterese']['montodescuentointeres'];
+                $this->request->data['Solointerese']['montointereses']=$this->request->data['Chequeinterese']['montodescuentointeres']= $monto[0]['chequeinterese']['montodescuentointeres'];
                 $this->request->data['Chequeinterese']['montoentregado']= $monto[0]['chequeinterese']['montoentregado'];
                 $this->request->data['Chequeinterese']['created']= date("Y-m-d h:i:s");
+                $this->request->data['Solointerese']['cheque_id']=$id;
                  #extraer datos de la informacion de cheque intereses de todos lo cheques en
                  #cobrado=
                 $this->Cheque->Chequeinterese->save($this->request->data);
+                
                     $sql="SELECT nomenclatura FROM estadocheques e, cheque_estadocheques c 
                                             WHERE estadocheque_id=e.id
                                             AND cheque_id=".$id." order by c.id desc";
