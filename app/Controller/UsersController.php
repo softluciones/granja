@@ -37,14 +37,14 @@ class UsersController extends AppController {
  * @return void
  */
 	public function beforeFilter() {
-    parent::beforeFilter();
-   
-     $this->Auth->fields = array(
-            'username' => 'username',
-            'password' => 'secretword'
-            );
-     $this->Auth->allow('login','logout');
-}
+            parent::beforeFilter();
+
+             $this->Auth->fields = array(
+                    'username' => 'username',
+                    'password' => 'secretword'
+                    );
+             $this->Auth->allow('login','logout');
+    }
         public function login() {
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
@@ -72,13 +72,18 @@ class UsersController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+                    if($this->request->data['User']['password']==$this->request->data['User']['clave']){
 			$this->User->create();
+                        
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash(__('El usuario ha sido guardado.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('El usuario no ha sido Guardado. Intentalo otra vez.'));
 			}
+                    }else{
+                        $this->Session->setFlash(__('Las contraseñas no coinciden.'));
+                    }
 		}
 		$roles = $this->User->Role->find('list');
 		$this->set(compact('roles'));
@@ -108,6 +113,28 @@ class UsersController extends AppController {
 		}
 		$roles = $this->User->Role->find('list');
 		$this->set(compact('roles'));
+	}
+        
+        public function editpass($id = null) {
+		if(!$this->User->exists($id)) 
+                {
+			throw new NotFoundException(__('Usuario Invalido'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+               if($this->request->data['User']['password']==$this->request->data['User']['clave']){
+			if ($this->User->save($this->request->data)) {
+				$this->Session->setFlash(__('La clave ha sido Guardada.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('La clave no ha sido guardada.'));
+			}
+		} else {
+			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
+			$this->request->data = $this->User->find('first', $options);
+		}
+                }else{
+                    $this->Session->setFlash(__('Las contraseñas no coinciden.'));
+                }
 	}
 
 /**

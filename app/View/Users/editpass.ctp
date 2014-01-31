@@ -13,26 +13,22 @@
 <div class="users form">
 <?php echo $this->Form->create('User'); ?>
 	<table>
+            
              <thead>
 		<th colspan="2" style="background:#cccccc; height: 50px; font-size: 20px;"><div align="center"><?php echo __('Editar Usuario'); ?></div></th>
                 
                 </thead>
                 <tr>
 	<?php
-		echo '<th>';
-		echo $this->Form->input('username',array('label'=> 'Nombre de usuario'));
+        echo $this->Form->input('id',array('type'=>'hidden'));
+		echo '<th colspan="2">';
+		echo $this->Form->input('username',array('label'=> 'Nombre de usuario','readonly'=>'readonly'));
                 echo '</th>';
-                echo '<th>';
-		echo $this->Form->input('role_id',array('label'=>'Rol del usuario'));
-                echo '</th>';
-               
-                 echo '<tr>';
-                echo '<th>';
-		echo $this->Form->input('nombre',array('label'=>'Nombre Empleado'));
-                echo '</th>';
-                echo '<th>';
-		echo $this->Form->input('apellido',array('label'=>'Apellido Empleado'));
-                echo '</th>';
+                echo '</tr>';
+                echo '<tr>';
+                echo '<th>'; echo $this->Form->input('password',array('label'=>'Contraseña','value'=>"")); echo '</th>';
+                echo '<th>'; echo $this->Form->input('clave',array('label'=>'Vuelva a ingresar Contraseña','type'=>'password')); echo '</th>';
+  
                  echo '</tr>';
                   echo '<tr>';
                   echo '<th colspan="2">';
