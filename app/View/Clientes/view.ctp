@@ -1,89 +1,136 @@
+<style>
+
+input[type=submit],
+.acciones ul li a,
+.accionrs a {
+        background: none;
+        padding: 0px;
+        border: none;
+        -webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: none;
+	text-decoration: none;
+	text-shadow: 0;
+	min-width: 0;
+	-moz-box-shadow: 0;
+	-webkit-box-shadow: none;
+	box-shadow: 0;
+}
+.acciones ul li a:hover,
+.acciones a:hover {
+	background: none;
+        padding: 0px;
+        border: none;
+}
+
+</style>
 <div class="clientes view">
-<h2><?php echo __('Cliente'); ?></h2>
-<br>	
 <table>
+    <thead>
+       
+                 <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
+         <div align="center"> Cliente</div>
+                 </th>
+            
+         </thead>
     <tr>
-        <th><?php echo __('Codigo Cliente: '); echo h($cliente['Cliente']['id']);?></th>
-        <th><?php echo __('Fecha Registro: '); echo h($cliente['Cliente']['created']); ?></th>
-        <th><?php echo __('Cedula: ');  echo h($cliente['Cliente']['cedula']); ?></th>
+        <th  style="background:#ffffff;"><?php echo __('Codigo Cliente: '); echo h($cliente['Cliente']['id']);?></th>
+        <th  style="background:#ffffff;"><?php echo __('Fecha Registro: '); echo h($cliente['Cliente']['created']); ?></th>
+        <th  style="background:#ffffff;"><?php echo __('Cedula: ');  echo h($cliente['Cliente']['cedula']); ?></th>
     </tr>
     <tr>
-        <th><?php echo __('Nombre: '); echo h($cliente['Cliente']['nombre']); ?></th>
-        <th><?php echo __('Apellido: '); echo h($cliente['Cliente']['apellido']); ?></th>
-        <th><?php echo __('Apodo: '); echo h($cliente['Cliente']['apodo']); ?></th>
+        <th style="background:#ffffff;"><?php echo __('Nombre: '); echo h($cliente['Cliente']['nombre']); ?></th>
+        <th  style="background:#ffffff;"><?php echo __('Apellido: '); echo h($cliente['Cliente']['apellido']); ?></th>
+        <th style="background:#ffffff;"><?php echo __('Apodo: '); echo h($cliente['Cliente']['apodo']); ?></th>
     </tr>
     <tr>
-        <th><?php echo __('Negocio: '); echo h($cliente['Cliente']['negocio']); ?></th>
-        <th><?php echo __('Direccion: '); echo h($cliente['Cliente']['direccion']); ?></th>
-        <th><?php echo __('Telefono fijo: '); echo h($cliente['Cliente']['telefonofijo']); ?></th>
+        <th style="background:#ffffff;"><?php echo __('Negocio: '); echo h($cliente['Cliente']['negocio']); ?></th>
+        <th style="background:#ffffff;"><?php echo __('Direccion: '); echo h($cliente['Cliente']['direccion']); ?></th>
+        <th style="background:#ffffff;"><?php echo __('Telefono fijo: '); echo h($cliente['Cliente']['telefonofijo']); ?></th>
     </tr>
     <tr>
-        <th><?php echo __('Telefono celular: '); echo h($cliente['Cliente']['telefonocelular']); ?></th>
-        <th><?php echo __('Email: '); echo h($cliente['Cliente']['email']); ?></th>
-        <th><?php echo __('Registrado por: '); echo $this->Html->link($cliente['User']['username'], array('controller' => 'users', 'action' => 'view', $cliente['User']['id']));?></th>
+        <th style="background:#ffffff;"><?php echo __('Telefono celular: '); echo h($cliente['Cliente']['telefonocelular']); ?></th>
+        <th style="background:#ffffff;"><?php echo __('Email: '); echo h($cliente['Cliente']['email']); ?></th>
+        <th style="background:#ffffff;"><?php echo __('Registrado por: '); echo $this->Html->link($cliente['User']['username'], array('controller' => 'users', 'action' => 'view', $cliente['User']['id']));?></th>
     </tr>
 </table>
 <br>
-<div class="related">
-	<h3><?php echo __('Relacion de Cheques con este cliente'); ?></h3>
+<div class="box">
+  
+             <div class="title">        
+	<strong style="color:#333; font-size:14px;"><?php echo __('Cheques del Cliente');?></strong>
+                       </div>      
+    <div class="content pages">
+        <div class="row">
 	<?php if (!empty($cliente['Cheque'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
+             <thead>
 	<tr>
-		
-		<th><?php echo __('Banco Id'); ?></th>
-		<th><?php echo __('Cliente Id'); ?></th>
-		<th><?php echo __('Created'); ?></th>
+       
+		<th><?php echo __('Banco'); ?></th>		
+		<th><?php echo __('Creado'); ?></th>
 		<th><?php echo __('Numero de cuenta'); ?></th>
 		<th><?php echo __('Numero de cheque'); ?></th>
 		<th><?php echo __('Monto'); ?></th>
-		<th><?php echo __('Interese Id'); ?></th>
+		<th><?php echo __('Interes'); ?></th>
 		
 		<th><?php echo __('Fecha recibido'); ?></th>
 		<th><?php echo __('Fecha cobro'); ?></th>
 		<th><?php echo __('Cobrado'); ?></th>
 		<th><?php echo __('Cheque'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
+		<th><?php echo __('Usuario'); ?></th>
+		<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
-	<?php foreach ($cliente['Cheque'] as $cheque): ?>
+        </thead>
+	<?php 
+        #debug($cliente['Cheque']);
+        foreach ($cliente['Cheque'] as $cheque):
+            ?>
 		<tr>
 			
-			<td><?php echo $cheque['banco_id']; ?></td>
-			<td><?php echo $cheque['cliente_id']; ?></td>
+			<td><?php echo $cheque['Banco']['nombre']; ?></td>
 			<td><?php echo $cheque['created']; ?></td>
 			<td><?php echo $cheque['numerodecuenta']; ?></td>
 			<td><?php 
                         echo $this->Html->link($cheque['numerodecheque'], array('controller' => 'cheques', 'action' => 'view', $cheque['id']));
-                        #echo $cheque['numerodecheque']; ?></td>
+                         ?></td>
 			<td><?php echo $cheque['monto']; ?></td>
-			<td><?php echo $cheque['interese_id']; ?></td>
+			<td><?php echo $cheque['Interese']['rango']; ?></td>
 			
 			<td><?php echo $cheque['fecharecibido']; ?></td>
 			<td><?php echo $cheque['fechacobro']; ?></td>
 			<td><?php 
                         if($cheque['cobrado']==1)
-                        echo 'Cheque por cobrar';
+                        echo 'Por Cobrar';
                         else if($cheque['cobrado']==2)
-                            echo 'Cheque cobrado';
+                            echo 'Cobrado';
                         else
-                            echo 'Cheque Devuelto' ?></td>
-			<td><?php echo $cheque['cheque_id']; ?></td>
-			<td><?php echo $cheque['user_id']; ?></td>
+                            echo 'Devuelto' ?></td>
+			<td><?php echo $cheque['numerodecheque']; ?></td>
+			<td><?php echo $cheque['User']['username']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'cheques', 'action' => 'view', $cheque['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'cheques', 'action' => 'edit', $cheque['id'])); ?>				
-			</td>
+                            <?php 
+                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller'=>'Cheques','action' => 'view', $cheque['id'])));
+ ?>
+				
+				<?php
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller'=>'Cheques','action' => 'edit', $cheque['id'])));
+                            ?>
+				</td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
-
+            </div>
+           
 	<div class="actions">
 		<ul>
 			<li><?php echo $this->Html->link(__('Nuevo Cheque'), array('controller' => 'cheques', 'action' => 'add',$cliente['Cliente']['id'])); ?> </li>
 		</ul>
-	</div>
+	
 </div>
+        </div>
+    </div>
 <br>
 <div class="related">
 	<h3><?php echo __('Related Cuentas'); ?></h3>

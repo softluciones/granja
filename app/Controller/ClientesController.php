@@ -22,7 +22,7 @@ class ClientesController extends AppController {
  */
         
 	public function index() {
-            $_SESSION['varia']=1;
+          
 		$this->Cliente->recursive = 0;
                 if($this->data){
                     if ($this->data['Cliente']['search_text']) { 
@@ -46,7 +46,7 @@ class ClientesController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-            $_SESSION['varia']=1;
+         $this->Cliente->recursive=3;
 		if (!$this->Cliente->exists($id)) {
 			throw new NotFoundException(__('Cheque invalido'));
 		}
@@ -86,7 +86,7 @@ class ClientesController extends AppController {
  * @return void
  */
 	public function add() {
-            $_SESSION['varia']=1;
+        
 		if ($this->request->is('post')) {
 			$this->Cliente->create();
 			if ($this->Cliente->save($this->request->data)) {
@@ -113,7 +113,7 @@ class ClientesController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-            $_SESSION['varia']=1;
+          
 		if (!$this->Cliente->exists($id)) {
 			throw new NotFoundException(__('Cliente invalido'));
 		}
@@ -144,12 +144,12 @@ class ClientesController extends AppController {
  * @return void
  */
 	public function delete($id = null) {
-            $_SESSION['varia']=1;
+            
 		$this->Cliente->id = $id;
 		if (!$this->Cliente->exists()) {
 			throw new NotFoundException(__('Cliente Invalido'));
 		}
-		$this->request->onlyAllow('post', 'delete');
+		
 		if ($this->Cliente->delete()) {
 			#$this->Session->setFlash(__('The cliente has been deleted.'));
                         $this->Session->setFlash(__('El cliente ha sido borrado.'));
