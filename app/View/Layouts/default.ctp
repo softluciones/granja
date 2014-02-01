@@ -55,7 +55,7 @@ $("#datepicker").datepicker();
             <ul>
                <li><?php echo $this->Html->link("Nuevo Cheque", array('controller'=>'cheques','action' => 'add'), array('escape' => false));?></li>
                <li><?php echo $this->Html->link("Listar Cheque", array('controller'=>'cheques','action' => 'index'), array('escape' => false));?></a></li>
-               <li><?php echo $this->Html->link("Pago", array('controller'=>'pagos','action' => 'add'), array('escape' => false));?></li>
+             
                
             </ul>
          </li>
@@ -85,14 +85,14 @@ $("#datepicker").datepicker();
    </li>
    <li class='has-sub last'><a href='#'><span>Parametros</span></a>
       <ul>
-         <li><a href='#'><span>Cliente</span></a></li>
-         <li><a href='#'><span>Usuarios</span></a></li>
-         <li><a href='#'><span>Denominacion de Billetes</span></a></li>
-         <li><a href='#'><span>Bancos</span></a></li>
-         <li><a href='#'><span>Estado de Cheques</span></a></li>
-         <li><a href='#'><span>Roles</span></a></li>
-         <li><a href='#'><span>Formas de Pago</span></a></li>
-         <li class='last'><a href='#'><span>Intereses</span></a></li>
+         <li><?php echo $this->Html->link("Clientes", array('controller'=>'clientes','action' => 'index'), array('escape' => false));?></li>    
+          <li><?php echo $this->Html->link("Usuarios", array('controller'=>'users','action' => 'index'), array('escape' => false));?></li>         
+          <li><?php echo $this->Html->link("Bancos", array('controller'=>'bancos','action' => 'index'), array('escape' => false));?></li>         
+         <li><?php echo $this->Html->link("Estado de Cheques", array('controller'=>'estadocheques','action' => 'index'), array('escape' => false));?></li>         
+          <li><?php echo $this->Html->link("Roles", array('controller'=>'roles','action' => 'index'), array('escape' => false));?></li>         
+          <li><?php echo $this->Html->link("Formas de Pago", array('controller'=>'tipopagos','action' => 'index'), array('escape' => false));?></li>         
+          <li class="last"><?php echo $this->Html->link("Intereses", array('controller'=>'interese','action' => 'index'), array('escape' => false));?></li>         
+
       </ul>
    </li>
    <li><?php 
