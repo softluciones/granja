@@ -365,24 +365,24 @@ class ChequesController extends AppController {
             $y=  $this->Cheque->query($sql);
             $dato=$this->request->data['Solointerese']['interes']=$y[0]['cheques']['interese_id'];
             
-            $sql="SELECT  PORCENTAJE, MONTOFIJO
-                    FROM INTERESES I, CHEQUES C
-                    WHERE INTERESE_ID = I.ID
-                    AND C.ID=".$cheque_ids."";
+            $sql="SELECT  porcentaje, montofijo
+                    FROM intereses I, cheques C
+                    WHERE intere_id = I.id
+                    AND C.id=".$cheque_ids."";
             $x=$this->Cheque->query($sql);
             
             
             
             
-            if($x[0]['I']['PORCENTAJE']==null){
+            if($x[0]['I']['porcentaje']==null){
                 
-                $this->request->data['Solointerese']['montointereses']=$x[0]['I']['MONTOFIJO'];
-                $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['MONTOFIJO']*$y[0]['cheques']['dias'];
-                $this->request->data['Chequeinterese']['montoentregado']=$this->request->data['Cheque']['monto']-($x[0]['I']['MONTOFIJO']*$y[0]['cheques']['dias']);
+                $this->request->data['Solointerese']['montointereses']=$x[0]['I']['montofijo'];
+                $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo']*$y[0]['cheques']['dias'];
+                $this->request->data['Chequeinterese']['montoentregado']=$this->request->data['Cheque']['monto']-($x[0]['I']['montofijo']*$y[0]['cheques']['dias']);
             }
             else{
                 
-                $p=(round(($x[0]['I']['PORCENTAJE']/100)*$this->request->data['Cheque']['monto']));    
+                $p=(round(($x[0]['I']['porcentaje']/100)*$this->request->data['Cheque']['monto']));    
                 if($p%2!=0)
                   $p++;
                 $this->request->data['Solointerese']['montointereses']=$p;
@@ -558,18 +558,24 @@ class ChequesController extends AppController {
                 $this->request->data['Chequeinterese']['estadocheque'] = $this->request->data['Cheque']['cobrado']; 
                 
                  
-                $sql="SELECT PORCENTAJE, MONTOFIJO
-                    FROM INTERESES I, CHEQUES C
-                    WHERE INTERESE_ID = I.ID
-                    AND C.ID=".$id."";
+                $sql="SELECT porcentaje, montofijo
+                    FROM intereses I, cheques C
+                    WHERE interese_id = I.id
+                    AND C.id=".$id."";
                 $x=$this->Cheque->query($sql);
+<<<<<<< HEAD
                 if($x[0]['I']['PORCENTAJE']==null){
                     $tototo=$this->request->data['Solointerese']['montointereses']=$x[0]['I']['MONTOFIJO'];
                     $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['MONTOFIJO']*$dias=$this->request->data['Cheque']['dias'];
+=======
+                if($x[0]['I']['porcentaje']==null){
+                    $tototo=$this->request->data['Solointerese']['montointereses']=$x[0]['I']['montofijo'];
+                    $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo']*$dias=$this->request->data['Cheque']['dias'];
+>>>>>>> origin/betmart
                     $this->request->data['Chequeinterese']['montoentregado']=0;
                 }
                 else{
-                    $p=(round(($x[0]['I']['PORCENTAJE']/100)*$y[0]['cheques']['monto']));    
+                    $p=(round(($x[0]['I']['porcentaje']/100)*$y[0]['cheques']['monto']));    
                     if($p%2!=0)
                       $p++;
                     $tototo=$this->request->data['Solointerese']['montointereses']=$p;
@@ -716,19 +722,19 @@ class ChequesController extends AppController {
                             $y=  $this->Cheque->query($sql);
                             $this->request->data['Solointerese']['interese_id']=$y[0]['cheques']['interese_id'];
                             //debug($y);
-                            $sql="SELECT PORCENTAJE, MONTOFIJO
-                                    FROM INTERESES I, CHEQUES C
-                                    WHERE INTERESE_ID = I.ID
-                                    AND C.ID=".$id."";
+                            $sql="SELECT porcentaje, montofijo
+                                    FROM intereses I, cheques C
+                                    WHERE interese_id = I.id
+                                    AND C.id=".$id."";
                             $x=$this->Cheque->query($sql);
-                            if($x[0]['I']['PORCENTAJE']==null){
-                                $this->request->data['Solointerese']['montointereses']=$x[0]['I']['MONTOFIJO'];
-                                $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['MONTOFIJO']*$y[0]['cheques']['dias'];
-                                $this->request->data['Chequeinterese']['montoentregado']=$this->request->data['Cheque']['monto']-($x[0]['I']['MONTOFIJO']*$y[0]['cheques']['dias']);
+                            if($x[0]['I']['porcentaje']==null){
+                                $this->request->data['Solointerese']['montointereses']=$x[0]['I']['montofijo'];
+                                $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo']*$y[0]['cheques']['dias'];
+                                $this->request->data['Chequeinterese']['montoentregado']=$this->request->data['Cheque']['monto']-($x[0]['I']['montofijo']*$y[0]['cheques']['dias']);
                             }
                             else{
 
-                                $p=(round(($x[0]['I']['PORCENTAJE']/100)*$this->request->data['Cheque']['monto']));    
+                                $p=(round(($x[0]['I']['porcentaje']/100)*$this->request->data['Cheque']['monto']));    
                                 if($p%2!=0)
                                   $p++;
                                 $this->request->data['Solointerese']['montointereses']=$p;
