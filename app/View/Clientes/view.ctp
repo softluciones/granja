@@ -67,8 +67,7 @@ input[type=submit],
              <thead>
 	<tr>
        
-		<th><?php echo __('Banco'); ?></th>		
-		<th><?php echo __('Creado'); ?></th>
+		<th><?php echo __('Banco'); ?></th>	
 		<th><?php echo __('Numero de cuenta'); ?></th>
 		<th><?php echo __('Numero de cheque'); ?></th>
 		<th><?php echo __('Monto'); ?></th>
@@ -89,7 +88,6 @@ input[type=submit],
 		<tr>
 			
 			<td><?php echo $cheque['Banco']['nombre']; ?></td>
-			<td><?php echo $cheque['created']; ?></td>
 			<td><?php echo $cheque['numerodecuenta']; ?></td>
 			<td><?php 
                         echo $this->Html->link($cheque['numerodecheque'], array('controller' => 'cheques', 'action' => 'view', $cheque['id']));
@@ -97,8 +95,14 @@ input[type=submit],
 			<td><?php echo $cheque['monto']; ?></td>
 			<td><?php echo $cheque['Interese']['rango']; ?></td>
 			
-			<td><?php echo $cheque['fecharecibido']; ?></td>
-			<td><?php echo $cheque['fechacobro']; ?></td>
+			<td><?php 
+                        $recibido = new Datetime($cheque['fecharecibido']);
+                        $recibido = $recibido->format('d/m/Y');
+                        echo $recibido; ?></td>
+			<td><?php 
+                        $cobro = new Datetime($cheque['fechacobro']);
+                        $cobro = $cobro->format('d/m/Y');
+                        echo $cobro; ?></td>
 			<td><?php 
                         if($cheque['cobrado']==1)
                         echo 'Por Cobrar';
@@ -108,7 +112,7 @@ input[type=submit],
                             echo 'Devuelto' ?></td>
 			<td><?php echo $cheque['numerodecheque']; ?></td>
 			<td><?php echo $cheque['User']['username']; ?></td>
-			<td class="actions">
+			<td class="acciones">
                             <?php 
                                 echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller'=>'Cheques','action' => 'view', $cheque['id'])));
  ?>
@@ -132,41 +136,53 @@ input[type=submit],
         </div>
     </div>
 <br>
-<div class="related">
-	<h3><?php echo __('Related Cuentas'); ?></h3>
+<div class="box">
+  
+             <div class="title">        
+	<strong style="color:#333; font-size:14px;"><?php echo __('Cheques del Cliente');?></strong>
+                       </div>      
+    <div class="content pages">
+        <div class="row">
 	<?php if (!empty($cliente['Cuenta'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
+            <thead>
 	<tr>
-		<th><?php echo __('Id'); ?></th>
+		
 		<th><?php echo __('Numero'); ?></th>
-		<th><?php echo __('Banco Id'); ?></th>
-		<th><?php echo __('Cliente Id'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
+		<th><?php echo __('Banco'); ?></th>
+		<th><?php echo __('Usuario'); ?></th>
+		<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
+        </thead>
 	<?php foreach ($cliente['Cuenta'] as $cuenta): ?>
 		<tr>
-			<td><?php echo $cuenta['id']; ?></td>
+			
 			<td><?php echo $cuenta['numero']; ?></td>
-			<td><?php echo $cuenta['banco_id']; ?></td>
-			<td><?php echo $cuenta['cliente_id']; ?></td>
-			<td><?php echo $cuenta['user_id']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'cuentas', 'action' => 'view', $cuenta['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'cuentas', 'action' => 'edit', $cuenta['id'])); ?>
+			<td><?php echo $cuenta['Banco']['nombre']; ?></td>
+			<td><?php echo $cuenta['User']['username']; ?></td>
+			<td class="acciones">
+                            <?php 
+                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller'=>'cuentas','action' => 'view', $cuenta['id'])));
+ ?>
+				
+				<?php
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller'=>'cuentas','action' => 'edit', $cuenta['id'])));
+                            ?>
 				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'cuentas', 'action' => 'delete', $cuenta['id']), null, __('Are you sure you want to delete # %s?', $cuenta['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
-
+            </div>
 	<div class="actions">
 		<ul>
 			<li><?php echo $this->Html->link(__('New Cuenta'), array('controller' => 'cuentas', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
 </div>
+    </div>
+
 <div class="related">
 	<h3><?php echo __('Related Pagos'); ?></h3>
 	<?php if (!empty($cliente['Pago'])): ?>
