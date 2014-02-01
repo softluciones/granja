@@ -566,8 +566,7 @@ class ChequesController extends AppController {
 
                 if($x[0]['I']['porcentaje']==null){
                     $tototo=$this->request->data['Solointerese']['montointereses']=$x[0]['I']['montofijo'];
-                    $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo']*$dias=$this->request->data['Cheque']['dias'];
-
+                    $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo']*$dias;
                     $this->request->data['Chequeinterese']['montoentregado']=0;
                 }
                 else{
@@ -575,7 +574,7 @@ class ChequesController extends AppController {
                     if($p%2!=0)
                       $p++;
                     $tototo=$this->request->data['Solointerese']['montointereses']=$p;
-                    $this->request->data['Chequeinterese']['montodescuentointeres'] = $p*$dias=$this->request->data['Cheque']['dias'];
+                    $this->request->data['Chequeinterese']['montodescuentointeres'] = $p*$dias;
                     $this->request->data['Chequeinterese']['montoentregado']=0;
                 }
                 $this->request->data['Chequeinterese']['created']= $monto[0]['chequeinterese']['created'];
