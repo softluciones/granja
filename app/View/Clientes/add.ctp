@@ -55,15 +55,7 @@
 	<ul>
 
             <li class="menu"><?php echo $this->Html->link(__('Lista Clientes'), array('action' => 'index')); ?></li>
-		<li class="menu"><?php echo $this->Html->link(__('Lista Usuario'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li class="menu"><?php echo $this->Html->link(__('Nuevo Usuario'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li class="menu"><?php echo $this->Html->link(__('Lista Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
 		<li class="menu"><?php echo $this->Html->link(__('Nuevo Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
-		<li class="menu"><?php echo $this->Html->link(__('Lista Cuentas'), array('controller' => 'cuentas', 'action' => 'index')); ?> </li>
-		<li class="menu"><?php echo $this->Html->link(__('Nuevo Cuenta'), array('controller' => 'cuentas', 'action' => 'add')); ?> </li>
-		<li class="menu"><?php echo $this->Html->link(__('Lista Pagos'), array('controller' => 'pagos', 'action' => 'index')); ?> </li>
-		<li class="menu"><?php echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add')); ?> </li>
-		<li class="menu"><?php echo $this->Html->link(__('Lista de Pagos terceros'), array('controller' => 'pagoterceros', 'action' => 'index')); ?> </li>
-		<li class="menu"><?php echo $this->Html->link(__('Nuevo Pago tercero'), array('controller' => 'pagoterceros', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

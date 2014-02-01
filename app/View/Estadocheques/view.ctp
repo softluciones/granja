@@ -1,41 +1,68 @@
+<style>
+
+input[type=submit],
+.acciones ul li a,
+.accionrs a {
+        background: none;
+        padding: 0px;
+        border: none;
+        -webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: none;
+	text-decoration: none;
+	text-shadow: 0;
+	min-width: 0;
+	-moz-box-shadow: 0;
+	-webkit-box-shadow: none;
+	box-shadow: 0;
+}
+.acciones ul li a:hover,
+.acciones a:hover {
+	background: none;
+        padding: 0px;
+        border: none;
+}
+li.menu{
+          text-align: center;
+      }
+
+</style>
 <div class="estadocheques view">
-<h2><?php echo __('Estadocheque'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($estadocheque['Estadocheque']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Nombre'); ?></dt>
-		<dd>
-			<?php echo h($estadocheque['Estadocheque']['nombre']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Nomenclatura'); ?></dt>
-		<dd>
-			<?php echo h($estadocheque['Estadocheque']['nomenclatura']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Descripcion'); ?></dt>
-		<dd>
-			<?php echo h($estadocheque['Estadocheque']['descripcion']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('User'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($estadocheque['User']['username'], array('controller' => 'users', 'action' => 'view', $estadocheque['User']['id'])); ?>
-			&nbsp;
-		</dd>
-	</dl>
+<table>
+    <thead>
+       
+                 <th colspan="2" style="background:#cccccc; height: 50px; font-size: 20px;">
+         <div align="center"> Estado de Cheque</div>
+                 </th>
+            
+         </thead>
+         <tr style="background:#ffffff;">
+		<td><?php echo __('Nombre: '); echo h($estadocheque['Estadocheque']['nombre']);?></td>
+		<td><?php echo __('Nomenclatura: '); echo h($estadocheque['Estadocheque']['nomenclatura']);?></td>
+		
+	
+               </tr>
+               <tr style="background:#ffffff;">
+                   <td colspan="2"><?php echo __('Descripción: '); echo h($estadocheque['Estadocheque']['descripcion']);?></td>
+		
+		
+	
+               </tr>
+		<tr style="background:#ffffff;">
+		<td><?php echo __('Usuario: '); echo h($estadocheque['Estadocheque']['nombre']);?></td>
+		<td><?php echo $this->Html->link($estadocheque['User']['username'], array('controller' => 'users', 'action' => 'view', $estadocheque['User']['id'])); ?></td>
+		
+	
+               </tr>
+		
+</table>
 </div>
+<br></br>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+
 	<ul>
-		<li><?php echo $this->Html->link(__('Editar Estado cheque'), array('action' => 'edit', $estadocheque['Estadocheque']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Borrar Estado cheque'), array('action' => 'delete', $estadocheque['Estadocheque']['id']), null, __('Estas Seguro de borrar este Estado del cheque: %s?', $estadocheque['Estadocheque']['nombre'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Estado cheques'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Estado cheque'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Usuario'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Usuario'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+            <li class="menu"><?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $estadocheque['Estadocheque']['id'])); ?> </li>
+            <li class="menu"><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $estadocheque['Estadocheque']['id']), null, __('Estas Seguro de borrar este Estado del cheque: %s?', $estadocheque['Estadocheque']['nombre'])); ?> </li>
+            <li class="menu"><?php echo $this->Html->link(__('Listar'), array('action' => 'index')); ?> </li>
+		</ul>
 </div>

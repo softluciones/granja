@@ -1,26 +1,48 @@
+<?php date_default_timezone_set("America/Caracas")?>
+<style>
+      th{
+          background: #ffffff;
+      }
+      tbody tr:hover th{
+          background: #ffffff;
+      }
+      li.menu{
+          text-align: center;
+      }
+  </style>
 <div class="cuentas form">
 <?php echo $this->Form->create('Cuenta'); ?>
-	<fieldset>
-		<legend><?php echo __('Add Cuenta'); ?></legend>
+	<table>
+            <thead>
+            <th colspan="2" style="background:#cccccc; height: 50px; font-size: 20px;"><div align="center"><?php echo __('Agregar Cuenta'); ?></div></th>
+            </thead>
 	<?php
-		echo $this->Form->input('numero');
-		echo $this->Form->input('banco_id');
-		echo $this->Form->input('cliente_id');
-		echo $this->Form->input('user_id');
+         echo '<tr>';
+		echo '<th>'; echo $this->Form->input('numero'); echo '</th>';
+		echo '<th>';  echo $this->Form->input('banco_id'); echo '</th>';
+           echo '</tr>';
+           echo '<tr>';
+		echo '<th>'; echo $this->Form->input('cliente_id');  echo '</th>';
+		echo '<th>'; echo $this->Form->input('user_id'); echo '</th>';
+                
+           echo '</tr>';
+            echo '<tr>';
+            echo '<th colspan="2">'; echo $this->Form->end(__('Guardar')); echo '</th>';
+            echo '</tr>';
 	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+
+        </table>
 </div>
+  
+<br></br>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	
 	<ul>
 
-		<li><?php echo $this->Html->link(__('List Cuentas'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Bancos'), array('controller' => 'bancos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Banco'), array('controller' => 'bancos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+            <li class="menu"><?php echo $this->Html->link(__('Listar Cuentas'), array('action' => 'index')); ?></li>
+		<li class="menu"><?php echo $this->Html->link(__('Listar Bancos'), array('controller' => 'bancos', 'action' => 'index')); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Nuevo Banco'), array('controller' => 'bancos', 'action' => 'add')); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Listar Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Nuevo Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
+		</ul>
 </div>

@@ -21,7 +21,7 @@ class CuentasController extends AppController {
  * @return void
  */
 	public function index() {
-            $_SESSION['varia']=1;
+           
 		$this->Cuenta->recursive = 0;
 		$this->set('cuentas', $this->Paginator->paginate());
 	}
@@ -34,7 +34,7 @@ class CuentasController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-            $_SESSION['varia']=1;
+            
 		if (!$this->Cuenta->exists($id)) {
 			throw new NotFoundException(__('Invalid cuenta'));
 		}
@@ -48,7 +48,7 @@ class CuentasController extends AppController {
  * @return void
  */
 	public function add($id=null) {
-            $_SESSION['varia']=1;
+           
 		if ($this->request->is('post')) {
 			$this->Cuenta->create();
 			if ($this->Cuenta->save($this->request->data)) {
@@ -64,7 +64,7 @@ class CuentasController extends AppController {
 		$clientes = $this->Cuenta->Cliente->find('list',array('fields'=>array('id','nombres'),
                                                                                     'conditions'=>$conditions));
 		$bancos = $this->Cuenta->Banco->find('list');
-		#$clientes = $this->Cuenta->Cliente->find('list');
+		$clientes = $this->Cuenta->Cliente->find('list');
 		$users = $this->Cuenta->User->find('list');
                 $x=$this->Cuenta->query("select id, username from users where id=".$this->Auth->user('id')."");
                 

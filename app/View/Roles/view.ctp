@@ -1,68 +1,103 @@
+<style>
+
+input[type=submit],
+.acciones ul li a,
+.accionrs a {
+        background: none;
+        padding: 0px;
+        border: none;
+        -webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: none;
+	text-decoration: none;
+	text-shadow: 0;
+	min-width: 0;
+	-moz-box-shadow: 0;
+	-webkit-box-shadow: none;
+	box-shadow: 0;
+}
+.acciones ul li a:hover,
+.acciones a:hover {
+	background: none;
+        padding: 0px;
+        border: none;
+}
+li.menu{
+          text-align: center;
+      }
+</style>
 <div class="roles view">
-<h2><?php echo __('Role'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($role['Role']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Nombre'); ?></dt>
-		<dd>
-			<?php echo h($role['Role']['nombre']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Descripcion'); ?></dt>
-		<dd>
-			<?php echo h($role['Role']['descripcion']); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Role'), array('action' => 'edit', $role['Role']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Role'), array('action' => 'delete', $role['Role']['id']), null, __('Are you sure you want to delete # %s?', $role['Role']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Roles'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Role'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
-<div class="related">
-	<h3><?php echo __('Related Users'); ?></h3>
+<table>
+    <thead>
+       
+                 <th colspan="2" style="background:#cccccc; height: 50px; font-size: 20px;">
+         <div align="center"> Rol</div>
+                 </th>
+            
+         </thead>
+	<tr>
+		
+		<td><?php echo __('Nombre: '); echo h($role['Role']['nombre']); ?></td>
+		<td><?php echo __('Descripción: '); echo h($role['Role']['descripcion']); ?></td>
+		
+	</tr>
+</table>
+
+
+<div class="box">
+  
+             <div class="title">        
+	<strong style="color:#333; font-size:14px;"><?php echo __('Usuarios');?></strong>
+                       </div>      
+    <div class="content pages">
+        <div class="row">
 	<?php if (!empty($role['User'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
+              <thead>
 	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Username'); ?></th>
-		<th><?php echo __('Password'); ?></th>
-		<th><?php echo __('Role Id'); ?></th>
+		
+		<th><?php echo __('Nombre de Usuario'); ?></th>
+		
 		<th><?php echo __('Nombre'); ?></th>
 		<th><?php echo __('Apellido'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
+		<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
+              </thead>
 	<?php foreach ($role['User'] as $user): ?>
 		<tr>
-			<td><?php echo $user['id']; ?></td>
+			
 			<td><?php echo $user['username']; ?></td>
-			<td><?php echo $user['password']; ?></td>
-			<td><?php echo $user['role_id']; ?></td>
 			<td><?php echo $user['nombre']; ?></td>
 			<td><?php echo $user['apellido']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'users', 'action' => 'view', $user['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'users', 'action' => 'edit', $user['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'users', 'action' => 'delete', $user['id']), null, __('Are you sure you want to delete # %s?', $user['id'])); ?>
-			</td>
+			<td class="acciones">
+                            
+                            
+                            <?php 
+                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller' => 'users', 'action' => 'view', $user['id'])));
+ ?>
+				
+				</td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
 
+    </div>
+
+<br>
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('Nuevo Usuario'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
+</div>
+        </div>
+</div>
+<br></br>
+<div class="actions">
+		<ul>
+                    <li class="menu"><?php echo $this->Html->link(__('Listar Roles'), array('action' => 'index')); ?> </li>
+                    <li class="menu"><?php echo $this->Html->link(__('Listar Usuarios'), array('controller' => 'users', 'action' => 'index')); ?> </li>
+                    <li class="menu"><?php echo $this->Html->link(__('Nuevo Usuario'), array('controller' => 'users', 'action' => 'add')); ?> </li>
+	</ul>
 </div>

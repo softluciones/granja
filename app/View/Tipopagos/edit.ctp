@@ -1,25 +1,50 @@
+<style>
+
+input[type=submit],
+.acciones ul li a,
+.accionrs a {
+        background: none;
+        padding: 0px;
+        border: none;
+        -webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: none;
+	text-decoration: none;
+	text-shadow: 0;
+	min-width: 0;
+	-moz-box-shadow: 0;
+	-webkit-box-shadow: none;
+	box-shadow: 0;
+}
+.acciones ul li a:hover,
+.acciones a:hover {
+	background: none;
+        padding: 0px;
+        border: none;
+}
+li.menu{
+          text-align: center;
+      }
+
+</style>
 <div class="tipopagos form">
 <?php echo $this->Form->create('Tipopago'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Tipopago'); ?></legend>
+		<legend><?php echo __('Editar Tipo de pago'); ?></legend>
 	<?php
-		echo $this->Form->input('id');
+		echo $this->Form->input('id',array('type'=>'hidden'));
 		echo $this->Form->input('nombre');
 		echo $this->Form->input('descripcion');
 		echo $this->Form->input('user_id');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->end(__('Guardar')); ?>
 </div>
+<br></br>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+
 	<ul>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Tipopago.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Tipopago.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Tipopagos'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Pagos'), array('controller' => 'pagos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Pago'), array('controller' => 'pagos', 'action' => 'add')); ?> </li>
-	</ul>
+            <li class="menu"><?php echo $this->Html->link(__('Listar Tipo de pagos'), array('action' => 'index')); ?></li>
+		</ul>
 </div>

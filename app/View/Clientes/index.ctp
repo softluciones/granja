@@ -22,6 +22,9 @@ input[type=submit],
         padding: 0px;
         border: none;
 }
+li.menu{
+          text-align: center;
+      }
 
 </style>
 <div class="clientes index">

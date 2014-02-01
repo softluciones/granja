@@ -1,24 +1,57 @@
+<style>
+      th{
+          background: #ffffff;
+      }
+      tbody tr:hover th{
+          background: #ffffff;
+      }
+      li.menu{
+          text-align: center;
+      }
+  </style>
 <div class="estadocheques form">
 <?php echo $this->Form->create('Estadocheque'); ?>
-	<fieldset>
-		<legend><?php echo __('Editar Estado de cheque'); ?></legend>
+	<table>
+                <thead>
+		<th colspan="2" style="background:#cccccc; height: 50px; font-size: 20px;"><div align="center"><?php echo __('Editar Estado Cheque'); ?></div></th>
+                
+                </thead>
 	<?php
-		echo $this->Form->input('id');
+		echo $this->Form->input('id',array('type'=>'hidden'));
+                echo '<tr>';
+                 echo '<th colspan="2">';
 		echo $this->Form->input('nombre');
-		echo $this->Form->input('nomenclatura');
+                echo '</th>';
+                  
+                echo '</tr>'; 
+                echo '<tr>'; 
+                echo '<th colspan="2">';
+		echo $this->Form->input('nomenclatura',array('readonly'=>'readonly'));
+                 echo '</th>';
+                  
+                echo '</tr>'; 
+                echo '<tr>'; 
+                echo '<th colspan="2">';
 		echo $this->Form->input('descripcion',array('label'=>'Descripción'));
-		echo $this->Form->input('user_id');
+                 echo '</th>';
+                  
+                echo '</tr>'; 
+                echo '<tr>'; 
+                
+                 echo '<th colspan="2">';
+                echo $this->Form->end(__('Guardar'));
+                echo '</th>';
+                echo '</tr>'; 
 	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+
+</table>
 </div>
+  <br></br>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+
 	<ul>
 
-		<li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Estadocheque.id')), null, __('Está seguro de eliminar el estado del cheque  %s?', $this->Form->value('Estadocheque.nombre'))); ?></li>
-		<li><?php echo $this->Html->link(__('Lista Estado cheques'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('Lista Usuario'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Usuario'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+            <li class="menu"><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Estadocheque.id')), null, __('Está seguro de eliminar el estado del cheque  %s?', $this->Form->value('Estadocheque.nombre'))); ?></li>
+            <li><?php echo $this->Html->link(__('Lista Estado de cheque'), array('action' => 'index')); ?></li>
+		</ul>
 </div>

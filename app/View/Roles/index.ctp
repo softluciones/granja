@@ -1,44 +1,90 @@
+<style>
+
+input[type=submit],
+.acciones ul li a,
+.accionrs a {
+        background: none;
+        padding: 0px;
+        border: none;
+        -webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: none;
+	text-decoration: none;
+	text-shadow: 0;
+	min-width: 0;
+	-moz-box-shadow: 0;
+	-webkit-box-shadow: none;
+	box-shadow: 0;
+}
+.acciones ul li a:hover,
+.acciones a:hover {
+	background: none;
+        padding: 0px;
+        border: none;
+}
+li.menu{
+          text-align: center;
+      }
+
+</style>
 <div class="roles index">
-	<h2><?php echo __('Roles'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+	 <div class="box">
+	<div class="title">        
+            <strong style="color:#333; font-size:14px;"><div align="center" style="font-size: 20px;">Roles</div></strong>
+                       </div>
+         <div class="content pages">
+             <div class="row">
+	<table cellpadding="0">
+            <thead >
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			
 			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
 			<th><?php echo $this->Paginator->sort('descripcion'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
+            </thead>
 	<?php foreach ($roles as $role): ?>
 	<tr>
-		<td><?php echo h($role['Role']['id']); ?>&nbsp;</td>
+	
 		<td><?php echo h($role['Role']['nombre']); ?>&nbsp;</td>
 		<td><?php echo h($role['Role']['descripcion']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $role['Role']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $role['Role']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $role['Role']['id']), null, __('Are you sure you want to delete # %s?', $role['Role']['id'])); ?>
-		</td>
+		<td class="acciones">
+                    <?php 
+                                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view',$role['Role']['id'])));
+			?>
+                      <?php 
+                                                echo $this->Html->image("permisos.fw.png", array("alt" => "Permisos",'width' => '18', 'heigth' => '18','title'=>'Permisos','url' => array('action' => 'view',$role['Role']['id'])));
+			?>
+                                    
+                                    <?php #echo $this->Html->link(__('Ver'), array('action' => 'view', $cheque['Cheque']['id'])); ?>
+			<?php  echo $this->Html->image("editar.fw.png", array("alt" => "Editar",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('action' => 'edit', $role['Role']['id']))); ?>
+			</td>
 	</tr>
 <?php endforeach; ?>
 	</table>
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de {:count} en total, iniciando en {:start}, terminando en {:end}')
 	));
 	?>	</p>
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->prev('< ' . __('Anterior'), array(), null, array('class' => 'prev disabled'));
 		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Paginator->next(__('Siguiente') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
+        </div>
+             </div>
+     </div>
 </div>
+<br></br>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	
 	<ul>
-		<li><?php echo $this->Html->link(__('New Role'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
+            <li class="menu"><?php echo $this->Html->link(__('Nuevo Rol'), array('action' => 'add')); ?></li>
+            <li class="menu"><?php echo $this->Html->link(__('Listar Usuarios'), array('controller' => 'users', 'action' => 'index')); ?> </li>
+            <li class="menu"><?php echo $this->Html->link(__('Nuevo Usuario'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

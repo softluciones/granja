@@ -1,45 +1,63 @@
+<style>
+
+input[type=submit],
+.acciones ul li a,
+.accionrs a {
+        background: none;
+        padding: 0px;
+        border: none;
+        -webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: none;
+	text-decoration: none;
+	text-shadow: 0;
+	min-width: 0;
+	-moz-box-shadow: 0;
+	-webkit-box-shadow: none;
+	box-shadow: 0;
+}
+.acciones ul li a:hover,
+.acciones a:hover {
+	background: none;
+        padding: 0px;
+        border: none;
+}
+li.menu{
+          text-align: center;
+      }
+
+</style>
 <div class="cuentas view">
-<h2><?php echo __('Cuenta'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($cuenta['Cuenta']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Numero'); ?></dt>
-		<dd>
-			<?php echo h($cuenta['Cuenta']['numero']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Banco'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($cuenta['Banco']['codigo'], array('controller' => 'bancos', 'action' => 'view', $cuenta['Banco']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Cliente'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($cuenta['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cuenta['Cliente']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('User'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($cuenta['User']['username'], array('controller' => 'users', 'action' => 'view', $cuenta['User']['id'])); ?>
-			&nbsp;
-		</dd>
-	</dl>
+<table>
+    <thead>
+       
+                 <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
+         <div align="center"> Cuenta</div>
+                 </th>
+            
+         </thead>
+         <tr style="background:#ffffff;">
+		
+		<td><?php echo __('Numero de Cuenta: '); echo h($cuenta['Cuenta']['numero']);?></td>
+		<td><?php echo __('Banco: '); echo $this->Html->link($cuenta['Banco']['codigo'], array('controller' => 'bancos', 'action' => 'view', $cuenta['Banco']['id'])); ?></td>
+		<td><?php echo __('Cliente: '); echo $this->Html->link($cuenta['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cuenta['Cliente']['id'])); ?></td>	
+         </tr>		
+         <tr style="background:#ffffff;">
+             <td colspan="3"><?php echo __('Usuario: '); echo $this->Html->link($cuenta['User']['username'], array('controller' => 'users', 'action' => 'view', $cuenta['User']['id'])); ?></dt>
+		
+         </tr>	
+</table>		
+		
+		
+
 </div>
+<br></br>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Cuenta'), array('action' => 'edit', $cuenta['Cuenta']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Cuenta'), array('action' => 'delete', $cuenta['Cuenta']['id']), null, __('Are you sure you want to delete # %s?', $cuenta['Cuenta']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cuentas'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cuenta'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Bancos'), array('controller' => 'bancos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Banco'), array('controller' => 'bancos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+            <li class="menu"><?php echo $this->Html->link(__('Editar Cuenta'), array('action' => 'edit', $cuenta['Cuenta']['id'])); ?> </li>
+		<li class="menu"><?php echo $this->Form->postLink(__('Borrar Cuenta'), array('action' => 'delete', $cuenta['Cuenta']['id']), null, __('Are you sure you want to delete # %s?', $cuenta['Cuenta']['id'])); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Listar Cuentas'), array('action' => 'index')); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Nueva Cuenta'), array('action' => 'add')); ?> </li>
+		</ul>
 </div>
