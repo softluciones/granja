@@ -108,9 +108,5 @@ input[type=submit],
 		<li align="center"><?php echo $this->Html->link(__('Nuevo Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
 		<li align="center"><?php echo $this->Html->link(__('Listar Cuentas'), array('controller' => 'cuentas', 'action' => 'index')); ?> </li>
 		<li align="center"><?php echo $this->Html->link(__('Nueva Cuenta'), array('controller' => 'cuentas', 'action' => 'add')); ?> </li>
-		<li align="center"><?php echo $this->Html->link(__('Listar Pagos'), array('controller' => 'pagos', 'action' => 'index')); ?> </li>
-		<li align="center"><?php echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add')); ?> </li>
-		<li align="center"><?php echo $this->Html->link(__('Listar Pagoterceros'), array('controller' => 'pagoterceros', 'action' => 'index')); ?> </li>
-		<li align="center"><?php echo $this->Html->link(__('Nuevo Pagotercero'), array('controller' => 'pagoterceros', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
