@@ -563,15 +563,11 @@ class ChequesController extends AppController {
                     WHERE interese_id = I.id
                     AND C.id=".$id."";
                 $x=$this->Cheque->query($sql);
-<<<<<<< HEAD
-                if($x[0]['I']['PORCENTAJE']==null){
-                    $tototo=$this->request->data['Solointerese']['montointereses']=$x[0]['I']['MONTOFIJO'];
-                    $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['MONTOFIJO']*$dias=$this->request->data['Cheque']['dias'];
-=======
+
                 if($x[0]['I']['porcentaje']==null){
                     $tototo=$this->request->data['Solointerese']['montointereses']=$x[0]['I']['montofijo'];
                     $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo']*$dias=$this->request->data['Cheque']['dias'];
->>>>>>> origin/betmart
+
                     $this->request->data['Chequeinterese']['montoentregado']=0;
                 }
                 else{
