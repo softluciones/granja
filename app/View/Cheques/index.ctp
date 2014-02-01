@@ -272,14 +272,15 @@ echo $this->Form->label('Búsqueda') ?>
                 }
                 
                 #debug($dias);
+                $format='Y-m-d';
                 $cheque['Cheque']['fechacobro']=new Datetime($cheque['Cheque']['fechacobro']);
-                $cheque['Cheque']['fechacobro'] = $cheque['Cheque']['fechacobro']->format('d/m/Y');
+                $cheque['Cheque']['fechacobro'] = $cheque['Cheque']['fechacobro']->format($format);
                 $fechacobro=$cheque['Cheque']['fechacobro'];
                  $cheque['Cheque']['fecharecibido']=new Datetime($cheque['Cheque']['fecharecibido']);
                 $cheque['Cheque']['fecharecibido'] = $cheque['Cheque']['fecharecibido']->format('d/m/Y');
                  $cheque['Cheque']['modified']=new Datetime($cheque['Cheque']['modified']);
                 $cheque['Cheque']['modified'] = $cheque['Cheque']['modified']->format('d/m/Y H:i:s');
-                $hoy=date("d/m/Y");
+                $hoy=date($format);
         
 			$cantidad = count($cheque['ChequeEstadocheque'])-1;
 			$estado=$cheque['ChequeEstadocheque'][$cantidad]['Estadocheque']['nomenclatura'];
