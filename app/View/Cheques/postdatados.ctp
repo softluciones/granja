@@ -2,10 +2,54 @@
     div.form, div.index, div.view {
 float: left;
 width: 76%;
-border-left: 0px solid #666;
+border-left: 0px solid #666666;
 padding: 10px 1%;
 }
+input[type=submit],
+.actions ul li a,
+.actions a {
+background: none;
+        padding: 0px;
+        border: none;
+        -webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: none;
+	text-decoration: none;
+	text-shadow: 0;
+	min-width: 0;
+	-moz-box-shadow: 0;
+	-webkit-box-shadow: none;
+	box-shadow: 0;
+}
+.actions ul li a:hover,
+.actions a:hover {
+	background: none;
+        padding: 0px;
+        border: none;
+}
+
 </style>
+<script>
+    $(document).ready(function(){
+        
+    
+ $(function () {
+
+$("#datepicker").datepicker();
+});
+  $('#selector').change(function(){
+      
+        if($('#selector option:selected').val()=="1"){
+            $('#fecha1').css('display','none');
+            $('#texto').css('display','block');
+        }else{
+            $('#fecha1').css('display','block');
+            $('#texto').css('display','none');
+        }
+    });
+  });
+  </script>
+ 
 <div id="search_box"> 
  
 <?php echo $this->Form->create('Cheque', array('url' => array('action' => 'index'))); ?> 

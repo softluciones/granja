@@ -259,27 +259,62 @@ class ChequesController extends AppController {
                
 	}
         public function index2() {
+               
                 $this->Cheque->recursive = 2;
                 $sumas=  $this->Cheque->query("SELECT estadocheque, SUM( montocheque ) as sumato, sum(Montodescuentointeres) as interes
                                             FROM chequeinterese
                                             WHERE estadocheque =2
                                             GROUP BY estadocheque");
                 
+                $var= $this->bandera();
                 if($this->data){  
-                    if ($this->data['Cheque']['search_text']) { 
-                        $this->set('cheques',  
-                        $this->paginate('Cheque', array('or' => array('Cheque.numerodecheque LIKE' => '%' .  
-                        $this->data['Cheque']['search_text'] . '%')))); 
-                    } 
-                    else { 
-                        $this->set('cheques', $this->paginate());
-                    } 
+                    
+                    if($this->data['Cheque']['selector']=="1"){
+                        $valor = $this->data['search_text1'];
+                       $yabusco=1;
+                       $this->request->data['search_text1']='';
+                         $this->set('cheques',  
+
+                        $this->paginate('Cheque', array('or' => 
+                            array('Cheque.numerodecheque LIKE' => '%'.$valor.'%',
+                            'Cheque.numerodecuenta LIKE' => '%'.$valor.'%',
+                            'Cheque1.numerodecheque LIKE' => '%'.$valor.'%',
+                            'Cliente.cedula LIKE'=> '%'.$valor.'%',
+                            'Banco.codigo LIKE'=>'%'.$valor.'%',
+                           'Cliente.nombre LIKE'=>'%'.$valor.'%',
+                            'Cliente.apellido LIKE'=>'%'.$valor.'%',
+                           'Cliente.apodo LIKE'=>'%'.$valor.'%'
+                            ),'and'=>array('or'=>array(array('Cheque.cobrado'=>'2')
+                                ))))); 
+                         $this->set(compact('yabusco'));
+                    }
+                else{
+                    
+                    $yabusco=0;
+                    if(!$this->data['Cheque']['search_text']==''){
+                        
+                        $fecha = new DateTime($this->data['Cheque']['search_text']);
+                        $fecha = $fecha->format('Y-m-d');
+                        $this->request->data['Cheque']['search_text']='';
+                        $this->set('cheques',$this->paginate('Cheque', array('or' => 
+                            array('DATE_FORMAT(Cheque.fechacobro,"%Y-%m-%d") LIKE' => '%'.$fecha.'%'
+                            ),'and'=>array('or'=>array(array('Cheque.cobrado'=>'2')))))); 
+                        $this->set(compact('yabusco'));
+                    }
+                    else{
+                         $this->set('cheques', $this->paginate('Cheque',
+                                array('or'=>array(array('Cheque.cobrado'=>'2')))));
+                     $this->set(compact('sumas','yabusco'));
+                    }
+                }
+                 
                   }else{
-                      
-                     $this->set('cheques', $this->paginate()); 
+                      $yabusco=2;
+                    $this->set('cheques', $this->paginate('Cheque',
+                                array('or'=>array(array('Cheque.cobrado'=>'2')))));
+                     $this->set(compact('sumas','yabusco'));
                   }
-		$this->set('cheques', $this->paginate());
-                $this->set(compact('sumas'));
+                  $this->set(compact('var'));
         }
         public function devueltos() {
                 $this->Cheque->recursive = 2;
