@@ -160,12 +160,18 @@
                                 </tr>
                               <?php }else{
                                   if($dif[$i][0]==2&&$solointereses[$i]['solointereses']['estado']=='R'){ ?>
-                                  <?php $total[$i]=$acum[$i]; ?>
+                                  <?php $total[$i]=$solointereses[$i]['solointereses']['monto']-$acum[$i];
+                                   ?>
                                 <tr style="background: gold;">
                                     <th>Deuda - Intereses</th>
                                     <th><?php echo $acum[$i]." Bs"; ?></th>
                                     <th><?php echo $total[$i]." Bs"; ?></th>
                                     <th colspan="3"></th>
+                                </tr>
+                                <tr style="background: gold;">
+                                    <th>Total en deuda:</th>
+                                    <th colspan="5"><?php echo $totaldeuda; ?></th>
+                                    
                                 </tr>
                               <?php   }}
                           }
