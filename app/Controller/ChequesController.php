@@ -270,13 +270,13 @@ class ChequesController extends AppController {
                         $this->data['Cheque']['search_text'] . '%')))); 
                     } 
                     else { 
-                        $this->set('cheques', $this->Paginator->paginate());
+                        $this->set('cheques', $this->paginate());
                     } 
                   }else{
                       
-                     $this->set('cheques', $this->Paginator->paginate()); 
+                     $this->set('cheques', $this->paginate()); 
                   }
-		$this->set('cheques', $this->Paginator->paginate());
+		$this->set('cheques', $this->paginate());
                 $this->set(compact('sumas'));
         }
 
