@@ -1,12 +1,13 @@
 <div class="pagos form">
 <?php echo $this->Form->create('Pago'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Pago'); ?></legend>
+		<legend><?php echo __('Agregar Pago'); ?></legend>
+                <br>
                 
         <table border="0">
             <tr>
                 <th><?php echo $this->Form->input('cliente_id'); ?></th>
-                <th><?php echo $this->Form->input('monto'); ?></th>
+                <th><?php echo $this->Form->input('monto',array('value'=>$montos)); ?></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -24,9 +25,14 @@
                     }
                 ?>
                 <th><?php echo $this->Form->input('edodeuda',array('options'=>$options,'selected'=>$selected)); ?></th>
-                <th><?php echo $this->Form->input('pagointerese_deuda',array('options'=>array(''=>'Le debemos al cliente',
-                                                                                               1=>'Abono a deuda',
-                                                                                               2=>'Abono a intereses'))); ?></th>
+                <th><?php   if($debo==0)
+                            echo $this->Form->input('pagointerese_deuda',array('options'=>array(''=>'Le debemos al cliente')));
+                            else 
+                                echo $this->Form->input('pagointerese_deuda',array('options'=>array(
+                                                                                                    1=>'Abono a deuda',
+                                                                                                    2=>'Abono a intereses')));
+                            
+                            ?></th>
                 <th><?php echo $this->Form->input('cheque_id'); ?></th>
                 <th><?php echo $this->Form->input('tipopago_id'); ?></th>
             </tr>

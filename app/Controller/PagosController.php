@@ -49,42 +49,242 @@ class PagosController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Pago->create();
 			if ($this->Pago->save($this->request->data)) {
-				$cheque_ids=  $this->Pago->getLastInsertID();
-                                $x=  $this->Pago->query("select cheque_id from pagos where id=".$cheque_ids);
-                                $y=  $this->Pago->query("select cobrado from cheques where id=".$x[0]['pagos']['cheque_id']);
-                                $ss="INSERT INTO 
-                                    capital ( created, 
-                                             modified, montocheque, 
-                                             montointeres, montoentregado,
-                                             estadocheque,
-                                             pago, pagotercero, 
-                                             total, motivo, provienede, 
-                                             codigo, chequecodigo, 
-                                             user_id)
-                                             
-                                             VALUES(now(),
-                                                   now(),
-                                                   null,
-                                                   null,
-                                                   null,
-                                                   ".$y[0]['cheques']['cobrado'].",
-                                                   ".$this->request->data['Pago']['monto'].",
-                                                   null,
-                                                   null,
-                                                   '".$this->request->data['Pago']['conceptode']."',
-                                                   'Pago',
-                                                   null,
-                                                   ".$cheque_ids.",
-                                                   ".$this->Auth->user('id').") ";
-                                $revision=  $this->Pago->query($ss);
-                                if($revision==null)
-                                    $this->Session->setFlash(__('No fué guardado en el capital.'));
-                                else
-                                    $this->Session->setFlash(__('El cheque guardado. en capital'));  
-                                $this->Session->setFlash(__('The pago has been saved.'));
-				return $this->redirect(array('controller'=>'cheques','action' => 'view',$x[0]['pagos']['cheque_id']));
+                                $cheq=$this->params['pass'][0];
+                                $montos=$this->params['pass'][4];
+                                $sql="SELECT * FROM chequeinterese where cheque_id=".$id." and (estadocheque=2 or estadocheque=0)";
+                                $chequeintereses=  $this->Pago->query($sql);
+                                $sql="SELECT * FROM intereses";
+                                $intereses=$this->Pago->query($sql);
+                                $sql="SELECT * FROM cheques WHERE id=".$id;
+                                $cheque=  $this->Pago->query($sql);
+                                if($chequeintereses!=NULL){
+                                    $monto=$montos;
+                                    $montopago=$this->request->data['Pago']['monto'];
+                                    $totalpago=$monto-$montopago;
+                                    $sql="SELECT * FROM estadocheques where nomenclatura='AbnCG'";
+                                    $estado=  $this->Pago->query($sql);
+                                    if($totalpago<=0){
+                                        if($totalpago==0){
+                                            $sql3="INSERT INTO chequeinterese (montocheque,
+                                                                                montodescuentointeres,
+                                                                                montoentregado,
+                                                                                estadocheque,
+                                                                                cheque_id,
+                                                                                user_id) 
+                                                                VALUES(".$totalpago.",
+                                                                       0,
+                                                                       0,
+                                                                       2,
+                                                                       ".$cheq.",
+                                                                       ".$this->Auth->user('id').")";
+                                            
+                                            $c=  $this->Pago->query($sql3);
+                                            
+                                            $sql="UPDATE cheques SET DEUDA=1,modified=now(),cobrado=2 WHERE id=".$cheq;
+                                            $insertcheque=  $this->Pago->query($sql);
+                                            
+                                            $sql="SELECT * FROM estadocheques where nomenclatura='AbnCG'";
+                                            $estado=  $this->Pago->query($sql);
+                                            
+                                            $sql="INSERT INTO cheque_estadocheques(created,
+                                                                                    modified,
+                                                                                    cheque_id,
+                                                                                    estadocheque_id,
+                                                                                    user_id)
+                                                                                    
+                                                                            VALUES(now(),
+                                                                                   now(),
+                                                                                   ".$cheq.",
+                                                                                   ".$estado[0]['estadocheques']['id'].",
+                                                                                   ".$this->Auth->user('id').")";
+                                            $this->Pago->query($sql);
+                                            
+                                            $sql="INSERT INTO solointereses(monto,
+                                                                            montointereses,
+                                                                            cheque_id,
+                                                                            interese_id,
+                                                                            estado,
+                                                                            cobrado,
+                                                                            fecha)
+                                                                     VALUES(".$totalpago.",
+                                                                             0,
+                                                                             ".$cheq.",
+                                                                             ".$cheque[0]['cheques']['interese_id'].",
+                                                                             '".$estado[0]['estadocheques']['nomenclatura']."',
+                                                                             2,
+                                                                             now())";
+                                            $this->Pago->query($sql);
+                                            
+                                        }else{
+                                            $sql="INSERT INTO cheque_estadocheques(created,
+                                                                                    modified,
+                                                                                    cheque_id,
+                                                                                    estadocheque_id,
+                                                                                    user_id)
+                                                                                    
+                                                                                    VALUES(now(),
+                                                                                           now(),
+                                                                                           ".$cheq.",
+                                                                                           ".$estado[0]['estadocheques']['id'].",
+                                                                                           ".$this->Auth->user('id').")";
+                                                    $this->Pago->query($sql);
+                                                    $sql="UPDATE cheques SET DEUDA=1,modified=now(),cobrado=2 WHERE id=".$cheq;
+                                                    $insertcheque=  $this->Pago->query($sql);
+                                                    
+                                                    $sql="INSERT INTO solointereses(monto,
+                                                                                    montointereses,
+                                                                                    cheque_id,
+                                                                                    interese_id,
+                                                                                    estado,
+                                                                                    cobrado,
+                                                                                    fecha)
+                                                                             VALUES(".$totalpago.",
+                                                                                     0,
+                                                                                     ".$cheq.",
+                                                                                     ".$cheque[0]['cheques']['interese_id'].",
+                                                                                     '".$estado[0]['estadocheques']['nomenclatura']."',
+                                                                                     2,
+                                                                                     now())";
+                                                    $this->Pago->query($sql);
+                                                    
+                                        }
+                                        
+                                    }
+                                    else{
+                                        if($totalpago>0){
+                                            /*debug($monto);
+                                            debug($montopago);
+                                            debug($totalpago);*/
+                                            $ban=0;
+                                            for($i=0;$i<count($intereses)&&$ban==0;$i++){
+                                                if($totalpago>=$intereses[$i]['intereses']['minimo']&&$totalpago<=$intereses[$i]['intereses']['maximo']){
+                                                    //debug("intervalos papas");
+                                                    $interes=$intereses[$i]['intereses']['montofijo'];
+                                                    $ban=1;
+                                                }
+                                                if($ban==1){
+                                                    $sql3="INSERT INTO chequeinterese (montocheque,
+                                                                                montodescuentointeres,
+                                                                                montoentregado,
+                                                                                estadocheque,
+                                                                                cheque_id,
+                                                                                user_id) 
+                                                                VALUES(".$totalpago.",
+                                                                       ".$interes.",
+                                                                       0,
+                                                                       2,
+                                                                       ".$cheq.",
+                                                                       ".$this->Auth->user('id').")";
+                                            
+                                                    $c=  $this->Pago->query($sql3);
+                                                    
+                                                    $sql="UPDATE cheques SET DEUDA=1,modified=now(),cobrado=2 WHERE id=".$cheq;
+                                                    $insertcheque=  $this->Pago->query($sql);
+                                                    
+                                                    $sql="SELECT * FROM estadocheques where nomenclatura='AbnCG'";
+                                                    $estado=  $this->Pago->query($sql);
+
+                                                    $sql="INSERT INTO cheque_estadocheques(created,
+                                                                                            modified,
+                                                                                            cheque_id,
+                                                                                            estadocheque_id,
+                                                                                            user_id)
+
+                                                                                    VALUES(now(),
+                                                                                           now(),
+                                                                                           ".$cheq.",
+                                                                                           ".$estado[0]['estadocheques']['id'].",
+                                                                                           ".$this->Auth->user('id').")";
+                                                    $this->Pago->query($sql);
+                                                        $sql="INSERT INTO solointereses(monto,
+                                                                            montointereses,
+                                                                            cheque_id,
+                                                                            interese_id,
+                                                                            estado,
+                                                                            cobrado,
+                                                                            fecha)
+                                                                     VALUES(".$totalpago.",
+                                                                             ".$interes.",
+                                                                             ".$cheq.",
+                                                                             ".$intereses[$i]['intereses']['id'].",
+                                                                             '".$estado[0]['estadocheques']['nomenclatura']."',
+                                                                             2,
+                                                                             now())";
+                                                        $this->Pago->query($sql);
+                                                }
+                                            }
+                                            if($ban==0){
+                                                for($i=0;$i<count($intereses)&&$ban==0;$i++){
+                                                    if($cheque[0]['cheques']['interese_id']==$intereses[$i]['intereses']['id']){
+                                                        if($intereses[$i]['intereses']['porcentaje']!=null){
+                                                            $interes=round($totalpago*($intereses[$i]['intereses']['porcentaje']/100));
+                                                            if($interes%2!=0)
+                                                                $interes++;
+                                                            $ban=2;
+                                                        }
+                                                        if($ban==2){
+                                                            $sql3="INSERT INTO chequeinterese (montocheque,
+                                                                                                montodescuentointeres,
+                                                                                                montoentregado,
+                                                                                                estadocheque,
+                                                                                                cheque_id,
+                                                                                                user_id) 
+                                                                                VALUES(".$totalpago.",
+                                                                                       ".$interes.",
+                                                                                       0,
+                                                                                       2,
+                                                                                       ".$cheq.",
+                                                                                       ".$this->Auth->user('id').")";
+
+                                                                    $c=  $this->Pago->query($sql3);
+
+                                                                    $sql="SELECT * FROM estadocheques where nomenclatura='AbnCG'";
+                                                                    $estado=  $this->Pago->query($sql);
+                                                                    
+                                                                    $sql="UPDATE cheques SET DEUDA=1,modified=now(),cobrado=2 WHERE id=".$cheq;
+                                                                    $insertcheque=  $this->Pago->query($sql);
+
+                                                                    $sql="INSERT INTO cheque_estadocheques(created,
+                                                                                                            modified,
+                                                                                                            cheque_id,
+                                                                                                            estadocheque_id,
+                                                                                                            user_id)
+
+                                                                                                    VALUES(now(),
+                                                                                                           now(),
+                                                                                                           ".$cheq.",
+                                                                                                           ".$estado[0]['estadocheques']['id'].",
+                                                                                                           ".$this->Auth->user('id').")";
+                                                                    $this->Pago->query($sql);
+                                                                        $sql="INSERT INTO solointereses(monto,
+                                                                                            montointereses,
+                                                                                            cheque_id,
+                                                                                            interese_id,
+                                                                                            estado,
+                                                                                            cobrado,
+                                                                                            fecha)
+                                                                                     VALUES(".$totalpago.",
+                                                                                             ".$interes.",
+                                                                                             ".$cheq.",
+                                                                                             ".$intereses[$i]['intereses']['id'].",
+                                                                                             '".$estado[0]['estadocheques']['nomenclatura']."',
+                                                                                             2,
+                                                                                             now())";
+                                                                        $this->Pago->query($sql);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            
+                                        }
+                                    }
+                                    
+                                }
+                                    
+                                $this->Session->setFlash(__('El pago ha sido efectuado.'));
+				return $this->redirect(array('controller'=>'cheques','action' => 'view',$cheq));
 			} else {
-				$this->Session->setFlash(__('The pago could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('Algo está mal en esta transaccion revisa de nuevo'));
 			}
 		}
 		
@@ -98,6 +298,7 @@ class PagosController extends AppController {
                     $otro=$this->params['pass'][1];
                     $debo=$this->params['pass'][2];
                     $clie=$this->params['pass'][3];
+                    $montos=$this->params['pass'][4];
                     #$monto= $this->params['pass'][2];
                     
                     $conditions=array('Cliente.id'=>$clie);
@@ -115,7 +316,7 @@ class PagosController extends AppController {
                 $x=$this->Pago->query("select id, username from users where id=".$this->Auth->user('id')."");
                 
                 $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
-		$this->set(compact('debo','otro','clientes', 'chequeinterese', 'cheques', 'chequeEstadocheques', 'tipopagos', 'pagoterceros', 'users'));
+		$this->set(compact('debo','otro','clientes', 'chequeinterese', 'cheques', 'chequeEstadocheques', 'tipopagos', 'pagoterceros', 'users','montos'));
 	}
 
 /**
