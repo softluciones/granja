@@ -50,6 +50,8 @@ class AppController extends Controller {
         $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
         $this->Auth->loginRedirect = array('controller' => 'cheques', 'action' => 'index');
+        $this->Auth->loginError = "Usuario o Contraseña Invalida";  
+        $this->Auth->authError = "No tiene permiso para acceder a esta sección.";
     }
   
     function logout() {
