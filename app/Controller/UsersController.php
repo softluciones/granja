@@ -128,13 +128,14 @@ class UsersController extends AppController {
 			} else {
 				$this->Session->setFlash(__('La clave no ha sido guardada.'));
 			}
-		} else {
-			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
-			$this->request->data = $this->User->find('first', $options);
-		}
+		
                 }else{
                     $this->Session->setFlash(__('Las contraseñas no coinciden.'));
                 }
+             } else {
+			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
+			$this->request->data = $this->User->find('first', $options);
+		}
 	}
 
 /**

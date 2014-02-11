@@ -111,7 +111,9 @@ class ChequeEstadochequesController extends AppController {
                 $conditions=array('Cheque.id'=>$id);
 		$cheques = $this->ChequeEstadocheque->Cheque->find('list',array('fields'=>array('id','numerodecheque'),
                                                                                     'conditions'=>$conditions));
-		$estadocheques = $this->ChequeEstadocheque->Estadocheque->find('list',array('fields'=>array('id','nombresss')));
+		$estadocheques = $this->ChequeEstadocheque->Estadocheque->find('list',array('fields'=>array('id','nombresss'),
+                                                                                            'conditions'=>array('or'=>array(array('nomenclatura'=>'R'),
+                                                                                                                            array('nomenclatura'=>'C')))));
 		$users = $this->ChequeEstadocheque->User->find('list');
                 $x=$this->ChequeEstadocheque->query("select id, username from users where id=".$this->Auth->user('id')."");                
                 $users=array($x[0]['users']['id']=>$x[0]['users']['username']);

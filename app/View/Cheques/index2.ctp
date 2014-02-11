@@ -186,7 +186,7 @@ echo $this->Form->label('Búsqueda') ?>
                         <th><?php echo $this->Paginator->sort('estado'); ?></th>
 			
 			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
-			
+                        <th class="actions"><?php echo 'Acciones'; ?></th>
 	</tr>
         </thead>
 	<?php foreach ($cheques as $cheque): ?>
@@ -252,7 +252,10 @@ echo $this->Form->label('Búsqueda') ?>
 		<td>
 			<?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?>
 		</td>
-		
+                <td>
+		<?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
+										echo $this->Html->link($imagen, array('action' => 'delete2', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
+                    </td>
 	</tr>
         <?php } ?>
 <?php  endforeach; ?>

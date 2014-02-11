@@ -36,7 +36,7 @@ input[type=submit],
             
          </thead>
     <tr style="background:#ffffff;">
-        <td><?php echo __('Banco: '); $monto=($montos+$x); echo $this->Html->link($cheque['Banco']['codigo'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
+        <td><?php echo __('Banco: '); /*$monto=($montos+$x);*/ echo $this->Html->link($cheque['Banco']['codigo'].' '.$cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
         <th style="background:#ffffff;"><?php echo __('Cliente: '); echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
         <th style="background:#ffffff;"><?php echo __('Numero de cuenta: '); echo h($cheque['Cheque']['numerodecuenta']); ?></td>
     </tr>
@@ -44,7 +44,7 @@ input[type=submit],
         <td><?php echo __('Numero de cheque: '); echo h($cheque['Cheque']['numerodecheque']); ?></td>        
         <td><?php echo __('Monto: '); 
         $monto=$cheque['Cheque']['monto'];
-        echo h($cheque['Cheque']['monto']); ?></td>
+        echo h(number_format(floatval($monto),2,',','.').' Bs.'); ?></td>
          <th style="background:#ffffff;"><?php echo __('Intereses: '); echo $this->Html->link($cheque['Interese']['rango'], array('controller' => 'interese', 'action' => 'view', $cheque['Interese']['id'])); ?></td>
        
     </tr>
@@ -53,7 +53,9 @@ input[type=submit],
         
         $fecha1 = new Datetime($cheque['Cheque']['fecharecibido']);
         $fecha1 = $fecha1->format('d-m-Y');
-        echo __('Fecha Recibido: '); echo $fecha1; ?></th>
+        echo __('Fecha Recibido: '); 
+        echo $fecha1; ?>
+        </th>
         <th colspan="2" style="background:#ffffff;"><?php 
         $fecha2 = new Datetime($cheque['Cheque']['fechacobro']);
         $fecha2 = $fecha2->format('d-m-Y');
@@ -134,7 +136,9 @@ input[type=submit],
                         
 			<td><?php echo $chequeEstadocheque['Cheque']['dias']; ?></td>
 			<td><?php echo $chequeEstadocheque['Interese']['rango']; ?></td>
-                        <td><?php echo $chequeEstadocheque['Chequeinterese'][0]['montodescuentointeres']; ?></td>
+                        <td><?php 
+                        $valor=$chequeEstadocheque['Chequeinterese'][0]['montodescuentointeres'];
+                        echo number_format(floatval($valor),2,',','.').' Bs.'; ?></td>
                         <td><?php echo $monto; ?></td>
                         <td><?php echo $chequeEstadocheque['Chequeinterese'][0]['montoentregado']; ?></td>
                         <td><?php echo $monto-$chequeEstadocheque['Chequeinterese'][0]['montoentregado']; ?></td>
@@ -218,7 +222,9 @@ input[type=submit],
                 <th><?php echo __('Nomenclatura'); ?></th>
 		<th><?php echo __('Fecha'); ?></th>	
 		<th><?php echo __('Usuario'); ?></th>
+                <?php if($cheque['Cheque']['cobrado']==1){ ?>
 		<th class="acciones"><?php echo __('Acciones'); ?></th>
+                 <?php } ?>
 	</tr>
         </thead>
 	<?php
@@ -239,12 +245,11 @@ input[type=submit],
  ?>
 				
 				<?php
+                                if($cheque['Cheque']['cobrado']==1){
                                  echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'ChequeEstadocheques','action' => 'edit/'.$chequeEstadocheque['id'], $cheque['Cheque']['id'])));
+                                }
                             ?>
-				<?php
-                                $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
-                                                 echo $this->Html->link($imagen, array('controller' => 'ChequeEstadocheques','action' => 'delete', $chequeEstadocheque['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $chequeEstadocheque['id'])));
-                         ?>
+				
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -275,12 +280,11 @@ input[type=submit],
 	<tr>
 		<th><?php echo __('Interes'); ?></th>
                 <th><?php echo __('Fecha'); ?></th>
-		<th><?php echo __('Montocheque'); ?></th>
-		<th><?php echo __('Montodescuentointeres'); ?></th>
-		<th><?php echo __('Montoentregado'); ?></th>
-                <th><?php echo __('Estado cheque'); ?></th>
+		<th><?php echo __('Monto Deuda'); ?></th>
+		<th><?php echo __('Monto Interes'); ?></th>
+		<th><?php echo __('Monto Entregado'); ?></th>
+                <th><?php echo __('Cobrado'); ?></th>
 		<th><?php echo __('Usuario'); ?></th>
-		<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
         </thead>
         
@@ -290,12 +294,14 @@ input[type=submit],
 		<tr>
 			<td><?php echo $chequeinterese['Cheque']['Interese']['rango']; ?></td>
                         <td><?php 
-                        $fecha1 = new Datetime($chequeinterese['created']);
+                        $fecha1 = new Datetime($chequeinterese['modificado']);
                         $fecha1 = $fecha1->format('d-m-Y');
                         echo $fecha1; ?></td>
-			<td><?php echo $chequeinterese['montocheque']; ?></td>
-			<td><?php echo $chequeinterese['montodescuentointeres']; ?></td>
-			<td><?php echo $chequeinterese['montoentregado']; ?></td>
+			<td><?php 
+                        
+                        echo number_format(floatval($chequeinterese['montocheque']),2,',','.').' Bs.'; ?></td>
+			<td><?php echo number_format(floatval($chequeinterese['montodescuentointeres']),2,',','.').' Bs.'; ?></td>
+			<td><?php echo number_format(floatval($chequeinterese['montoentregado']),2,',','.').' Bs.';?></td>
                                     
                         <td><?php 
                         if($chequeinterese['estadocheque']==1)
@@ -309,19 +315,7 @@ input[type=submit],
 			
 			
 			<td><?php echo $chequeinterese['User']['username']; ?></td>
-			<td class="acciones">
-                              <?php 
-                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view',  $chequeinterese['id'])));
- ?>
-				
-				<?php
-                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('action' => 'edit',  $chequeinterese['id'])));
-                            ?>
-				<?php
-                                $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
-                                                 echo $this->Html->link($imagen, array('action' => 'delete',  $chequeinterese['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $chequeinterese['id'])));
-                         ?>
-				</td>
+			
 		</tr>
 	<?php endforeach; ?>
 	</table>
