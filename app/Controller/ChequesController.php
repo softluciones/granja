@@ -70,7 +70,8 @@ class ChequesController extends AppController {
                 for($i=0;$i<$total;$i++){
                     $idcheque =$chequesdevueltos[$i]['cheques']['id'];
                 $consulta = "SELECT ci.modificado, ci.montocheque, ci.montodescuentointeres, i.montofijo,i.porcentaje  
-                    FROM cheques as ch, intereses as i, chequeinterese as ci WHERE ch.id=ci.cheque_id AND ch.interese_id=i.id AND ci.estadocheque=0 
+                    FROM cheques as ch, intereses as i, chequeinterese as ci WHERE ch.id=ci.cheque_id AND ch.interese_id=i.id
+                    AND ci.estadocheque=0 
                     AND ch.id=".$idcheque;
                 $intereses=$this->Cheque->query($consulta);
                 $montodeuda = $intereses[0]['ci']['montocheque'];
@@ -80,18 +81,16 @@ class ChequesController extends AppController {
                 $interes = $intereses[0]['i']['porcentaje'];
                 $hoy=date("Y-m-d");
                 $dias = $this->diferencia($modificado, $hoy);
-                debug($fijo);
+               # debug($fijo);
                 
                 
                 
                 if($fijo!=null){
-                  
-                    $montodeuda=$montodeuda+$fijo*$dias;
+                    $dias--;
+                    $nuevomonto=$montodeuda+$fijo*$dias;
                     $montointeres = $fijo;
                 }else{
                     $interes = $interes/100;
-                    $auxmontodeuda=$montodeuda;
-                    
                     $fechamodi = new DateTime($modificado);
                     $fechamodi = $fechamodi->format('Y-m-d');
                     $fechahoy = new DateTime($hoy);
@@ -115,6 +114,7 @@ class ChequesController extends AppController {
                            $nuevomonto=$montodeuda+$montointeres;
                            $montointeres=$nuevomonto*($interes);
                            $montointeres=$this->redondear_a_10($montointeres);
+                           
                            $montodeuda=$nuevomonto;
                          
                         }
@@ -122,13 +122,14 @@ class ChequesController extends AppController {
                          debug($montointeres);
                          debug($modificado);
                          #exit(0);
-                        $cheques = "UPDATE cheques SET dias=1 WHERE id=".$idcheque;
+                        
+                    }
+                    }
+                    $cheques = "UPDATE cheques SET dias=1 WHERE id=".$idcheque;
                         $this->Cheque->query($cheques);
                         $actualiza = "UPDATE chequeinterese SET montocheque=".$nuevomonto.", montodescuentointeres=".$montointeres.", 
                             modificado=NOW() WHERE cheque_id=".$idcheque." AND estadocheque=0";
                         $this->Cheque->query($actualiza);
-                    }
-                    }
                 
                 }
             }
