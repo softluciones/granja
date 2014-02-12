@@ -34,18 +34,25 @@ class ChequesController extends AppController {
             if($id!=null&&$tot!=0){
                 $sql="SELECT * FROM solointereses WHERE cheque_id=".$id." order by id desc, cheque_id desc";
                 $solointereses=  $this->Cheque->query($sql);
-                debug($solointereses);
+                /*debug("solointereses");
+                debug($solointereses);*/
 
                 $solointeresestotal=count($solointereses);
-
+                
+                /*debug("solointeresestotal");
+                debug($solointeresestotal);*/
                 for($i=0;$i<$solointeresestotal; $i++){
                     $sql="select * from intereses where id=".$solointereses[$i]['solointereses']['interese_id'];
                     $idintereses[$i]=  $this->Cheque->query($sql);
                 }
+                
+                /*debug("idintereses");
+                debug($idintereses);*/
                 $sql="SELECT fechacobro, fecharecibido from cheques where id=".$id;
                 $chequera=$this->Cheque->query($sql);
                 
-                debug($chequera);   
+                /*debug("chequera");
+                debug($chequera);   */
                 $fecharecibido=new DateTime($chequera[0]['cheques']['fecharecibido']);
                 $fecharecibido=$fecharecibido->format("Y-m-d");
                 $fechacobro=new DateTime($chequera[0]['cheques']['fechacobro']);
@@ -63,9 +70,11 @@ class ChequesController extends AppController {
                         }
                     }
                 }
+                
+                debug("dif");
                 debug($dif);
                 
-                $this->set(compact('solointereses','solointeresetotal','idintereses','dif','id'));
+                $this->set(compact('solointereses','solointeresestotal','idintereses','dif','id'));
             }else{
                 $id=null;
                 $this->set(compact('id'));
