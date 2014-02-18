@@ -239,18 +239,24 @@ input[type=submit],
                         echo $fecha1; ?></td>
 		
 			<td><?php echo $chequeEstadocheque['User']['username']; ?></td>
-			<td class="acciones">
+			
                             <?php 
                                 
  ?>
 				
 				<?php
                                 if($cheque['Cheque']['cobrado']==1){
+                                    ?>
+                        <td class="acciones">
+                            <?php
                                  echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'ChequeEstadocheques','action' => 'edit/'.$chequeEstadocheque['id'], $cheque['Cheque']['id'])));
+                          ?>
+                            </td>
+                            <?php
                                 }
                             ?>
 				
-			</td>
+			
 		</tr>
 	<?php endforeach; ?>
 	</table>
@@ -259,11 +265,7 @@ input[type=submit],
 
 </div>
       
-	<div class="actions">
-		<ul>
-			<li align="center"><?php echo $this->Html->link(__('Nuevo'), array('controller' => 'ChequeEstadocheques', 'action' => 'add/'.$chequeEstadocheque['cheque_id'],0)); ?> </li>
-		</ul>
-	</div>
+	
 
 </div>
 </div>

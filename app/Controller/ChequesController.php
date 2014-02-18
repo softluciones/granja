@@ -31,7 +31,15 @@ class ChequesController extends AppController {
             $sql="SELECT * FROM cheques WHERE cobrado=0";
             $chequesdevueltos=  $this->Cheque->query($sql);
             if(!empty($chequesdevueltos)){
+                
                 #debug($chequesdevueltos);
+                #Para cheques devueltos, debo hacer calculo de interes diario, recalcular el interes cada dia
+                # Debo hacer update en modificado dentro de chequeinterese donde es devuelto, y modificar la deuda
+                # Para SOLO INTERESE debo usar esa fecha modificado (dentro de chequeinterese) tambien para ir insertando y cambiando el monto
+                # de interes y de deuda.
+                # SOLO INTERESES VA REGISTRANDO DIA TRAS DIA EL INTERES CUANDO ES DEVUELTO, YA QUE SE RECALCULA
+                
+                
                 $total=count($chequesdevueltos);
                 for($i=0;$i<$total;$i++){
                     $sql="SELECT * FROM solointereses WHERE cobrado=0 and (cheque_id=".$chequesdevueltos[$i]['cheques']['id'].")";
@@ -43,6 +51,7 @@ class ChequesController extends AppController {
                 
                 for($i=0;$i<$totales;$i++){
                     $fecha1=new DateTime($chequeinterese[$i][0]['solointereses']['fecha']);
+                    
                     $fecha1=$fecha1->format("Y-m-d");
                     $fecha2=date("Y-m-d");
                     $dif[$i]=  $this->diferencia($fecha1, $fecha2);
@@ -50,13 +59,78 @@ class ChequesController extends AppController {
                 }
                 
                 for($i=0;$i<$totales;$i++){
-                    $sql="UPDATE chequeinterese SET
-                          montocheque=".$monto[$i]." WHERE cheque_id=".$chequeinterese[$i][0]['solointereses']['cheque_id']."
-                           and estadocheque=0";
-                    $ok=$this->Cheque->query($sql);
+                                        
                     $sql="UPDATE cheques SET modified=now(),dias=".$dif[$i]." WHERE id=".$chequeinterese[$i][0]['solointereses']['cheque_id'];
                     $this->Cheque->query($sql);
-                }            
+                }     
+                
+                //Lo que yo estoy haciendo BET para actualizar los montos, refinanciar interes cuando es devuelto dia tras dia.
+                # Para modificar chequeinterese
+                
+                for($i=0;$i<$total;$i++){
+                    $idcheque =$chequesdevueltos[$i]['cheques']['id'];
+                $consulta = "SELECT ci.modificado, ci.montocheque, ci.montodescuentointeres, i.montofijo,i.porcentaje  
+                    FROM cheques as ch, intereses as i, chequeinterese as ci WHERE ch.id=ci.cheque_id AND ch.interese_id=i.id AND ci.estadocheque=0 
+                    AND ch.id=".$idcheque;
+                $intereses=$this->Cheque->query($consulta);
+                $montodeuda = $intereses[0]['ci']['montocheque'];
+                $montointeres = $intereses[0]['ci']['montodescuentointeres'];
+                $modificado = $intereses[0]['ci']['modificado'];
+                $fijo = $intereses[0]['i']['montofijo'];
+                $interes = $intereses[0]['i']['porcentaje'];
+                $hoy=date("Y-m-d");
+                $dias = $this->diferencia($modificado, $hoy);
+                debug($fijo);
+                
+                
+                
+                if($fijo!=null){
+                  
+                    $montodeuda=$montodeuda+$fijo*$dias;
+                    $montointeres = $fijo;
+                }else{
+                    $interes = $interes/100;
+                    $auxmontodeuda=$montodeuda;
+                    
+                    $fechamodi = new DateTime($modificado);
+                    $fechamodi = $fechamodi->format('Y-m-d');
+                    $fechahoy = new DateTime($hoy);
+                    $fechahoy = $fechahoy->format('Y-m-d');
+                    debug($fechamodi);
+                    debug($fechahoy);
+                    debug($dias);
+                   
+                        $dias--;
+                    
+                    $modificado = date('Y-m-d');
+                    if(strcmp($fechamodi, $fechahoy)!=0){
+                        #PARA RECORRER VARIOS DIAS E IR RECALCULANDO DIA TRAS DIA EL INTERES CUANDO ES DEVUELTO
+                        # ESTE MISMO CICLO SIRVE PARA INSERTAR EN SOLO INTERESES, LA DIFERENCIA ES QUE EN 
+                        #CHEQUEINTERESE SE ACTUALIZA EL REGISTRO DONDE ESTE DEVUELTO, PERO EN SOLOINTERESES
+                        #LA ACTUALIZACION SE HACE EN EL CICLO PORQUE SE HACE UNA INSERCION CADA VEZ, PORQUE EL 
+                        #DEVUELTO VA VARIANDO.
+                        for($i=0;$i<$dias;$i++){
+                          
+                           
+                           $nuevomonto=$montodeuda+$montointeres;
+                           $montointeres=$nuevomonto*($interes);
+                           $montointeres=$this->redondear_a_10($montointeres);
+                           $montodeuda=$nuevomonto;
+                         
+                        }
+                        debug($nuevomonto);
+                         debug($montointeres);
+                         debug($modificado);
+                         #exit(0);
+                        $cheques = "UPDATE cheques SET dias=1 WHERE id=".$idcheque;
+                        $this->Cheque->query($cheques);
+                        $actualiza = "UPDATE chequeinterese SET montocheque=".$nuevomonto.", montodescuentointeres=".$montointeres.", 
+                            modificado=NOW() WHERE cheque_id=".$idcheque." AND estadocheque=0";
+                        $this->Cheque->query($actualiza);
+                    }
+                    }
+                
+                }
             }
             #return $this->redirect(array('action' => 'index'));
             
