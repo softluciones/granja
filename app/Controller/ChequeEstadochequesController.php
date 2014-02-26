@@ -92,8 +92,12 @@ class ChequeEstadochequesController extends AppController {
                                        $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado.'));
                                        return $this->redirect(array('controller'=>'cheques','action' => 'index'));
                                      }else{
+                                     $sql="select * from cheques where id=".$id;
+                                     $cheque=  $this->ChequeEstadocheque->query($sql);
+                                     
                                     $sql="UPDATE solointereses SET 
-                                            estado='".$z[0]['e']['nomenclatura']."' where id=".$res;
+                                            estado='".$z[0]['e']['nomenclatura']."',
+                                            fecha='".$cheque[0]['cheques']['fecharecibido']."' where id=".$res;
                                      $this->ChequeEstadocheque->query($sql);
                                      $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado.'));
 				return $this->redirect(array('controller'=>'cheques','action' => 'index'));

@@ -36,7 +36,7 @@ input[type=submit],
             
          </thead>
     <tr style="background:#ffffff;">
-        <td><?php echo __('Banco: '); echo $this->Html->link($cheque['Banco']['codigo'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
+        <td><?php echo __('Banco: '); $monto=($montos+$x); echo $this->Html->link($cheque['Banco']['codigo'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
         <th style="background:#ffffff;"><?php echo __('Cliente: '); echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
         <th style="background:#ffffff;"><?php echo __('Numero de cuenta: '); echo h($cheque['Cheque']['numerodecuenta']); ?></td>
     </tr>
@@ -92,7 +92,7 @@ input[type=submit],
 			<li  align="center"><?php echo $this->Html->link(__('Historial cheque'), array('action' => 'reporteinteres',$cheque['Cheque']['id'])); ?> </li>
 		</ul>
 	</div>
-  <?php if($cheque['Cheque']['cobrado']==0){ ?>
+  <?php if($cheque['Cheque']['cobrado']==0||($cheque['Cheque']['cobrado']==2&&$cheque['Cheque']['deuda']==0)){ ?>
 <div class="box">
   
              <div class="title">        
@@ -376,7 +376,7 @@ input[type=submit],
 </div>
 </div>
 
-<?php if($cheque['Cheque']['cobrado']==0){ ?>
+<?php if($cheque['Cheque']['cobrado']==0||($cheque['Cheque']['cobrado']==2&&$cheque['Cheque']['deuda']==0)){ ?>
 </br>
 <div class="box">
     <div class="title">        
@@ -431,7 +431,9 @@ input[type=submit],
 </br>
 	<div class="actions">
 		<ul>
-			<li  align="center"><?php echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/'.$cheque['Cheque']['cobrado'],$cheque['Cliente']['id'])); ?> </li>
+			<li  align="center"><?php   if($cheque['Cheque']['cobrado']==2||$cheque['Cheque']['cobrado']==0)
+                                                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$montos));
+                                                    ?> </li>
 		</ul>
 	</div>
 </div>
