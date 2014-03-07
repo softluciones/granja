@@ -1,2 +1,5 @@
-Debe editar la insercion de cheques que pagan cheque.
-- Cuando el cheque es cobrado, descuenta al otro cheque.
+- Cuando el cheque es cobrado se deben verificar los estados del cheque para saber cuanto se va a cobrar de interes.
+- Cuando se haga un pago verifico todos los estados
+	- Cambiar interfaz grafica de pagos
+	- Cambiar interfaz grafica de pagos a terceros
+	- 

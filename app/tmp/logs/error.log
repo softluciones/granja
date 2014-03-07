@@ -416,3 +416,537 @@ Request URL: /granja/img/uploads/cheque/filename/cheque_devuelto_anverso-61.jpg
 Stack Trace:
 #0 C:\Users\Betmart\Dropbox\RH\USBWebserver v8.5\8.5\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2014-02-16 12:39:54 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' montodescuentointeres=1520, 
+                            modificado=NOW() WHER' at line 1
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('UPDATE chequein...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('UPDATE chequein...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('UPDATE chequein...')
+#4 [internal function]: DboSource->query('UPDATE chequein...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(132): Model->query('UPDATE chequein...')
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(259): ChequesController->aumentarinteres()
+#8 [internal function]: ChequesController->index()
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#12 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-02-16 12:41:07 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute(NULL, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute(NULL, Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll(NULL)
+#4 [internal function]: DboSource->query(NULL)
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(134): Model->query(NULL)
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(261): ChequesController->aumentarinteres()
+#8 [internal function]: ChequesController->index()
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#12 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-02-16 12:41:10 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1065 Query was empty
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute(NULL, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute(NULL, Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll(NULL)
+#4 [internal function]: DboSource->query(NULL)
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(134): Model->query(NULL)
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(261): ChequesController->aumentarinteres()
+#8 [internal function]: ChequesController->index()
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#12 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-02-16 14:47:21 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '
+                                           1, NOW(),NOW())' at line 11
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO che...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('INSERT INTO che...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('INSERT INTO che...')
+#4 [internal function]: DboSource->query('INSERT INTO che...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(136): Model->query('INSERT INTO che...')
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(282): ChequesController->aumentarinteres()
+#8 [internal function]: ChequesController->index()
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#12 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-02-17 15:06:09 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'id' in order clause is ambiguous
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT ci.modif...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT ci.modif...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT ci.modif...')
+#4 [internal function]: DboSource->query('SELECT ci.modif...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(78): Model->query('SELECT ci.modif...')
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(278): ChequesController->aumentarinteres()
+#8 [internal function]: ChequesController->index()
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#12 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-02-18 15:28:27 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Utility\Debugger.php, line 556]
+2014-02-18 15:28:27 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Maximum executi...', 'C:\Users\Betmar...', 556)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', 'C:\Users\Betmar...', 556, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', 'C:\Users\Betmar...', 556, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-02-18 15:31:13 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Utility\Debugger.php, line 498]
+2014-02-18 15:31:13 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Maximum executi...', 'C:\Users\Betmar...', 498)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', 'C:\Users\Betmar...', 498, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', 'C:\Users\Betmar...', 498, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-02-11 15:32:14 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\basics.php, line 200]
+2014-02-11 15:32:14 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Maximum executi...', 'C:\Users\Betmar...', 200)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', 'C:\Users\Betmar...', 200, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', 'C:\Users\Betmar...', 200, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-02-19 15:36:09 Error: Fatal Error (1): Maximum execution time of 30 seconds exceeded in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php, line 460]
+2014-02-19 15:36:09 Error: [FatalErrorException] Maximum execution time of 30 seconds exceeded
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Maximum executi...', 'C:\Users\Betmar...', 460)
+#1 [internal function]: ErrorHandler::handleError(1, 'Maximum executi...', 'C:\Users\Betmar...', 460, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Maximum executi...', 'C:\Users\Betmar...', 460, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-02-11 18:33:05 Error: Fatal Error (1): Call to a member function getLastInsertID() on a non-object in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequeEstadochequesController.php, line 56]
+2014-02-11 18:33:05 Error: [FatalErrorException] Call to a member function getLastInsertID() on a non-object
+Request URL: /granja/chequeestadocheques/add/105
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'C:\Users\Betmar...', 56)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'C:\Users\Betmar...', 56, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'C:\Users\Betmar...', 56, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-02-11 19:32:41 Error: Fatal Error (1): Call to undefined method ChequeEstadochequesController::diferencia() in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequeEstadochequesController.php, line 66]
+2014-02-11 19:32:41 Error: [FatalErrorException] Call to undefined method ChequeEstadochequesController::diferencia()
+Request URL: /granja/chequeestadocheques/add/108
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Call to undefin...', 'C:\Users\Betmar...', 66)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', 'C:\Users\Betmar...', 66, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', 'C:\Users\Betmar...', 66, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-02-11 19:33:33 Error: Fatal Error (1): Call to a member function save() on a non-object in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequeEstadochequesController.php, line 98]
+2014-02-11 19:33:33 Error: [FatalErrorException] Call to a member function save() on a non-object
+Request URL: /granja/chequeestadocheques/add/108
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'C:\Users\Betmar...', 98)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'C:\Users\Betmar...', 98, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'C:\Users\Betmar...', 98, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-02-11 19:36:29 Error: Fatal Error (1): Call to a member function save() on a non-object in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequeEstadochequesController.php, line 115]
+2014-02-11 19:36:29 Error: [FatalErrorException] Call to a member function save() on a non-object
+Request URL: /granja/chequeestadocheques/add/110
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'C:\Users\Betmar...', 115)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'C:\Users\Betmar...', 115, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'C:\Users\Betmar...', 115, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-02-17 15:37:21 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY id DESC LIMIT 1' at line 2
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT montoent...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT montoent...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT montoent...')
+#4 [internal function]: DboSource->query('SELECT montoent...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(80): Model->query('SELECT montoent...')
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(288): ChequesController->aumentarinteres()
+#8 [internal function]: ChequesController->index()
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#12 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-02-16 07:30:47 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY id DESC LIMIT 1' at line 2
+Request URL: /granja/cheques/editadevuelto/116/0
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT montoent...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT montoent...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT montoent...')
+#4 [internal function]: DboSource->query('SELECT montoent...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(634): Model->query('SELECT montoent...')
+#7 [internal function]: ChequesController->editadevuelto('116', '0')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-02-16 20:47:18 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'minimo' in 'field list'
+Request URL: /granja/cheques/editadevuelto/117/0
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT minimo, ...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT minimo, ...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT minimo, ...')
+#4 [internal function]: DboSource->query('SELECT minimo, ...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(703): Model->query('SELECT minimo, ...')
+#7 [internal function]: ChequesController->editadevuelto('117', '0')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-02-17 10:15:24 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('UPDATE cheques ...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('UPDATE cheques ...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('UPDATE cheques ...')
+#4 [internal function]: DboSource->query('UPDATE cheques ...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(64): Model->query('UPDATE cheques ...')
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(288): ChequesController->aumentarinteres()
+#8 [internal function]: ChequesController->index()
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#12 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-02-17 10:19:53 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('UPDATE cheques ...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('UPDATE cheques ...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('UPDATE cheques ...')
+#4 [internal function]: DboSource->query('UPDATE cheques ...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(64): Model->query('UPDATE cheques ...')
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(289): ChequesController->aumentarinteres()
+#8 [internal function]: ChequesController->index()
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#12 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-02-17 10:30:38 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('UPDATE cheques ...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('UPDATE cheques ...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('UPDATE cheques ...')
+#4 [internal function]: DboSource->query('UPDATE cheques ...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(64): Model->query('UPDATE cheques ...')
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(289): ChequesController->aumentarinteres()
+#8 [internal function]: ChequesController->index()
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#12 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-02-17 10:30:43 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Request URL: /granja/
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('UPDATE cheques ...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('UPDATE cheques ...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('UPDATE cheques ...')
+#4 [internal function]: DboSource->query('UPDATE cheques ...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(64): Model->query('UPDATE cheques ...')
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(289): ChequesController->aumentarinteres()
+#8 [internal function]: ChequesController->index()
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#12 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#13 {main}
+2014-02-18 12:23:30 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`granjagalonesentrega`.`cheques`, CONSTRAINT `fk_cheque_banco1` FOREIGN KEY (`banco_id`) REFERENCES `bancos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+Request URL: /granja/cheques/editadevuelto/117/0
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `gr...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(1004): DboSource->execute('INSERT INTO `gr...')
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(1761): DboSource->create(Object(Cheque), Array, Array)
+#4 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(621): Model->save(Array)
+#5 [internal function]: ChequesController->editadevuelto('117', '0')
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#7 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2014-02-18 12:44:22 Error: [NotFoundException] Invalid cheque
+Request URL: /granja/cheques/view/117
+Stack Trace:
+#0 [internal function]: ChequesController->view('117')
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#4 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-02-20 18:16:00 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '
+                                           ,
+                                ' at line 7
+Request URL: /granja/cheques/editadevuelto/121/0
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO che...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('INSERT INTO che...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('INSERT INTO che...')
+#4 [internal function]: DboSource->query('INSERT INTO che...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(702): Model->query('INSERT INTO che...')
+#7 [internal function]: ChequesController->editadevuelto('121', '0')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-02-21 11:34:12 Error: [NotFoundException] Invalid cheque
+Request URL: /granja/cheques/view/128
+Stack Trace:
+#0 [internal function]: ChequesController->view('128')
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#4 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2014-02-25 17:48:42 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Cheque.chequess' in 'field list'
+Request URL: /granja/gestiondecobranzas/add/132
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Cheque`...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT `Cheque`...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(1077): DboSource->fetchAll('SELECT `Cheque`...', false)
+#4 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(2750): DboSource->read(Object(Cheque), Array)
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(2722): Model->_readDataSource('list', Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\GestiondecobranzasController.php(67): Model->find('list', Array)
+#7 [internal function]: GestiondecobranzasController->add('132')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(GestiondecobranzasController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(GestiondecobranzasController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-02-25 17:49:59 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Cheque.chequess' in 'field list'
+Request URL: /granja/gestiondecobranzas/add/132
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Cheque`...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT `Cheque`...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(1077): DboSource->fetchAll('SELECT `Cheque`...', false)
+#4 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(2750): DboSource->read(Object(Cheque), Array)
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(2722): Model->_readDataSource('list', Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\GestiondecobranzasController.php(67): Model->find('list', Array)
+#7 [internal function]: GestiondecobranzasController->add('132')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(GestiondecobranzasController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(GestiondecobranzasController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-02-25 17:51:24 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Cheque.chequess' in 'field list'
+Request URL: /granja/gestiondecobranzas/add/132
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Cheque`...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT `Cheque`...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(1077): DboSource->fetchAll('SELECT `Cheque`...', false)
+#4 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(2750): DboSource->read(Object(Cheque), Array)
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(2722): Model->_readDataSource('list', Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\GestiondecobranzasController.php(67): Model->find('list', Array)
+#7 [internal function]: GestiondecobranzasController->add('132')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(GestiondecobranzasController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(GestiondecobranzasController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-02-25 17:51:59 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Cheque.chequess' in 'field list'
+Request URL: /granja/gestiondecobranzas/add/132
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT `Cheque`...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT `Cheque`...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(1077): DboSource->fetchAll('SELECT `Cheque`...', false)
+#4 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(2750): DboSource->read(Object(Cheque), Array)
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(2722): Model->_readDataSource('list', Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\GestiondecobranzasController.php(67): Model->find('list', Array)
+#7 [internal function]: GestiondecobranzasController->add('132')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(GestiondecobranzasController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(GestiondecobranzasController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-02-27 23:27:10 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'montodeuda' in 'field list'
+Request URL: /granja/cheques/editadevuelto/133/2
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('SELECT montoent...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('SELECT montoent...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('SELECT montoent...')
+#4 [internal function]: DboSource->query('SELECT montoent...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(912): Model->query('SELECT montoent...')
+#7 [internal function]: ChequesController->editadevuelto('133', '2')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-02-27 23:30:27 Error: [PDOException] SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
+Request URL: /granja/cheques/editadevuelto/134/2
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO che...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('INSERT INTO che...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('INSERT INTO che...')
+#4 [internal function]: DboSource->query('INSERT INTO che...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(930): Model->query('INSERT INTO che...')
+#7 [internal function]: ChequesController->editadevuelto('134', '2')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-02-27 23:34:39 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0,0,
+                           2, NOW(),NOW(),135,1)' at line 1
+Request URL: /granja/cheques/editadevuelto/135/2
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO che...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('INSERT INTO che...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('INSERT INTO che...')
+#4 [internal function]: DboSource->query('INSERT INTO che...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(941): Model->query('INSERT INTO che...')
+#7 [internal function]: ChequesController->editadevuelto('135', '2')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-02-27 23:35:18 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0,montoentregado,estadocheque,created,modificado,
+                            c' at line 1
+Request URL: /granja/cheques/editadevuelto/135/2
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO che...', Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(666): DboSource->execute('INSERT INTO che...', Array, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Datasource\DboSource.php(539): DboSource->fetchAll('INSERT INTO che...')
+#4 [internal function]: DboSource->query('INSERT INTO che...')
+#5 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Model\Model.php(3128): call_user_func_array(Array, Array)
+#6 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php(943): Model->query('INSERT INTO che...')
+#7 [internal function]: ChequesController->editadevuelto('135', '2')
+#8 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(ChequesController), Array)
+#9 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(187): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Routing\Dispatcher.php(162): Dispatcher->_invoke(Object(ChequesController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\webroot\index.php(110): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-03-04 16:51:15 Error: Fatal Error (4): syntax error, unexpected 'exit' (T_EXIT) in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php, line 921]
+2014-03-04 16:51:15 Error: [FatalErrorException] syntax error, unexpected 'exit' (T_EXIT)
+Request URL: /granja/cheques/editadevuelto/138/2
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Users\Betmar...', 921)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Users\Betmar...', 921, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Users\Betmar...', 921, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-03-04 16:51:38 Error: Fatal Error (4): syntax error, unexpected 'exit' (T_EXIT) in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\ChequesController.php, line 921]
+2014-03-04 16:51:38 Error: [FatalErrorException] syntax error, unexpected 'exit' (T_EXIT)
+Request URL: /granja/cheques/editadevuelto/138/2
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Users\Betmar...', 921)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Users\Betmar...', 921, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Users\Betmar...', 921, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-03-06 10:52:07 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\View\Pagos\add.ctp, line 160]
+2014-03-06 10:52:07 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /granja/pagos/add/142/1/0/5/136060
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Users\Betmar...', 160)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Users\Betmar...', 160, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Users\Betmar...', 160, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-03-13 11:27:06 Error: Fatal Error (4): syntax error, unexpected end of file in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\View\Pagos\add.ctp, line 90]
+2014-03-13 11:27:06 Error: [FatalErrorException] syntax error, unexpected end of file
+Request URL: /granja/pagos/add/141/1/0/3/24890
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\Users\Betmar...', 90)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\Users\Betmar...', 90, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\Users\Betmar...', 90, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-03-06 17:41:25 Error: Fatal Error (1): Call to a member function find() on a non-object in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\PagosController.php, line 78]
+2014-03-06 17:41:25 Error: [FatalErrorException] Call to a member function find() on a non-object
+Request URL: /granja/pagos/add/144/1/1/9/139700
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'C:\Users\Betmar...', 78)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'C:\Users\Betmar...', 78, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'C:\Users\Betmar...', 78, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-03-06 17:41:55 Error: Fatal Error (1): Call to a member function find() on a non-object in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\PagosController.php, line 61]
+2014-03-06 17:41:55 Error: [FatalErrorException] Call to a member function find() on a non-object
+Request URL: /granja/pagos/add/144/1/1/9/139700
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'C:\Users\Betmar...', 61)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'C:\Users\Betmar...', 61, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'C:\Users\Betmar...', 61, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-03-06 17:41:58 Error: Fatal Error (1): Call to a member function find() on a non-object in [C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\app\Controller\PagosController.php, line 61]
+2014-03-06 17:41:58 Error: [FatalErrorException] Call to a member function find() on a non-object
+Request URL: /granja/pagos/add/144/1/1/9/139700
+Stack Trace:
+#0 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Error\ErrorHandler.php(205): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'C:\Users\Betmar...', 61)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'C:\Users\Betmar...', 61, Array)
+#2 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'C:\Users\Betmar...', 61, Array)
+#3 C:\Users\Betmart\Dropbox\RH\UsbWebServer 8.6\root\granja\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

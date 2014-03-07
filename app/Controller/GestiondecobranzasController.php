@@ -21,7 +21,7 @@ class GestiondecobranzasController extends AppController {
  * @return void
  */
 	public function index() {
-            $_SESSION['varia']=1;
+            
 		$this->Gestiondecobranza->recursive = 0;
 		$this->set('gestiondecobranzas', $this->Paginator->paginate());
 	}
@@ -34,7 +34,7 @@ class GestiondecobranzasController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-            $_SESSION['varia']=1;
+      
 		if (!$this->Gestiondecobranza->exists($id)) {
 			throw new NotFoundException(__('Gestion de cobranza Invalida'));
 		}
@@ -48,7 +48,7 @@ class GestiondecobranzasController extends AppController {
  * @return void
  */
 	public function add($id=null) {
-            $_SESSION['varia']=1;
+           
 		if ($this->request->is('post')) {
 			$this->Gestiondecobranza->create();
 			if ($this->Gestiondecobranza->save($this->request->data)) {
@@ -63,7 +63,7 @@ class GestiondecobranzasController extends AppController {
                 
                 
                 $conditions=array('Cheque.id'=>$id);
-		$cheques = $this->Gestiondecobranza->Cheque->find('list',array('fields'=>array('id','chequess'),
+		$cheques = $this->Gestiondecobranza->Cheque->find('list',array('fields'=>array('id','numerodecheque'),
                                                                                     'conditions'=>$conditions));
 		#$cheques = $this->Gestiondecobranza->Cheque->find('list');
 		$users = $this->Gestiondecobranza->User->find('list');

@@ -55,7 +55,7 @@ $("#datepicker1").datepicker();
                         <th><?php echo $this->Form->input('fechacobro',array('label'=>'Fecha de Cobro','id'=>'datepicker1','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly')); ?></th>
 
                         <th><?php echo $this->Form->input('cobrado',array('options'=>array(
-                               ''=>'Seleccione','1'=>'Por Cobrar','2'=>'Cobrado','0'=>'Devuelto'
+                               '1'=>'Por Cobrar'
                 ))); ?></th>
                      
                     </tr>

@@ -14,7 +14,7 @@ class PagosController extends AppController {
  * @var array
  */
 	public $components = array('Paginator');
-
+        public $uses = array('Cheque', 'Pago');
 /**
  * index method
  *
@@ -44,12 +44,22 @@ class PagosController extends AppController {
  * add method
  *
  * @return void
- */
+ */public function redondear_a_10($valor) { 
+
+    // Convertimos $valor a entero 
+        $valor = intval($valor); 
+    
+    // El truco que aplicamos consiste en dividir el entero entre 10 
+    // de manera que obtendremos un número con un decimal. 
+    // Eso sí puede ser redondeado hacia arriba con ceil(). 
+    // Finalmente multiplicamos por 10 para restaurar el formato 
+    // original del número 
+        return ceil($valor/10)*10; 
+        } 
 	public function add($id=null) {
 		if ($this->request->is('post')) {
-			$this->Pago->create();
-			if ($this->Pago->save($this->request->data)) {
-                                $cheq=$this->params['pass'][0];
+                    
+                    $cheq=$this->params['pass'][0];
                                 $montos=$this->params['pass'][4];
                                 $sql="SELECT * FROM chequeinterese where cheque_id=".$id." and (estadocheque=2 or estadocheque=0)";
                                 $chequeintereses=  $this->Pago->query($sql);
@@ -80,7 +90,7 @@ class PagosController extends AppController {
                                             
                                             $c=  $this->Pago->query($sql3);
                                             
-                                            $sql="UPDATE cheques SET DEUDA=1,modified=now(),cobrado=2 WHERE id=".$cheq;
+                                            $sql="UPDATE cheques SET deuda=1,modified=now(),cobrado=2 WHERE id=".$cheq;
                                             $insertcheque=  $this->Pago->query($sql);
                                             
                                             $sql="SELECT * FROM estadocheques where nomenclatura='AbnCG'";
@@ -277,10 +287,9 @@ class PagosController extends AppController {
                                             }
                                             
                                         }
-                                    }
+                                    
                                     
                                 }
-                                    
                                 $this->Session->setFlash(__('El pago ha sido efectuado.'));
 				return $this->redirect(array('controller'=>'cheques','action' => 'view',$cheq));
 			} else {
@@ -294,18 +303,18 @@ class PagosController extends AppController {
                     $clientes = $this->Pago->Cliente->find('list');
                     $cheques = $this->Pago->Cheque->find('list');
                 }else{
-                    $cheq=$this->params['pass'][0];
-                    $otro=$this->params['pass'][1];
-                    $debo=$this->params['pass'][2];
-                    $clie=$this->params['pass'][3];
-                    $montos=$this->params['pass'][4];
+                    $cheq=$this->params['pass'][0]; // id de cheque
+                    $otro=$this->params['pass'][1]; // Es un pago a terceros si es 1 de lo contrario 0
+                    $debo=$this->params['pass'][2];  // 0 Si me debe 1 si le debo
+                    $clie=$this->params['pass'][3];  // id cliente
+                    $montos=$this->params['pass'][4];  // monto de deuda
                     #$monto= $this->params['pass'][2];
                     
                     $conditions=array('Cliente.id'=>$clie);
          	    $clientes = $this->Pago->Cliente->find('list',array('fields'=>array('id','nombres'),
                                                                                     'conditions'=>$conditions));
                     $conditions=array('Cheque.id'=>$cheq);
-         	    $cheques = $this->Pago->Cheque->find('list',array('fields'=>array('id','numerodecheque'),
+         	    $cheques = $this->Cheque->find('list',array('fields'=>array('numerodecheque'),
                                                                                     'conditions'=>$conditions));
                    
                 }
@@ -316,7 +325,7 @@ class PagosController extends AppController {
                 $x=$this->Pago->query("select id, username from users where id=".$this->Auth->user('id')."");
                 
                 $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
-		$this->set(compact('debo','otro','clientes', 'chequeinterese', 'cheques', 'chequeEstadocheques', 'tipopagos', 'pagoterceros', 'users','montos'));
+		$this->set(compact('debo','otro','clientes', 'chequeinterese', 'cheques', 'chequeEstadocheques', 'tipopagos', 'pagoterceros', 'users','montos','id'));
 	}
 
 /**

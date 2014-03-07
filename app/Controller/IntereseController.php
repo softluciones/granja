@@ -35,7 +35,7 @@ class IntereseController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-            $_SESSION['varia']=1;
+           
 		if (!$this->Interese->exists($id)) {
 			throw new NotFoundException(__('Invalid interese'));
 		}
@@ -49,14 +49,14 @@ class IntereseController extends AppController {
  * @return void
  */
 	public function add() {
-            $_SESSION['varia']=1;
+           
 		if ($this->request->is('post')) {
 			$this->Interese->create();
 			if ($this->Interese->save($this->request->data)) {
-				$this->Session->setFlash(__('The interese has been saved.'));
+				$this->Session->setFlash(__('El interes ha sido guardado.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The interese could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('El interes no habia sido guardado.'));
 			}
 		}
 		$users = $this->Interese->User->find('list');
@@ -74,7 +74,7 @@ class IntereseController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-            $_SESSION['varia']=1;
+        
 		if (!$this->Interese->exists($id)) {
 			throw new NotFoundException(__('Invalid interese'));
 		}
@@ -104,7 +104,7 @@ class IntereseController extends AppController {
  * @return void
  */
 	public function delete($id = null) {
-            $_SESSION['varia']=1;
+      
 		$this->Interese->id = $id;
 		if (!$this->Interese->exists()) {
 			throw new NotFoundException(__('Invalid interese'));
