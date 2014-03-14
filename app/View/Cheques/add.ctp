@@ -1,17 +1,6 @@
 <?php date_default_timezone_set("America/Caracas")?>
 
-<script>
-    $(document).ready(function(){
-        
-    
- $(function () {
 
-$("#datepicker").datepicker();
-$("#datepicker1").datepicker();
-});
-
-  });
-  </script>
  <style>
       th{
           background: #ffffff;
@@ -22,7 +11,153 @@ $("#datepicker1").datepicker();
       li.menu{
           text-align: center;
       }
+      #cliente{
+          cursor:pointer;
+      }
+       #binteres{
+          cursor:pointer;
+      }
+      
+       #guardarinteres{
+          cursor:pointer;
+      }
+       #guardare{
+          cursor:pointer;
+      }
   </style>
+  
+  <script language="javascript">
+    $(document).ready(function(){
+        $("#datepicker").datepicker();
+        $("#datepicker1").datepicker();
+             $('#divcliente').dialog({
+                width: 700,
+                height: 350,
+                modal:true,
+                title:'AGREGAR CLIENTE',
+                autoOpen:false
+             });
+              $('#divinteres').dialog({
+                width: 500,
+                height: 250,
+                modal:true,
+                title:'AGREGAR INTERES',
+                autoOpen:false
+             });
+         
+    });
+    function client(){
+                $('#divcliente').dialog("open");
+        }  
+         function interes(){
+                $('#divinteres').dialog("open");
+        }  
+        function guardar(){
+            $.ajax({
+                     type: "GET",
+                     url: "busca/"+$('#cedula').val()+"/"+$('#nombre').val()+"/"+$('#apellido').val()+"/"+$('#apodo').val()+"/"+$('#negocio').val()+"/"+$('#email').val()+"/"+$('#direccion').val()+"/"+$('#telefonofijo').val()+"/"+$('#celular').val(),
+                     success: function(msg){
+                        $('#listacliente').html(msg);
+                        $('#divcliente').dialog("close");
+                    }
+                });
+        }
+        
+        function guardare(){
+            $.ajax({
+                     type: "GET",
+                     url: "buscar/"+$('#minimo').val()+"/"+$('#maximo').val()+"/"+$('#fijo').val()+"/"+$('#porcentaje').val(),
+                     success: function(msg){
+                       
+                        $('#listainteres').html(msg);
+                        $('#divinteres').dialog("close");
+
+
+                    }
+                });
+        }
+
+</script>
+<div id="divcliente" style="height:0px; display: none;width:100%">
+            <?php 
+            echo $this->Form->input('idcliente',array('id'=>'idcliente','type'=>'hidden'));
+        
+		echo "<div style='float:left;width:30%'>";
+        ?>
+           <?php
+             echo $this->Form->label('Cedula:');
+                echo $this->Form->input('cedula',array('id'=>'cedula','div'=>false,'label'=>false,'style'=>'width: 90%;'));
+            echo "</div>";
+                echo "<div style='float:left;width:35%'>";
+                echo $this->Form->label('Nombre:');
+                echo $this->Form->input('nombre',array('id'=>'nombre','div'=>false,'label'=>false,'style'=>'width: 90%;'));
+             echo "</div>";    
+                echo "<div style='float:left;width:35%'>";
+                 echo $this->Form->label('Apellido:');
+                echo $this->Form->input('apellido',array('id'=>'apellido','div'=>false,'label'=>false,'style'=>'width: 100%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:30%'>";
+                 echo $this->Form->label('Apodo:');
+                echo $this->Form->input('apodo',array('id'=>'apodo','maxlength'=>15,'div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                 echo "</div>";
+                  echo "<div style='float:left;width:35%'>";
+                 echo $this->Form->label('Negocio:');
+                echo $this->Form->input('negocio',array('id'=>'negocio','div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:35%'>";
+                 echo $this->Form->label('Email:');
+                echo $this->Form->input('email',array('id'=>'email','div'=>false,'label'=>false,'style'=>'width: 100%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:100%'>";
+                 echo $this->Form->label('Dirección:');
+                echo $this->Form->input('direccion',array('id'=>'direccion','div'=>false,'label'=>false,'style'=>'width: 100%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:50%'>";
+                 echo $this->Form->label('Teléfono fijo:');
+                echo $this->Form->input('telefonofijo',array('id'=>'telefonofijo','div'=>false,'label'=>false,'style'=>'width: 95%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:50%'>";
+                 echo $this->Form->label('Celular:');
+                echo $this->Form->input('celular',array('id'=>'celular','div'=>false,'label'=>false,'style'=>'width: 100%;'));
+                 echo "</div>";
+                 echo "</br>";
+                 echo "<div class='row'>";
+                echo $this->Form->submit('Guardar', 
+    array('id'=>'guardarinteres','title' => 'Guarda Cliente', 'onClick'=>'guardar();'));
+                 echo "</div>";
+                ?>
+           
+</div>
+<div id="divinteres" style="height:0px; display: none;width:100%">
+            <?php 
+            echo $this->Form->input('idinteres',array('id'=>'idinteres','type'=>'hidden'));
+        
+		echo "<div style='float:left;width:30%'>";
+        ?>
+           <?php
+             echo $this->Form->label('Mínimo:');
+                echo $this->Form->input('minimo',array('id'=>'minimo','div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                echo "</div>";
+                echo "<div style='float:left;width:35%'>";
+                echo $this->Form->label('Máximo:');
+                echo $this->Form->input('maximo',array('id'=>'maximo','div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                echo "</div>";    
+                echo "<div style='float:left;width:35%'>";
+                 echo $this->Form->label('Monto Fijo:');
+                echo $this->Form->input('fijo',array('id'=>'fijo','div'=>false,'label'=>false,'style'=>'width: 100%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:30%'>";
+                 echo $this->Form->label('Porcentaje %:');
+                 echo $this->Form->input('porcentaje',array('id'=>'porcentaje','maxlength'=>15,'div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                 echo "</div>";
+                 echo "</br>";
+                 echo "<div class='row'>";
+                echo $this->Form->submit('Guardar', 
+    array('id'=>'guardare','title' => 'Guarda Interes', 'onClick'=>'guardare();'));
+                 echo "</div>";
+                ?>
+           
+</div>
 <div class="cheques form">
 <?php echo $this->Form->create('Cheque',array('type'=>'file')); 
 
@@ -32,12 +167,22 @@ $("#datepicker1").datepicker();
                     <thead>
        
                  <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
-         <div align="center">Agregar Cheque</div>
-                 </th>
+         <div align="center"> Agregar Cheque </div>
+          </th>
             
          </thead>
                     <tr>
-                        <th colspan="3"><?php echo $this->Form->input('cliente_id');?></th>
+               <?php  echo "<div style='float:left;width:40%' >";?>
+                <th colspan="3">
+                    <div id="listacliente">
+                         <?php echo $this->Form->input('cliente_id',array('label'=>'Cliente','div'=>null));
+                         echo " ";
+                         echo $this->Html->image("anade.fw.png", array("id"=>"cliente","alt" => "Agregar Cliente",'width' => '20', 'heigth' => '20','title'=>'Agregar Cheque','onClick' => "client();"));
+                         echo "</div>";                       
+                        ?>
+                    </div>   
+                        <?php   ?>
+                </th>
                     </tr>
                     <tr>
                         <th><?php echo $this->Form->input('banco_id'); ?></th>
@@ -46,7 +191,15 @@ $("#datepicker1").datepicker();
                     </tr>
                     <tr>
                         <th><?php echo $this->Form->input('monto'); ?></th>
-                        <th><?php echo $this->Form->input('interese_id',array('label'=>'Interes')); ?></th>
+                        <th>
+                        
+                      <div id="listainteres">
+                      <?php 
+                        echo $this->Form->input('interese_id',array('label'=>'Interes','div'=>null)); 
+                          echo " ";
+                         echo $this->Html->image("anade.fw.png", array("id"=>"binteres","alt" => "Agregar Interes",'width' => '20', 'heigth' => '20','title'=>'Agregar Interes','onClick' => "interes();"));
+                       echo "</div>";  
+                        ?></th>
                         <th><?php echo $this->Form->input('filename',array('type'=>'file','label'=>'Imagen del Cheque')); ?></th>
                     </tr>
                     <tr>

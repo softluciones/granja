@@ -1,4 +1,4 @@
-<?php date_default_timezone_set("America/Caracas")?>
+<?php date_default_timezone_set("America/Caracas") ?>
 <style>
       th{
           background: #ffffff;
@@ -9,8 +9,7 @@
       li.menu{
           text-align: center;
       }
-  </style>
-
+</style>
 
 <div class="pagos form">
 <?php echo $this->Form->create('Pago'); ?>

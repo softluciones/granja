@@ -1,33 +1,55 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Cheques Controller
- *
- * @property Cheque $Cheque
- * @property PaginatorComponent $Paginator
- */
+
 class ChequesController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
+
 	var $paginate = array(
                 'limit' => 10,
                 'order' => array(
                 'Cheque.fechacobro' => 'DESC',
                     'Cheque.ChequeEstadocheque.created'=> 'DESC'
                 )
-              ); 
+        ); 
 
-/**
- * index method
- *
- * @return void
- */
+        public function buscar(){
+            $this->layout='ajax';
+            $cedula=$this->params['pass'][0];
+            $nombre = $this->params['pass'][1];
+            $apellido = $this->params['pass'][2];
+            $apodo = $this->params['pass'][3];
+            $negocio = $this->params['pass'][4];
+            $email = $this->params['pass'][5];
+            $direccion = $this->params['pass'][6];
+            $telefonofijo = $this->params['pass'][7];
+            $celular = $this->params['pass'][8];
+            
+            $this->Cheque->query("INSERT INTO clientes (created, cedula, nombre, apellido, apodo, negocio,email,direccion, telefonofijo,telefonocelular,user_id) 
+                                        VALUES (NOW(),'".$cedula."','".$nombre."','".$apellido."', '".$apodo."', '".$negocio."'
+                                            , '".$email."','".$direccion."','".$telefonofijo."','".$celular."',".$this->Auth->user('id').")");
+           $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres'),'order'=>array('id DESC')));
+           $this->set(compact('clientes'));
+        }
+        public function busca(){
+            $this->layout='ajax';
+            $cedula=$this->params['pass'][0];
+            $nombre = $this->params['pass'][1];
+            $apellido = $this->params['pass'][2];
+            $apodo = $this->params['pass'][3];
+            $negocio = $this->params['pass'][4];
+            $email = $this->params['pass'][5];
+            $direccion = $this->params['pass'][6];
+            $telefonofijo = $this->params['pass'][7];
+            $celular = $this->params['pass'][8];
+            
+            $this->Cheque->query("INSERT INTO clientes (created, cedula, nombre, apellido, apodo, negocio,email,direccion, telefonofijo,telefonocelular,user_id) 
+                                        VALUES (NOW(),'".$cedula."','".$nombre."','".$apellido."', '".$apodo."', '".$negocio."'
+                                            , '".$email."','".$direccion."','".$telefonofijo."','".$celular."',".$this->Auth->user('id').")");
+           $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres'),'order'=>array('id DESC')));
+           $this->set(compact('clientes'));
+        }
         public function aumentarinteres(){
-            /*hago una consulta a todos los cheques que son devueltos*/
+           
             $sql="SELECT * FROM cheques WHERE cobrado=0";
             $chequesdevueltos=  $this->Cheque->query($sql);
              $select = "SELECT minimo, maximo, montofijo FROM intereses WHERE porcentaje IS NULL ORDER BY maximo DESC";
@@ -51,10 +73,8 @@ class ChequesController extends AppController {
                 
                 for($i=0;$i<$total;$i++){
                     $idcheque =$chequesdevueltos[$i]['cheques']['id'];
-                   # debug($idcheque);
                     $consulta = "SELECT ci.modificado,ci.created, ci.montocheque, ci.montodescuentointeres, i.montofijo,i.porcentaje, ci.estadocheque  
                     FROM cheques as ch, intereses as i, chequeinterese as ci WHERE ch.id=ci.cheque_id AND ch.interese_id=i.id
-      
                     AND ch.id=".$idcheque." ORDER BY ci.id DESC";
                 #debug($consulta);
                 $entregado = "SELECT montoentregado FROM chequeinterese WHERE estadocheque=1 AND 
@@ -79,7 +99,7 @@ class ChequesController extends AppController {
                # debug($intereses);
                 
                 if($encontrado==0)
-                $montointeres = $intereses[0]['ci']['montodescuentointeres'];
+                    $montointeres = $intereses[0]['ci']['montodescuentointeres'];
                 
                 $modificado = $intereses[0]['ci']['created'];
                 $fijo = $intereses[0]['i']['montofijo'];
@@ -348,7 +368,8 @@ class ChequesController extends AppController {
                             'Cliente.apellido LIKE'=>'%'.$valor.'%',
                            'Cliente.apodo LIKE'=>'%'.$valor.'%'
                             ),'and'=>array('or'=>array(array('Cheque.cobrado'=>'1'),
-                                    array('Cheque.cobrado'=>'0'),
+                                    array(array('and'=>array(array('Cheque.cobrado'=>'0'),
+                                            array('Cheque.deuda'=>0)))),
                                  array(array('and'=>array(array('Cheque.cobrado'=>'2'),
                                             array('Cheque.deuda'=>0)))),
                                     )))));
@@ -365,7 +386,8 @@ class ChequesController extends AppController {
                         $this->set('cheques',$this->paginate('Cheque', array('or' => 
                             array('DATE_FORMAT(Cheque.fechacobro,"%Y-%m-%d") LIKE' => '%'.$fecha.'%'
                             ),'and'=>array('or'=>array(array('Cheque.cobrado'=>'1'),
-                                    array('Cheque.cobrado'=>'0'),
+                               array(array('and'=>array(array('Cheque.cobrado'=>'0'),
+                                            array('Cheque.deuda'=>0)))),
                                 array(array('and'=>array(array('Cheque.cobrado'=>'2'),
                                             array('Cheque.deuda'=>0)))),
                                     )))));
@@ -375,7 +397,8 @@ class ChequesController extends AppController {
                         
                          $this->set('cheques', $this->paginate('Cheque',
                                 array('or'=>array(array('Cheque.cobrado'=>'1'),
-                                    array('Cheque.cobrado'=>'0'),
+                                    array(array('and'=>array(array('Cheque.cobrado'=>'0'),
+                                            array('Cheque.deuda'=>0)))),
                                      array(array('and'=>array(array('Cheque.cobrado'=>'2'),
                                             array('Cheque.deuda'=>0)))),
                                     ))));
@@ -388,7 +411,8 @@ class ChequesController extends AppController {
                     $this->set('cheques', $this->paginate('Cheque',
                                 array('or'=>array
                                     (array('Cheque.cobrado'=>'1'),
-                                    array('Cheque.cobrado'=>'0'),
+                                    array(array('and'=>array(array('Cheque.cobrado'=>'0'),
+                                            array('Cheque.deuda'=>0)))),
                                         array(array('and'=>array(array('Cheque.cobrado'=>'2'),
                                             array('Cheque.deuda'=>0)))),
                                     ))));
@@ -459,26 +483,61 @@ class ChequesController extends AppController {
         public function devueltos() 
         {
                 $this->Cheque->recursive = 2;
-                $sumas=  $this->Cheque->query("SELECT cobrado, SUM( monto ) as sumato
-                                            FROM cheques
-                                            WHERE cobrado =0
-                                            GROUP BY cobrado");
+                $sumas=  $this->Cheque->query("SELECT estadocheque, SUM( montocheque ) as sumato, sum(Montodescuentointeres) as interes
+                                            FROM chequeinterese
+                                            WHERE estadocheque =0
+                                            GROUP BY estadocheque");
                 
+               # $var= $this->bandera();
                 if($this->data){  
-                    if ($this->data['Cheque']['search_text']) { 
-                        $this->set('cheques',  
-                        $this->paginate('Cheque', array('or' => array('Cheque.numerodecheque LIKE' => '%' .  
-                        $this->data['Cheque']['search_text'] . '%')))); 
-                    } 
-                    else { 
-                        $this->set('cheques', $this->paginate());
-                    } 
+                    
+
+                    if($this->data['Cheque']['selector']=="1"){
+                        $valor = $this->data['search_text1'];
+                       $yabusco=1;
+                       $this->request->data['search_text1']='';
+                         $this->set('cheques',  
+
+                        $this->paginate('Cheque', array('or' => 
+                            array('Cheque.numerodecheque LIKE' => '%'.$valor.'%',
+                            'Cheque.numerodecuenta LIKE' => '%'.$valor.'%',
+                            'Cheque1.numerodecheque LIKE' => '%'.$valor.'%',
+                            'Cliente.cedula LIKE'=> '%'.$valor.'%',
+                            'Banco.codigo LIKE'=>'%'.$valor.'%',
+                           'Cliente.nombre LIKE'=>'%'.$valor.'%',
+                            'Cliente.apellido LIKE'=>'%'.$valor.'%',
+                           'Cliente.apodo LIKE'=>'%'.$valor.'%'
+                            ),'and'=>array('or'=>array(array('Cheque.cobrado'=>'0')
+                                ))))); 
+                         $this->set(compact('yabusco'));
+                    }
+                else{
+                    
+                    $yabusco=0;
+                    if(!$this->data['Cheque']['search_text']==''){
+                        
+                        $fecha = new DateTime($this->data['Cheque']['search_text']);
+                        $fecha = $fecha->format('Y-m-d');
+                        $this->request->data['Cheque']['search_text']='';
+                        $this->set('cheques',$this->paginate('Cheque', array('or' => 
+                            array('DATE_FORMAT(Cheque.fechacobro,"%Y-%m-%d") LIKE' => '%'.$fecha.'%'
+                            ),'and'=>array('or'=>array(array('Cheque.cobrado'=>'0')))))); 
+                        $this->set(compact('yabusco'));
+                    }
+                    else{
+                         $this->set('cheques', $this->paginate('Cheque',
+                                array('or'=>array(array('Cheque.cobrado'=>'0')))));
+                     $this->set(compact('sumas','yabusco'));
+                    }
+                }
+                 
                   }else{
-                      
-                     $this->set('cheques', $this->paginate()); 
+                      $yabusco=2;
+                    $this->set('cheques', $this->paginate('Cheque',
+                                array('or'=>array(array('Cheque.cobrado'=>'0')))));
+                     $this->set(compact('sumas','yabusco'));
                   }
-		$this->set('cheques', $this->paginate());
-                $this->set(compact('sumas'));
+                  $this->set(compact('var'));
         }
         public function postdatados() {
                 $this->Cheque->recursive = 2;
@@ -708,7 +767,7 @@ class ChequesController extends AppController {
                         $this->request->data['Chequeinterese']['montoentregado']=0;
                         $interes=$this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo'];
                         $nuevomonto=$x[0]['I']['montofijo']*$dias2; 
-                        $fecha=$xx[0]['chequeinterese']['modificado'];
+                        $fecha=$xx[0]['chequeinterese']['fechacobro'];
       
                         for($i=0;$i<$dias;$i++){ 
                            

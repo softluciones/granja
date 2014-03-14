@@ -88,8 +88,10 @@ input[type=submit],
         <th style="background:#ffffff;">
         <?php 
         $posiciones=count($cheque['ChequeEstadocheque']);
+           $pos=count($cheque['Chequeinterese']);
+        if($cheque['Chequeinterese'][$pos-1]['montocheque']>0){
       # echo $cheque['ChequeEstadocheque'][$posiciones-1]['estadocheque_id'];
-            if($cheque['ChequeEstadocheque'][$posiciones-1]['estadocheque_id']==2){
+            if($cheque['ChequeEstadocheque'][0]['estadocheque_id']==2){
                 if($cheque['Cheque']['cobrado']!=0){
                     $pos=count($cheque['Chequeinterese']);
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
@@ -101,7 +103,7 @@ input[type=submit],
                         echo "Me debe: ".h(number_format(floatval($monto),2,',','.').' Bs.');
                 }
             }
-            if($cheque['ChequeEstadocheque'][$posiciones-1]['estadocheque_id']==1){
+            if($cheque['ChequeEstadocheque'][0]['estadocheque_id']==1){
                 if($cheque['Cheque']['cobrado']==2&& $cheque['Cheque']['deuda']==0){
                     $pos=count($cheque['Chequeinterese']);
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
@@ -113,6 +115,7 @@ input[type=submit],
                         echo "Me debe: ".h(number_format(floatval($monto),2,',','.').' Bs.');
                 }
             }
+        }
         ?></th>
     </tr>
 </table>
@@ -120,7 +123,9 @@ input[type=submit],
     
     </br>
 
-  <?php if($cheque['Cheque']['cobrado']==0||($cheque['Cheque']['cobrado']==2&&$cheque['Cheque']['deuda']==0)){ ?>
+  <?php 
+  if($cheque['Cheque']['deuda']==0){
+  if($cheque['Cheque']['cobrado']==0||($cheque['Cheque']['cobrado']==2&&$cheque['Cheque']['deuda']==0)){ ?>
 <div class="box">
   
              <div class="title">        
@@ -215,19 +220,19 @@ input[type=submit],
 	</table>
 <?php endif; ?>
 </div>
-        
+        <?php if($cheque['Cheque']['deuda']==0){?>
 	<div class="actions">
 		<ul>
 			<li  align="center"><?php echo $this->Html->link(__('Nuevo Cheque'), array('action' => 'add2',$cheque['Cheque']['id'])); ?> </li>
 		</ul>
 	</div>
-                
+                <?php }?>
          </div>    
     
 </div>
-      	
-<?php } ?> 
-</br>
+     </br> 	
+<?php } }?> 
+
 <div class="box">
     
         
@@ -357,6 +362,89 @@ input[type=submit],
    
 </div>
 </br>
+
+
+</br>
+
+<div class="box">
+    <div class="title">        
+	<strong style="color:#333; font-size:14px;"><?php echo __('Pagos');?></strong>
+     </div>
+    <div class="content pages">
+        <div class="row">
+	<?php if (!empty($cheque['Pago'])): ?>
+	<table cellpadding = "0" cellspacing = "0">
+            <thead>
+	<tr>
+		
+		<th><?php echo __('Cliente'); ?></th>
+		<th><?php echo __('Monto'); ?></th>
+		<th><?php echo __('Concepto de'); ?></th>
+		<th><?php echo __('Tipo de Pago'); ?></th>
+                <th><?php echo __('Usuario'); ?></th>
+	</tr>
+        </thead>
+	<?php foreach ($cheque['Pago'] as $pago): 
+            #debug($pago);?>
+		<tr>
+		
+			<td><?php echo $pago['Cliente']['apodo']; ?></td>
+			<td><div align="right"><?php echo  number_format(floatval($pago['monto']),2,',','.').' Bs.'; ?></div></td>
+			<td><?php echo $pago['conceptode']; ?></td>
+			
+			<td><?php echo $pago['Tipopago']['nombre']; ?></td>
+		
+			
+			<td><?php echo $pago['User']['username']; ?></td>
+			
+		</tr>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+</br>
+	<div class="actions">
+		<ul>
+			<li  align="center">
+
+            <?php  
+            if($cheque['Cheque']['deuda']==0){
+            $estado = $cheque['ChequeEstadocheque'][$posiciones-1]['estadocheque_id'];
+            if($estado==2|| $estado==3){
+                if($cheque['Cheque']['cobrado']==2 && $cheque['Cheque']['deuda']==0){
+                    $pos=count($cheque['Chequeinterese']);
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                     echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$montos));
+                    
+                }if($cheque['Cheque']['cobrado']==0){
+                    $pos=count($cheque['Chequeinterese']);
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
+                }
+            }
+            if($estado==1 || $estado==4){
+                if($cheque['Cheque']['cobrado']==2&& $cheque['Cheque']['deuda']==0){
+                    $pos=count($cheque['Chequeinterese']);
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
+                    
+                }if($cheque['Cheque']['cobrado']==0){
+                    $pos=count($cheque['Chequeinterese']);
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
+                }
+            }
+            }
+            
+            
+        ?> </li>
+		</ul>
+	</div>
+</div>
+        </div>
+    </div>
+
+</br>
+
 <div class="box">
     <div class="title">        
 	<strong style="color:#333; font-size:14px;"><?php echo __('Gesti&oacuten de Cobranzas');?></strong>
@@ -366,26 +454,30 @@ input[type=submit],
 	
 	<?php if (!empty($cheque['Gestiondecobranza'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
+            <thead>
 	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Created'); ?></th>
-		<th><?php echo __('Descripcion'); ?></th>
-		<th><?php echo __('Cheque Id'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
+		
+		<th><?php echo __('Fecha'); ?></th>
+		<th><?php echo __('Descripción'); ?></th>
+		<th><?php echo __('Usuario'); ?></th>
+		<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
+        </thead>
 	<?php foreach ($cheque['Gestiondecobranza'] as $gestiondecobranza): ?>
 		<tr>
-			<td><?php echo $gestiondecobranza['id']; ?></td>
-			<td><?php echo $gestiondecobranza['created']; ?></td>
+			
+			<td><?php 
+                        $fecha = new Datetime($gestiondecobranza['created']);
+                        $fecha = $fecha->format('d-m-Y');
+                        echo $fecha; ?></td>
 			<td><?php echo $gestiondecobranza['descripcion']; ?></td>
-			<td><?php echo $gestiondecobranza['cheque_id']; ?></td>
-			<td><?php echo $gestiondecobranza['user_id']; ?></td>
+			<td><?php echo $gestiondecobranza['User']['username']; ?></td>
 			<td class="acciones">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'gestiondecobranzas', 'action' => 'view', $gestiondecobranza['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'gestiondecobranzas', 'action' => 'edit', $gestiondecobranza['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'gestiondecobranzas', 'action' => 'delete', $gestiondecobranza['id']), null, __('Are you sure you want to delete # %s?', $gestiondecobranza['id'])); ?>
-			</td>
+                            <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller' => 'gestiondecobranzas','action' => 'view', $gestiondecobranza['id'])));?>
+                            <?php echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'gestiondecobranzas','action' => 'edit', $gestiondecobranza['id']))); ?>
+                            <?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
+											echo $this->Html->link($imagen, array('controller' => 'gestiondecobranzas','action' => 'delete', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
+				</td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
@@ -398,100 +490,8 @@ input[type=submit],
 	</div>
 </div>
 </div>
-</div>
+</div></br>
 
-<?php if($cheque['Cheque']['cobrado']==0||($cheque['Cheque']['cobrado']==2&&$cheque['Cheque']['deuda']==0)){ ?>
-</br>
-<div class="box">
-    <div class="title">        
-	<strong style="color:#333; font-size:14px;"><?php echo __('Pagos');?></strong>
-     </div>
-    <div class="content pages">
-        <div class="row">
-	<?php if (!empty($cheque['Pago'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Cliente Id'); ?></th>
-		<th><?php echo __('Created'); ?></th>
-		<th><?php echo __('Modified'); ?></th>
-		<th><?php echo __('Monto'); ?></th>
-		<th><?php echo __('Conceptode'); ?></th>
-		<th><?php echo __('Edodeuda'); ?></th>
-		<th><?php echo __('Pagointerese Deuda'); ?></th>
-		<th><?php echo __('Chequeinterese Id'); ?></th>
-		<th><?php echo __('Cheque Id'); ?></th>
-		<th><?php echo __('Cheque Estadocheque Id'); ?></th>
-		<th><?php echo __('Tipopago Id'); ?></th>
-		<th><?php echo __('Pagotercero Id'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php foreach ($cheque['Pago'] as $pago): ?>
-		<tr>
-			<td><?php echo $pago['id']; ?></td>
-			<td><?php echo $pago['cliente_id']; ?></td>
-			<td><?php echo $pago['created']; ?></td>
-			<td><?php echo $pago['modified']; ?></td>
-			<td><?php echo $pago['monto']; ?></td>
-			<td><?php echo $pago['conceptode']; ?></td>
-			<td><?php echo $pago['edodeuda']; ?></td>
-			<td><?php echo $pago['pagointerese_deuda']; ?></td>
-			<td><?php echo $pago['chequeinterese_id']; ?></td>
-			<td><?php echo $pago['cheque_id']; ?></td>
-			<td><?php echo $pago['cheque_estadocheque_id']; ?></td>
-			<td><?php echo $pago['tipopago_id']; ?></td>
-			<td><?php echo $pago['pagotercero_id']; ?></td>
-			<td><?php echo $pago['user_id']; ?></td>
-			<td class="acciones">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'pagos', 'action' => 'view', $pago['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'pagos', 'action' => 'edit', $pago['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'pagos', 'action' => 'delete', $pago['id']), null, __('Are you sure you want to delete # %s?', $pago['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-</br>
-	<div class="actions">
-		<ul>
-			<li  align="center">
-
-            <?php   
-            if($cheque['ChequeEstadocheque'][$posiciones-1]['estadocheque_id']==2){
-                if($cheque['Cheque']['cobrado']==2){
-                    $pos=count($cheque['Chequeinterese']);
-                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                     echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$montos));
-                    
-                }else{
-                    $pos=count($cheque['Chequeinterese']);
-                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
-                }
-            }
-            if($cheque['ChequeEstadocheque'][$posiciones-1]['estadocheque_id']==1){
-                if($cheque['Cheque']['cobrado']==2&& $cheque['Cheque']['deuda']==0){
-                    $pos=count($cheque['Chequeinterese']);
-                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
-                    
-                }if($cheque['Cheque']['cobrado']==0){
-                    $pos=count($cheque['Chequeinterese']);
-                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
-                }
-            }
-            
-            
-        ?> </li>
-		</ul>
-	</div>
-</div>
-        </div>
-    </div>
-<?php } ?>
-</br>
 <div class="box">
     <div class="title">        
 	<strong style="color:#333; font-size:14px;"><?php echo __('Pagos a Tercero');?></strong>
@@ -546,9 +546,9 @@ input[type=submit],
 <div class="actions" >
 	
 	<ul>
-		<li align="center"><?php  if($cheque['Cheque']['cobrado']==1)
+		<li align="center"><?php  if($cheque['Cheque']['cobrado']==1 )
                             echo $this->Html->link(__('Editar Cheque'), array('action' => 'edit', $cheque['Cheque']['id'])); ?> </li>
-                <li align="center"><?php  if($cheque['Cheque']['cobrado']==0 || $cheque['Cheque']['cobrado']==1)
+                <li align="center"><?php  if(($cheque['Cheque']['cobrado']==0 || $cheque['Cheque']['cobrado']==1)&& $cheque['Cheque']['deuda']==0)
                             echo $this->Html->link(__('Cobrado'), array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],2)); ?> </li>
                 <li align="center"><?php  if($cheque['Cheque']['cobrado']==1)
                             echo $this->Html->link(__('Devuelto'), array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],0)); ?> </li>

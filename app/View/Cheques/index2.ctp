@@ -117,51 +117,7 @@ echo $this->Form->label('Búsqueda') ?>
        <?php
        } ?>
     </div>
- <div style="float:left;  width:50%; clear: none; padding-top: 40px; ">   
-    <?php if($sumas!=null){ ?>
-    <h3>Monto de cheques cobrados e intereses ganados</h3>
-    <table cellpadding="0" cellspacing="0" style="width: 100%;">
-        <thead>
-        <tr style="background: #528CE0;">
-            <th>Estado del cheque</th>
-            
-            <th>Monto total cheques a cobrar(1)</th>
-            <th>---(1)+(2)---</th>
-            <th>Monto intereses ganado(2)</th>
-        </tr>
-        </thead>
-        <tr >
-            <th><?php 
-            if(!empty($sumas[0])){
-                #debug($sumas[0]['cheques']['cobrado']);
-            if($sumas[0]['chequeinterese']['estadocheque']==2){
-            echo "Cheques cobrado"; ?></th>
-           
-            <th><div style="float: right"><?php echo h(number_format(floatval($sumas[0][0]['sumato']),2,',','.'))." Bs"; ?></div></th>
-             <th></th>
-            <th><div style="float: left"><?php echo h(number_format(floatval($sumas[0][0]['interes']),2,',','.'))." Bs";}} ?></div></th>
-        </tr>
-       
-        <tr>
-            <th>Total a cobrar y devueltos:</th>
-           
-            <th ><div style="float: right"><?php echo h(number_format(floatval($sumas[0][0]['sumato']),2,',','.'))." Bs"; ?></div></th>
-             <th></th>
-            <th ><div style="float: left"><?php echo h(number_format(floatval($sumas[0][0]['interes']),2,',','.'))." Bs"; ?></div></th>
-                        
-                            
-         </tr>
-         <tr>
-             <th>(1)+(2)</th>
-             
-             <th></th>
-             <th ><div style="float: right"><?php echo h(number_format(floatval($sumas[0][0]['sumato']+$sumas[0][0]['interes']),2,',','.'))." Bs"; ?></div></th>
-             <th></th>
-         </tr>
-        
-    </table>
-    <?php } ?>
-    </div>
+ 
     <h2 style="clear: both"><?php #debug($sumas); 
         echo __('Cheques Cobrados'); ?></h2>
 	<table cellpadding="0"  align="center" style="width:100%">

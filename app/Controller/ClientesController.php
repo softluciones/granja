@@ -14,7 +14,13 @@ class ClientesController extends AppController {
  * @var array
  */
 	public $components = array('Paginator');
-
+        var $paginate = array(
+                'limit' => 10,
+                'order' => array(
+                'Cliente.id' => 'DESC',
+                   
+                )
+        ); 
 /**
  * index method
  *

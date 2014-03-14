@@ -56,7 +56,8 @@ $("#datepicker").datepicker();
       <fieldset>
 <legend><?php 
 #debug($cheques);
-echo __('Cheques ') ; ?>
+echo __('Cheques ') ;
+?>
 <?php  echo $this->Html->image("anade.fw.png", array("alt" => "Agregar Cheque",'width' => '20', 'heigth' => '20','title'=>'Agregar Cheque','url' => array('action' => 'add'))); ?></legend>
 </fieldset>	
    
@@ -236,7 +237,7 @@ echo $this->Form->label('Búsqueda') ?>
         </thead>
 
 <?php 
-       # debug($cheques);
+       #debug($cheques);
         foreach ($cheques as $cheque): ?>
 	<?php 
 
@@ -299,7 +300,7 @@ echo $this->Form->label('Búsqueda') ?>
 			/*cuando el cheque está por cobrar*/
                     if($cobrado==1){
 				/*cuando se confia en el cliente y se le ha pagado antes de cobrar el cheque*/
-                			if($estado=='R'){
+                			if($estado=='R' || $estado=='AbnGC'){
 	 ?>	
 						<tr style="background: #528CE0; color: white;">
 							<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
@@ -339,7 +340,7 @@ echo $this->Form->label('Búsqueda') ?>
 						</td>			
 		<?php }else{
 				/*en esta parte le debemos al cliente el monto del cheque menos el monto interes :D*/
-				if($estado=='C'){?>
+				if($estado=='C' ||  $estado=='AbnCG' || $estado=='AbnGC'){?>
 					<tr style="background: #528CE0; color: white;">
 								<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 								<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
@@ -377,7 +378,7 @@ echo $this->Form->label('Búsqueda') ?>
 		/*cuando el cheque es devuelto*/
 						if($cobrado==0){
 							/*el cheque fue devuelto por el banco. el cliente nos debe el monto del cheque mas intereses diarios*/
-							if($estado=='R'){
+							if(($estado=='R'  || $estado=='AbnCG')&&$deuda==0){
 							/*eso se pinta de rojo */
 											?>
 							
@@ -417,7 +418,7 @@ echo $this->Form->label('Búsqueda') ?>
 							 </td>			
 		<?php }else{
 				/*en esta parte del cheque del cliente solo nos debe el monto del interes cobrado. :D*/
-				if($estado=='C'){?>
+				if(($estado=='C' || $estado=='AbnCG' || $estado=='AbnGC')&&$deuda==0 ){?>
 					<tr style="background: #f00; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
@@ -458,7 +459,45 @@ echo $this->Form->label('Búsqueda') ?>
 			
                 <?php }}
                       if($cobrado==2){
-                        if($estado=='R'){
+                        if(($estado=='R' || $estado=='AbnCG')){
+                            if($deuda==0){
+                ?>
+            <tr style="background: #ffcaca; color: white;">
+			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
+			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
+            <td><?php 
+				if($porcentaje==null)
+				echo $this->Html->link($montofijo, array('controller' => 'interese', 'action' => 'view', $cheque['Interese']['id']))." Bs"; 
+				else
+				echo $this->Html->link($porcentaje, array('controller' => 'interese', 'action' => 'view', $cheque['Interese']['id']))." %"; 
+				?></td>
+                                <?php $total=count($cheque['Chequeinterese']);
+                                //debug($total);
+                                ?>
+             <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montocheque']),2,',','.'));?></div></td>
+             <td><div style="float: right"><?php
+                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres']*$cheque['Cheque']['dias'];
+                                                         echo h(number_format(floatval($interes),2,',','.'));?></div></td>
+             <td><div style="float: right;"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montoentregado']),2,',','.')); ?></div></td>
+			 <td><?php echo h($cheque['Cheque']['fecharecibido']); ?></td>
+			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
+			 <td><?php echo h($cheque['Cheque']['modified']); ?>&nbsp;</td>
+			 <td><?php echo h('Cobrado con Deuda'); ?></td>
+			 <td><?php echo h($estado); ?>&nbsp;</td>
+             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
+			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
+			 <td class="actions">                   
+                      <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view', $cheque['Cheque']['id'])));?>
+					<?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
+						echo $this->Html->link($imagen, array('action' => 'delete', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
+			 </td>                    
+                    <?php }
+                    
+                    }
+                    if(($estado=='R' || $estado=='AbnCG' || $estado=='AbnGC')){
                             if($deuda==0){
                 ?>
             <tr style="background: #ffcaca; color: white;">
@@ -547,7 +586,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 </td>			
 		<?php }else{
 				/*en esta parte le debemos al cliente el monto del cheque menos el monto interes :D*/
-				if($estado=='C'){?>
+				if($estado=='C' || $estado=='AbnGC'){?>
 					<tr style="background: #ffffff; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
@@ -662,7 +701,8 @@ echo $this->Form->label('Búsqueda') ?>
 		
 		
 		<?php }}}} if($cobrado==2){
-                        if($estado=='R'){
+                        
+                    if($estado=='R' || $estado=='AbnCG'){
                             if($deuda==0){
                 ?>
             <tr style="background: #ffcaca; color: white;">
@@ -748,7 +788,7 @@ echo $this->Form->label('Búsqueda') ?>
 		if($fechacobro<$hoy){
 			/*cheques cuando aun no se ha cobrado*/
 			if($cobrado==1){
-				if($estado=='R'){
+				if($estado=='R' || $estado=='AbnCG'){
 		?>
 		<tr style="background: #FECA40; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
@@ -787,7 +827,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 </td>			
 		<?php }else{
 				/*en esta parte le debemos al cliente el monto del cheque menos el monto interes :D*/
-				if($estado=='C'){?>
+				if($estado=='C' ){?>
 					<tr style="background: #FECA40; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
@@ -826,7 +866,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 </td>
 		<?php }}} 
 			if($cobrado==0){
-				if($estado=='R'){
+				if(($estado=='R' ||  $estado=='AbnCG')&&$deuda==0){
 		?>
 		<tr style="background: #f00; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
@@ -864,7 +904,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 </td>			
 		<?php }else{
 				/*en esta parte le debemos al cliente el monto del cheque menos el monto interes :D*/
-				if($estado=='C'){?>
+				if(($estado=='C' ||  $estado=='AbnCG' || $estado=='AbnGC')&& $deuda==0){?>
 					<tr style="background: #f00; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
