@@ -14,21 +14,20 @@ class ChequesController extends AppController {
 
         public function buscar(){
             $this->layout='ajax';
-            $cedula=$this->params['pass'][0];
-            $nombre = $this->params['pass'][1];
-            $apellido = $this->params['pass'][2];
-            $apodo = $this->params['pass'][3];
-            $negocio = $this->params['pass'][4];
-            $email = $this->params['pass'][5];
-            $direccion = $this->params['pass'][6];
-            $telefonofijo = $this->params['pass'][7];
-            $celular = $this->params['pass'][8];
-            
-            $this->Cheque->query("INSERT INTO clientes (created, cedula, nombre, apellido, apodo, negocio,email,direccion, telefonofijo,telefonocelular,user_id) 
-                                        VALUES (NOW(),'".$cedula."','".$nombre."','".$apellido."', '".$apodo."', '".$negocio."'
-                                            , '".$email."','".$direccion."','".$telefonofijo."','".$celular."',".$this->Auth->user('id').")");
-           $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres'),'order'=>array('id DESC')));
-           $this->set(compact('clientes'));
+            $minimo=$this->params['pass'][0];
+            $maximo = $this->params['pass'][1];
+            $fijo = $this->params['pass'][2];
+            $porcentaje = $this->params['pass'][3];
+            if($porcentaje=='' || $porcentaje==NULL){
+            $this->Cheque->query("INSERT INTO intereses (created, vigencia, minimo, maximo, montofijo, user_id) 
+                                        VALUES (NOW(), 1,'".$minimo."','".$maximo."','".$fijo."',".$this->Auth->user('id').")");
+            }
+            if($fijo=='' || $fijo==NULL){
+            $this->Cheque->query("INSERT INTO intereses (created, vigencia, porcentaje, user_id) 
+                                        VALUES (NOW(), 1,'".$porcentaje."',".$this->Auth->user('id').")");
+            }
+           $intereses = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres'),'order'=>array('id DESC')));
+           $this->set(compact('intereses'));
         }
         public function busca(){
             $this->layout='ajax';

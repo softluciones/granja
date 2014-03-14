@@ -53,14 +53,38 @@
                 $('#divinteres').dialog("open");
         }  
         function guardar(){
+            var noentra=0;
+            if($('#cedula').val()=='' || $('#nombre').val()=='' || $('#apellido').val()=='' || $('#telefonofijo').val()==''){
+                noentra=1;
+            }
+            if($('#apodo').val()==''){
+               $('#apodo').val()='$';
+            }
+            if($('#negocio').val()==''){
+                $('#negocio').val()='$';
+            }
+            if($('#email').val()==''){
+                $('#email').val()='$';
+            }
+            if($('#direccion').val()==''){
+                $('#direccion').val()='$';
+            }
+            if($('#celular').val()==''){
+                $('#direccion').val()='$';
+            }
+            if(noentra==0){
             $.ajax({
                      type: "GET",
+                     
                      url: "busca/"+$('#cedula').val()+"/"+$('#nombre').val()+"/"+$('#apellido').val()+"/"+$('#apodo').val()+"/"+$('#negocio').val()+"/"+$('#email').val()+"/"+$('#direccion').val()+"/"+$('#telefonofijo').val()+"/"+$('#celular').val(),
                      success: function(msg){
                         $('#listacliente').html(msg);
                         $('#divcliente').dialog("close");
                     }
                 });
+            }else{
+            alert("Debe insertar todos los campos obligatorios (*)");
+            }
         }
         
         function guardare(){
@@ -85,15 +109,15 @@
 		echo "<div style='float:left;width:30%'>";
         ?>
            <?php
-             echo $this->Form->label('Cedula:');
+             echo $this->Form->label('Cedula *:');
                 echo $this->Form->input('cedula',array('id'=>'cedula','div'=>false,'label'=>false,'style'=>'width: 90%;'));
             echo "</div>";
                 echo "<div style='float:left;width:35%'>";
-                echo $this->Form->label('Nombre:');
+                echo $this->Form->label('Nombre *:');
                 echo $this->Form->input('nombre',array('id'=>'nombre','div'=>false,'label'=>false,'style'=>'width: 90%;'));
              echo "</div>";    
                 echo "<div style='float:left;width:35%'>";
-                 echo $this->Form->label('Apellido:');
+                 echo $this->Form->label('Apellido *:');
                 echo $this->Form->input('apellido',array('id'=>'apellido','div'=>false,'label'=>false,'style'=>'width: 100%;'));
                  echo "</div>";
                  echo "<div style='float:left;width:30%'>";
@@ -113,7 +137,7 @@
                 echo $this->Form->input('direccion',array('id'=>'direccion','div'=>false,'label'=>false,'style'=>'width: 100%;'));
                  echo "</div>";
                  echo "<div style='float:left;width:50%'>";
-                 echo $this->Form->label('Teléfono fijo:');
+                 echo $this->Form->label('Teléfono fijo *:');
                 echo $this->Form->input('telefonofijo',array('id'=>'telefonofijo','div'=>false,'label'=>false,'style'=>'width: 95%;'));
                  echo "</div>";
                  echo "<div style='float:left;width:50%'>";
