@@ -54,23 +54,25 @@
         }  
         function guardar(){
             var noentra=0;
-            if($('#cedula').val()=='' || $('#nombre').val()=='' || $('#apellido').val()=='' || $('#telefonofijo').val()==''){
+            if($('#cedula').val()=='' || $('#nombre').val()=='' || $('#apellido').val()=='' || $('#telefonofijo').val()=='' ||  $('#apodo').val()==''){
                 noentra=1;
             }
+            if(noentra==0){
             if($('#apodo').val()==''){
-               $('#apodo').val()='$';
+               $('#apodo').val('xxxxxx');
             }
             if($('#negocio').val()==''){
-                $('#negocio').val()='$';
+                $('#negocio').val('xxxxxx');
             }
             if($('#email').val()==''){
-                $('#email').val()='$';
+                $('#email').val('xxxxxx');
             }
             if($('#direccion').val()==''){
-                $('#direccion').val()='$';
+                $('#direccion').val('xxxxxx');
             }
             if($('#celular').val()==''){
-                $('#direccion').val()='$';
+                $('#celular').val('xxxxxx');
+            }
             }
             if(noentra==0){
             $.ajax({
@@ -82,12 +84,47 @@
                         $('#divcliente').dialog("close");
                     }
                 });
+                $('#cedula').val('');
+            $('#apellido').val('');
+            $('#apellido').val('');
+            $('#apodo').val('');
+            $('#negocio').val('');
+            $('#email').val('');
+            $('#direccion').val('');
+            $('#telefonofijo').val('');
+            $('#celular').val('');
             }else{
             alert("Debe insertar todos los campos obligatorios (*)");
             }
+            
         }
         
         function guardare(){
+        var vacio=0;
+        if($('#minimo').val()==''&&$('#fijo').val()==''&&$('#maximo').val()!=''){
+            vacio=1;
+            alert("Llena el campo minimo");            
+        }
+        if($('#maximo').val()==''&&$('#fijo').val()==''&&$('#minimo').val()!=''){
+            vacio=1;
+            alert("Llena el campo maximo");            
+        }
+        if($('#maximo').val()==''&&$('#minimo').val()==''&&$('#fijo').val()!=''){
+            vacio=1;
+            alert("Llena el campo monto fijo");            
+        }
+        
+        if(vacio==0){
+            
+        if($('#porcentaje').val()!=''){
+            
+            $('#minimo').val('xxxxxxx');
+            $('#maximo').val('xxxxxxx');
+            $('#fijo').val('xxxxxxx');
+        }
+        if($('#fijo').val()!='xxxxxxx'){
+            $('#porcentaje').val('xxxxxxx');
+        }
             $.ajax({
                      type: "GET",
                      url: "buscar/"+$('#minimo').val()+"/"+$('#maximo').val()+"/"+$('#fijo').val()+"/"+$('#porcentaje').val(),
@@ -99,6 +136,12 @@
 
                     }
                 });
+                $('#minimo').val('');
+                 $('#maximo').val('');
+                  $('#fijo').val('');
+             $('#porcentaje').val('');
+        }
+        
         }
 
 </script>

@@ -14,10 +14,23 @@ class ChequesController extends AppController {
 
         public function buscar(){
             $this->layout='ajax';
-            $minimo=$this->params['pass'][0];
-            $maximo = $this->params['pass'][1];
-            $fijo = $this->params['pass'][2];
-            $porcentaje = $this->params['pass'][3];
+            if($this->params['pass'][0]!="xxxxxxx")
+                $minimo = $this->params['pass'][0];
+            else
+               $minimo=''; 
+            if($this->params['pass'][1]!="xxxxxxx")
+                $maximo = $this->params['pass'][1];
+            else
+               $maximo=''; 
+            if($this->params['pass'][2]!="xxxxxxx")
+                $fijo = $this->params['pass'][2];
+            else
+               $fijo=''; 
+            if($this->params['pass'][3]!="xxxxxxx")
+                $porcentaje = $this->params['pass'][3];
+            else
+               $porcentaje=''; 
+           
             if($porcentaje=='' || $porcentaje==NULL){
             $this->Cheque->query("INSERT INTO intereses (created, vigencia, minimo, maximo, montofijo, user_id) 
                                         VALUES (NOW(), 1,'".$minimo."','".$maximo."','".$fijo."',".$this->Auth->user('id').")");
@@ -26,21 +39,37 @@ class ChequesController extends AppController {
             $this->Cheque->query("INSERT INTO intereses (created, vigencia, porcentaje, user_id) 
                                         VALUES (NOW(), 1,'".$porcentaje."',".$this->Auth->user('id').")");
             }
-           $intereses = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres'),'order'=>array('id DESC')));
-           $this->set(compact('intereses'));
+
+           $interese = $this->Cheque->Interese->find('list',array('fields'=>array('id','rango'),'order'=>array('id DESC')));
+
+           $this->set(compact('interese'));
         }
         public function busca(){
             $this->layout='ajax';
             $cedula=$this->params['pass'][0];
             $nombre = $this->params['pass'][1];
             $apellido = $this->params['pass'][2];
-            $apodo = $this->params['pass'][3];
+            if($this->params['pass'][3]!="xxxxxx")
+                $apodo = $this->params['pass'][3];
+            else
+               $apodo=''; 
+            if($this->params['pass'][4]!="xxxxxx")
             $negocio = $this->params['pass'][4];
+            else
+                $negocio='';
+            if($this->params['pass'][5]!="xxxxxx")
             $email = $this->params['pass'][5];
+            else
+                $email='';
+            if($this->params['pass'][6]!="xxxxxx")
             $direccion = $this->params['pass'][6];
+            else
+                $direccion='';
             $telefonofijo = $this->params['pass'][7];
+            if($this->params['pass'][8]!="xxxxxx")
             $celular = $this->params['pass'][8];
-            
+            else
+                $celular='';
             $this->Cheque->query("INSERT INTO clientes (created, cedula, nombre, apellido, apodo, negocio,email,direccion, telefonofijo,telefonocelular,user_id) 
                                         VALUES (NOW(),'".$cedula."','".$nombre."','".$apellido."', '".$apodo."', '".$negocio."'
                                             , '".$email."','".$direccion."','".$telefonofijo."','".$celular."',".$this->Auth->user('id').")");
@@ -49,7 +78,7 @@ class ChequesController extends AppController {
         }
         public function aumentarinteres(){
            
-            $sql="SELECT * FROM cheques WHERE cobrado=0";
+            $sql="SELECT * FROM cheques WHERE cobrado=0 AND deuda=0";
             $chequesdevueltos=  $this->Cheque->query($sql);
              $select = "SELECT minimo, maximo, montofijo FROM intereses WHERE porcentaje IS NULL ORDER BY maximo DESC";
                 $blabla=$this->Cheque->query($select);
@@ -336,10 +365,10 @@ class ChequesController extends AppController {
         public function index() {
 		$this->Cheque->recursive = 2;
                 $sumas=  $this->Cheque->query("SELECT cobrado, 
-                                            SUM( monto ) as sumato 
+                                            SUM( monto ) as sumato, deuda
                                             FROM cheques
-                                            WHERE cobrado =1
-                                            OR cobrado =0
+                                            WHERE (cobrado =1
+                                            OR cobrado =0) AND deuda=0
                                             GROUP BY cobrado
                                             ORDER BY COBRADO"); 
                 
@@ -654,7 +683,7 @@ class ChequesController extends AppController {
 		$bancos = $this->Cheque->Banco->find('list');
                 $muestra=0;
 		if($id==null){
-                    $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres')));
+                    $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres'),'order'=>array('id DESC')));
                     
                 }
                 else
@@ -662,10 +691,10 @@ class ChequesController extends AppController {
                     $muestra=1;
                     $conditions=array('Cliente.id'=>$id);
          	    $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres'),
-                                                                                   'conditions'=>$conditions));
+                                                                                   'conditions'=>$conditions,'order'=>array('id DESC')));
                    
                 }
-		$interese = $this->Cheque->Interese->find('list',array('fields'=>array('id','rango')));
+		$interese = $this->Cheque->Interese->find('list',array('fields'=>array('id','rango'),'order'=>array('id DESC')));
 		$users = $this->Cheque->User->find('list');
                 $x=$this->Cheque->query("select id, username from users where id=".$this->Auth->user('id')."");
                 $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
