@@ -169,7 +169,7 @@ echo $this->Form->label('Búsqueda') ?>
             <th>Total de "Por Cobrar y Devueltos":</th>
             <th><div style="float: right">
                 <?php 
-                debug($sumas);
+         
                 if(empty($sumas[0]))
                     echo h(number_format(floatval($sumas[1][0]['sumato']),2,',','.'))." Bs";
                 else

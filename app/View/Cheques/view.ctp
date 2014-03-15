@@ -129,7 +129,7 @@ input[type=submit],
 <div class="box">
   
              <div class="title">        
-	<strong style="color:#333; font-size:14px;"><?php echo __('Pagos de Cheque');?></strong>
+	<strong style="color:#333; font-size:14px;"><?php echo __('Pagos con Cheque');?></strong>
                        </div>      
     <div class="content pages">
         <div class="row">
@@ -223,7 +223,12 @@ input[type=submit],
         <?php if($cheque['Cheque']['deuda']==0){?>
 	<div class="actions">
 		<ul>
-			<li  align="center"><?php echo $this->Html->link(__('Nuevo Cheque'), array('action' => 'add2',$cheque['Cheque']['id'])); ?> </li>
+			<li  align="center">
+                        <?php 
+                        
+                        echo $this->Html->link(__('Nuevo Cheque'), array('action' => 'add2',$cheque['Cheque']['id']));
+                        ?> 
+                        </li>
 		</ul>
 	</div>
                 <?php }?>

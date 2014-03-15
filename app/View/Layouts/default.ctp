@@ -74,7 +74,6 @@ $("#datepicker").datepicker();
    <li class='has-sub'><a href='#'><span>Reportes</span></a>
       <ul>
          <li><?php echo $this->Html->link("Cheques Devueltos", array('controller'=>'cheques','action' => 'devueltos'), array('escape' => false));?></li>         
-         <li><?php echo $this->Html->link("Cheques Postdatado", array('controller'=>'cheques','action' => 'postdatados'), array('escape' => false));?></li>
          <li><?php echo $this->Html->link("Cheques Cobrados", array('controller'=>'cheques','action' => 'index2'), array('escape' => false));?></li>
       </ul>
    </li>

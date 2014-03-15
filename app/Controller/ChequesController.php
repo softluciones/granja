@@ -654,6 +654,7 @@ class ChequesController extends AppController {
 		$interese = $this->Cheque->Interese->find('list',array('fields'=>array('id','rango')));
 		$users = $this->Cheque->User->find('list');
                 $cheque = $this->Cheque->find('all',array('conditions'=>array('Cheque.id'=>$id)));
+               
                 $x=$this->Cheque->query("select id, username from users where id=".$this->Auth->user('id')."");
                 $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
 		$this->set(compact('bancos', 'clientes', 'interese', 'users','id_cheque','id','cheque'));
@@ -1219,5 +1220,18 @@ class ChequesController extends AppController {
 			$this->Session->setFlash(__('El cheque no ha sido eliminado, verifica otra vez.'));
 		}
 		return $this->redirect(array('action' => 'index2'));
+	}
+        public function delete3($id = null) {
+		$this->Cheque->id = $id;
+		if (!$this->Cheque->exists()) {
+			throw new NotFoundException(__('Invalid cheque'));
+		}
+	
+		if ($this->Cheque->delete()) {
+			$this->Session->setFlash(__('El Cheque ha sido eliminado.'));
+		} else {
+			$this->Session->setFlash(__('El cheque no ha sido eliminado, verifica otra vez.'));
+		}
+		return $this->redirect(array('action' => 'devueltos'));
 	}
         }
