@@ -1393,6 +1393,28 @@ class ChequesController extends AppController {
  * @return void
  */
         
+         public function general($id=null){
+             App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
+
+ $this->layout = 'pdf'; //this will use the pdf.ctp layout
+		$this->Cheque->recursive =2;	
+				 
+	
+	#$items = $this->Inventario->query("SELECT it.referencia1, ii.cantidad FROM 
+               # item as it, inventario_item as ii WHERE ii.inventario_id=".$id." 
+                  #  AND it.id = ii.item_id");	
+        
+       
+        $cheques = $this->Cheque->find('all');
+       
+		$this->set(compact('cheques'));
+               
+
+            $this->response->type('pdf');
+
+            $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
+		$this->render('relaciondia','pdf');
+        }
          public function relaciondia($id=null){
              App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
 

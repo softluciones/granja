@@ -214,9 +214,13 @@ echo $this->Form->label('Búsqueda') ?>
        ?>
 <h2 style="clear: both">
     <?php 
-            echo __('Cheques por cobrar y devueltos ');
-           echo $this->Html->image("reporte.jpg", array("alt" => "Generar Reporte",'width' => '20', 'heigth' => '20','title'=>'Generar Reporte','url' => array('action' => 'relaciondia'))); 
-      
+            echo __('Cheques con deuda');
+            echo "</br>";
+            echo "<div align='left'>";
+           echo $this->Html->image("reporte.jpg", array("alt" => "Generar Reporte de Relación Diaria de Cheques",'width' => '30', 'heigth' => '35','title'=>'Generar Reporte de Relacion Diaria de Cheques','url' => array('action' => 'relaciondia'))); 
+           echo " ";
+            echo $this->Html->image("reportegeneral.fw.png", array("alt" => "Generar Reporte General de Cheques",'width' => '30', 'heigth' => '30','title'=>'Generar Reporte General de Cheques','url' => array('action' => 'general'))); 
+           echo "</div>";
             ?></h2>
             
         
@@ -326,7 +330,8 @@ echo $this->Form->label('Búsqueda') ?>
 												}else
 								echo $this->Html->link($porcentaje, array('controller' => 'interese', 'action' => 'view', $cheque['Interese']['id']))." %"; 
 								?></td>
-												<?php $total=count($cheque['Chequeinterese']);
+												<?php 
+                                                                                                $total=count($cheque['Chequeinterese']);
 												//debug($total);
 												?>
                                                         
