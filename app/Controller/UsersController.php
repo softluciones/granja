@@ -112,7 +112,7 @@ class UsersController extends AppController {
 			$this->request->data = $this->User->find('first', $options);
 		}
 		$roles = $this->User->Role->find('list');
-		$this->set(compact('roles'));
+		$this->set(compact('roles','id'));
 	}
         
         public function editpass($id = null) {
