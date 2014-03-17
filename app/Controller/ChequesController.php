@@ -1413,7 +1413,7 @@ class ChequesController extends AppController {
             $this->response->type('pdf');
 
             $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
-		$this->render('relaciondia','pdf');
+		$this->render('general','pdf');
         }
          public function relaciondia($id=null){
              App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));

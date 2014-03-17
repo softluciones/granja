@@ -4,6 +4,7 @@ $fpdf->AliasNbPages();
 $fpdf->AddPage();
 $fpdf->SetAutoPageBreak(true,0); 
 $fpdf->SetFont('Times','B',12);
+
  $fpdf->Cell(0,0,utf8_decode('Reporte General de Cheques'),0,0,'C');
 
 
@@ -124,7 +125,7 @@ if (!empty($cheques)){
 	
 		endforeach;	
 				
-$colWidth = array(15,17,15,10,10,20,22,22,22,15,15,15,10,20,15); 
+$colWidth = array(15,20,15,10,10,20,22,22,22,15,15,15,10,20,15); 
 $fpdf->Tabla($header,$colWidth, $data2); 
 
 
@@ -231,7 +232,7 @@ $fpdf->Tabla($header,$colWidth, $data2);
 	
 		endforeach;	
 				
-$colWidth = array(15,12,20,10,10,20,22,22,22,15,15,15,10,20,15); 
+$colWidth = array(15,20,15,10,10,20,22,22,22,15,15,15,10,20,15); 
 $fpdf->Tabla($header,$colWidth, $data2); 
 
 
