@@ -487,7 +487,7 @@ input[type=submit],
 	</table>
 <?php endif; ?>
 </br>
-<?php if($deuda==1){?>
+<?php if($deuda==0){?>
 	<div class="actions">
 		<ul>
 			<li align="center"><?php echo $this->Html->link(__('Nueva Cobranza'), array('controller' => 'gestiondecobranzas', 'action' => 'add',$cheque['Cheque']['id'])); ?> </li>
@@ -553,7 +553,7 @@ input[type=submit],
 	</table>
 <?php endif; ?>
 </br>
-<?php if($deuda==1){?>
+<?php if($deuda==0){?>
 	<div class="actions">
 		<ul>
 			<li  align="center"><?php echo $this->Html->link(__('Pago a terceros'), array('controller' => 'pagoterceros', 'action' => 'add/'.$cheque['Cheque']['id']."/".$monto,$cheque['Cliente']['id'])); ?> </li>

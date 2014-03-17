@@ -14,8 +14,8 @@ class PagotercerosController extends AppController {
  * @var array
  */
 	public $components = array('Paginator');
-
-/**
+        var $uses=array('Pagotercero','Cliente','Cheque');
+/** 
  * index method
  *
  * @return void
@@ -49,13 +49,55 @@ class PagotercerosController extends AppController {
  * @return void
  */
 	public function add($id=null) {
+            $this->Pagotercero->recursive=2;
             $id=  $this->params['pass'][0];
             $chequ=  $this->params['pass'][1];
-            
-            $_SESSION['varia']=1;
+            $usuario = $this->params['pass'][2];
 		if ($this->request->is('post')) {
 			$this->Pagotercero->create();
-                        $this->data;
+                        $concheques = $this->Cheque->find('first',array('conditions'=>array('Cheque.id'=>$id)));
+                        $pos = count($concheques['Chequeinterese']);
+                       $montopagado=$this->data['Pagotercero']['monto'];
+                       
+                       $maximo = $this->params['pass'][1];
+                       $montofijo = $concheques['Interese']['montofijo'];
+                       $porcentaje = $concheques['Interese']['porcentaje'];
+                       
+                       if($porcentaje==null){
+                           $menosporcentaje = $maximo - $montofijo;
+                           $pago = $montofijo;
+                       }
+                       else{
+                           $menosporcentaje = $maximo - ($maximo*($porcentaje/100));
+                           $pago = $montopagado*($porcentaje/100);
+                       }
+                       $montodeuda = $maximo-($montopagado+$pago);
+                       if($montopagado>$menosporcentaje){
+                           $this->request->data['Pagotercero']['monto']=$montopagado = $maximo-$pago;
+                           $montodeuda=0;
+                       }
+                       $montopago=$this->data['Pagotercero']['monto'];
+                       $encontrado=0;
+                       $montodescuentointeres=0;
+                       $interese=$concheques['Interese'];
+                           
+                           if($interese['montofijo']!=null){
+                               if($interese['maximo']>$montopago && $interese['minimo']<$montopago){
+                                   $encontrado=1;
+                                   $montodescuentointeres=$interese['montofijo'];                                   
+                               }
+                           }
+                      
+                       if($encontrado==0){
+                           $montodescuentointeres=$montopago*($porcentaje/100);
+                       }
+                       if($montodeuda==0){
+                           $montodescuentointeres=0;
+                           $this->Cheque->query("UPDATE cheques SET deuda=1, modified=NOW() WHERE id=".$id);
+                       }
+                       $montoentregado = $concheques['Chequeinterese'][$pos-1]['montoentregado'];
+                       $inserta = $this->Pagotercero->query("INSERT INTO chequeinterese (montocheque,montodescuentointeres,montoentregado,estadocheque,created,modificado,cheque_id,user_id)
+                           VALUES (".$montodeuda.",".$montodescuentointeres.",".$montoentregado.",".$concheques['Cheque']['cobrado'].",NOW(),NOW(),".$id.",".$this->Auth->user('id').")");
                         $sql="INSERT INTO pagoterceros (created,dia,monto,conceptode,cliente_id,cliente_id1,cheque_id,
                             user_id) VALUES (NOW(),'".$this->data['Pagotercero']['dia']."', 
                                 ".$this->data['Pagotercero']['monto'].",
@@ -65,10 +107,11 @@ class PagotercerosController extends AppController {
                                                 ".$this->data['Pagotercero']['cheque_id'].",
                                                     ".$this->data['Pagotercero']['user_id'].")";
                         
+                        
 			if (!$this->Pagotercero->query($sql)) {
                             
 				$this->Session->setFlash(__('El pago a tercero ha sido efectivo.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('controller'=>'cheques','action' => 'view',$id));
 			} else {
 				$this->Session->setFlash(__('El pago a terceros no ha sido efectivo. Prueba otra vez y revisa'));
 			}
@@ -78,8 +121,9 @@ class PagotercerosController extends AppController {
                     $cheques = $this->Pagotercero->Cheque->find('list');
                 }else{
                     $conditions=array('Cliente.id'=>$chequ);
-         	    $clientes = $this->Pagotercero->Cliente->find('list',array('fields'=>array('id','nombres'),
-                                                                                   'conditions'=>$conditions));
+         	    $clientes = $this->Cliente->find('list',array('fields'=>array('id','apodo'),
+                                                                                   'conditions'=>array('Cliente.id'=>$usuario)));
+              
                     $conditions=array('Cheque.id'=>$id);
          	    $cheques = $this->Pagotercero->Cheque->find('list',array('fields'=>array('id','numerodecheque'),
                                                                                    'conditions'=>$conditions));
@@ -91,7 +135,7 @@ class PagotercerosController extends AppController {
 		$users = $this->Pagotercero->User->find('list');
                 $x=$this->Pagotercero->query("select id, username from users where id=".$this->Auth->user('id')."");                
                 $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
-		$this->set(compact('clientes', 'cliente1s', 'cheques', 'users'));
+		$this->set(compact('clientes', 'cliente1s', 'cheques', 'users','chequ'));
 	}
 
 /**

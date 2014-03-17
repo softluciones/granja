@@ -162,7 +162,7 @@ class ChequesController extends AppController {
                            
                             
                             
-                            $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
+                            $nuevafecha = strtotime ('+1 day' , strtotime ( $fecha )) ;
                             $fecha = date ( 'Y-m-d' , $nuevafecha );
                            $nuevomonto=$montodeuda+$montointeres;
                         
@@ -1392,6 +1392,36 @@ class ChequesController extends AppController {
  * @param string $id
  * @return void
  */
+        
+         public function relaciondia($id=null){
+             App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
+
+ $this->layout = 'pdf'; //this will use the pdf.ctp layout
+		$this->Cheque->recursive =2;	
+				 
+	
+	#$items = $this->Inventario->query("SELECT it.referencia1, ii.cantidad FROM 
+               # item as it, inventario_item as ii WHERE ii.inventario_id=".$id." 
+                  #  AND it.id = ii.item_id");	
+        
+        $conditions= array('or'=>array
+                                    (array('Cheque.cobrado'=>'1'),
+                                    array(array('and'=>array(array('Cheque.cobrado'=>'0'),
+                                            array('Cheque.deuda'=>0)))),
+                                        array(array('and'=>array(array('Cheque.cobrado'=>'2'),
+                                            array('Cheque.deuda'=>0)))),
+                                    ));
+        $cheques = $this->Cheque->find('all',array('conditions'=>$conditions));
+       
+		$this->set(compact('cheques'));
+               
+
+            $this->response->type('pdf');
+
+            $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
+		$this->render('relaciondia','pdf');
+        }
+        
 	public function delete($id = null) {
 		$this->Cheque->id = $id;
 		if (!$this->Cheque->exists()) {

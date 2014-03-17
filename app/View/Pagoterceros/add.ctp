@@ -62,7 +62,7 @@ for($i=0;$i<12;$i++){
                 <table>
                     <tr>
                         <th><?php echo $this->Form->input('dia',array('value'=>$dia)); ?></th>
-                        <th><?php echo $this->Form->input('monto'); ?></th>
+                        <th><?php echo $this->Form->input('monto',array('value'=>$chequ)); ?></th>
                         <th></th>
                     </tr>
                     <tr>
