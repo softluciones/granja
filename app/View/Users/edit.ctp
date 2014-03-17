@@ -20,8 +20,7 @@
                 <tr>
 	<?php
 		echo '<th>';
-		echo $this->Form->input('id',array('type'=> 'hidden'));
-                echo $this->Form->input('username',array('label'=> 'Nombre de usuario'));
+		echo $this->Form->input('username',array('label'=> 'Nombre de usuario'));
                 echo '</th>';
                 echo '<th>';
 		echo $this->Form->input('role_id',array('label'=>'Rol del usuario'));
