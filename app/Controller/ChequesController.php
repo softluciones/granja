@@ -856,14 +856,14 @@ class ChequesController extends AppController {
 		$bancos = $this->Cheque->Banco->find('list');
                 $muestra=0;
 		if($id==null){
-                    $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres'),'order'=>array('id DESC')));
+                    $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','apodo'),'order'=>array('id DESC')));
                     
                 }
                 else
                 {
                     $muestra=1;
                     $conditions=array('Cliente.id'=>$id);
-         	    $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres'),
+         	    $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','apodo'),
                                                                                    'conditions'=>$conditions,'order'=>array('id DESC')));
                    
                 }
