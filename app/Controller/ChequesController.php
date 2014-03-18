@@ -717,12 +717,12 @@ class ChequesController extends AppController {
             $montofijo= $coninteres['Interese']['montofijo'];
             $porcentaje= $coninteres['Interese']['porcentaje'];
             if($montofijo!=NULL){
-                $monton = $deuda+montofijo*$diferencia;
+                $monton = $deuda+$montofijo*$diferencia;
                 $monton = $this->redondear_a_10($monton);
             }else{
                 if($porcentaje!=NULL)
                 {
-                    $monton=(100*($deuda+(10)))/(100-($porcentaje*($diferencia)));
+                    $monton=(100*($deuda+(10*$diferencia-1)))/(100-($porcentaje*($diferencia)));
                 
                     $monton = $this->redondear_a_10($monton);
                 }
@@ -763,7 +763,7 @@ class ChequesController extends AppController {
                             if($nuevomonto>0)
                             $montointeres=$montofijo;
                             else
-                                $montotinteres=0;
+                                $montointeres=0;
                         }else
                         {    
                             $montointeres = $nuevomonto*($porcentaje/100);
@@ -820,7 +820,7 @@ class ChequesController extends AppController {
 		}
 		$bancos = $this->Cheque->Banco->find('list',array('fields'=>'nombre'));
                 $muestra=0;		
-                $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres')));      
+                $clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','apodo')));      
                 $id_cheque = $this->Cheque->find('list',array('fields'=>array('id','numerodecheque'),'conditions'=>array(
                     'Cheque.id'=>$id)));
 		$interese = $this->Cheque->Interese->find('list',array('fields'=>array('id','rango')));
@@ -929,8 +929,7 @@ class ChequesController extends AppController {
                  $dias2=$y[0]['cheques']['dias'];
                  $sql="select * from chequeinterese where cheque_id=".$id." ORDER BY modificado DESC";
                  $xx=  $this->Cheque->query($sql);
-                 #debug($xx);
-                 
+               
                  $cheque = $this->Cheque->find('first',array('conditions'=>array('Cheque.id'=>$id)));
                 $montooriginal=$cheque['Cheque']['monto'];
                 $modificado = date('Y-m-d H:i:s');

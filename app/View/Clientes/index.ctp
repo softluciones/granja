@@ -107,7 +107,5 @@ li.menu{
 		<li align="center"><?php echo $this->Html->link(__('Nuevo Cliente'), array('action' => 'add')); ?></li>
 		<li align="center"><?php echo $this->Html->link(__('Listar Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
 		<li align="center"><?php echo $this->Html->link(__('Nuevo Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
-		<li align="center"><?php echo $this->Html->link(__('Listar Cuentas'), array('controller' => 'cuentas', 'action' => 'index')); ?> </li>
-		<li align="center"><?php echo $this->Html->link(__('Nueva Cuenta'), array('controller' => 'cuentas', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

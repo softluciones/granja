@@ -63,7 +63,9 @@ class CuentasController extends AppController {
                 $conditions=array('Cliente.id'=>$id);
 		$clientes = $this->Cuenta->Cliente->find('list',array('fields'=>array('id','apodo'),
                                                                                     'conditions'=>$conditions));
+
 		$bancos = $this->Cuenta->Banco->find('list',array('fields'=>array('id','nombre')));
+
 		#$clientes = $this->Cuenta->Cliente->find('list');
 		$users = $this->Cuenta->User->find('list');
                 $x=$this->Cuenta->query("select id, username from users where id=".$this->Auth->user('id')."");

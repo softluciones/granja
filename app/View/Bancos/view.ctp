@@ -140,6 +140,6 @@
 		<li align="center"><?php echo $this->Html->link(__('Lista Bancos'), array('action' => 'index')); ?> </li>
 		<li align="center"><?php echo $this->Html->link(__('Nuevo Banco'), array('action' => 'add')); ?> </li>
 		<li align="center"><?php echo $this->Html->link(__('Lista Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
-		
+
 	</ul>
 </div>

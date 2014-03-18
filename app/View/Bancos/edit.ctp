@@ -44,10 +44,8 @@
 
 		<li class="menu"><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Banco.id')), null, __('Estas seguro de borrar el codigo  # %s?', $this->Form->value('Banco.codigo'))); ?></li>
 		<li class="menu"><?php echo $this->Html->link(__('Lista Bancos'), array('action' => 'index')); ?></li>
-		<li class="menu"><?php echo $this->Html->link(__('Lista Usuarios'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li class="menu"><?php echo $this->Html->link(__('Nuevo Usuario'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li class="menu"><?php echo $this->Html->link(__('Lista Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
 		<li class="menu"><?php echo $this->Html->link(__('Nuevo Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
-		
+
 	</ul>
 </div>
