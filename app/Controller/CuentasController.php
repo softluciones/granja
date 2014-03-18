@@ -48,7 +48,7 @@ class CuentasController extends AppController {
  * @return void
  */
 	public function add($id=null) {
-           
+                
 		if ($this->request->is('post')) {
 			$this->Cuenta->create();
 			if ($this->Cuenta->save($this->request->data)) {
@@ -61,10 +61,10 @@ class CuentasController extends AppController {
 			}
 		}
                 $conditions=array('Cliente.id'=>$id);
-		$clientes = $this->Cuenta->Cliente->find('list',array('fields'=>array('id','nombres'),
+		$clientes = $this->Cuenta->Cliente->find('list',array('fields'=>array('id','apodo'),
                                                                                     'conditions'=>$conditions));
-		$bancos = $this->Cuenta->Banco->find('list');
-		$clientes = $this->Cuenta->Cliente->find('list');
+		$bancos = $this->Cuenta->Banco->find('list',array('fields'=>array('id','nombre')));
+		#$clientes = $this->Cuenta->Cliente->find('list');
 		$users = $this->Cuenta->User->find('list');
                 $x=$this->Cuenta->query("select id, username from users where id=".$this->Auth->user('id')."");
                 
