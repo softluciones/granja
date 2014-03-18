@@ -499,33 +499,47 @@ input[type=submit],
         <div class="row">
 	<?php if (!empty($cheque['Pagotercero'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
+            <thead>
 	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Fecha creación'); ?></th>
-		<th><?php echo __('Dia'); ?></th>
-		<th><?php echo __('Monto'); ?></th>
-		<th><?php echo __('Conceptode'); ?></th>
-		<th><?php echo __('Origen'); ?></th>
-		<th><?php echo __('Destino'); ?></th>
-		<th><?php echo __('Cheque Id'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th class="actions"><?php echo __('Acciones'); ?></th>
+            
+		<th><div align="center"><?php echo __('Fecha creación'); ?></div></th>
+		<th><div align="center"><?php echo __('Dia'); ?></div></th>
+		<th><div align="center"><?php echo __('Monto Transferido'); ?></div></th>
+		<th><div align="center"><?php echo __('Conceptode'); ?></div></th>
+		<th><div align="center"><?php echo __('Origen'); ?></div></th>
+		<th><div align="center"><?php echo __('Destino'); ?></div></th>
+		<th><div align="center"><?php echo __('User Id'); ?></div></th>
+		<th class="actions"><div align="center"><?php echo __('Acciones'); ?></th>
 	</tr>
-	<?php foreach ($cheque['Pagotercero'] as $pagotercero): ?>
+            </thead>
+	<?php  foreach ($cheque['Pagotercero'] as $pagotercero): 
+            /*debug($pagotercero);
+        exit(0);*/ ?>
 		<tr>
-			<td><?php echo $pagotercero['id']; ?></td>
-			<td><?php echo $pagotercero['created']; ?></td>
+			
+                        <td><?php $fecha=new DateTime($pagotercero['created']);
+                                  $fecha=$fecha->format("d-m-Y");
+                                  $pagotercero['created']=$fecha;
+                                    echo $pagotercero['created']; ?></td>
 			<td><?php echo $pagotercero['dia']; ?></td>
-			<td><?php echo $pagotercero['monto']; ?></td>
+			<td><?php 
+                        $valores=$pagotercero['monto'];
+                        echo number_format(floatval($valores),2,',','.').' Bs.';
+                         ?></td>
 			<td><?php echo $pagotercero['conceptode']; ?></td>
-			<td><?php echo $pagotercero['cliente_id']; ?></td>
-			<td><?php echo $pagotercero['cliente_id1']; ?></td>
-			<td><?php echo $pagotercero['cheque_id']; ?></td>
-			<td><?php echo $pagotercero['user_id']; ?></td>
-			<td class="acciones">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'pagoterceros', 'action' => 'view', $pagotercero['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'pagoterceros', 'action' => 'edit', $pagotercero['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'pagoterceros', 'action' => 'delete', $pagotercero['id']), null, __('Are you sure you want to delete # %s?', $pagotercero['id'])); ?>
+			<td><?php echo $pagotercero['Cliente']['apodo']; ?></td>
+			<td><?php echo $pagotercero['Cliente1']['apodo']; ?></td>
+			<td><?php echo $pagotercero['User']['username']; ?></td>
+                        <td class="acciones">
+                            <?php 
+                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller' => 'pagoterceros', 'action' => 'view', $pagotercero['id'])));
+ ?>				<?php
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'pagoterceros', 'action' => 'edit', $pagotercero['id'])));
+                            ?>
+				<?php
+                                $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
+                                                 echo $this->Html->link($imagen, array('controller' => 'pagoterceros', 'action' => 'delete', $pagotercero['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?')));
+                         ?>	
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -534,7 +548,7 @@ input[type=submit],
 </br>
 	<div class="actions">
 		<ul>
-			<li  align="center"><?php echo $this->Html->link(__('Pago a terceros'), array('controller' => 'pagoterceros', 'action' => 'add/'.$cheque['Cheque']['id'],$cheque['Cliente']['id'])); ?> </li>
+			<li  align="center"><?php echo $this->Html->link(__('Pago a terceros'), array('controller' => 'pagoterceros', 'action' => 'add/'.$cheque['Cheque']['id']."/".$monto,$cheque['Cliente']['id'])); ?> </li>
 		</ul>
 	</div>
 </div>

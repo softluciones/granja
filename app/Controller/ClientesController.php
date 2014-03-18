@@ -95,6 +95,7 @@ class ClientesController extends AppController {
         
 		if ($this->request->is('post')) {
 			$this->Cliente->create();
+                        
 			if ($this->Cliente->save($this->request->data)) {
                                 $cliente_ids=  $this->Cliente->getLastInsertID();
 				$this->Session->setFlash(__('El cliente ha sido guardado.'));
@@ -124,8 +125,12 @@ class ClientesController extends AppController {
 			throw new NotFoundException(__('Cliente invalido'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Cliente->save($this->request->data)) {
-				$this->Session->setFlash(__('El cliente ha sido editado'));
+                    $x=$this->request->data;
+                    debug($x);
+                    
+                    if ($this->Cliente->save($this->request->data)) {
+                            
+                            $this->Session->setFlash(__('El cliente ha sido editado'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('El cliente no ha sido editado. Prueba otra vez e intentalo'));

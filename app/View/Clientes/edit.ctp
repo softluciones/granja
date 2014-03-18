@@ -20,7 +20,8 @@
                         <th colspan="3"><div align="center">Datos personales</div></th>
                     </tr>
                     <tr>
-                        <th><?php echo $this->Form->input('cedula'); ?></th>
+                        <th><?php echo $this->Form->input('id',array('type'=>'hidden')); ?>
+                            <?php echo $this->Form->input('cedula'); ?></th>
                         <th><?php echo $this->Form->input('nombre'); ?></th>
                         <th><?php echo $this->Form->input('apellido'); ?></th>
                     </tr>

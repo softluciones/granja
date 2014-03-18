@@ -17,7 +17,7 @@ class Cliente extends AppModel {
  * @var string
  */
 	public $displayField = 'nombre';
-        public $virtualFields = array(
+ /*    public $virtualFields = array(
             'nombres'=>'concat(Cliente.cedula,"-",Cliente.nombre," ",Cliente.apellido)'
         );
 
@@ -164,6 +164,19 @@ class Cliente extends AppModel {
 		'Pagotercero' => array(
 			'className' => 'Pagotercero',
 			'foreignKey' => 'cliente_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+            'Pagotercero' => array(
+			'className' => 'Pagotercero',
+			'foreignKey' => 'cliente_id1',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
