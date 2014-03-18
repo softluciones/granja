@@ -61,12 +61,7 @@ $("#datepicker").datepicker();
          </li>
          
          
-         <li class='has-sub'><a href='#'><span>Pagos a Terceros</span></a>
-            <ul>
-               <li><?php echo $this->Html->link("Nuevo pago", array('controller'=>'pagoterceros','action' => 'add'), array('escape' => false));?></li>
-               <li><?php echo $this->Html->link("Lista pago", array('controller'=>'pagoterceros','action' => 'index'), array('escape' => false));?></li>
-            </ul>
-         </li>
+         
       </ul>
    </li>
    <li class='has-sub'><a href='#'><span>Clientes</span></a>
@@ -79,7 +74,6 @@ $("#datepicker").datepicker();
    <li class='has-sub'><a href='#'><span>Reportes</span></a>
       <ul>
          <li><?php echo $this->Html->link("Cheques Devueltos", array('controller'=>'cheques','action' => 'devueltos'), array('escape' => false));?></li>         
-         <li><?php echo $this->Html->link("Cheques Postdatado", array('controller'=>'cheques','action' => 'postdatados'), array('escape' => false));?></li>
          <li><?php echo $this->Html->link("Cheques Cobrados", array('controller'=>'cheques','action' => 'index2'), array('escape' => false));?></li>
       </ul>
    </li>

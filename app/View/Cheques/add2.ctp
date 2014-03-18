@@ -1,17 +1,181 @@
 <?php date_default_timezone_set("America/Caracas")?>
 
-<script>
+<script language="javascript">
     $(document).ready(function(){
+        $("#datepicker").datepicker();
+        $("#datepicker1").datepicker();
+             $('#divcliente').dialog({
+                width: 700,
+                height: 350,
+                modal:true,
+                title:'AGREGAR CLIENTE',
+                autoOpen:false
+             });
+              $('#divinteres').dialog({
+                width: 500,
+                height: 250,
+                modal:true,
+                title:'AGREGAR INTERES',
+                autoOpen:false
+             });
+             $('#datepicker1').change(function(){
+                 if($('#datepicker').val()!='' && $('#intereses').val()!=''){
+                     var recibido = $('#datepicker').val();
+                     var cobro = $('#datepicker1').val();
+                     var diferencia = Math.floor(( Date.parse(recibido) - Date.parse(cobro) ) / 86400000);
+                        if(diferencia < 0){
+                        diferencia = diferencia*(-1);
+                        }
+                        diferencia++;
+                                        $.ajax({                                              
+                                             type: "GET",                                             
+                                             url: "../buscarte/"+$('#intereses').val()+"/"+recibido+"/"+$('#idcheque').val()+"/"+$('#montodeuda').val()+"/"+cobro,
+                                             success: function(msg){
+                                                $('#divmontos').html(msg);
+                                            }                                            
+                                         });
+                 }
+             });
+             $('#datepicker').change(function(){
+                 if($('#intereses').val()!='' && $('#datepicker1').val()!=''){
+                     var recibido = $('#datepicker').val();
+                     var cobro = $('#datepicker1').val();
+                     var diferencia = Math.floor(( Date.parse(recibido) - Date.parse(cobro) ) / 86400000);
+                        if(diferencia < 0){
+                        diferencia = diferencia*(-1);
+                        }
+                        diferencia++;
+                                        $.ajax({                                              
+                                             type: "GET",                                             
+                                             url: "../buscarte/"+$('#intereses').val()+"/"+recibido+"/"+$('#idcheque').val()+"/"+$('#montodeuda').val()+"/"+cobro,
+                                             success: function(msg){
+                                                $('#divmontos').html(msg);
+                                            }                                            
+                                         });
+                 }
+             });
+             $('#intereses').change(function(){
+           
+                 if($('#datepicker').val()!='' && $('#datepicker1').val()!=''){
+                     var recibido = $('#datepicker').val();
+                     var cobro = $('#datepicker1').val();
+                     var diferencia = Math.floor(( Date.parse(recibido) - Date.parse(cobro) ) / 86400000);
+                        if(diferencia < 0){
+                        diferencia = diferencia*(-1);
+                        }
+                        diferencia++;
+                                        $.ajax({                                              
+                                             type: "GET",                                             
+                                             url: "../buscarte/"+$('#intereses').val()+"/"+recibido+"/"+$('#idcheque').val()+"/"+$('#montodeuda').val()+"/"+cobro,
+                                             success: function(msg){
+                                                $('#divmontos').html(msg);
+                                                
+                                            }                                            
+                                         });
+                 }
+             });
+             
+         
+    });
+    function client(){
+                $('#divcliente').dialog("open");
+        }  
+         function interes(){
+                $('#divinteres').dialog("open");
+        }  
+        function guardar(){
+            var noentra=0;
+            if($('#cedula').val()=='' || $('#nombre').val()=='' || $('#apellido').val()=='' || $('#telefonofijo').val()=='' ||  $('#apodo').val()==''){
+                noentra=1;
+            }
+            if(noentra==0){
+            if($('#apodo').val()==''){
+               $('#apodo').val('xxxxxx');
+            }
+            if($('#negocio').val()==''){
+                $('#negocio').val('xxxxxx');
+            }
+            if($('#email').val()==''){
+                $('#email').val('xxxxxx');
+            }
+            if($('#direccion').val()==''){
+                $('#direccion').val('xxxxxx');
+            }
+            if($('#celular').val()==''){
+                $('#celular').val('xxxxxx');
+            }
+            }
+            if(noentra==0){
+            $.ajax({
+                     type: "GET",
+                     
+                     url: "../busca/"+$('#cedula').val()+"/"+$('#nombre').val()+"/"+$('#apellido').val()+"/"+$('#apodo').val()+"/"+$('#negocio').val()+"/"+$('#email').val()+"/"+$('#direccion').val()+"/"+$('#telefonofijo').val()+"/"+$('#celular').val(),
+                     success: function(msg){
+                        $('#listacliente').html(msg);
+                        $('#divcliente').dialog("close");
+                    }
+                });
+                $('#cedula').val('');
+            $('#apellido').val('');
+            $('#apellido').val('');
+            $('#apodo').val('');
+            $('#negocio').val('');
+            $('#email').val('');
+            $('#direccion').val('');
+            $('#telefonofijo').val('');
+            $('#celular').val('');
+            }else{
+            alert("Debe insertar todos los campos obligatorios (*)");
+            }
+            
+        }
         
-    
- $(function () {
+        function guardare(){
+        var vacio=0;
+        if($('#minimo').val()==''&&$('#fijo').val()==''&&$('#maximo').val()!=''){
+            vacio=1;
+            alert("Llena el campo minimo");            
+        }
+        if($('#maximo').val()==''&&$('#fijo').val()==''&&$('#minimo').val()!=''){
+            vacio=1;
+            alert("Llena el campo maximo");            
+        }
+        if($('#maximo').val()==''&&$('#minimo').val()==''&&$('#fijo').val()!=''){
+            vacio=1;
+            alert("Llena el campo monto fijo");            
+        }
+        
+        if(vacio==0){
+            
+        if($('#porcentaje').val()!=''){
+            
+            $('#minimo').val('xxxxxxx');
+            $('#maximo').val('xxxxxxx');
+            $('#fijo').val('xxxxxxx');
+        }
+        if($('#fijo').val()!='xxxxxxx'){
+            $('#porcentaje').val('xxxxxxx');
+        }
+            $.ajax({
+                     type: "GET",
+                     url: "../buscar/"+$('#minimo').val()+"/"+$('#maximo').val()+"/"+$('#fijo').val()+"/"+$('#porcentaje').val(),
+                     success: function(msg){
+                       
+                        $('#listainteres').html(msg);
+                        $('#divinteres').dialog("close");
 
-$("#datepicker").datepicker();
-$("#datepicker1").datepicker();
-});
 
-  });
-  </script>
+                    }
+                });
+                $('#minimo').val('');
+                 $('#maximo').val('');
+                  $('#fijo').val('');
+             $('#porcentaje').val('');
+        }
+        
+        }
+
+</script>
  <style>
       th{
           background: #ffffff;
@@ -22,7 +186,99 @@ $("#datepicker1").datepicker();
       li.menu{
           text-align: center;
       }
+       #guardarinteres{
+          cursor:pointer;
+      }
+       #guardare{
+          cursor:pointer;
+      }
+      #cliente{
+          cursor:pointer;
+      }
+       #binteres{
+          cursor:pointer;
+      }
   </style>
+  <div id="divcliente" style="height:0px; display: none;width:100%">
+            <?php 
+            echo $this->Form->input('idcliente',array('id'=>'idcliente','type'=>'hidden'));
+        
+		echo "<div style='float:left;width:30%'>";
+        ?>
+           <?php
+             echo $this->Form->label('Cedula *:');
+                echo $this->Form->input('cedula',array('id'=>'cedula','div'=>false,'label'=>false,'style'=>'width: 90%;'));
+            echo "</div>";
+                echo "<div style='float:left;width:35%'>";
+                echo $this->Form->label('Nombre *:');
+                echo $this->Form->input('nombre',array('id'=>'nombre','div'=>false,'label'=>false,'style'=>'width: 90%;'));
+             echo "</div>";    
+                echo "<div style='float:left;width:35%'>";
+                 echo $this->Form->label('Apellido *:');
+                echo $this->Form->input('apellido',array('id'=>'apellido','div'=>false,'label'=>false,'style'=>'width: 100%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:30%'>";
+                 echo $this->Form->label('Apodo:');
+                echo $this->Form->input('apodo',array('id'=>'apodo','maxlength'=>15,'div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                 echo "</div>";
+                  echo "<div style='float:left;width:35%'>";
+                 echo $this->Form->label('Negocio:');
+                echo $this->Form->input('negocio',array('id'=>'negocio','div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:35%'>";
+                 echo $this->Form->label('Email:');
+                echo $this->Form->input('email',array('id'=>'email','div'=>false,'label'=>false,'style'=>'width: 100%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:100%'>";
+                 echo $this->Form->label('Dirección:');
+                echo $this->Form->input('direccion',array('id'=>'direccion','div'=>false,'label'=>false,'style'=>'width: 100%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:50%'>";
+                 echo $this->Form->label('Teléfono fijo *:');
+                echo $this->Form->input('telefonofijo',array('id'=>'telefonofijo','div'=>false,'label'=>false,'style'=>'width: 95%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:50%'>";
+                 echo $this->Form->label('Celular:');
+                echo $this->Form->input('celular',array('id'=>'celular','div'=>false,'label'=>false,'style'=>'width: 100%;'));
+                 echo "</div>";
+                 echo "</br>";
+                 echo "<div class='row'>";
+                echo $this->Form->submit('Guardar', 
+    array('id'=>'guardarinteres','title' => 'Guarda Cliente', 'onClick'=>'guardar();'));
+                 echo "</div>";
+                ?>
+           
+</div>
+<div id="divinteres" style="height:0px; display: none;width:100%">
+            <?php 
+            echo $this->Form->input('idinteres',array('id'=>'idinteres','type'=>'hidden'));
+        
+		echo "<div style='float:left;width:30%'>";
+        ?>
+           <?php
+             echo $this->Form->label('Mínimo:');
+                echo $this->Form->input('minimo',array('id'=>'minimo','div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                echo "</div>";
+                echo "<div style='float:left;width:35%'>";
+                echo $this->Form->label('Máximo:');
+                echo $this->Form->input('maximo',array('id'=>'maximo','div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                echo "</div>";    
+                echo "<div style='float:left;width:35%'>";
+                 echo $this->Form->label('Monto Fijo:');
+                echo $this->Form->input('fijo',array('id'=>'fijo','div'=>false,'label'=>false,'style'=>'width: 100%;'));
+                 echo "</div>";
+                 echo "<div style='float:left;width:30%'>";
+                 echo $this->Form->label('Porcentaje %:');
+                 echo $this->Form->input('porcentaje',array('id'=>'porcentaje','maxlength'=>15,'div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                 echo "</div>";
+                 echo "</br>";
+                 echo "<div class='row'>";
+                echo $this->Form->submit('Guardar', 
+    array('id'=>'guardare','title' => 'Guarda Interes', 'onClick'=>'guardare();'));
+                 echo "</div>";
+                ?>
+           
+</div>
 <div class="cheques form">
 <?php echo $this->Form->create('Cheque',array('type'=>'file')); 
 
@@ -37,8 +293,17 @@ $("#datepicker1").datepicker();
             
          </thead>
                     <tr>
-                        <th colspan="3"><?php echo $this->Form->input('cliente_id');
-                        echo $this->Form->input('cheques_id',array('value'=>$cheque[0]['Cheque']['id'],'type'=>'hidden'));?></th>
+                        <th colspan="3">
+                    <div id="listacliente">
+                         <?php echo $this->Form->input('cliente_id',array('label'=>'Cliente','div'=>null));
+                         echo " ";
+                         echo $this->Html->image("anade.fw.png", array("id"=>"cliente","alt" => "Agregar Cliente",'width' => '20', 'heigth' => '20','title'=>'Agregar Cheque','onClick' => "client();"));
+                         echo "</div>";  
+                         echo $this->Form->input('cheques_id',array('id'=>'idcheque','value'=>$cheque[0]['Cheque']['id'],'type'=>'hidden'));
+                        ?>
+                    </div>
+                    
+                      </th>
                     </tr>
                     <tr>
                         <th><?php echo $this->Form->input('banco_id'); ?></th>
@@ -46,8 +311,26 @@ $("#datepicker1").datepicker();
                         <th><?php echo $this->Form->input('numerodecheque',array('label'=>'Nro. de Cheque')); ?></th>
                     </tr>
                     <tr>
-                        <th><?php echo $this->Form->input('monto'); ?></th>
-                        <th><?php echo $this->Form->input('interese_id',array('label'=>'Interes')); ?></th>
+                        <th><?php 
+                        $pos = count($cheque[0]['Chequeinterese']);
+                        $monto = $cheque[0]['Chequeinterese'][$pos-1]['montocheque'];
+                        $interes = $cheque[0]['Chequeinterese'][$pos-1]['montodescuentointeres'];
+                        $monton = $monto;
+                        echo "<div id='divmontos'>";
+                        echo $this->Form->input('monto',array('id'=>'monto','value'=>$monton,'div'=>null,'label'=>'Monto para Cancelar cheque en totalidad'));
+                         echo $this->Form->input('montodeuda',array('id'=>'montodeuda','value'=>$monto,'type'=>'hidden'));
+                        echo "</div>";
+                       
+                        ?></th>
+                        <th>
+                    <div id="listainteres">
+                      <?php 
+                        echo $this->Form->input('interese_id',array('id'=>'intereses','label'=>'Interes','div'=>null)); 
+                          echo " ";
+                         echo $this->Html->image("anade.fw.png", array("id"=>"binteres","alt" => "Agregar Interes",'width' => '20', 'heigth' => '20','title'=>'Agregar Interes','onClick' => "interes();"));
+                       echo "</div>";  
+                        ?>
+                    </th>
                         <th><?php echo $this->Form->input('filename',array('type'=>'file','label'=>'Imagen del Cheque')); ?></th>
                     </tr>
                     <tr>
@@ -78,7 +361,7 @@ $("#datepicker1").datepicker();
 		
 		
 	?>
-	</fieldset>
+
 
 </div>
   <br></br>

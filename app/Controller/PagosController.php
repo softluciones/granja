@@ -33,6 +33,7 @@ class PagosController extends AppController {
                     $montos=$this->params['pass'][4];  // Monto deuda en chequeinteres
                     $debo=$this->params['pass'][2];
                     $cheques = $this->Cheque->find('first',array('contidions'=>array('Cheque.id'=>$cheq)));
+                      
                     $estado = $cheques['ChequeEstadocheque'][0]['estadocheque_id'];
                     $montoentregado=0;
                     $nuevoestado="";
@@ -51,7 +52,9 @@ class PagosController extends AppController {
                     $montoentregado = $entrega[0]['chequeinterese']['montoentregado'];
                     $montopagado = $this->data['Pago']['monto'];
                     $interes = $cheques['Interese']['porcentaje'];
-                    $edocheque = $cheques['Cheque']['cobrado'];
+                    $edocheques = $cheques['Cheque']['cobrado'];
+                 
+                    # debug($edocheques); exit(0);
                     $montofijo = $cheques['Interese']['montofijo'];
                     $nuevomonto = $montos-$montopagado;
 
@@ -74,13 +77,16 @@ class PagosController extends AppController {
                         endforeach;
 
 
-                            if($encontrado==0 && $edocheque!=2){
+                            if($encontrado==0 && $edocheques!=2){
                                 if($montofijo!=null){
                                     $montointeres=$montofijo;
                                 }
                                 if($interes!=null){
                                     $montointeres=$nuevomonto*($interes/100);
                                 }
+                            }
+                            if($edocheques==2){
+                                $montointeres=0;
                             }
                         if($debo==0){  
                            $nuevoestado = 4;                                                                                             
@@ -108,7 +114,7 @@ class PagosController extends AppController {
                             VALUES(".$nuevomonto.",
                                    ".$montointeres.",
                                    ".$montoentregado.",
-                                   ".$edocheque.",
+                                   ".$edocheques.",
                                    ".$cheq.",
                                    ".$this->Auth->user('id').", NOW(),NOW())";
 
@@ -149,6 +155,9 @@ class PagosController extends AppController {
         $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
         $this->set(compact('debo','otro','clientes', 'chequeinterese', 'cheques', 'chequeEstadocheques', 'tipopagos', 'pagoterceros', 'users','montos','id'));
 	}
+        
+        
+        
 	public function edit($id = null) {
 		if (!$this->Pago->exists($id)) {
 			throw new NotFoundException(__('Invalid pago'));

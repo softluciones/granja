@@ -149,11 +149,16 @@ echo $this->Form->label('Búsqueda') ?>
         <tr>
             <th>Cheques Devueltos</th>
             <th><div style="float: right">
-                <?php if(!empty($sumas[1])){
-                        if($sumas[1]['cheques']['cobrado']==0){    
+                <?php
+                
+                if(!empty($sumas[1])){
+                        if($sumas[1]['cheques']['cobrado']==0&&$sumas[1]['cheques']['deuda']==0){    
                              echo h(number_format(floatval($sumas[1][0]['sumato']),2,',','.'))." Bs";
                         }else{
+                            if($sumas[0]['cheques']['deuda']==0)
                             echo h(number_format(floatval($sumas[0][0]['sumato']),2,',','.'))." Bs";
+                            else
+                                  echo h(number_format(floatval(0),2,',','.'))." Bs";
                         }
                         
                         }else{
@@ -164,13 +169,18 @@ echo $this->Form->label('Búsqueda') ?>
             <th>Total de "Por Cobrar y Devueltos":</th>
             <th><div style="float: right">
                 <?php 
+         
                 if(empty($sumas[0]))
                     echo h(number_format(floatval($sumas[1][0]['sumato']),2,',','.'))." Bs";
                 else
                     if(empty($sumas[1]))
                         echo h(number_format(floatval($sumas[0][0]['sumato']),2,',','.'))." Bs";
                     else
+                        if($sumas[0]['cheques']['deuda']==0&&$sumas[1]['cheques']['deuda']==0)
                         echo h(number_format(floatval($sumas[1][0]['sumato']+$sumas[0][0]['sumato']),2,',','.'))." Bs";
+                       
+                        else
+                            echo h(number_format(floatval(0),2,',','.'))." Bs";
                 ?></div></th>
         </tr>
     </table>

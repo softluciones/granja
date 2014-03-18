@@ -210,7 +210,7 @@ echo $this->Form->label('Búsqueda') ?>
 		</td>
                 <td>
 		<?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
-										echo $this->Html->link($imagen, array('action' => 'delete2', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
+										echo $this->Html->link($imagen, array('action' => 'delete3', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
                     </td>
 	</tr>
         <?php } ?>

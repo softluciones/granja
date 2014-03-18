@@ -53,17 +53,82 @@
                 $('#divinteres').dialog("open");
         }  
         function guardar(){
+            var noentra=0;
+            if($('#cedula').val()=='' || $('#nombre').val()=='' || $('#apellido').val()=='' || $('#telefonofijo').val()=='' ||  $('#apodo').val()==''){
+                noentra=1;
+            }
+            if(noentra==0){
+            if($('#apodo').val()==''){
+               $('#apodo').val('xxxxxx');
+            }
+            if($('#negocio').val()==''){
+                $('#negocio').val('xxxxxx');
+            }
+            if($('#email').val()==''){
+                $('#email').val('xxxxxx');
+            }
+            if($('#direccion').val()==''){
+                $('#direccion').val('xxxxxx');
+            }
+            if($('#celular').val()==''){
+                $('#celular').val('xxxxxx');
+            }
+            }
+            if(noentra==0){
             $.ajax({
                      type: "GET",
+                     
                      url: "busca/"+$('#cedula').val()+"/"+$('#nombre').val()+"/"+$('#apellido').val()+"/"+$('#apodo').val()+"/"+$('#negocio').val()+"/"+$('#email').val()+"/"+$('#direccion').val()+"/"+$('#telefonofijo').val()+"/"+$('#celular').val(),
                      success: function(msg){
                         $('#listacliente').html(msg);
                         $('#divcliente').dialog("close");
                     }
                 });
+                $('#cedula').val('');
+            $('#apellido').val('');
+            $('#apellido').val('');
+            $('#apodo').val('');
+            $('#negocio').val('');
+            $('#email').val('');
+            $('#direccion').val('');
+            $('#telefonofijo').val('');
+            $('#celular').val('');
+            }else{
+            alert("Debe insertar todos los campos obligatorios (*)");
+            }
+            
         }
         
         function guardare(){
+        var vacio=0;
+        if($('#fijo').val()==''&& $('#porcentaje').val()==''){
+            vacio=1;
+            alert("Llena los valores porcentaje o los rangos para monto fijo");     
+        }
+        if($('#minimo').val()==''&&$('#fijo').val()==''&&$('#maximo').val()!=''){
+            vacio=1;
+            alert("Llena el campo minimo");            
+        }
+        if($('#maximo').val()==''&&$('#fijo').val()==''&&$('#minimo').val()!=''){
+            vacio=1;
+            alert("Llena el campo maximo");            
+        }
+        if($('#maximo').val()==''&&$('#minimo').val()==''&&$('#fijo').val()!=''){
+            vacio=1;
+            alert("Llena el campo monto fijo");            
+        }
+        
+        if(vacio==0){
+            
+        if($('#porcentaje').val()!=''){
+            
+            $('#minimo').val('xxxxxxx');
+            $('#maximo').val('xxxxxxx');
+            $('#fijo').val('xxxxxxx');
+        }
+        if($('#fijo').val()!='xxxxxxx'){
+            $('#porcentaje').val('xxxxxxx');
+        }
             $.ajax({
                      type: "GET",
                      url: "buscar/"+$('#minimo').val()+"/"+$('#maximo').val()+"/"+$('#fijo').val()+"/"+$('#porcentaje').val(),
@@ -75,6 +140,12 @@
 
                     }
                 });
+                $('#minimo').val('');
+                 $('#maximo').val('');
+                  $('#fijo').val('');
+             $('#porcentaje').val('');
+        }
+        
         }
 
 </script>
@@ -85,15 +156,15 @@
 		echo "<div style='float:left;width:30%'>";
         ?>
            <?php
-             echo $this->Form->label('Cedula:');
+             echo $this->Form->label('Cedula *:');
                 echo $this->Form->input('cedula',array('id'=>'cedula','div'=>false,'label'=>false,'style'=>'width: 90%;'));
             echo "</div>";
                 echo "<div style='float:left;width:35%'>";
-                echo $this->Form->label('Nombre:');
+                echo $this->Form->label('Nombre *:');
                 echo $this->Form->input('nombre',array('id'=>'nombre','div'=>false,'label'=>false,'style'=>'width: 90%;'));
              echo "</div>";    
                 echo "<div style='float:left;width:35%'>";
-                 echo $this->Form->label('Apellido:');
+                 echo $this->Form->label('Apellido *:');
                 echo $this->Form->input('apellido',array('id'=>'apellido','div'=>false,'label'=>false,'style'=>'width: 100%;'));
                  echo "</div>";
                  echo "<div style='float:left;width:30%'>";
@@ -113,7 +184,7 @@
                 echo $this->Form->input('direccion',array('id'=>'direccion','div'=>false,'label'=>false,'style'=>'width: 100%;'));
                  echo "</div>";
                  echo "<div style='float:left;width:50%'>";
-                 echo $this->Form->label('Teléfono fijo:');
+                 echo $this->Form->label('Teléfono fijo *:');
                 echo $this->Form->input('telefonofijo',array('id'=>'telefonofijo','div'=>false,'label'=>false,'style'=>'width: 95%;'));
                  echo "</div>";
                  echo "<div style='float:left;width:50%'>";
