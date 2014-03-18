@@ -507,11 +507,14 @@ echo $this->Form->label('Búsqueda') ?>
                     <?php }
                     
                     }
-                    if(($estado=='R' || $estado=='AbnCG' || $estado=='AbnGC')){
+                    if(($estado=='C' || $estado=='AbnCG' || $estado=='AbnGC')){
                             if($deuda==0){
+                                
                 ?>
             <tr style="background: #ffcaca; color: white;">
-			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
+			<td><?php 
+                     
+                        echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
@@ -710,7 +713,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 </td>
 		
 		
-		<?php }}}} if($cobrado==2){
+		<?php }}} if($cobrado==2){
                         
                     if($estado=='R' || $estado=='AbnCG'){
                             if($deuda==0){
@@ -747,11 +750,15 @@ echo $this->Form->label('Búsqueda') ?>
 					<?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
 						echo $this->Html->link($imagen, array('action' => 'delete', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
 			 </td>                    
-                    <?php }}else{
+                    <?php }}
+                    
+                if(($estado=='C' || $estado=='AbnCG' || $estado=='AbnGC')){
                         if($deuda==0){
                 ?>
             <tr style="background: #ffcaca; color: white;">
-			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
+			<td><?php 
+                       
+                        echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
@@ -787,7 +794,7 @@ echo $this->Form->label('Búsqueda') ?>
                     }
                         
                     }
-		
+		}
 		/*cheques por fechado :D
 		::::::::::::::::::::::::
 		::::::::::::::::::::::::
