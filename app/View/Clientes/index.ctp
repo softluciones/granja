@@ -37,8 +37,6 @@ li.menu{
 	<table cellpadding="0">
             <thead >
 	<tr style="height: 30px;">
-			
-			
 			<th><?php echo $this->Paginator->sort('cedula'); ?></th>
 			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
 			<th><?php echo $this->Paginator->sort('apellido'); ?></th>
