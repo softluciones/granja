@@ -18,6 +18,63 @@
                 title:'AGREGAR INTERES',
                 autoOpen:false
              });
+             $('#datepicker1').change(function(){
+                 if($('#datepicker').val()!='' && $('#intereses').val()!=''){
+                     var recibido = $('#datepicker').val();
+                     var cobro = $('#datepicker1').val();
+                     var diferencia = Math.floor(( Date.parse(recibido) - Date.parse(cobro) ) / 86400000);
+                        if(diferencia < 0){
+                        diferencia = diferencia*(-1);
+                        }
+                        diferencia++;
+                                        $.ajax({                                              
+                                             type: "GET",                                             
+                                             url: "../buscarte/"+$('#intereses').val()+"/"+recibido+"/"+$('#idcheque').val()+"/"+$('#montodeuda').val()+"/"+cobro,
+                                             success: function(msg){
+                                                $('#divmontos').html(msg);
+                                            }                                            
+                                         });
+                 }
+             });
+             $('#datepicker').change(function(){
+                 if($('#intereses').val()!='' && $('#datepicker1').val()!=''){
+                     var recibido = $('#datepicker').val();
+                     var cobro = $('#datepicker1').val();
+                     var diferencia = Math.floor(( Date.parse(recibido) - Date.parse(cobro) ) / 86400000);
+                        if(diferencia < 0){
+                        diferencia = diferencia*(-1);
+                        }
+                        diferencia++;
+                                        $.ajax({                                              
+                                             type: "GET",                                             
+                                             url: "../buscarte/"+$('#intereses').val()+"/"+recibido+"/"+$('#idcheque').val()+"/"+$('#montodeuda').val()+"/"+cobro,
+                                             success: function(msg){
+                                                $('#divmontos').html(msg);
+                                            }                                            
+                                         });
+                 }
+             });
+             $('#intereses').change(function(){
+           
+                 if($('#datepicker').val()!='' && $('#datepicker1').val()!=''){
+                     var recibido = $('#datepicker').val();
+                     var cobro = $('#datepicker1').val();
+                     var diferencia = Math.floor(( Date.parse(recibido) - Date.parse(cobro) ) / 86400000);
+                        if(diferencia < 0){
+                        diferencia = diferencia*(-1);
+                        }
+                        diferencia++;
+                                        $.ajax({                                              
+                                             type: "GET",                                             
+                                             url: "../buscarte/"+$('#intereses').val()+"/"+recibido+"/"+$('#idcheque').val()+"/"+$('#montodeuda').val()+"/"+cobro,
+                                             success: function(msg){
+                                                $('#divmontos').html(msg);
+                                                
+                                            }                                            
+                                         });
+                 }
+             });
+             
          
     });
     function client(){
@@ -52,7 +109,7 @@
             $.ajax({
                      type: "GET",
                      
-                     url: "busca/"+$('#cedula').val()+"/"+$('#nombre').val()+"/"+$('#apellido').val()+"/"+$('#apodo').val()+"/"+$('#negocio').val()+"/"+$('#email').val()+"/"+$('#direccion').val()+"/"+$('#telefonofijo').val()+"/"+$('#celular').val(),
+                     url: "../busca/"+$('#cedula').val()+"/"+$('#nombre').val()+"/"+$('#apellido').val()+"/"+$('#apodo').val()+"/"+$('#negocio').val()+"/"+$('#email').val()+"/"+$('#direccion').val()+"/"+$('#telefonofijo').val()+"/"+$('#celular').val(),
                      success: function(msg){
                         $('#listacliente').html(msg);
                         $('#divcliente').dialog("close");
@@ -101,7 +158,7 @@
         }
             $.ajax({
                      type: "GET",
-                     url: "buscar/"+$('#minimo').val()+"/"+$('#maximo').val()+"/"+$('#fijo').val()+"/"+$('#porcentaje').val(),
+                     url: "../buscar/"+$('#minimo').val()+"/"+$('#maximo').val()+"/"+$('#fijo').val()+"/"+$('#porcentaje').val(),
                      success: function(msg){
                        
                         $('#listainteres').html(msg);
@@ -242,9 +299,10 @@
                          echo " ";
                          echo $this->Html->image("anade.fw.png", array("id"=>"cliente","alt" => "Agregar Cliente",'width' => '20', 'heigth' => '20','title'=>'Agregar Cheque','onClick' => "client();"));
                          echo "</div>";  
-                           echo $this->Form->input('cheques_id',array('value'=>$cheque[0]['Cheque']['id'],'type'=>'hidden'));
+                         echo $this->Form->input('cheques_id',array('id'=>'idcheque','value'=>$cheque[0]['Cheque']['id'],'type'=>'hidden'));
                         ?>
-                    </div>   
+                    </div>
+                    
                       </th>
                     </tr>
                     <tr>
@@ -258,14 +316,21 @@
                         $monto = $cheque[0]['Chequeinterese'][$pos-1]['montocheque'];
                         $interes = $cheque[0]['Chequeinterese'][$pos-1]['montodescuentointeres'];
                         $monton = $monto;
-                        echo $this->Form->input('monto',array('id'=>'monto','value'=>$monton)); ?></th>
-                        <th><div id="listainteres">
+                        echo "<div id='divmontos'>";
+                        echo $this->Form->input('monto',array('id'=>'monto','value'=>$monton,'div'=>null,'label'=>'Monto para Cancelar cheque en totalidad'));
+                         echo $this->Form->input('montodeuda',array('id'=>'montodeuda','value'=>$monto,'type'=>'hidden'));
+                        echo "</div>";
+                       
+                        ?></th>
+                        <th>
+                    <div id="listainteres">
                       <?php 
-                        echo $this->Form->input('interese_id',array('label'=>'Interes','div'=>null)); 
+                        echo $this->Form->input('interese_id',array('id'=>'intereses','label'=>'Interes','div'=>null)); 
                           echo " ";
                          echo $this->Html->image("anade.fw.png", array("id"=>"binteres","alt" => "Agregar Interes",'width' => '20', 'heigth' => '20','title'=>'Agregar Interes','onClick' => "interes();"));
                        echo "</div>";  
-                        ?></th>
+                        ?>
+                    </th>
                         <th><?php echo $this->Form->input('filename',array('type'=>'file','label'=>'Imagen del Cheque')); ?></th>
                     </tr>
                     <tr>

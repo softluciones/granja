@@ -124,7 +124,7 @@ input[type=submit],
     </br>
 
   <?php 
-  if($cheque['Cheque']['deuda']==0){
+
   if($cheque['Cheque']['cobrado']==0||($cheque['Cheque']['cobrado']==2&&$cheque['Cheque']['deuda']==0)){ ?>
 <div class="box">
   
@@ -145,9 +145,7 @@ input[type=submit],
 		<th><?php echo __('Días'); ?></th>
 		<th><?php echo __('Interes'); ?></th>
                 <th><?php echo __('Monto Interes'); ?></th>
-		<th><?php echo __('Monto de Cheque a pagar'); ?></th>
-                <th><?php echo __('Monto Cancelado'); ?></th>
-                <th><?php echo __('Diferencia'); ?></th>
+                <th><?php echo __('Monto Pagado'); ?></th>
                 <th><?php echo __('Cobrado'); ?></th>
                  <th><?php echo __('Edo.'); ?></th>                 
                  <th style="width:7%"><?php echo __('Fecha Recib.'); ?></th>
@@ -164,16 +162,18 @@ input[type=submit],
 			
 			<td><?php echo $chequeEstadocheque['Banco']['nombre']; ?></td>
 			<td><?php echo $chequeEstadocheque['Cheque']['numerodecheque']; ?></td>
-                        <td><?php echo $chequeEstadocheque['Cheque']['monto']; ?></td>
+                        <td><?php echo h(number_format(floatval($chequeEstadocheque['Cheque']['monto']),2,',','.').' Bs.'); ?></td>
                         
-			<td><?php echo $chequeEstadocheque['Cheque']['dias']; ?></td>
+			<td><?php echo $chequeEstadocheque['Cheque']['diaspost']; ?></td>
 			<td><?php echo $chequeEstadocheque['Interese']['rango']; ?></td>
                         <td><?php 
                         $valor=$chequeEstadocheque['Chequeinterese'][0]['montodescuentointeres'];
                         echo number_format(floatval($valor),2,',','.').' Bs.'; ?></td>
-                        <td><?php echo $monto; ?></td>
-                        <td><?php echo $chequeEstadocheque['Chequeinterese'][0]['montoentregado']; ?></td>
-                        <td><?php echo $monto-$chequeEstadocheque['Chequeinterese'][0]['montoentregado']; ?></td>
+                        
+                        <td><?php
+                        $entregado = $chequeEstadocheque['Cheque']['monto'] - $chequeEstadocheque['Chequeinterese'][0]['montodescuentointeres']*$chequeEstadocheque['Cheque']['diaspost'];
+                        echo h(number_format(floatval($entregado),2,',','.').' Bs.'); ?></td>
+                       
                         <td><?php 
                         if($chequeEstadocheque['Cheque']['cobrado']==0){
                             
@@ -206,13 +206,7 @@ input[type=submit],
                                 echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller'=>'Cheques','action' => 'view', $chequeEstadocheque['Cheque']['id'])));
  ?>
 				
-				<?php
-                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller'=>'Cheques','action' => 'edit', $chequeEstadocheque['Cheque']['id'])));
-                            ?>
-				<?php
-                                $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
-                                                 echo $this->Html->link($imagen, array('action' => 'delete', $chequeEstadocheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $chequeEstadocheque['Cheque']['id'])));
-                         ?>
+				
 				
 				</td>
 		</tr>
@@ -236,7 +230,7 @@ input[type=submit],
     
 </div>
      </br> 	
-<?php } }?> 
+<?php } ?> 
 
 <div class="box">
     

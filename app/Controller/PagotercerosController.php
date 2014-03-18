@@ -21,7 +21,7 @@ class PagotercerosController extends AppController {
  * @return void
  */ ///josjeosjeosjeosjeosej
 	public function index() {
-                $_SESSION['varia']=1;
+     
 		$this->Pagotercero->recursive = 1;
                 
 		$this->set('pagoterceros', $this->Paginator->paginate());
@@ -35,7 +35,7 @@ class PagotercerosController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-            $_SESSION['varia']=1;
+ 
 		if (!$this->Pagotercero->exists($id)) {
 			throw new NotFoundException(__('Pago tercero invalido'));
 		}
@@ -64,7 +64,9 @@ class PagotercerosController extends AppController {
                                             ".$this->data['Pagotercero']['cliente1s'].",
                                                 ".$this->data['Pagotercero']['cheque_id'].",
                                                     ".$this->data['Pagotercero']['user_id'].")";
+                        
 			if (!$this->Pagotercero->query($sql)) {
+                            
 				$this->Session->setFlash(__('El pago a tercero ha sido efectivo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {

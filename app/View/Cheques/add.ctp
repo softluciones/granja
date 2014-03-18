@@ -101,6 +101,10 @@
         
         function guardare(){
         var vacio=0;
+        if($('#fijo').val()==''&& $('#porcentaje').val()==''){
+            vacio=1;
+            alert("Llena los valores porcentaje o los rangos para monto fijo");     
+        }
         if($('#minimo').val()==''&&$('#fijo').val()==''&&$('#maximo').val()!=''){
             vacio=1;
             alert("Llena el campo minimo");            
