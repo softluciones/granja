@@ -1,104 +1,45 @@
 <div class="users view">
-<h2><?php echo __('User'); ?></h2>
-	<dl>
-		<dt><?php echo __('Identificador'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Usuario'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['username']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Contraseña'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['password']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Rol del usuario'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($user['Role']['nombre'], array('controller' => 'roles', 'action' => 'view', $user['Role']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Nombre empleado'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['nombre']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Apellido empleado'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['apellido']); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Acciones'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Editar Usuario'), array('action' => 'edit', $user['User']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Borrar usuario'), array('action' => 'delete', $user['User']['id']), null, __('Estas seguro que desea borrar al usuario: %s?', $user['User']['username'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Usuarios'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Usuario'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Roles'), array('controller' => 'roles', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Rol'), array('controller' => 'roles', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Bancos'), array('controller' => 'bancos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Banco'), array('controller' => 'bancos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Cheque Estado cheques'), array('controller' => 'cheque_estadocheques', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Cheque Estado cheque'), array('controller' => 'cheque_estadocheques', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Cheque intereses'), array('controller' => 'chequeinterese', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Cheque interes'), array('controller' => 'chequeinterese', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Cuentas'), array('controller' => 'cuentas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nueva Cuenta'), array('controller' => 'cuentas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Estado cheques'), array('controller' => 'estadocheques', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nueva Estado cheque'), array('controller' => 'estadocheques', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Gestion de cobranzas'), array('controller' => 'gestiondecobranzas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nueva Gestion de cobranza'), array('controller' => 'gestiondecobranzas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Intereses'), array('controller' => 'interese', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Interes'), array('controller' => 'interese', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Pagos'), array('controller' => 'pagos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Pago terceros'), array('controller' => 'pagoterceros', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Pago tercero'), array('controller' => 'pagoterceros', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Lista Tipo pagos'), array('controller' => 'tipopagos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Nuevo Tipo pago'), array('controller' => 'tipopagos', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+
+    <table>
+        <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;"><div align="center">Usuario</div></th>
+    <tr>
+        <th><?php echo __('Codigo del usuario: '); echo h($user['User']['id']); ?></th>
+        <th><?php echo __('Usuario: '); echo h($user['User']['username']); ?></th>
+        <th><?php echo __('Rol del usuario: '); echo $this->Html->link($user['Role']['nombre'], array('controller' => 'roles', 'action' => 'view', $user['Role']['id'])); ?></th>
+    </tr>
+    <tr>
+        <th><?php echo __('Nombre empleado: '); echo h($user['User']['nombre']); ?></th>
+        <th><?php echo __('Apellido empleado: '); echo h($user['User']['apellido']); ?></th>
+        <th></th>
+    </tr>
+        </table>
+    <br><br>
 <div class="related">
-	<h3><?php echo __('Bancos relacionados que ha registrado este usuario: %s',$user['User']['username']); ?></h3>
+    <table cellpadding = "0" cellspacing = "0">
+	<th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;"><div align="center">Banco Registrados</div></th>
 	<?php if (!empty($user['Banco'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php echo __('Id'); ?></th>
+        <thead>
 		<th><?php echo __('Codigo'); ?></th>
 		<th><?php echo __('Nombre'); ?></th>
-		<th><?php echo __('Descripcion'); ?></th>
-		<th><?php echo __('Usuario Id'); ?></th>
+	</thead>
 		
 	</tr>
 	<?php foreach ($user['Banco'] as $banco): ?>
 		<tr>
-			<td><?php echo $banco['id']; ?></td>
+			
 			<td><?php echo $banco['codigo']; ?></td>
 			<td><?php echo $banco['nombre']; ?></td>
-			<td><?php echo $banco['descripcion']; ?></td>
-			<td><?php echo $banco['user_id']; ?></td>
-			<td class="actions">
-				
-			</td>
+			
 		</tr>
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
-
-	
 </div>
+    <br><br>
 <div class="related">
-	<h3><?php echo __('Relacion de Cheque con un Estado cheques hechas por: %s',$user['User']['username']); ?></h3>
+	<h3><?php echo __('Estadocheque'); ?></h3>
 	<?php if (!empty($user['ChequeEstadocheque'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
@@ -123,7 +64,36 @@
 <?php endif; ?>
 
 	
+</div>    
 </div>
+
+<div class="actions">
+	<h3><?php echo __('Acciones'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('Editar Usuario'), array('action' => 'edit', $user['User']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Borrar usuario'), array('action' => 'delete', $user['User']['id']), null, __('Estas seguro que desea borrar al usuario: %s?', $user['User']['username'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Lista Usuarios'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Usuario'), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Lista Roles'), array('controller' => 'roles', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Rol'), array('controller' => 'roles', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Lista Bancos'), array('controller' => 'bancos', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Banco'), array('controller' => 'bancos', 'action' => 'add')); ?> </li>		
+		<li><?php echo $this->Html->link(__('Lista Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Lista Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Lista Cuentas'), array('controller' => 'cuentas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nueva Cuenta'), array('controller' => 'cuentas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Lista Intereses'), array('controller' => 'interese', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Interes'), array('controller' => 'interese', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Lista Pagos'), array('controller' => 'pagos', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Lista Tipo pagos'), array('controller' => 'tipopagos', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Tipo pago'), array('controller' => 'tipopagos', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
+
+
 <div class="related">
 	<h3><?php echo __('Deuda o lo que se le debe de un Cheque con intereses a un cliente registrado por: %s',$user['User']['username']); ?></h3>
 	<?php if (!empty($user['Chequeinterese'])): ?>
