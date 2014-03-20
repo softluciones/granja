@@ -532,7 +532,7 @@ function Tabla($header, $colWidth, $data) {
 		$this->Cell(15);
         foreach($row as $col) { 
 			
-            $this->Cell($colWidth[$i++],6,utf8_decode($col),1,0,'R',$fill); 
+            $this->Cell($colWidth[$i++],6,utf8_decode($col),1,0,'C',$fill); 
         } 
         $this->Ln(); 
         $fill=!$fill; 
