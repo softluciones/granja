@@ -2,24 +2,93 @@
 
 $fpdf->AliasNbPages();
 $fpdf->AddPage();
-$fpdf->SetAutoPageBreak(true,0); 
+
+$fpdf->SetAutoPageBreak(false,15); 
 $fpdf->SetFont('Times','B',12);
- $fpdf->Cell(0,0,utf8_decode('Relación de Entrada del día '.date('d/m/Y')),0,0,'C');
 
-
-$fpdf->Ln(2); 
+ $fpdf->Cell(0,0,utf8_decode('Reporte total de bancos que tienen cheques por Cobrar'),10,0,'L');
  
 
- $totaldeuda=0;
-                $debo=0;
-                $medeben=0;
-                $totalentregado=0;
-                $totalmontocheques=0;
-                 $devueltos =0;
-                    $cobrados=0;
-                    $porcobrar=0;
+$fpdf->Ln(10); 
 
-if (!empty($cheques)){
+if(!empty($bancos)){
+    $fpdf->SetFont('Times','B',10);
+                $header=array('Banco','Monto','Estado cheques');
+                    $j=0;
+                    $i=0;
+                    $acum=0;
+                    foreach ($bancos as $banco):
+                        $monto=$banco[$j]['monto'];
+                        $nombre=$banco['banco']['nombre'];
+                        $data2[$i]=array($nombre,$monto,'Por Cobrar');
+                        $acum+=$monto;
+                        $i++;
+                    endforeach;
+                    //debug($data2);
+                    //exit(0);
+                    $colWidth = array(20,20,30); 
+                    $fpdf->Tabla($header,$colWidth, $data2);
+                    $fpdf->Ln(3);
+        $fpdf->SetFont('Times','',9);
+        $fpdf->Cell(0,0,utf8_decode('Total en cheques por cobrar: '.$acum),0,0,'L');
+        $acum=0;
+    
+    if(!empty($bancos2)){
+        $fpdf->Ln(5);
+        $fpdf->SetFont('Times','B',12);
+        $fpdf->Cell(0,0,utf8_decode('Reporte total de bancos que tienen cheques Cobrados'),0,0,'L');
+        $fpdf->Ln(10); 
+        $fpdf->SetFont('Times','B',10);
+                    $header=array('Banco','Monto','Estado cheques');
+                        $j=0;
+                        $i=0;
+                        $acum=0;
+                        foreach ($bancos2 as $banco):
+                            $monto=$banco[$j]['monto'];
+                            $nombre=$banco['banco']['nombre'];
+                            $data3[$i]=array($nombre,$monto,'Cobrado');
+                            $acum+=$monto;
+                            $i++;
+                        endforeach;
+                        //debug($data2);
+                        //exit(0);
+                        $colWidth = array(20,20,30); 
+                        $fpdf->Tabla($header,$colWidth, $data3);
+        $fpdf->Ln(3);
+        $fpdf->SetFont('Times','',9);
+        $fpdf->Cell(0,0,utf8_decode('Total en cheques por cobrados: '.$acum),0,0,'L');
+        $acum=0;
+    }
+    if(!empty($bancos3)){
+        $fpdf->Ln(5);
+        $fpdf->SetFont('Times','B',12);
+        $fpdf->Cell(0,0,utf8_decode('Reporte total de bancos que tienen cheques Devueltos'),0,0,'L');
+        $fpdf->Ln(10); 
+        $fpdf->SetFont('Times','B',10);
+                    $header=array('Banco','Monto','Estado cheques');
+                        $j=0;
+                        $i=0;
+                        $acum=0;
+                        foreach ($bancos3 as $banco):
+                            $monto=$banco[$j]['monto'];
+                            $nombre=$banco['banco']['nombre'];
+                            $data4[$i]=array($nombre,$monto,'Devuelto');
+                            $acum+=$monto;
+                            $i++;
+                        endforeach;
+                        //debug($data2);
+                        //exit(0);
+                        $colWidth = array(20,20,30); 
+                        $fpdf->Tabla($header,$colWidth, $data4);
+                        $fpdf->Ln(3);
+        $fpdf->SetFont('Times','',9);
+        $fpdf->Cell(0,0,utf8_decode('Total en cheques por devueltos: '.$acum),0,0,'L');
+        $acum=0;
+    }
+                    
+}
+
+/*if (!empty($cheques)){
 		$fpdf->SetFont('Times','B',10);
 		$fpdf->Cell(0,10,'Cheques:',0,1,'C');
 		$fpdf->SetFont('Times','',8);
@@ -123,12 +192,11 @@ if (!empty($cheques)){
 		$i++;
 	
 		endforeach;	
-
-$colWidth = array(15,17,20,10,10,20,20,20,20,15,15,15,10,20,15); 
+				
+$colWidth = array(15,20,15,10,10,20,22,22,22,15,15,15,10,20,15); 
 $fpdf->Tabla($header,$colWidth, $data2); 
 
-    
-	$fpdf->Ln(3); 
+$fpdf->Ln(3); 
         $fpdf->SetFont('');
         $fpdf->Cell(0,1,'Por Cobrar: '.number_format(floatval($porcobrar),2,',','.')." Bs.",0,1,'R');
         $fpdf->Ln(3); 
@@ -152,14 +220,75 @@ $fpdf->Tabla($header,$colWidth, $data2);
         $fpdf->Ln(3);             
         $fpdf->SetFont('','B');
         $fpdf->Cell(0,1,'Monto Entregado: '.number_format(floatval($totalentregado),2,',','.')." Bs.",0,1,'R');
+$fpdf->AddPage(); 
+        
+		$fpdf->SetFont('Times','B',10);
+		$fpdf->Cell(0,10,'Pagos:',0,1,'C');
+		$fpdf->SetFont('Times','',8);
+                $fpdf->Ln(2);
 
-	}
+//***************   Pagos con Cheque*************************************************************
+
+		$header=array('Cliente','Monto','Cheque','Concepto de','Tipo de Pago','Usuario'); 
+		$i=0;
+                $totalpagos=0;
+		foreach ($pago as $pagos):
+                    $nombrecliente = $pagos['Cliente']['nombre']." ".$pagos['Cliente']['apellido'];
+                    $monto=number_format(floatval($pagos['Pago']['monto']),2,',','.');
+                    $totalpagos+=$pagos['Pago']['monto'];
+                    $data3[$i]=array($nombrecliente, $monto,$pagos['Cheque']['numerodecheque'],$pagos['Pago']['conceptode'],
+                    $pagos['Tipopago']['descripcion'],$pagos['User']['username']);
+                    $i++;
+		endforeach;	
+				
+$colWidth = array(50,40,40,40,40,35); 
+$fpdf->Tabla($header,$colWidth, $data3); 
+$fpdf->Ln(3); 
+        $fpdf->SetFont('','B');
+        $fpdf->Cell(0,1,'Total de Pagos: '.number_format(floatval($totalpagos),2,',','.')." Bs.",0,1,'R');
+
+        
+        
+		$fpdf->SetFont('Times','B',10);
+		$fpdf->Cell(0,10,'Pagos a Terceros:',0,1,'C');
+		$fpdf->SetFont('Times','',8);
+                $fpdf->Ln(2);
+
+//***************   Pagos a Terceros*************************************************************
+
+		$header=array('Fecha','Dia','Cheque','Monto','Concepto de','Origen','Destino','Usuario'); 
+		$i=0;
+                $totalpagos=0;
+                
+		foreach ($pagoterceros as $pagos):
+                    $nombrecliente = $pagos['Cliente']['nombre']." ".$pagos['Cliente']['apellido'];
+                    $nombrecliente1 = $pagos['Cliente1']['nombre']." ".$pagos['Cliente1']['apellido'];
+                    $fechas=new Datetime($pagos['Pagotercero']['created']);
+                    $fechas = $fechas->format('d/m/Y');
+                    $monto=number_format(floatval($pagos['Pagotercero']['monto']),2,',','.');
+                    $totalpagos+=$pagos['Pagotercero']['monto'];
+                    $data3[$i]=array($fechas, $pagos['Pagotercero']['dia'],$pagos['Cheque']['numerodecheque'],$monto,
+                    $pagos['Pagotercero']['conceptode'],$nombrecliente,$nombrecliente1,$pagos['User']['username']);
+                    $i++;
+		endforeach;	
+				
+$colWidth = array(30,30,30,30,30,30,30,35); 
+$fpdf->Tabla($header,$colWidth, $data3); 
+$fpdf->Ln(3); 
+        $fpdf->SetFont('','B');
+        $fpdf->Cell(0,1,'Total de Pagos a Terceros: '.number_format(floatval($totalpagos),2,',','.')." Bs.",0,1,'R');
+
+
+    
+	
+
+}*/
+
 //*********************************************************************************************************
 
 
 
 //*********************************************************************************************************
 
-
-$fpdf->Output(utf8_decode('Relacion dia '.date('d/m/Y')),'I'); 
+$fpdf->Output(utf8_decode('General '.date('d/m/Y')),'I'); 
 ?> 

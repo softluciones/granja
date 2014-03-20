@@ -220,6 +220,10 @@ echo $this->Form->label('Búsqueda') ?>
            echo $this->Html->image("reporte.jpg", array("alt" => "Generar Reporte de Relación Diaria de Cheques",'width' => '30', 'heigth' => '35','title'=>'Generar Reporte de Relacion Diaria de Cheques','url' => array('action' => 'relaciondia'))); 
            echo " ";
             echo $this->Html->image("reportegeneral.fw.png", array("alt" => "Generar Reporte General de Cheques",'width' => '30', 'heigth' => '30','title'=>'Generar Reporte General de Cheques','url' => array('action' => 'general'))); 
+
+            echo " ";
+            echo $this->Html->image("borrartodo.fw.png", array("alt" => "Borrar Todos los Cheques",'width' => '30', 'heigth' => '30','title'=>'Borrar todos los cheques','url' => array('action' => 'deleteall'))); 
+
            echo "</div>";
             ?></h2>
             
@@ -911,7 +915,6 @@ echo $this->Form->label('Búsqueda') ?>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
                      <?php echo $this->Html->image("devuelto.fw.png", array("alt" => "Devuelto",'width' => '18', 'heigth' => '18','title'=>'Devuelto','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],0)));?>
-                    <?php echo $this->Html->image("cobrado.fw.png", array("alt" => "Cobrado",'width' => '18', 'heigth' => '18','title'=>'Cobrado','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],2)));?>
                              
                     <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view', $cheque['Cheque']['id'])));?>
 
@@ -951,8 +954,9 @@ echo $this->Form->label('Búsqueda') ?>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
                     <?php echo $this->Html->image("devuelto.fw.png", array("alt" => "Devuelto",'width' => '18', 'heigth' => '18','title'=>'Devuelto','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],0)));?>
-                    <?php echo $this->Html->image("cobrado.fw.png", array("alt" => "Cobrado",'width' => '18', 'heigth' => '18','title'=>'Cobrado','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],2)));?>
-                     <?php echo $this->Html->image("reportes.fw.png", array("alt" => "Reporte de Cheque",'width' => '18', 'heigth' => '18','title'=>'Reporte de Cheque','url' => array('action' => 'reportecheque', $cheque['Cheque']['id']))); ?>
+
+                      <?php echo $this->Html->image("reportes.fw.png", array("alt" => "Reporte de Cheque",'width' => '18', 'heigth' => '18','title'=>'Reporte de Cheque','url' => array('action' => 'reportecheque', $cheque['Cheque']['id']))); ?>
+
 									
                     <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view', $cheque['Cheque']['id'])));?>
 					<?php echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('action' => 'edit', $cheque['Cheque']['id']))); ?>
@@ -961,7 +965,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 </td>			
 		<?php }else{
 				/*en esta parte le debemos al cliente el monto del cheque menos el monto interes :D*/
-				if($estado=='C' ){?>
+				if($estado=='C' || $estado=='AbnGC' || $estado=='AbnCG'){?>
 					<tr style="background: #ffcaca; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
@@ -991,8 +995,8 @@ echo $this->Form->label('Búsqueda') ?>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
                      <?php echo $this->Html->image("devuelto.fw.png", array("alt" => "Devuelto",'width' => '18', 'heigth' => '18','title'=>'Devuelto','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],0)));?>
-                    <?php echo $this->Html->image("cobrado.fw.png", array("alt" => "Cobrado",'width' => '18', 'heigth' => '18','title'=>'Cobrado','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],2)));?>
-                             
+                    <?php echo $this->Html->image("reportes.fw.png", array("alt" => "Reporte de Cheque",'width' => '18', 'heigth' => '18','title'=>'Reporte de Cheque','url' => array('action' => 'reportecheque', $cheque['Cheque']['id']))); ?>
+		           
                     <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view', $cheque['Cheque']['id'])));?>
 
 					<?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));

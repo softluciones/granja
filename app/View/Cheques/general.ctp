@@ -2,6 +2,7 @@
 
 $fpdf->AliasNbPages();
 $fpdf->AddPage();
+
 $fpdf->SetAutoPageBreak(true,15); 
 $fpdf->SetFont('Times','B',12);
 
@@ -154,7 +155,8 @@ $fpdf->Ln(3);
         $fpdf->Cell(0,1,'Monto Entregado: '.number_format(floatval($totalentregado),2,',','.')." Bs.",0,1,'R');
 
 $fpdf->AddPage(); 
-        
+     if(!empty($pago)){   
+
 		$fpdf->SetFont('Times','B',10);
 		$fpdf->Cell(0,10,'Pagos:',0,1,'C');
 		$fpdf->SetFont('Times','',8);
@@ -180,13 +182,13 @@ $fpdf->Ln(3);
         $fpdf->SetFont('','B');
         $fpdf->Cell(0,1,'Total de Pagos: '.number_format(floatval($totalpagos),2,',','.')." Bs.",0,1,'R');
 
-        
+     }
+         if(!empty($pagoterceros)){  
         
 		$fpdf->SetFont('Times','B',10);
 		$fpdf->Cell(0,10,'Pagos a Terceros:',0,1,'C');
 		$fpdf->SetFont('Times','',8);
                 $fpdf->Ln(2);
-
 //***************   Pagos a Terceros*************************************************************
 
 		$header=array('Fecha','Dia','Cheque','Monto','Concepto de','Origen','Destino','Usuario'); 
@@ -212,11 +214,12 @@ $fpdf->Ln(3);
         $fpdf->Cell(0,1,'Total de Pagos a Terceros: '.number_format(floatval($totalpagos),2,',','.')." Bs.",0,1,'R');
 
 
-    
+         }
+  
+
 	
 
 }
-
 
 //*********************************************************************************************************
 
