@@ -1005,7 +1005,7 @@ class ChequesController extends AppController {
                         
                     }
                     if($estado==1){
-                        $interes=$this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo']*$dias;
+                        $interes=$this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo'];
                         $this->request->data['Chequeinterese']['montoentregado']=0;
                         $nuevomonto=$montooriginal;
                         $fecha=$xx[0]['chequeinterese']['modificado'];
@@ -1318,7 +1318,7 @@ class ChequesController extends AppController {
                                 $this->request->data['Solointerese']['montointereses']=$x[0]['I']['montofijo'];
                                 $this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo']*$y[0]['cheques']['dias'];
 
-                                $this->request->data['Chequeinterese']['montoentregado']=$this->request->data['Cheque']['monto']-($x[0]['I']['MONTOFIJO']*$y[0]['cheques']['dias']);
+                                $this->request->data['Chequeinterese']['montoentregado']=$this->request->data['Cheque']['monto']-($x[0]['I']['montofijo']*$y[0]['cheques']['dias']);
                             }
                             else{
 
@@ -1509,4 +1509,18 @@ class ChequesController extends AppController {
 		}
 		return $this->redirect(array('action' => 'devueltos'));
 	}
-        }
+        public function deleteall($id = null) {
+		$this->Cheque->id = $id;
+		if (!$this->Cheque->exists()) {
+			throw new NotFoundException(__('Invalid cheque'));
+		}
+	
+		if ($this->Cheque->delete()) {
+			$this->Session->setFlash(__('Se han eliminado todos los cheques.'));
+		} else {
+			$this->Session->setFlash(__('El cheque no ha sido eliminado, verifica otra vez.'));
+		}
+		return $this->redirect(array('action' => 'devueltos'));
+	}
+       
+}
