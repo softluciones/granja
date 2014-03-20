@@ -6,6 +6,8 @@
 
 $("#datepicker").datepicker();
 $("#datepicker1").datepicker();
+("#datepicker").datepicker('option', { dateFormat: 'dd-mm-yy' });
+          $("#datepicker1").datepicker('option', { dateFormat: 'dd-mm-yy' });
 });
 
   });

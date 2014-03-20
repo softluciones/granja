@@ -214,7 +214,9 @@ input[type=submit],
 	</table>
 <?php endif; ?>
 </div>
-        <?php if($cheque['Cheque']['deuda']==0 &&$cheque['Cheque']['cobrado']!=1&&($cheque['Cheque']['cobrado']!=2 && $cheque['ChequeEstadocheque'][0]['estadocheque_id']!=2)){?>
+        <?php 
+        
+        if(($cheque['Cheque']['deuda']==0 && $cheque['Cheque']['cobrado']!=1)||($cheque['Cheque']['cobrado']!=2 && $cheque['ChequeEstadocheque'][0]['estadocheque_id']!=2)){?>
 	<div class="actions">
 		<ul>
 			<li  align="center">

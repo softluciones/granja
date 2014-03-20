@@ -625,6 +625,7 @@ class ChequesController extends AppController {
  *
  * @return void
  */     
+        
        private function chequeinteresesinsert($id){
             $chequedoid=  $this->ChequeEstadocheque->getLastInsertID();
             $cheques=$this->ChequeEstadocheque->Cheque->find('first',array('conditions'=>array('Cheque.id'=>$id)));
@@ -722,7 +723,7 @@ class ChequesController extends AppController {
             }else{
                 if($porcentaje!=NULL)
                 {
-                    $monton=(100*($deuda+(10*$diferencia-1)))/(100-($porcentaje*($diferencia)));
+                    $monton=(100*($deuda+(10)))/(100-($porcentaje*($diferencia)));
                 
                     $monton = $this->redondear_a_10($monton);
                 }
@@ -837,7 +838,7 @@ class ChequesController extends AppController {
                         
                         $dias=$this->diferencia($this->request->data['Cheque']['fecharecibido'],$this->request->data['Cheque']['fechacobro']);
                         $this->request->data['Cheque']['dias']=$dias;
-                        debug($dias);
+                        
                        
                         $fecha1= new DateTime($this->data['Cheque']['fecharecibido']);
                         $fecha2 = new DateTime($this->data['Cheque']['fechacobro']);
@@ -848,7 +849,7 @@ class ChequesController extends AppController {
                                
                                 $cheque_ids=  $this->Cheque->getLastInsertID();
                                 $this->Session->setFlash(__('El cheque ha sido guardado.'));
-				return $this->redirect(array('controller'=>'chequeestadocheques','action' => 'add/'.$cheque_ids));
+				return $this->redirect(array('controller'=>'chequeEstadocheques','action' => 'add/'.$cheque_ids));
 			} else {
 				$this->Session->setFlash(__('El cheque no ha sido guardado'));
 			}
@@ -960,7 +961,7 @@ class ChequesController extends AppController {
                        
                         $this->request->data['Chequeinterese']['montoentregado']=0;
                         $interes=$this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo'];
-                        $nuevomonto=$x[0]['I']['montofijo']*$dias2; 
+                        $nuevomonto=$x[0]['I']['montofijo']; 
                         $fecha=$xx[0]['chequeinterese']['fechacobro'];
                         if($dias>1){
                         for($i=0;$i<$dias;$i++){ 
@@ -1212,10 +1213,7 @@ class ChequesController extends AppController {
                 $interes1 = $entregado1[0]['chequeinterese']['montodescuentointeres'];
                 }
                 //----------------------------------------------------
-               debug($entregado);
-               debug($montoorig);
-               debug($estado);
-               debug($entregado1);
+               
           
                 #exit(0);
                 if($cobrado==0)   // DEVUELTO PASA A COBRADO
@@ -1301,7 +1299,7 @@ class ChequesController extends AppController {
                         $fecha2 = new DateTime($this->data['Cheque']['fechacobro']);
                         $this->request->data['Cheque']['fecharecibido']=$fecha1->format('Y-m-d');
                         $this->request->data['Cheque']['fechacobro']=$fecha2->format('Y-m-d');
-                        debug($this->request->data);
+                        #debug($this->request->data);
                         if ($this->Cheque->save($this->request->data)) {
                             $this->request->data['Chequeinterese']['user_id'] = $this->Auth->user('id');
                             $this->request->data['Solointerese']['cheque_id'] =$this->request->data['Chequeinterese']['cheque_id'] = $id;
@@ -1417,8 +1415,32 @@ class ChequesController extends AppController {
             $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
 		$this->render('general','pdf');
         }
+//*******************************REPORTE CHEQUE***********************************************
+        public function reportecheque($id){
+            App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
 
+                $this->layout = 'pdf'; //this will use the pdf.ctp layout
+		$this->Cheque->recursive =2;	
+				 
+	
+	#$items = $this->Inventario->query("SELECT it.referencia1, ii.cantidad FROM 
+               # item as it, inventario_item as ii WHERE ii.inventario_id=".$id." 
+                  #  AND it.id = ii.item_id");	
         
+       
+        $cheques = $this->Cheque->find('first',array('conditions'=>array('Cheque.id'=>$id)));
+        $opciones2= array('conditions' => array('Cheque.cheque_id' => $id));
+                $relacionados = $this->Cheque->find('all',$opciones2);
+              #debug($cheques);
+             
+		$this->set(compact('cheques','relacionados'));
+               
+
+            $this->response->type('pdf');
+
+            $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
+		$this->render('reportecheque','pdf');
+        }
          public function relaciondia($id=null){
              App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
 
