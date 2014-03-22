@@ -72,13 +72,13 @@ li.menu{
 		<th><?php echo __('Banco'); ?></th>	
 		<th><?php echo __('Numero de cuenta'); ?></th>
 		<th><?php echo __('Numero de cheque'); ?></th>
-		<th><?php echo __('Monto'); ?></th>
+		<th><?php echo __('Monto Original'); ?></th>
+                <th><?php echo __('Monto Deuda'); ?></th>                
 		<th><?php echo __('Interes'); ?></th>
-		
+		<th><?php echo __('Monto Entregado'); ?></th>
 		<th><?php echo __('Fecha recibido'); ?></th>
 		<th><?php echo __('Fecha cobro'); ?></th>
 		<th><?php echo __('Cobrado'); ?></th>
-		<th><?php echo __('Cheque'); ?></th>
 		<th><?php echo __('Usuario'); ?></th>
 		<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
@@ -112,7 +112,6 @@ li.menu{
                             echo 'Cobrado';
                         else
                             echo 'Devuelto' ?></td>
-			<td><?php echo $cheque['numerodecheque']; ?></td>
 			<td><?php echo $cheque['User']['username']; ?></td>
 			<td class="acciones">
                             <?php 
