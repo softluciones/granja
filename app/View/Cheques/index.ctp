@@ -321,7 +321,7 @@ echo $this->Form->label('Búsqueda') ?>
 	 ?>	
 						<tr style="background: #528CE0; color: white;">
 							<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-							<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+							<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 							<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 							<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
 							<td><?php 
@@ -364,7 +364,7 @@ echo $this->Form->label('Búsqueda') ?>
 				if($estado=='C' ||  $estado=='AbnCG' || $estado=='AbnGC'){?>
 					<tr style="background: #528CE0; color: white;">
 								<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-								<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+								<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 								<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 								<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
 								<td><?php 
@@ -407,7 +407,7 @@ echo $this->Form->label('Búsqueda') ?>
 							
 							<tr style="background: #f00; color: white;">
 							<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-							<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+							<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 							<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 							<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
 							<td><?php 
@@ -447,7 +447,7 @@ echo $this->Form->label('Búsqueda') ?>
 				if(($estado=='C' || $estado=='AbnCG' || $estado=='AbnGC')&&$deuda==0 ){?>
 					<tr style="background: #f00; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -493,7 +493,7 @@ echo $this->Form->label('Búsqueda') ?>
                 ?>
             <tr style="background: #ffcaca; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -536,7 +536,7 @@ echo $this->Form->label('Búsqueda') ?>
 			<td><?php 
                      
                         echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -590,7 +590,7 @@ echo $this->Form->label('Búsqueda') ?>
 		?>
 		<tr style="background: #ffffff; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -627,7 +627,7 @@ echo $this->Form->label('Búsqueda') ?>
 				if($estado=='C' || $estado=='AbnGC'){?>
 					<tr style="background: #ffffff; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -668,7 +668,7 @@ echo $this->Form->label('Búsqueda') ?>
 		?>
 		<tr style="background: #f00; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -708,7 +708,7 @@ echo $this->Form->label('Búsqueda') ?>
 				if($estado=='C'){?>
 					<tr style="background: #f00; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -752,7 +752,7 @@ echo $this->Form->label('Búsqueda') ?>
                 ?>
             <tr style="background: #ffcaca; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -793,7 +793,7 @@ echo $this->Form->label('Búsqueda') ?>
 			<td><?php 
             
                         echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -845,7 +845,7 @@ echo $this->Form->label('Búsqueda') ?>
 		?>
 		<tr style="background: #FECA40; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -885,7 +885,7 @@ echo $this->Form->label('Búsqueda') ?>
 				if($estado=='C' ){?>
 					<tr style="background: #FECA40; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -924,7 +924,7 @@ echo $this->Form->label('Búsqueda') ?>
 		?>
 		<tr style="background: #ffcaca; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -961,7 +961,7 @@ echo $this->Form->label('Búsqueda') ?>
 				if($estado=='C' || $estado=='AbnGC' || $estado=='AbnCG'){?>
 					<tr style="background: #ffcaca; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -1000,7 +1000,7 @@ echo $this->Form->label('Búsqueda') ?>
 		?>
 		<tr style="background: #f00; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -1039,7 +1039,7 @@ echo $this->Form->label('Búsqueda') ?>
 				if(($estado=='C' ||  $estado=='AbnCG' || $estado=='AbnGC')&& $deuda==0){?>
 					<tr style="background: #f00; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-			<td><?php echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 

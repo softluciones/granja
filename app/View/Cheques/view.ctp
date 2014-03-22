@@ -39,7 +39,7 @@ input[type=submit],
         <td><?php 
         $multiplicador=1;
         echo __('Banco: '); /*$monto=($montos+$x);*/ echo $this->Html->link($cheque['Banco']['codigo'].' '.$cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
-        <th style="background:#ffffff;"><?php echo __('Cliente: '); echo $this->Html->link($cheque['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+        <th style="background:#ffffff;"><?php echo __('Cliente: '); echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
         <th style="background:#ffffff;"><?php echo __('Numero de cuenta: '); echo h($cheque['Cheque']['numerodecuenta']); ?></td>
     </tr>
     <tr style="background:#ffffff;">
