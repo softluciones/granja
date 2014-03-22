@@ -58,7 +58,8 @@ class UsersController extends AppController {
             $this->redirect($this->Auth->logout());
         }
         public function view($id = null) {
-		if (!$this->User->exists($id)) {
+                $this->User->recursive = 2;
+                if (!$this->User->exists($id)) {
 			throw new NotFoundException(__('Usuario Invalido'));
 		}
 		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
