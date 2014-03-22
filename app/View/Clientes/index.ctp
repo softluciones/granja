@@ -37,8 +37,6 @@ li.menu{
 	<table cellpadding="0">
             <thead >
 	<tr style="height: 30px;">
-			
-			
 			<th><?php echo $this->Paginator->sort('cedula'); ?></th>
 			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
 			<th><?php echo $this->Paginator->sort('apellido'); ?></th>
@@ -109,7 +107,5 @@ li.menu{
 		<li align="center"><?php echo $this->Html->link(__('Nuevo Cliente'), array('action' => 'add')); ?></li>
 		<li align="center"><?php echo $this->Html->link(__('Listar Cheques'), array('controller' => 'cheques', 'action' => 'index')); ?> </li>
 		<li align="center"><?php echo $this->Html->link(__('Nuevo Cheque'), array('controller' => 'cheques', 'action' => 'add')); ?> </li>
-		<li align="center"><?php echo $this->Html->link(__('Listar Cuentas'), array('controller' => 'cuentas', 'action' => 'index')); ?> </li>
-		<li align="center"><?php echo $this->Html->link(__('Nueva Cuenta'), array('controller' => 'cuentas', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

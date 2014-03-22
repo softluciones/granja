@@ -1407,16 +1407,17 @@ class ChequesController extends AppController {
        
         $cheques = $this->Cheque->find('all');
        
+
                 $pago = $this->Cheque->Pago->find('all');
                $pagoterceros = $this->Cheque->Pagotercero->find('all');
         
 		$this->set(compact('cheques','pago','pagoterceros'));
-               
             $this->response->type('pdf');
 
             $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
 		$this->render('general','pdf');
         }
+
         
          public function relaciondia($id=null){
              App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));

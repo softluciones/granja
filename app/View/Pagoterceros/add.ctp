@@ -1,3 +1,4 @@
+
 <?php
 $hoy = date("Y-m-d h:i:s");
 $anho= date("Y");
@@ -109,3 +110,4 @@ for($i=0;$i<12;$i++){
 		<li><?php echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+

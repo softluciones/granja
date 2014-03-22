@@ -20,7 +20,24 @@ class BancosController extends AppController {
  *
  * @return void
  */
-	public function index() {
+        public function totalbanco($id=null){
+            App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
+            $this->layout = 'pdf'; //this will use the pdf.ctp layout
+		$this->Cheque->recursive =2;	
+				 
+	
+	#$items = $this->Inventario->query("SELECT it.referencia1, ii.cantidad FROM 
+               # item as it, inventario_item as ii WHERE ii.inventario_id=".$id." 
+                  #  AND it.id = ii.item_id");	
+        
+       
+            $bancos=$this->Banco->query("select sum(monto) from cheques where id=".$id);
+            $this->set(compact('cheques'));
+            $this->response->type('pdf');
+            $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
+            $this->render('general','pdf');
+        }
+        public function index() {
 	$_SESSION['varia']=1;	
             $this->Banco->recursive = 0;
 		$this->set('bancos', $this->Paginator->paginate());

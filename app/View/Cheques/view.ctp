@@ -560,9 +560,11 @@ input[type=submit],
 	</table>
 <?php endif; ?>
 </br>
+
 <?php
 
 if( $cheque['Cheque']['deuda']==0 && $cheque['Cheque']['cobrado']==2 && $cheque['ChequeEstadocheque'][0]['estadocheque_id']==2){?>
+
 	<div class="actions">
 		<ul>
 			<li  align="center"><?php echo $this->Html->link(__('Pago a terceros'), array('controller' => 'pagoterceros', 'action' => 'add/'.$cheque['Cheque']['id']."/".$monto,$cheque['Cliente']['id'])); ?> </li>
