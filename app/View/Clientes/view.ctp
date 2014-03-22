@@ -72,13 +72,15 @@ li.menu{
 		<th><?php echo __('Banco'); ?></th>	
 		<th><?php echo __('Numero de cuenta'); ?></th>
 		<th><?php echo __('Numero de cheque'); ?></th>
-		<th><?php echo __('Monto'); ?></th>
+		<th><?php echo __('Monto Original'); ?></th>
+                <th><?php echo __('Monto Deuda'); ?></th>                
 		<th><?php echo __('Interes'); ?></th>
-		
+                <th><?php echo __('Monto Interes'); ?></th>
+		<th><?php echo __('Monto Entregado'); ?></th>
 		<th><?php echo __('Fecha recibido'); ?></th>
 		<th><?php echo __('Fecha cobro'); ?></th>
 		<th><?php echo __('Cobrado'); ?></th>
-		<th><?php echo __('Cheque'); ?></th>
+                <th><?php echo __('Estado'); ?></th>
 		<th><?php echo __('Usuario'); ?></th>
 		<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
@@ -94,9 +96,16 @@ li.menu{
 			<td><?php 
                         echo $this->Html->link($cheque['numerodecheque'], array('controller' => 'cheques', 'action' => 'view', $cheque['id']));
                          ?></td>
-			<td><?php echo $cheque['monto']; ?></td>
+			<td><div style="float: right"><?php $pos = count($cheque['Chequeinterese']);
+                        echo h(number_format(floatval($cheque['monto']),2,',','.')); ?></td>
+                        <td><div style="float: right"><?php
+                      
+                        echo h(number_format(floatval($cheque['Chequeinterese'][$pos-1]['montocheque']),2,',','.')); ?></div></td>
 			<td><?php echo $cheque['Interese']['rango']; ?></td>
-			
+			<td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$pos-1]['montodescuentointeres']),2,',','.')); ?></div></td>
+                        <td><div style="float: right"><?php
+                      
+                        echo h(number_format(floatval($cheque['Chequeinterese'][$pos-1]['montoentregado']),2,',','.')); ?></div></td>
 			<td><?php 
                         $recibido = new Datetime($cheque['fecharecibido']);
                         $recibido = $recibido->format('d/m/Y');
@@ -112,7 +121,19 @@ li.menu{
                             echo 'Cobrado';
                         else
                             echo 'Devuelto' ?></td>
-			<td><?php echo $cheque['numerodecheque']; ?></td>
+                        <td><div style="float: right"><?php
+                      $pose = count($cheque['ChequeEstadocheque']);
+                      if($cheque['ChequeEstadocheque'][$pose-1]['estadocheque_id']==1)
+                          $estado='R';
+                      if($cheque['ChequeEstadocheque'][$pose-1]['estadocheque_id']==2)
+                          $estado='C';
+                      if($cheque['ChequeEstadocheque'][$pose-1]['estadocheque_id']==3)
+                          $estado='AbnGC';
+                      if($cheque['ChequeEstadocheque'][$pose-1]['estadocheque_id']==4)
+                          $estado='AbnCG';
+                          
+                        echo $estado; ?></div></td>
+			
 			<td><?php echo $cheque['User']['username']; ?></td>
 			<td class="acciones">
                             <?php 

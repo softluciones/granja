@@ -162,7 +162,7 @@ class ChequesController extends AppController {
                            
                             
                             
-                            $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
+                            $nuevafecha = strtotime ('+1 day' , strtotime ( $fecha )) ;
                             $fecha = date ( 'Y-m-d' , $nuevafecha );
                            $nuevomonto=$montodeuda+$montointeres;
                         
@@ -666,7 +666,7 @@ class ChequesController extends AppController {
                        $monto=$montocheque-$montointeres;
                         $montocheque=$monto;
                         if($estado==1){
-                            $this->request->data['Chequeinterese']['montoentregado']=$this->redondear_a_10($monto);
+                            $this->request->data['Chequeinterese']['montoentregado']=$monto;
                              $this->request->data['Chequeinterese']['montocheque']=0;
                          }
                         if($estado==2){
@@ -938,7 +938,7 @@ class ChequesController extends AppController {
                 
                 $select = "SELECT minimo, maximo, montofijo FROM intereses WHERE porcentaje IS NULL ORDER BY maximo DESC";
                 $blabla=$this->Cheque->query($select);
-               # debug($blabla);
+
                 if($dias>1){
                     $dias--;
                 };
@@ -962,7 +962,7 @@ class ChequesController extends AppController {
                         $interes=$this->request->data['Chequeinterese']['montodescuentointeres'] = $x[0]['I']['montofijo'];
                         $nuevomonto=$x[0]['I']['montofijo']*$dias2; 
                         $fecha=$xx[0]['chequeinterese']['fechacobro'];
-      
+                        if($dias>1){
                         for($i=0;$i<$dias;$i++){ 
                            
                             
@@ -984,7 +984,23 @@ class ChequesController extends AppController {
                                            ".$this->request->data['Chequeinterese']['cheque_id'].",
                                            ".$this->request->data['Chequeinterese']['user_id'].",'".$fecha."',NOW())";
                            $this->Cheque->query($sql3);
-                        }                        
+                        }  
+                        }else{
+                            $this->request->data['Chequeinterese']['montocheque']=$nuevomonto = $nuevomonto + $interes;                           
+                           $sql3="INSERT INTO chequeinterese (montocheque,
+                                                    montodescuentointeres,
+                                                    montoentregado,
+                                                    estadocheque,
+                                                    cheque_id,
+                                                    user_id,modificado,created) 
+                                    VALUES(".$this->request->data['Chequeinterese']['montocheque'].",
+                                           ".$this->request->data['Chequeinterese']['montodescuentointeres'].",
+                                           ".$montoentregado.",
+                                           ".$tipo.",
+                                           ".$this->request->data['Chequeinterese']['cheque_id'].",
+                                           ".$this->request->data['Chequeinterese']['user_id'].",'".$fecha."',NOW())";
+                           $this->Cheque->query($sql3);
+                        }
                         
                     }
                     if($estado==1){
@@ -992,7 +1008,7 @@ class ChequesController extends AppController {
                         $this->request->data['Chequeinterese']['montoentregado']=0;
                         $nuevomonto=$montooriginal;
                         $fecha=$xx[0]['chequeinterese']['modificado'];
-                       
+                       if($dias>1){
                         for($i=0;$i<$dias;$i++){
                              $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
                             $fecha = date ( 'Y-m-d' , $nuevafecha );
@@ -1012,6 +1028,22 @@ class ChequesController extends AppController {
                                            ".$this->request->data['Chequeinterese']['user_id'].",'".$fecha."',NOW())";
                            $this->Cheque->query($sql3);
                         }      
+                       }else{
+                           $this->request->data['Chequeinterese']['montocheque']=$nuevomonto = $nuevomonto + $interes;                           
+                           $sql3="INSERT INTO chequeinterese (montocheque,
+                                                    montodescuentointeres,
+                                                    montoentregado,
+                                                    estadocheque,
+                                                    cheque_id,
+                                                    user_id,modificado,created) 
+                                    VALUES(".$this->request->data['Chequeinterese']['montocheque'].",
+                                           ".$this->request->data['Chequeinterese']['montodescuentointeres'].",
+                                           ".$montoentregado.",
+                                           ".$tipo.",
+                                           ".$this->request->data['Chequeinterese']['cheque_id'].",
+                                           ".$this->request->data['Chequeinterese']['user_id'].",'".$fecha."',NOW())";
+                           $this->Cheque->query($sql3);
+                       }
                     }
                     
                 }
@@ -1345,7 +1377,7 @@ class ChequesController extends AppController {
                 
                 
 		$bancos = $this->Cheque->Banco->find('list');
-		$clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','nombres')));
+		$clientes = $this->Cheque->Cliente->find('list',array('fields'=>array('id','apodo')));
 		$interese = $this->Cheque->Interese->find('list',array('fields'=>array('id','rango')));
 		$users = $this->Cheque->User->find('list');
                 $x=$this->Cheque->query("select id, username from users where id=".$this->Auth->user('id')."");
@@ -1360,6 +1392,58 @@ class ChequesController extends AppController {
  * @param string $id
  * @return void
  */
+        
+         public function general($id=null){
+             App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
+
+ $this->layout = 'pdf'; //this will use the pdf.ctp layout
+		$this->Cheque->recursive =2;	
+				 
+	
+	#$items = $this->Inventario->query("SELECT it.referencia1, ii.cantidad FROM 
+               # item as it, inventario_item as ii WHERE ii.inventario_id=".$id." 
+                  #  AND it.id = ii.item_id");	
+        
+       
+        $cheques = $this->Cheque->find('all');
+       
+		$this->set(compact('cheques'));
+               
+
+            $this->response->type('pdf');
+
+            $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
+		$this->render('general','pdf');
+        }
+         public function relaciondia($id=null){
+             App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
+
+ $this->layout = 'pdf'; //this will use the pdf.ctp layout
+		$this->Cheque->recursive =2;	
+				 
+	
+	#$items = $this->Inventario->query("SELECT it.referencia1, ii.cantidad FROM 
+               # item as it, inventario_item as ii WHERE ii.inventario_id=".$id." 
+                  #  AND it.id = ii.item_id");	
+        
+        $conditions= array('or'=>array
+                                    (array('Cheque.cobrado'=>'1'),
+                                    array(array('and'=>array(array('Cheque.cobrado'=>'0'),
+                                            array('Cheque.deuda'=>0)))),
+                                        array(array('and'=>array(array('Cheque.cobrado'=>'2'),
+                                            array('Cheque.deuda'=>0)))),
+                                    ));
+        $cheques = $this->Cheque->find('all',array('conditions'=>$conditions));
+       
+		$this->set(compact('cheques'));
+               
+
+            $this->response->type('pdf');
+
+            $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
+		$this->render('relaciondia','pdf');
+        }
+        
 	public function delete($id = null) {
 		$this->Cheque->id = $id;
 		if (!$this->Cheque->exists()) {

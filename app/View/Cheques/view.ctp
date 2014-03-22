@@ -123,9 +123,9 @@ input[type=submit],
     
     </br>
 
-  <?php 
 
-  if($cheque['Cheque']['cobrado']==0||($cheque['Cheque']['cobrado']==2&&$cheque['Cheque']['deuda']==0)){ ?>
+
+ 
 <div class="box">
   
              <div class="title">        
@@ -214,7 +214,7 @@ input[type=submit],
 	</table>
 <?php endif; ?>
 </div>
-        <?php if($cheque['Cheque']['deuda']==0){?>
+        <?php if($cheque['Cheque']['deuda']==0 &&$cheque['Cheque']['cobrado']!=1&&($cheque['Cheque']['cobrado']!=2 && $cheque['ChequeEstadocheque'][0]['estadocheque_id']!=2)){?>
 	<div class="actions">
 		<ul>
 			<li  align="center">
@@ -225,12 +225,12 @@ input[type=submit],
                         </li>
 		</ul>
 	</div>
-                <?php }?>
+          <?php } ?>   
          </div>    
     
 </div>
      </br> 	
-<?php } ?> 
+
 
 <div class="box">
     
@@ -406,16 +406,19 @@ input[type=submit],
 			<li  align="center">
 
             <?php  
+            $deuda=0;
             if($cheque['Cheque']['deuda']==0){
             $estado = $cheque['ChequeEstadocheque'][$posiciones-1]['estadocheque_id'];
             if($estado==2|| $estado==3){
                 if($cheque['Cheque']['cobrado']==2 && $cheque['Cheque']['deuda']==0){
                     $pos=count($cheque['Chequeinterese']);
+                    $deuda=1;
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
                      echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$montos));
                     
                 }if($cheque['Cheque']['cobrado']==0){
                     $pos=count($cheque['Chequeinterese']);
+                    $deuda=1;
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
                         echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
                 }
@@ -423,10 +426,12 @@ input[type=submit],
             if($estado==1 || $estado==4){
                 if($cheque['Cheque']['cobrado']==2&& $cheque['Cheque']['deuda']==0){
                     $pos=count($cheque['Chequeinterese']);
+                    $deuda=1;
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
                         echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
                     
                 }if($cheque['Cheque']['cobrado']==0){
+                    $deuda=1;
                     $pos=count($cheque['Chequeinterese']);
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
                         echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
@@ -482,11 +487,13 @@ input[type=submit],
 	</table>
 <?php endif; ?>
 </br>
+<?php if($deuda==0){?>
 	<div class="actions">
 		<ul>
 			<li align="center"><?php echo $this->Html->link(__('Nueva Cobranza'), array('controller' => 'gestiondecobranzas', 'action' => 'add',$cheque['Cheque']['id'])); ?> </li>
 		</ul>
 	</div>
+<?php }?>
 </div>
 </div>
 </div></br>
@@ -546,11 +553,13 @@ input[type=submit],
 	</table>
 <?php endif; ?>
 </br>
+<?php if($deuda==0){?>
 	<div class="actions">
 		<ul>
 			<li  align="center"><?php echo $this->Html->link(__('Pago a terceros'), array('controller' => 'pagoterceros', 'action' => 'add/'.$cheque['Cheque']['id']."/".$monto,$cheque['Cliente']['id'])); ?> </li>
 		</ul>
 	</div>
+<?php }?>
 </div>
         </div>
     </div>
@@ -572,7 +581,6 @@ input[type=submit],
 		<li align="center"><?php echo $this->Html->link(__('Nuevo Banco'), array('controller' => 'bancos', 'action' => 'add')); ?> </li>
 		<li align="center"><?php echo $this->Html->link(__('Lista Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
 		<li align="center"><?php echo $this->Html->link(__('Nuevo Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
-		<li align="center"><?php echo $this->Html->link(__('Nuevo Interes'), array('controller' => 'chequeinterese', 'action' => 'add')); ?> </li>
-	</ul>
+		</ul>
 </div>
 

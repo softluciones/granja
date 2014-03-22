@@ -416,7 +416,8 @@ function Footer()
 {
 	
 	// PosiciÃ³n: a 1,5 cm del final
-    $this->SetY(-25);
+
+    $this->SetY(-15);
     // Arial italic 8
 	$this->SetTextColor(0); 
     $this->SetFont('Arial','',8);
@@ -427,12 +428,7 @@ function Footer()
    	$columnas = array(120,120);
 	$this->Otratabla($cabecera,$columnas,$datos);
 	
-	$this->SetFont('Arial','B',12);
-	$this->Ln(5);
-	$this->SetTextColor(104); 
-	$this->Cell(0,10,utf8_decode('www.gravimon.com.ve'),0,0,'C');
-	
-	
+
 	
 	// To be implemented in your own inherited class
 	
