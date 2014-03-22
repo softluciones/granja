@@ -178,7 +178,7 @@ li.menu{
             </div>
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('Nueva Cuenta'), array('controller' => 'cuentas', 'action' => 'add',$cliente['Cliente']['id'])); ?> </li>
+			<li><?php echo $this->Html->link(__('Nueva Cuenta'), array('controller' => 'cuentas', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
 </div>

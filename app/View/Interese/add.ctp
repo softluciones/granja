@@ -1,46 +1,27 @@
-<?php date_default_timezone_set("America/Caracas")?>
-<style>
-      th{
-          background: #ffffff;
-      }
-      tbody tr:hover th{
-          background: #ffffff;
-      }
-      li.menu{
-          text-align: center;
-      }
-  </style>
 <div class="interese form">
 <?php echo $this->Form->create('Interese'); ?>
-    <table>
-    <threa>
-        <fieldset>
-		<th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;"><div align="center"><?php echo __('Agregar intereses'); ?></div></th>
-   </threa>
-        <tr>
-            <th><?php echo $this->Form->input('minimo'); ?></th>
-            <th><?php echo $this->Form->input('maximo'); ?></th>
-            <th><?php echo $this->Form->input('montofijo'); ?></th>
-        </tr>
-        <tr>
-            <th><?php echo $this->Form->input('porcentaje'); ?></th>
-            <th><?php echo $this->Form->input('user_id'); ?></th>
-            <th><?php echo $this->Form->end(__('Submit')); ?></th>
-        </tr>
-       
-       <?php
-            
-		
-		
-		
+	<fieldset>
+		<legend><?php echo __('Add Interese'); ?></legend>
+	<?php
+		echo $this->Form->input('vigencia');
+		echo $this->Form->input('minimo');
+		echo $this->Form->input('maximo');
+		echo $this->Form->input('montofijo');
+		echo $this->Form->input('porcentaje');
+		echo $this->Form->input('tipo');
+		echo $this->Form->input('user_id');
 	?>
 	</fieldset>
-        </table>
-<?php  ?>
+<?php echo $this->Form->end(__('Submit')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Operaciones'); ?></h3>
+	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Lista Intereses'), array('action' => 'index')); ?></li>
+
+		<li><?php echo $this->Html->link(__('List Interese'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Chequeinterese'), array('controller' => 'chequeinterese', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Chequeinterese'), array('controller' => 'chequeinterese', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
