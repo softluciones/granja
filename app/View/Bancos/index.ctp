@@ -65,7 +65,9 @@ input[type=submit],
                                 $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
                                                  echo $this->Html->link($imagen, array('action' => 'delete', $banco['Banco']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $banco['Banco']['id'])));
                          ?>
-			
+			<?php
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Reporte Banco','url' => array('action' => 'totalbanco',  $banco['Banco']['id'])));
+                            ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

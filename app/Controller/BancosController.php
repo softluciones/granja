@@ -31,7 +31,7 @@ class BancosController extends AppController {
                   #  AND it.id = ii.item_id");	
         
        
-            $bancos=  $this->Banco->query("select sum(monto) from cheques where id=".$id);
+            $bancos=$this->Banco->query("select sum(monto) from cheques where id=".$id);
             $this->set(compact('cheques'));
             $this->response->type('pdf');
             $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
