@@ -47,5 +47,8 @@
 		<li  class="menu"><?php echo $this->Html->link(__('Lista Usuario'), array('action' => 'index')); ?></li>
 		<li class="menu"><?php echo $this->Html->link(__('Lista Roles'), array('controller' => 'roles', 'action' => 'index')); ?> </li>
 		<li class="menu"><?php echo $this->Html->link(__('Nuevo Rol'), array('controller' => 'roles', 'action' => 'add')); ?> </li>
+                <li class="menu"><?php echo $this->Html->link(__('Lista Tipo pagos'), array('controller' => 'tipopagos', 'action' => 'index')); ?> </li>
+		<li class="menu"><?php echo $this->Html->link(__('Nuevo Tipo pago'), array('controller' => 'tipopagos', 'action' => 'add')); ?> </li>
+                
 	</ul>
 </div>
