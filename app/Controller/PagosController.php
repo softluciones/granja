@@ -139,7 +139,7 @@ class PagosController extends AppController {
 
 
             $conditions=array('Cliente.id'=>$clie);
-            $clientes = $this->Pago->Cliente->find('list',array('fields'=>array('id','nombres'),
+            $clientes = $this->Pago->Cliente->find('list',array('fields'=>array('id','apodo'),
                                                                             'conditions'=>$conditions));
             $conditions=array('Cheque.id'=>$cheq);
             $cheques = $this->Cheque->find('list',array('fields'=>array('numerodecheque'),

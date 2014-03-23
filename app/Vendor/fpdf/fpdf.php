@@ -428,8 +428,6 @@ function Footer()
    	$columnas = array(120,120);
 	$this->Otratabla($cabecera,$columnas,$datos);
 	
-
-	
 	// To be implemented in your own inherited class
 	
 }

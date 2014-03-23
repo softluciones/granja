@@ -124,7 +124,7 @@ if (!empty($cheques)){
 	
 		endforeach;	
 				
-$colWidth = array(15,12,20,10,10,20,22,22,22,15,15,15,10,20,15); 
+$colWidth = array(15,17,20,10,10,20,20,20,20,15,15,15,10,20,15); 
 $fpdf->Tabla($header,$colWidth, $data2); 
 
     
