@@ -882,7 +882,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 </td>			
 		<?php }else{
 				/*en esta parte le debemos al cliente el monto del cheque menos el monto interes :D*/
-				if($estado=='C' ){?>
+				if($estado=='C' || $estado=='AbnGC'){?>
 					<tr style="background: #FECA40; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
 			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
@@ -912,7 +912,8 @@ echo $this->Form->label('Búsqueda') ?>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
                      <?php echo $this->Html->image("devuelto.fw.png", array("alt" => "Devuelto",'width' => '18', 'heigth' => '18','title'=>'Devuelto','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],0)));?>
-                             
+                         <?php echo $this->Html->image("cobrado.fw.png", array("alt" => "Cobrado",'width' => '18', 'heigth' => '18','title'=>'Cobrado','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],2)));?>
+                         
                     <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view', $cheque['Cheque']['id'])));?>
 
 					<?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));

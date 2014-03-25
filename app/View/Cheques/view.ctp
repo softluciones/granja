@@ -418,7 +418,8 @@ input[type=submit],
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
                      echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$montos));
                     
-                }if($cheque['Cheque']['cobrado']==0){
+                }if($cheque['Cheque']['cobrado']==0&&$estado==3){
+                    
                     $pos=count($cheque['Chequeinterese']);
                     $deuda=1;
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
@@ -428,7 +429,40 @@ input[type=submit],
                     $pos=count($cheque['Chequeinterese']);
                     $deuda=1;
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
+                    $entregado=$cheque['Chequeinterese'][$pos-1]['montoentregado'];
+                    if($estado==2){
+                        $monto=$cheque['Cheque']['monto'];
+                        $montofijo = $cheque['Interese']['montofijo'];
+                        $porcentaje = $cheque['Interese']['porcentaje'];
+                        $dias = $cheque['Cheque']['dias'];
+                        if($montofijo==null){
+                            $monto = $monto - ($monto * $porcentaje/100)*$dias;
+                        }else{
+                            $monto = $monto - $montofijo*$dias;
+                        }
+                    }
+                    if($estado==3){
+                        $pos=count($cheque['Chequeinterese']);
+               
+           
+                    $entregado=$cheque['Chequeinterese'][$pos-1]['montoentregado'];
+                        $monto=$cheque['Cheque']['monto']-$entregado;
+                        $montofijo = $cheque['Interese']['montofijo'];
+                        $porcentaje = $cheque['Interese']['porcentaje'];
+                        $dias = $cheque['Cheque']['dias'];
+                        if($montofijo==null){
+                            $interes1 = $monto * $porcentaje/100;
+                            if($interes1<$fijo){
+                                 $monto = $monto - $fijo*$dias;
+                            }
+                            else{
+                            $monto = $monto - ($monto * $porcentaje/100)*$dias;
+                            }
+                        }else{
+                            $monto = $monto - $montofijo*$dias;
+                        }
+                    }
+                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$monto));
                 }
                  }
            
