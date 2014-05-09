@@ -203,7 +203,10 @@ echo $this->Form->label('Búsqueda') ?>
                                 else
                                     echo h('Devuelto');
                                     ?>&nbsp;</td>
-		<td><?php echo h($cheque['User']['Estadocheque']['0']['nomenclatura']); ?>&nbsp;</td>
+		<td><?php 
+               # debug($cheque);
+                $tam=count($cheque['ChequeEstadocheque']);
+                echo h($cheque['ChequeEstadocheque'][$tam-1]['Estadocheque']['nomenclatura']); ?>&nbsp;</td>
              
 		<td>
 			<?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?>

@@ -2,7 +2,7 @@
 
 $fpdf->AliasNbPages();
 $fpdf->AddPage();
-$fpdf->SetAutoPageBreak(true,0); 
+$fpdf->SetAutoPageBreak(true,30); 
 $fpdf->SetFont('Times','B',12);
  $fpdf->Cell(0,0,utf8_decode('Relación de Entrada del día '.date('d/m/Y')),0,0,'C');
 
@@ -125,7 +125,7 @@ if (!empty($cheques)){
 		endforeach;	
 				
 
-$colWidth = array(15,17,20,10,10,20,20,20,20,15,15,15,10,20,15); 
+$colWidth = array(17,17,20,10,10,20,20,20,20,15,15,15,10,20,15); 
 $fpdf->Tabla($header,$colWidth, $data2); 
 
     

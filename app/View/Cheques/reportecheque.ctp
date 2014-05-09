@@ -2,7 +2,7 @@
 
 $fpdf->AliasNbPages();
 $fpdf->AddPage();
-$fpdf->SetAutoPageBreak(true,0); 
+$fpdf->SetAutoPageBreak(true,30); 
 $fpdf->SetFont('Times','B',12);
  $fpdf->Cell(0,0,utf8_decode('Reporte de Cheque '.$cheques['Cheque']['numerodecheque']),0,0,'C');
 

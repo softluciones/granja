@@ -39,6 +39,7 @@ class User extends AppModel {
         
         public $validate = array(
 		'username' => array(
+                       'rule' => array('maxLength', 10) ,
 			'notempty' => array(
                             'rule'=> 'isUnique',
                                     'message' => 'Ese nombre de usuario ya está siendo usado, intente con otro',
@@ -48,6 +49,7 @@ class User extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+                    
 		),
 		'password' => array(
 			'notempty' => array(
