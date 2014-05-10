@@ -29,11 +29,14 @@ class PagosController extends AppController {
 	public function add($id=null) {
 		if ($this->request->is('post')) 
                 {
-                    $cheq=$this->params['pass'][0];
+                    
                     $montos=$this->params['pass'][4];  // Monto deuda en chequeinteres
                     $debo=$this->params['pass'][2];
-                    $cheques = $this->Cheque->find('first',array('contidions'=>array('Cheque.id'=>$cheq)));
-                      
+                    $cheq=$this->params['pass'][0];
+                 
+                    $options = array('conditions' => array('Cheque.' . $this->Cheque->primaryKey => $cheq));
+                    $cheques = $this->Pago->Cheque->find('first',$options);
+                       
                     $estado = $cheques['ChequeEstadocheque'][0]['estadocheque_id'];
                     $montoentregado=0;
                     $nuevoestado="";
@@ -47,8 +50,7 @@ class PagosController extends AppController {
                     $montopagado = $this->data['Pago']['monto'];
                     $interes = $cheques['Interese']['porcentaje'];
                     $edocheques = $cheques['Cheque']['cobrado'];
-                 
-                    # debug($edocheques); exit(0);
+                   
                     $montofijo = $cheques['Interese']['montofijo'];
                     $nuevomonto = $montos-$montopagado;
 
@@ -92,21 +94,22 @@ class PagosController extends AppController {
                              
                             if($estado==2){
                                if($edocheques==1){
-                                    $nuevomonto=0;
+                                     $nuevomonto = $montopagado+$montoentregado;
                                     $montointeres=0;
                                     $montoentregado=$montopagado+$montoentregado;
+                                    
                                 } 
                           
                                 $nuevoestado=3;
                             }
                             if($estado==3){
                                  if($edocheques==1){
-                                    $nuevomonto=0;
+                                    $nuevomonto=$montopagado+$montoentregado;
                                     $montointeres=0;
                                     $montoentregado=$montoentregado+$montopagado;
                                 } 
                                 if($edocheques==0){
-                                    $nuevomonto=0;
+                                    $nuevomonto=$montopagado+$montoentregado;
                                     $montointeres=0;
                                     $montoentregado=$montoentregado+$montopagado;
                                 } 
@@ -147,7 +150,7 @@ class PagosController extends AppController {
                         $this->Session->setFlash(__('El pago ha sido efectuado.'));
                         return $this->redirect(array('controller'=>'cheques','action' => 'view',$cheq));
                 } else {
-                        $this->Session->setFlash(__('Algo está mal en esta transaccion revisa de nuevo'));
+                        $this->Session->setFlash(__('Algo está mal en esta transacción revisa de nuevo'));
                 }		
         }
         $chequeinterese = $this->Pago->Chequeinterese->find('list');

@@ -240,7 +240,7 @@
                     <thead>
        
                  <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
-         <div align="center"> Agregar Cheque </div>
+         <div align="center" style="color:#fff;"> Agregar Cheque </div>
           </th>
             
          </thead>

@@ -93,10 +93,11 @@ class ChequeEstadochequesController extends AppController {
                           
                         
                         $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
-                        $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
+                    
                          $nuevafecha = strtotime ( '+1 day' , strtotime ( $this->request->data['Chequeinterese']['modificado'] ) ) ;
                          $this->request->data['Chequeinterese']['modificado'] = date ( 'Y-m-d' , $nuevafecha );
                     }
+                        $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
                     }
                     if($estado==2){
                         $this->request->data['Chequeinterese']['montodescuentointeres']=0;
@@ -117,10 +118,11 @@ class ChequeEstadochequesController extends AppController {
                         
                         
                         $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
-                        $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
+                       
                          $nuevafecha = strtotime ( '+1 day' , strtotime ( $this->request->data['Chequeinterese']['modificado'] ) ) ;
                          $this->request->data['Chequeinterese']['modificado'] = date ( 'Y-m-d' , $nuevafecha );
                     } 
+                     $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
                      }
                      if($estado==2){
                             $this->request->data['Chequeinterese']['montoentregado']=0;

@@ -220,6 +220,11 @@ echo $this->Form->label('Búsqueda') ?>
            echo $this->Html->image("reporte.jpg", array("alt" => "Generar Reporte de Relación Diaria de Cheques",'width' => '30', 'heigth' => '35','title'=>'Generar Reporte de Relacion Diaria de Cheques','url' => array('action' => 'relaciondia'))); 
            echo " ";
             echo $this->Html->image("reportegeneral.fw.png", array("alt" => "Generar Reporte General de Cheques",'width' => '30', 'heigth' => '30','title'=>'Generar Reporte General de Cheques','url' => array('action' => 'general'))); 
+            echo " ";
+            $imagen= $this->Html->image("borrartodo.fw.png", array("alt" => "borrar",'width' => '30', 'heigth' =>'30','title'=>'Borrar'));
+	echo $this->Html->link($imagen, array('action' => 'deleteall'), array('escape'=>false), sprintf(__('Seguro que quiere eliminar todos los cheques?')));
+							 
+            
 
            echo "</div>";
             ?></h2>
@@ -422,7 +427,7 @@ echo $this->Form->label('Búsqueda') ?>
                                                          <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Cheque']['monto']),2,',','.'));?></div></td>
 							 <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montocheque']),2,',','.'));?></div></td>
 							  <td><div style="float: right"><?php
-                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres']*$cheque['Cheque']['dias'];
+                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres'];
                                                          echo h(number_format(floatval($interes),2,',','.'));?></div></td>
                                                           
 							 <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montoentregado']),2,',','.')); ?></div></td>
@@ -462,7 +467,7 @@ echo $this->Form->label('Búsqueda') ?>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Cheque']['monto']),2,',','.'));?></div></td>
              <td><div style="float: right"><?php echo "-".h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montocheque']),2,',','.'));?></div></td>
               <td><div style="float: right"><?php
-                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres']*$cheque['Cheque']['dias'];
+                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres'];
                                                          echo h(number_format(floatval($interes),2,',','.'));?></div></td>
              <td><div style="float: right;"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montoentregado']),2,',','.')); ?></div></td>
 			 <td><?php echo h($cheque['Cheque']['fecharecibido']); ?></td>
@@ -508,7 +513,7 @@ echo $this->Form->label('Búsqueda') ?>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Cheque']['monto']),2,',','.'));?></div></td>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montocheque']),2,',','.'));?></div></td>
              <td><div style="float: right"><?php
-                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres']*$cheque['Cheque']['dias'];
+                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres'];
                                                          echo h(number_format(floatval($interes),2,',','.'));?></div></td>
              <td><div style="float: right;"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montoentregado']),2,',','.')); ?></div></td>
 			 <td><?php echo h($cheque['Cheque']['fecharecibido']); ?></td>
@@ -683,7 +688,7 @@ echo $this->Form->label('Búsqueda') ?>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Cheque']['monto']),2,',','.'));?></div></td>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montocheque']),2,',','.'));?></div></td>
               <td><div style="float: right"><?php
-                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres']*$cheque['Cheque']['dias'];
+                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres'];
                                                          echo h(number_format(floatval($interes),2,',','.'));?></div></td>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montoentregado']),2,',','.')); ?></div></td>
 			 <td><?php echo h($cheque['Cheque']['fecharecibido']); ?></td>
@@ -723,7 +728,7 @@ echo $this->Form->label('Búsqueda') ?>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Cheque']['monto']),2,',','.'));?></div></td>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montocheque']),2,',','.'));?></div></td>
              <td><div style="float: right"><?php
-                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres']*$cheque['Cheque']['dias'];
+                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres'];
                                                          echo h(number_format(floatval($interes),2,',','.'));?></div></td>
              <td><div style="float: right;"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montoentregado']),2,',','.')); ?></div></td>
 			 <td><?php echo h($cheque['Cheque']['fecharecibido']); ?></td>
@@ -1016,7 +1021,7 @@ echo $this->Form->label('Búsqueda') ?>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Cheque']['monto']),2,',','.'));?></div></td>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montocheque']),2,',','.'));?></div></td>
             <td><div style="float: right"><?php
-                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres']*$cheque['Cheque']['dias'];
+                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres'];
                                                          echo h(number_format(floatval($interes),2,',','.'));?></div></td>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montoentregado']),2,',','.')); ?></div></td>
 			 <td><?php echo h($cheque['Cheque']['fecharecibido']); ?></td>
@@ -1055,7 +1060,7 @@ echo $this->Form->label('Búsqueda') ?>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Cheque']['monto']),2,',','.'));?></div></td>
              <td><div style="float: right"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montocheque']),2,',','.'));?></div></td>
             <td><div style="float: right"><?php
-                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres']*$cheque['Cheque']['dias'];
+                                                         $interes=$cheque['Chequeinterese'][$total-1]['montodescuentointeres'];
                                                          echo h(number_format(floatval($interes),2,',','.'));?></div></td>
              <td><div style="float: right;"><?php echo h(number_format(floatval($cheque['Chequeinterese'][$total-1]['montoentregado']),2,',','.')); ?></div></td>
 			 <td><?php echo h($cheque['Cheque']['fecharecibido']); ?></td>

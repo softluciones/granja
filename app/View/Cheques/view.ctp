@@ -31,7 +31,7 @@ input[type=submit],
     <thead>
        
                  <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
-         <div align="center"> Cheque</div>
+         <div align="center" style="color:#000;"> Cheque</div>
                  </th>
             
          </thead>

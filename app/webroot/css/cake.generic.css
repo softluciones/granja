@@ -89,12 +89,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff4907', end
 	margin: 0;
 }
 a {
-	color: #000;
+	color: #fff;
 	text-decoration: none;
 	font-weight: bold;
 }
 a:hover {
-	color: #367889;
+	color: #fff;
 	text-decoration:none;
 }
 a img {
@@ -217,8 +217,9 @@ thead th, tfoot th {
   border: 1px solid #222;
   
   text-align: left;
-  background: #FF7400;
-  color: #000;
+  background: #057f9d;
+  color: #fff;
+  font-size: 14px;
   height: 20px;
   padding-top:6px;
   }
@@ -257,7 +258,7 @@ tfoot td {
   background: #f9a626;
   }
 tbody tr:hover {
-  background: #FFE0C1;
+    background: #dbedf1;
   }
 tbody tr:hover th,
 tbody tr.odd:hover th {
