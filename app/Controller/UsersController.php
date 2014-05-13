@@ -105,8 +105,9 @@ class UsersController extends AppController {
 			$this->User->query("UPDATE users SET username='".$this->request->data['User']['username']."', 
                             nombre='".$this->request->data['User']['nombre']."', 
                                 apellido='".$this->request->data['User']['apellido']."', 
-                                    role_id=".$this->request->data['User']['role_id']."");
+                                    role_id=".$this->request->data['User']['role_id']." WHERE id=".$id."");
 				$this->Session->setFlash(__('El Usuario ha sido Guardado.'));
+                                	return $this->redirect(array('action' => 'index'));
 			
 		} else {
 			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
