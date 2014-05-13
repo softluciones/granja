@@ -431,6 +431,7 @@ input[type=submit],
                     $pos=count($cheque['Chequeinterese']);
                     $deuda=1;
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+
                     $entregado=$cheque['Chequeinterese'][$pos-1]['montoentregado'];
                     if($estado==2){
                         $monto=$cheque['Cheque']['monto'];
@@ -465,6 +466,7 @@ input[type=submit],
                         }
                     }
                         echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$monto));
+
                 }
                  }
            
@@ -603,8 +605,11 @@ input[type=submit],
 <?php
 
 if( $cheque['Cheque']['deuda']==0 && $cheque['Cheque']['cobrado']==2 && $cheque['ChequeEstadocheque'][0]['estadocheque_id']==2){?>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 393b7f48991c4a6bc73d36c9fbb8d5a9fa19b262
 	<div class="actions">
 		<ul>
 			<li  align="center"><?php echo $this->Html->link(__('Pago a terceros'), array('controller' => 'pagoterceros', 'action' => 'add/'.$cheque['Cheque']['id']."/".$monto,$cheque['Cliente']['id'])); ?> </li>
