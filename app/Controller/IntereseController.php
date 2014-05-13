@@ -22,8 +22,8 @@ class IntereseController extends AppController {
  * @return void
  */
 	public function index() {
-            $_SESSION['varia']=1;
-		$this->Interese->recursive = 0;
+
+		$this->Interese->recursive = 1;
 		$this->set('interese', $this->Paginator->paginate());
 	}
 
@@ -109,9 +109,9 @@ class IntereseController extends AppController {
 		if (!$this->Interese->exists()) {
 			throw new NotFoundException(__('Invalid interese'));
 		}
-		$this->request->onlyAllow('post', 'delete');
+		
 		if ($this->Interese->delete()) {
-			$this->Session->setFlash(__('The interese has been deleted.'));
+			$this->Session->setFlash(__('El Interes fue borrado.'));
 		} else {
 			$this->Session->setFlash(__('The interese could not be deleted. Please, try again.'));
 		}

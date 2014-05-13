@@ -27,7 +27,7 @@ class Cliente extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'cedula' => array(
+		/*'cedula' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',
@@ -44,7 +44,9 @@ class Cliente extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
+
+		),*/
+
 		'nombre' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),

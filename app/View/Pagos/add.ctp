@@ -15,7 +15,8 @@
 <?php echo $this->Form->create('Pago'); ?>
 	<table>
             <thead>
-            <th colspan="4" style="background:#cccccc; height: 50px; font-size: 20px;"><div align="center"><?php echo __('Agregar Pago a Cheque '); ?></div></th>
+            <th colspan="4" style="background:#cccccc; height: 50px; font-size: 20px;">
+            <div align="center"><?php echo __('Agregar Pago a Cheque '); ?></div></th>
             </thead>
 	<?php
         echo '<tr>';
@@ -45,8 +46,8 @@
                                                                                                     2=>'Abono a intereses')));
                             
                             echo '</th>';
-                echo '<th>'; echo $this->Form->input('cheque_id'); echo '</th>';
-           echo '<th>';  echo $this->Form->input('tipopago_id'); echo '</th>';      
+         echo '<th>'; echo $this->Form->input('cheque_id'); echo '</th>';
+         echo '<th>';  echo $this->Form->input('tipopago_id'); echo '</th>';      
          echo '</tr>';
          
        

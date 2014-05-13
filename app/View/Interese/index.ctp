@@ -48,7 +48,9 @@ li.menu{
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
             </thead>
-	<?php foreach ($interese as $interese): ?>
+	<?php 
+ 
+        foreach ($interese as $interese): ?>
 	<tr>
 		
 		
@@ -67,7 +69,14 @@ li.menu{
                                     
                                    
 			<?php  echo $this->Html->image("editar.fw.png", array("alt" => "Editar",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('action' => 'edit',$interese['Interese']['id']))); ?>
-			
+			<?php
+                        
+                        $puedoborrar=count($interese['Cheque']);
+                        if($puedoborrar==0){
+                        $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
+										echo $this->Html->link($imagen, array('action' => 'delete', $interese['Interese']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $interese['Interese']['id'])));
+                        }
+                        ?>
 
 		</td>
 		

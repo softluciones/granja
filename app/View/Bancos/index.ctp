@@ -26,7 +26,9 @@ input[type=submit],
 </style>
 
 <div class="bancos index">
-    
+    <div class="actions">
+<?php echo $this->Html->link(__('Reportes en Bancos'), array('action' => 'totalbanco')); ?>
+        </div>
     <div class="box">
 	<div class="title">        
             <strong style="color:#333; font-size:14px;"><div align="center" style="font-size: 20px;">Bancos</div></strong>

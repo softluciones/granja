@@ -29,37 +29,33 @@ class PagosController extends AppController {
 	public function add($id=null) {
 		if ($this->request->is('post')) 
                 {
-                    $cheq=$this->params['pass'][0];
+                    
                     $montos=$this->params['pass'][4];  // Monto deuda en chequeinteres
                     $debo=$this->params['pass'][2];
-                    $cheques = $this->Cheque->find('first',array('contidions'=>array('Cheque.id'=>$cheq)));
-                      
+                    $cheq=$this->params['pass'][0];
+                 
+                    $options = array('conditions' => array('Cheque.' . $this->Cheque->primaryKey => $cheq));
+                    $cheques = $this->Pago->Cheque->find('first',$options);
+                       
                     $estado = $cheques['ChequeEstadocheque'][0]['estadocheque_id'];
                     $montoentregado=0;
                     $nuevoestado="";
                     $encontrado=0;
-                    if($estado==1){
+                  
                         $sql = "Select montoentregado FROM chequeinterese WHERE cheque_id=".$cheq."  AND estadocheque=1
                             ORDER BY id DESC LIMIT 1";
-                    }
-
-                    if($estado==2){
-                        $sql = "Select montoentregado FROM chequeinterese WHERE cheque_id=".$cheq." 
-                            ORDER BY id DESC LIMIT 1";
-                    }
-
                     $entrega = $this->Cheque->query($sql);
                     $montoentregado = $entrega[0]['chequeinterese']['montoentregado'];
+                    
                     $montopagado = $this->data['Pago']['monto'];
                     $interes = $cheques['Interese']['porcentaje'];
                     $edocheques = $cheques['Cheque']['cobrado'];
-                 
-                    # debug($edocheques); exit(0);
+                   
                     $montofijo = $cheques['Interese']['montofijo'];
                     $nuevomonto = $montos-$montopagado;
 
-                    if($nuevomonto<=0){
-                        $nuevomonto=0;
+                    if($nuevomonto<=0 && (($edocheques==2 && $estado==2) || ($edocheques==1 && $estado==2) || ($edocheques==1 && $estado==0))){
+                        
                         $this->Pago->query("UPDATE cheques SET deuda=1, modified=NOW() WHERE id=".$cheq);
                     }
                     $select = $this->Cheque->query("SELECT maximo, minimo, montofijo 
@@ -88,12 +84,42 @@ class PagosController extends AppController {
                             if($edocheques==2){
                                 $montointeres=0;
                             }
-                        if($debo==0){  
-                           $nuevoestado = 4;                                                                                             
-                        }else{
-                            $nuevoestado = 3;
-                            $montoentregado=$montoentregado+$montopagado;                                
-                        }
+                            if($estado==1){
+                             $nuevoestado = 4;
+                             
+                             
+                       
+                            }
+                            
+                             
+                            if($estado==2){
+                               if($edocheques==1){
+                                     $nuevomonto = $montopagado+$montoentregado;
+                                    $montointeres=0;
+                                    $montoentregado=$montopagado+$montoentregado;
+                                    
+                                } 
+                          
+                                $nuevoestado=3;
+                            }
+                            if($estado==3){
+                                 if($edocheques==1){
+                                    $nuevomonto=$montopagado+$montoentregado;
+                                    $montointeres=0;
+                                    $montoentregado=$montoentregado+$montopagado;
+                                } 
+                                if($edocheques==0){
+                                    $nuevomonto=$montopagado+$montoentregado;
+                                    $montointeres=0;
+                                    $montoentregado=$montoentregado+$montopagado;
+                                } 
+                                 if($edocheques==2){
+                                    $nuevomonto=$montos-$montopagado;
+                                    $montointeres=0;
+                                    $montoentregado=$montoentregado+$montopagado;
+                                } 
+                            }
+                           
                         $cuenta=$this->Pago->query("SELECT count(*) as cuenta FROM cheque_estadocheques 
                             WHERE cheque_id=".$cheq." AND estadocheque_id=".$nuevoestado);
                         $cant = $cuenta[0][0]['cuenta'];
@@ -101,7 +127,8 @@ class PagosController extends AppController {
                             $this->Pago->query("INSERT INTO cheque_estadocheques (created,modified,cheque_id,estadocheque_id,user_id)
                                 VALUES (NOW(),NOW(),".$cheq.",".$nuevoestado.",".$this->Auth->user('id').")");
                         }
-
+                    
+                    
                  if($this->Pago->save($this->request->data)){
 
 
@@ -119,10 +146,11 @@ class PagosController extends AppController {
                                    ".$this->Auth->user('id').", NOW(),NOW())";
 
                         $this->Cheque->query($sql3);
+                 
                         $this->Session->setFlash(__('El pago ha sido efectuado.'));
                         return $this->redirect(array('controller'=>'cheques','action' => 'view',$cheq));
                 } else {
-                        $this->Session->setFlash(__('Algo está mal en esta transaccion revisa de nuevo'));
+                        $this->Session->setFlash(__('Algo está mal en esta transacción revisa de nuevo'));
                 }		
         }
         $chequeinterese = $this->Pago->Chequeinterese->find('list');
@@ -139,7 +167,7 @@ class PagosController extends AppController {
 
 
             $conditions=array('Cliente.id'=>$clie);
-            $clientes = $this->Pago->Cliente->find('list',array('fields'=>array('id','nombres'),
+            $clientes = $this->Pago->Cliente->find('list',array('fields'=>array('id','apodo'),
                                                                             'conditions'=>$conditions));
             $conditions=array('Cheque.id'=>$cheq);
             $cheques = $this->Cheque->find('list',array('fields'=>array('numerodecheque'),

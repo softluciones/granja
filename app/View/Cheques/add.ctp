@@ -1,4 +1,4 @@
-<?php date_default_timezone_set("America/Caracas")?>
+
 
 
  <style>
@@ -30,6 +30,8 @@
     $(document).ready(function(){
         $("#datepicker").datepicker();
         $("#datepicker1").datepicker();
+        $("#datepicker").datepicker('option', { dateFormat: 'dd-mm-yy' });
+          $("#datepicker1").datepicker('option', { dateFormat: 'dd-mm-yy' });
              $('#divcliente').dialog({
                 width: 700,
                 height: 350,
@@ -238,7 +240,7 @@
                     <thead>
        
                  <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
-         <div align="center"> Agregar Cheque </div>
+         <div align="center" style="color:#fff;"> Agregar Cheque </div>
           </th>
             
          </thead>

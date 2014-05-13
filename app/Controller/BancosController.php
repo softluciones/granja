@@ -20,22 +20,40 @@ class BancosController extends AppController {
  *
  * @return void
  */
-        public function totalbanco($id=null){
+
+        public function totalbanco(){
             App::import('Vendor', 'Fpdf', array('file' => 'fpdf/fpdf.php'));
-            $this->layout = 'pdf'; //this will use the pdf.ctp layout
-		$this->Cheque->recursive =2;	
+
+                $this->layout = 'pdf'; //this will use the pdf.ctp layout
+		$this->Banco->recursive =2;	
+
 				 
 	
 	#$items = $this->Inventario->query("SELECT it.referencia1, ii.cantidad FROM 
                # item as it, inventario_item as ii WHERE ii.inventario_id=".$id." 
                   #  AND it.id = ii.item_id");	
         
+
+        $sql="select sum(cheque.monto) monto, banco.nombre, cheque.cobrado from cheques cheque, bancos banco where 
+              cobrado=1
+              and banco_id=banco.id group by banco_id";   
+        $bancos = $this->Banco->query($sql);
+        $sql="select sum(cheque.monto) monto, banco.nombre, cheque.cobrado from cheques cheque, bancos banco where 
+              cobrado=2
+              and banco_id=banco.id group by banco_id";   
+        $bancos2 = $this->Banco->query($sql);
+        $sql="select sum(cheque.monto) monto, banco.nombre, cheque.cobrado from cheques cheque, bancos banco where 
+              cobrado=0
+              and banco_id=banco.id group by banco_id";   
+        $bancos3 = $this->Banco->query($sql);
        
-            $bancos=$this->Banco->query("select sum(monto) from cheques where id=".$id);
-            $this->set(compact('cheques'));
+		$this->set(compact('bancos','bancos2','bancos3'));
+               
             $this->response->type('pdf');
-            $this->set('fpdf', new FPDF(null,'L','mm','Letter'));
-            $this->render('general','pdf');
+
+            $this->set('fpdf', new FPDF(null,'P','mm','Letter'));
+		$this->render('totalbanco','pdf');
+
         }
         public function index() {
 	$_SESSION['varia']=1;	

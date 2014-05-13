@@ -82,42 +82,55 @@ class ChequeEstadochequesController extends AppController {
             $montocheque = $cheques['Cheque']['monto'];
             if($dias>1){
                 if($interes==null){
-                      
+                     if($estado==1){ 
                     for($i=0;$i<$dias;$i++){
                         $this->request->data['Chequeinterese']['montodescuentointeres']=$fijo;
                         $monto=$montocheque-$fijo;
                         $montocheque=$monto;
-                        if($estado==1){
+                        
                             $this->request->data['Chequeinterese']['montoentregado']=$monto;
                              $this->request->data['Chequeinterese']['montocheque']=0;
-                          }
-                        if($estado==2){
-                            $this->request->data['Chequeinterese']['montoentregado']=0;
-                             $this->request->data['Chequeinterese']['montocheque']=$monto;
-                        }
+                          
+                        
                         $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
-                        $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
+                    
                          $nuevafecha = strtotime ( '+1 day' , strtotime ( $this->request->data['Chequeinterese']['modificado'] ) ) ;
                          $this->request->data['Chequeinterese']['modificado'] = date ( 'Y-m-d' , $nuevafecha );
                     }
+                        $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
+                    }
+                    if($estado==2){
+                        $this->request->data['Chequeinterese']['montodescuentointeres']=0;
+                            $this->request->data['Chequeinterese']['montoentregado']=0;
+                             $this->request->data['Chequeinterese']['montocheque']=0;
+                              $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
+                        $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
+                        }
                 }else{
+                    if($estado==1){
                     $montointeres=$this->request->data['Chequeinterese']['montodescuentointeres']=$montocheque*($interes/100);
                    for($i=0;$i<$dias;$i++){
                        $monto=$montocheque-$montointeres;
                         $montocheque=$monto;
-                        if($estado==1){
+                        
                             $this->request->data['Chequeinterese']['montoentregado']=$monto;
                              $this->request->data['Chequeinterese']['montocheque']=0;
-                         }
-                        if($estado==2){
-                            $this->request->data['Chequeinterese']['montoentregado']=0;
-                             $this->request->data['Chequeinterese']['montocheque']=$monto;
-                        }
+                        
+                        
                         $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
-                        $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
+                       
                          $nuevafecha = strtotime ( '+1 day' , strtotime ( $this->request->data['Chequeinterese']['modificado'] ) ) ;
                          $this->request->data['Chequeinterese']['modificado'] = date ( 'Y-m-d' , $nuevafecha );
                     } 
+                     $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
+                     }
+                     if($estado==2){
+                            $this->request->data['Chequeinterese']['montoentregado']=0;
+                             $this->request->data['Chequeinterese']['montocheque']=0;
+                             $this->request->data['Chequeinterese']['montodescuentointeres']=0;
+                             $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
+                            $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
+                        }
                 }
             }else{
                if($interes==null){
@@ -134,7 +147,8 @@ class ChequeEstadochequesController extends AppController {
               }
                 if($estado==2){
                     $this->request->data['Chequeinterese']['montoentregado']=0;
-                     $this->request->data['Chequeinterese']['montocheque']=$monto;
+                     $this->request->data['Chequeinterese']['montocheque']=0;
+                     $this->request->data['Chequeinterese']['montodescuentointeres']=0;
                 }
                 $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
                 $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
@@ -145,6 +159,7 @@ class ChequeEstadochequesController extends AppController {
 	public function add($id=null) {
                $id=$this->params['pass'][0];
 		if ($this->request->is('post')) {
+                 
 			$this->ChequeEstadocheque->create();
 			if ($this->ChequeEstadocheque->save($this->request->data)) {
                                 
@@ -163,7 +178,8 @@ class ChequeEstadochequesController extends AppController {
                                                                                     'conditions'=>$conditions));
 		$estadocheques = $this->ChequeEstadocheque->Estadocheque->find('list',array('fields'=>array('id','nombresss'),
                                                                                             'conditions'=>array('or'=>array(array('nomenclatura'=>'R'),
-                                                                                                                            array('nomenclatura'=>'C')))));
+                                                                                                                            array('nomenclatura'=>'C')
+                                                                                                                           ))));
 		$users = $this->ChequeEstadocheque->User->find('list');
                 $x=$this->ChequeEstadocheque->query("select id, username from users where id=".$this->Auth->user('id')."");                
                 $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
