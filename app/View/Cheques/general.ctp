@@ -3,7 +3,10 @@
 $fpdf->AliasNbPages();
 $fpdf->AddPage();
 
+
 $fpdf->SetAutoPageBreak(true,15); 
+
+
 $fpdf->SetFont('Times','B',12);
 
  $fpdf->Cell(0,0,utf8_decode('Reporte General de Cheques'),0,0,'C');
@@ -126,10 +129,17 @@ if (!empty($cheques)){
 	
 		endforeach;	
 				
+
+
+
 $colWidth = array(17,20,15,10,10,20,22,22,22,15,15,15,10,20,15); 
 $fpdf->Tabla($header,$colWidth, $data2); 
 
 $fpdf->Ln(3); 
+
+
+
+
         $fpdf->SetFont('');
         $fpdf->Cell(0,1,'Por Cobrar: '.number_format(floatval($porcobrar),2,',','.')." Bs.",0,1,'R');
         $fpdf->Ln(3); 
@@ -153,15 +163,17 @@ $fpdf->Ln(3);
         $fpdf->Ln(3);             
         $fpdf->SetFont('','B');
         $fpdf->Cell(0,1,'Monto Entregado: '.number_format(floatval($totalentregado),2,',','.')." Bs.",0,1,'R');
+
 $fpdf->AddPage(); 
      if(!empty($pago)){   
+
 		$fpdf->SetFont('Times','B',10);
 		$fpdf->Cell(0,10,'Pagos:',0,1,'C');
 		$fpdf->SetFont('Times','',8);
                 $fpdf->Ln(2);
 
 //***************   Pagos con Cheque*************************************************************
-  
+
 		$header=array('Cliente','Monto','Cheque','Concepto de','Tipo de Pago','Usuario'); 
 		$i=0;
                 $totalpagos=0;
@@ -179,6 +191,7 @@ $fpdf->Tabla($header,$colWidth, $data3);
 $fpdf->Ln(3); 
         $fpdf->SetFont('','B');
         $fpdf->Cell(0,1,'Total de Pagos: '.number_format(floatval($totalpagos),2,',','.')." Bs.",0,1,'R');
+
      }
          if(!empty($pagoterceros)){  
         
@@ -186,7 +199,7 @@ $fpdf->Ln(3);
 		$fpdf->Cell(0,10,'Pagos a Terceros:',0,1,'C');
 		$fpdf->SetFont('Times','',8);
                 $fpdf->Ln(2);
-     
+
 //***************   Pagos a Terceros*************************************************************
 
 		$header=array('Fecha','Dia','Cheque','Monto','Concepto de','Origen','Destino','Usuario'); 
@@ -211,17 +224,21 @@ $fpdf->Ln(3);
         $fpdf->SetFont('','B');
         $fpdf->Cell(0,1,'Total de Pagos a Terceros: '.number_format(floatval($totalpagos),2,',','.')." Bs.",0,1,'R');
 
+
          }
   
-	
+
 
 }
 
+
 //*********************************************************************************************************
+
 
 
 
 //*********************************************************************************************************
 
 $fpdf->Output(utf8_decode('General '.date('d/m/Y')),'I'); 
+
 ?> 

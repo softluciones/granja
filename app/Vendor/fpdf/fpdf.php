@@ -416,6 +416,7 @@ function Footer()
 {
 	
 	// PosiciÃ³n: a 1,5 cm del final
+
     $this->SetY(-15);
     // Arial italic 8
 	$this->SetTextColor(0); 
@@ -427,7 +428,7 @@ function Footer()
    	$columnas = array(120,120);
 	$this->Otratabla($cabecera,$columnas,$datos);
 	
-	
+
 	// To be implemented in your own inherited class
 	
 }
@@ -532,7 +533,9 @@ function Tabla($header, $colWidth, $data) {
 		$this->Cell(15);
         foreach($row as $col) { 
 			
+
             $this->Cell($colWidth[$i++],6,utf8_decode($col),1,0,'C',$fill); 
+
         } 
         $this->Ln(); 
         $fill=!$fill; 

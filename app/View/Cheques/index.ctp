@@ -220,11 +220,15 @@ echo $this->Form->label('Búsqueda') ?>
            echo $this->Html->image("reporte.jpg", array("alt" => "Generar Reporte de Relación Diaria de Cheques",'width' => '30', 'heigth' => '35','title'=>'Generar Reporte de Relacion Diaria de Cheques','url' => array('action' => 'relaciondia'))); 
            echo " ";
             echo $this->Html->image("reportegeneral.fw.png", array("alt" => "Generar Reporte General de Cheques",'width' => '30', 'heigth' => '30','title'=>'Generar Reporte General de Cheques','url' => array('action' => 'general'))); 
+
             echo " ";
+
             $imagen= $this->Html->image("borrartodo.fw.png", array("alt" => "borrar",'width' => '30', 'heigth' =>'30','title'=>'Borrar'));
 	echo $this->Html->link($imagen, array('action' => 'deleteall'), array('escape'=>false), sprintf(__('Seguro que quiere eliminar todos los cheques?')));
 							 
             
+
+
 
            echo "</div>";
             ?></h2>
@@ -917,8 +921,9 @@ echo $this->Form->label('Búsqueda') ?>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
                      <?php echo $this->Html->image("devuelto.fw.png", array("alt" => "Devuelto",'width' => '18', 'heigth' => '18','title'=>'Devuelto','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],0)));?>
+
                          <?php echo $this->Html->image("cobrado.fw.png", array("alt" => "Cobrado",'width' => '18', 'heigth' => '18','title'=>'Cobrado','url' => array('action' => 'editadevuelto/'. $cheque['Cheque']['id'],2)));?>
-                         
+
                     <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view', $cheque['Cheque']['id'])));?>
 
 					<?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
@@ -930,7 +935,9 @@ echo $this->Form->label('Búsqueda') ?>
 		?>
 		<tr style="background: #ffcaca; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
+
 			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -956,9 +963,11 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
+
                    <?php echo $this->Html->image("reportes.fw.png", array("alt" => "Reporte de Cheque",'width' => '18', 'heigth' => '18','title'=>'Reporte de Cheque','url' => array('action' => 'reportecheque', $cheque['Cheque']['id']))); ?>
 									
                     <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view', $cheque['Cheque']['id'])));?>
+
 					<?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
 						echo $this->Html->link($imagen, array('action' => 'delete', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
 			 </td>			
@@ -967,7 +976,9 @@ echo $this->Form->label('Búsqueda') ?>
 				if($estado=='C' || $estado=='AbnGC' || $estado=='AbnCG'){?>
 					<tr style="background: #ffcaca; color: white;">
 			<td><?php echo $this->Html->link($cheque['Banco']['nombre'], array('controller' => 'bancos', 'action' => 'view', $cheque['Banco']['id'])); ?></td>
+
 			<td><?php echo $this->Html->link($cheque['Cliente']['apodo'], array('controller' => 'clientes', 'action' => 'view', $cheque['Cliente']['id'])); ?></td>
+
 			<td><?php echo $this->Html->link(__($cheque['Cheque']['numerodecheque']), array('action' => 'view', $cheque['Cheque']['id'])); ?>&nbsp;</td>
 			<td><?php echo h($cheque['Cheque']['dias']); ?>&nbsp;</td>
             <td><?php 
@@ -993,6 +1004,8 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
+
+
                     <?php echo $this->Html->image("reportes.fw.png", array("alt" => "Reporte de Cheque",'width' => '18', 'heigth' => '18','title'=>'Reporte de Cheque','url' => array('action' => 'reportecheque', $cheque['Cheque']['id']))); ?>
 		           
                     <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('action' => 'view', $cheque['Cheque']['id'])));?>
