@@ -130,7 +130,7 @@ class PagotercerosController extends AppController {
                     
                 }
 		#$cliente1s = $this->Pagotercero->Cliente->find('list',array('fields' => array('Cliente.nombres')));
-                $cliente1s = $this->Pagotercero->Cliente->find('list');
+                $cliente1s = $this->Pagotercero->Cliente->find('list',array('fields'=>array('id','apodo')));
 		
 		$users = $this->Pagotercero->User->find('list');
                 $x=$this->Pagotercero->query("select id, username from users where id=".$this->Auth->user('id')."");                
