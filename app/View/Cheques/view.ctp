@@ -30,7 +30,8 @@ input[type=submit],
 <table>
     <thead>
        
-                 <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
+                 <th colspan="3" style="background:#cccccc; 
+                     height: 50px; font-size: 20px;">
          <div align="center" style="color:#000;"> Cheque</div>
                  </th>
             
@@ -125,7 +126,129 @@ input[type=submit],
 
 
 
- 
+ <div class="box">
+    <div class="title">        
+	<strong style="color:#333; font-size:14px;"><?php echo __('Pagos');?></strong>
+     </div>
+    <div class="content pages">
+        <div class="row">
+	<?php if (!empty($cheque['Pago'])): ?>
+	<table cellpadding = "0" cellspacing = "0">
+            <thead>
+	<tr>
+		
+		<th><?php echo __('Cliente'); ?></th>
+		<th><?php echo __('Monto'); ?></th>
+		<th><?php echo __('Concepto de'); ?></th>
+		<th><?php echo __('Tipo de Pago'); ?></th>
+                <th><?php echo __('Usuario'); ?></th>
+	</tr>
+        </thead>
+	<?php foreach ($cheque['Pago'] as $pago): 
+            #debug($pago);?>
+		<tr>
+		
+			<td><?php echo $pago['Cliente']['apodo']; ?></td>
+			<td><div align="right"><?php echo  number_format(floatval($pago['monto']),2,',','.').' Bs.'; ?></div></td>
+			<td><?php echo $pago['conceptode']; ?></td>
+			
+			<td><?php echo $pago['Tipopago']['nombre']; ?></td>
+		
+			
+			<td><?php echo $pago['User']['username']; ?></td>
+			
+		</tr>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+</br>
+	<div class="actions">
+		<ul>
+			<li  align="center">
+
+            <?php  
+            $deuda=0;
+            if($cheque['Cheque']['deuda']==0){
+            $estado = $cheque['ChequeEstadocheque'][$posiciones-1]['estadocheque_id'];
+            if($estado==2|| $estado==3){
+                if($cheque['Cheque']['cobrado']==2 && $cheque['Cheque']['deuda']==0){
+                    $pos=count($cheque['Chequeinterese']);
+                    $deuda=1;
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                     echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$montos));
+                    
+                }if($cheque['Cheque']['cobrado']==0&&$estado==3){
+                    
+                    $pos=count($cheque['Chequeinterese']);
+                    $deuda=1;
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
+                }
+                if($cheque['Cheque']['cobrado']==1){
+                    $pos=count($cheque['Chequeinterese']);
+                    $deuda=1;
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                    $entregado=$cheque['Chequeinterese'][$pos-1]['montoentregado'];
+                    if($estado==2){
+                        $monto=$cheque['Cheque']['monto'];
+                        $montofijo = $cheque['Interese']['montofijo'];
+                        $porcentaje = $cheque['Interese']['porcentaje'];
+                        $dias = $cheque['Cheque']['dias'];
+                        if($montofijo==null){
+                            $monto = $monto - ($monto * $porcentaje/100)*$dias;
+                        }else{
+                            $monto = $monto - $montofijo*$dias;
+                        }
+                    }
+                    if($estado==3){
+                        $pos=count($cheque['Chequeinterese']);
+               
+           
+                    $entregado=$cheque['Chequeinterese'][$pos-1]['montoentregado'];
+                        $monto=$cheque['Cheque']['monto']-$entregado;
+                        $montofijo = $cheque['Interese']['montofijo'];
+                        $porcentaje = $cheque['Interese']['porcentaje'];
+                        $dias = $cheque['Cheque']['dias'];
+                        if($montofijo==null){
+                            $interes1 = $monto * $porcentaje/100;
+                            if($interes1<$fijo){
+                                 $monto = $monto - $fijo * $dias;
+                            }
+                            else{
+                            $monto = $monto - ($monto * $porcentaje / 100)* $dias;
+                            }
+                        }else{
+                            $monto = $monto - $montofijo * $dias;
+                        }
+                    }
+                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$monto));
+                }
+                 }
+           
+            if($estado==1 || $estado==4){
+                if($cheque['Cheque']['cobrado']==2&& $cheque['Cheque']['deuda']==0){
+                    $pos=count($cheque['Chequeinterese']);
+                    $deuda=1;
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
+                    
+                }if($cheque['Cheque']['cobrado']==0){
+                    $deuda=1;
+                    $pos=count($cheque['Chequeinterese']);
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
+                }
+            
+            }
+             }
+            
+        ?> </li>
+		</ul>
+	</div>
+</div>
+        </div>
+    </div>
+    </br>
 <div class="box">
   
              <div class="title">        
@@ -215,24 +338,180 @@ input[type=submit],
 <?php endif; ?>
 </div>
         <?php 
-        
+        $deuda=0;
+            if($cheque['Cheque']['deuda']==0){
         if(($cheque['Cheque']['deuda']==0 && $cheque['Cheque']['cobrado']!=1)||($cheque['Cheque']['cobrado']!=2 && $cheque['ChequeEstadocheque'][0]['estadocheque_id']!=2)){?>
 	<div class="actions">
 		<ul>
 			<li  align="center">
                         <?php 
-                        
+                        if($estado==1 || $estado==4){
+                if($cheque['Cheque']['cobrado']==2&& $cheque['Cheque']['deuda']==0){
+                    $pos=count($cheque['Chequeinterese']);
+                    $deuda=1;
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                         echo $this->Html->link(__('Nuevo Cheque'), array('action' => 'add2',$cheque['Cheque']['id']));
+                    
+                }if($cheque['Cheque']['cobrado']==0){
+                    $deuda=1;
+                    $pos=count($cheque['Chequeinterese']);
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
                         echo $this->Html->link(__('Nuevo Cheque'), array('action' => 'add2',$cheque['Cheque']['id']));
+                }
+            
+            }
+                       
                         ?> 
                         </li>
 		</ul>
 	</div>
-          <?php } ?>   
+          <?php } } ?>   
          </div>    
     
 </div>
      </br> 	
 
+
+</br>
+
+<div class="box">
+    <div class="title">        
+	<strong style="color:#333; font-size:14px;"><?php echo __('Gesti&oacuten de Cobranzas');?></strong>
+     </div>
+    <div class="content pages">
+        <div class="row">
+	
+	<?php if (!empty($cheque['Gestiondecobranza'])): ?>
+	<table cellpadding = "0" cellspacing = "0">
+            <thead>
+	<tr>
+		
+		<th><?php echo __('Fecha'); ?></th>
+		<th><?php echo __('Descripción'); ?></th>
+		<th><?php echo __('Usuario'); ?></th>
+		<th class="actions"><?php echo __('Acciones'); ?></th>
+	</tr>
+        </thead>
+	<?php foreach ($cheque['Gestiondecobranza'] as $gestiondecobranza): ?>
+		<tr>
+			
+			<td><?php 
+                        $fecha = new Datetime($gestiondecobranza['created']);
+                        $fecha = $fecha->format('d-m-Y');
+                        echo $fecha; ?></td>
+			<td><?php echo $gestiondecobranza['descripcion']; ?></td>
+			<td><?php echo $gestiondecobranza['User']['username']; ?></td>
+			<td class="acciones">
+                            <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller' => 'gestiondecobranzas','action' => 'view', $gestiondecobranza['id'])));?>
+                            <?php echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'gestiondecobranzas','action' => 'edit', $gestiondecobranza['id']))); ?>
+                            <?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
+											echo $this->Html->link($imagen, array('controller' => 'gestiondecobranzas','action' => 'delete', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
+				</td>
+		</tr>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+</br>
+
+	<div class="actions">
+		<ul>
+                    <li  align="center">
+                    <?php 
+                    $deuda=0;
+            if($cheque['Cheque']['deuda']==0){
+                        if($estado==1 || $estado==4){
+                if($cheque['Cheque']['cobrado']==2&& $cheque['Cheque']['deuda']==0){
+                    $pos=count($cheque['Chequeinterese']);
+                    $deuda=1;
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                        echo $this->Html->link(__('Nueva Cobranza'), array('controller' => 'gestiondecobranzas', 'action' => 'add',$cheque['Cheque']['id'])); 
+                    
+                }if($cheque['Cheque']['cobrado']==0){
+                    $deuda=1;
+                    $pos=count($cheque['Chequeinterese']);
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                        echo $this->Html->link(__('Nueva Cobranza'), array('controller' => 'gestiondecobranzas', 'action' => 'add',$cheque['Cheque']['id'])); 
+                }
+            
+            }
+            }       
+                        ?> 
+		</li>
+		</ul>
+	</div>
+</div>
+</div>
+</div></br>
+
+<div class="box">
+    <div class="title">        
+	<strong style="color:#333; font-size:14px;"><?php echo __('Pagos a Tercero');?></strong>
+     </div>
+    <div class="content pages">
+        <div class="row">
+	<?php if (!empty($cheque['Pagotercero'])): ?>
+	<table cellpadding = "0" cellspacing = "0">
+            <thead>
+	<tr>
+            
+		<th><div align="center"><?php echo __('Fecha creación'); ?></div></th>
+		<th><div align="center"><?php echo __('Dia'); ?></div></th>
+		<th><div align="center"><?php echo __('Monto Transferido'); ?></div></th>
+		<th><div align="center"><?php echo __('Conceptode'); ?></div></th>
+		<th><div align="center"><?php echo __('Origen'); ?></div></th>
+		<th><div align="center"><?php echo __('Destino'); ?></div></th>
+		<th><div align="center"><?php echo __('User Id'); ?></div></th>
+		<th class="actions"><div align="center"><?php echo __('Acciones'); ?></th>
+	</tr>
+            </thead>
+	<?php  foreach ($cheque['Pagotercero'] as $pagotercero): 
+            /*debug($pagotercero);
+        exit(0);*/ ?>
+		<tr>
+			
+                        <td><?php $fecha=new DateTime($pagotercero['created']);
+                                  $fecha=$fecha->format("d-m-Y");
+                                  $pagotercero['created']=$fecha;
+                                    echo $pagotercero['created']; ?></td>
+			<td><?php echo $pagotercero['dia']; ?></td>
+			<td><?php 
+                        $valores=$pagotercero['monto'];
+                        echo number_format(floatval($valores),2,',','.').' Bs.';
+                         ?></td>
+			<td><?php echo $pagotercero['conceptode']; ?></td>
+			<td><?php echo $pagotercero['Cliente']['apodo']; ?></td>
+			<td><?php echo $pagotercero['Cliente1']['apodo']; ?></td>
+			<td><?php echo $pagotercero['User']['username']; ?></td>
+                        <td class="acciones">
+                            <?php 
+                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller' => 'pagoterceros', 'action' => 'view', $pagotercero['id'])));
+ ?>				<?php
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'pagoterceros', 'action' => 'edit', $pagotercero['id'])));
+                            ?>
+				<?php
+                                $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
+                                                 echo $this->Html->link($imagen, array('controller' => 'pagoterceros', 'action' => 'delete', $pagotercero['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?')));
+                         ?>	
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+</br>
+
+<?php
+
+if( $cheque['Cheque']['deuda']==0 && $cheque['Cheque']['cobrado']==2 && $cheque['ChequeEstadocheque'][0]['estadocheque_id']==2){?>
+
+	<div class="actions">
+		<ul>
+			<li  align="center"><?php echo $this->Html->link(__('Pago a terceros'), array('controller' => 'pagoterceros', 'action' => 'add/'.$cheque['Cheque']['id']."/".$monto,$cheque['Cliente']['id'])); ?> </li>
+		</ul>
+	</div>
+<?php }?>
+</div>
+        </div>
+    </div>
 
 <div class="box">
     
@@ -367,249 +646,7 @@ input[type=submit],
 
 </br>
 
-<div class="box">
-    <div class="title">        
-	<strong style="color:#333; font-size:14px;"><?php echo __('Pagos');?></strong>
-     </div>
-    <div class="content pages">
-        <div class="row">
-	<?php if (!empty($cheque['Pago'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-            <thead>
-	<tr>
-		
-		<th><?php echo __('Cliente'); ?></th>
-		<th><?php echo __('Monto'); ?></th>
-		<th><?php echo __('Concepto de'); ?></th>
-		<th><?php echo __('Tipo de Pago'); ?></th>
-                <th><?php echo __('Usuario'); ?></th>
-	</tr>
-        </thead>
-	<?php foreach ($cheque['Pago'] as $pago): 
-            #debug($pago);?>
-		<tr>
-		
-			<td><?php echo $pago['Cliente']['apodo']; ?></td>
-			<td><div align="right"><?php echo  number_format(floatval($pago['monto']),2,',','.').' Bs.'; ?></div></td>
-			<td><?php echo $pago['conceptode']; ?></td>
-			
-			<td><?php echo $pago['Tipopago']['nombre']; ?></td>
-		
-			
-			<td><?php echo $pago['User']['username']; ?></td>
-			
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-</br>
-	<div class="actions">
-		<ul>
-			<li  align="center">
 
-            <?php  
-            $deuda=0;
-            if($cheque['Cheque']['deuda']==0){
-            $estado = $cheque['ChequeEstadocheque'][$posiciones-1]['estadocheque_id'];
-            if($estado==2|| $estado==3){
-                if($cheque['Cheque']['cobrado']==2 && $cheque['Cheque']['deuda']==0){
-                    $pos=count($cheque['Chequeinterese']);
-                    $deuda=1;
-                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                     echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$montos));
-                    
-                }if($cheque['Cheque']['cobrado']==0&&$estado==3){
-                    
-                    $pos=count($cheque['Chequeinterese']);
-                    $deuda=1;
-                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
-                }
-                if($cheque['Cheque']['cobrado']==1){
-                    $pos=count($cheque['Chequeinterese']);
-                    $deuda=1;
-                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                    $entregado=$cheque['Chequeinterese'][$pos-1]['montoentregado'];
-                    if($estado==2){
-                        $monto=$cheque['Cheque']['monto'];
-                        $montofijo = $cheque['Interese']['montofijo'];
-                        $porcentaje = $cheque['Interese']['porcentaje'];
-                        $dias = $cheque['Cheque']['dias'];
-                        if($montofijo==null){
-                            $monto = $monto - ($monto * $porcentaje/100)*$dias;
-                        }else{
-                            $monto = $monto - $montofijo*$dias;
-                        }
-                    }
-                    if($estado==3){
-                        $pos=count($cheque['Chequeinterese']);
-               
-           
-                    $entregado=$cheque['Chequeinterese'][$pos-1]['montoentregado'];
-                        $monto=$cheque['Cheque']['monto']-$entregado;
-                        $montofijo = $cheque['Interese']['montofijo'];
-                        $porcentaje = $cheque['Interese']['porcentaje'];
-                        $dias = $cheque['Cheque']['dias'];
-                        if($montofijo==null){
-                            $interes1 = $monto * $porcentaje/100;
-                            if($interes1<$fijo){
-                                 $monto = $monto - $fijo*$dias;
-                            }
-                            else{
-                            $monto = $monto - ($monto * $porcentaje/100)*$dias;
-                            }
-                        }else{
-                            $monto = $monto - $montofijo*$dias;
-                        }
-                    }
-                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$monto));
-                }
-                 }
-           
-            if($estado==1 || $estado==4){
-                if($cheque['Cheque']['cobrado']==2&& $cheque['Cheque']['deuda']==0){
-                    $pos=count($cheque['Chequeinterese']);
-                    $deuda=1;
-                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
-                    
-                }if($cheque['Cheque']['cobrado']==0){
-                    $deuda=1;
-                    $pos=count($cheque['Chequeinterese']);
-                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
-                }
-            
-            }
-             }
-            
-        ?> </li>
-		</ul>
-	</div>
-</div>
-        </div>
-    </div>
-
-</br>
-
-<div class="box">
-    <div class="title">        
-	<strong style="color:#333; font-size:14px;"><?php echo __('Gesti&oacuten de Cobranzas');?></strong>
-     </div>
-    <div class="content pages">
-        <div class="row">
-	
-	<?php if (!empty($cheque['Gestiondecobranza'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-            <thead>
-	<tr>
-		
-		<th><?php echo __('Fecha'); ?></th>
-		<th><?php echo __('Descripción'); ?></th>
-		<th><?php echo __('Usuario'); ?></th>
-		<th class="actions"><?php echo __('Acciones'); ?></th>
-	</tr>
-        </thead>
-	<?php foreach ($cheque['Gestiondecobranza'] as $gestiondecobranza): ?>
-		<tr>
-			
-			<td><?php 
-                        $fecha = new Datetime($gestiondecobranza['created']);
-                        $fecha = $fecha->format('d-m-Y');
-                        echo $fecha; ?></td>
-			<td><?php echo $gestiondecobranza['descripcion']; ?></td>
-			<td><?php echo $gestiondecobranza['User']['username']; ?></td>
-			<td class="acciones">
-                            <?php echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller' => 'gestiondecobranzas','action' => 'view', $gestiondecobranza['id'])));?>
-                            <?php echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'gestiondecobranzas','action' => 'edit', $gestiondecobranza['id']))); ?>
-                            <?php $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
-											echo $this->Html->link($imagen, array('controller' => 'gestiondecobranzas','action' => 'delete', $cheque['Cheque']['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?', $cheque['Cheque']['id'])));?>
-				</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-</br>
-<?php if($deuda==0){?>
-	<div class="actions">
-		<ul>
-			<li align="center"><?php echo $this->Html->link(__('Nueva Cobranza'), array('controller' => 'gestiondecobranzas', 'action' => 'add',$cheque['Cheque']['id'])); ?> </li>
-		</ul>
-	</div>
-<?php }?>
-</div>
-</div>
-</div></br>
-
-<div class="box">
-    <div class="title">        
-	<strong style="color:#333; font-size:14px;"><?php echo __('Pagos a Tercero');?></strong>
-     </div>
-    <div class="content pages">
-        <div class="row">
-	<?php if (!empty($cheque['Pagotercero'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-            <thead>
-	<tr>
-            
-		<th><div align="center"><?php echo __('Fecha creación'); ?></div></th>
-		<th><div align="center"><?php echo __('Dia'); ?></div></th>
-		<th><div align="center"><?php echo __('Monto Transferido'); ?></div></th>
-		<th><div align="center"><?php echo __('Conceptode'); ?></div></th>
-		<th><div align="center"><?php echo __('Origen'); ?></div></th>
-		<th><div align="center"><?php echo __('Destino'); ?></div></th>
-		<th><div align="center"><?php echo __('User Id'); ?></div></th>
-		<th class="actions"><div align="center"><?php echo __('Acciones'); ?></th>
-	</tr>
-            </thead>
-	<?php  foreach ($cheque['Pagotercero'] as $pagotercero): 
-            /*debug($pagotercero);
-        exit(0);*/ ?>
-		<tr>
-			
-                        <td><?php $fecha=new DateTime($pagotercero['created']);
-                                  $fecha=$fecha->format("d-m-Y");
-                                  $pagotercero['created']=$fecha;
-                                    echo $pagotercero['created']; ?></td>
-			<td><?php echo $pagotercero['dia']; ?></td>
-			<td><?php 
-                        $valores=$pagotercero['monto'];
-                        echo number_format(floatval($valores),2,',','.').' Bs.';
-                         ?></td>
-			<td><?php echo $pagotercero['conceptode']; ?></td>
-			<td><?php echo $pagotercero['Cliente']['apodo']; ?></td>
-			<td><?php echo $pagotercero['Cliente1']['apodo']; ?></td>
-			<td><?php echo $pagotercero['User']['username']; ?></td>
-                        <td class="acciones">
-                            <?php 
-                                echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller' => 'pagoterceros', 'action' => 'view', $pagotercero['id'])));
- ?>				<?php
-                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller' => 'pagoterceros', 'action' => 'edit', $pagotercero['id'])));
-                            ?>
-				<?php
-                                $imagen= $this->Html->image("borrargrande.fw.png", array("alt" => "borrar",'width' => '18', 'heigth' =>'18','title'=>'Borrar'));
-                                                 echo $this->Html->link($imagen, array('controller' => 'pagoterceros', 'action' => 'delete', $pagotercero['id']), array('escape'=>false), sprintf(__('Seguro que quiere eliminar el registro?')));
-                         ?>	
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-</br>
-
-<?php
-
-if( $cheque['Cheque']['deuda']==0 && $cheque['Cheque']['cobrado']==2 && $cheque['ChequeEstadocheque'][0]['estadocheque_id']==2){?>
-
-	<div class="actions">
-		<ul>
-			<li  align="center"><?php echo $this->Html->link(__('Pago a terceros'), array('controller' => 'pagoterceros', 'action' => 'add/'.$cheque['Cheque']['id']."/".$monto,$cheque['Cliente']['id'])); ?> </li>
-		</ul>
-	</div>
-<?php }?>
-</div>
-        </div>
-    </div>
 </div>
 </br>
 <div class="actions" >

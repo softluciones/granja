@@ -1,4 +1,15 @@
-
+<?php date_default_timezone_set("America/Caracas") ?>
+<style>
+      th{
+          background: #ffffff;
+      }
+      tbody tr:hover th{
+          background: #ffffff;
+      }
+      li.menu{
+          text-align: center;
+      }
+</style>
 <?php
 $hoy = date("Y-m-d h:i:s");
 $anho= date("Y");
@@ -57,10 +68,14 @@ for($i=0;$i<12;$i++){
 ?>
 <div class="pagoterceros form">
 <?php echo $this->Form->create('Pagotercero'); ?>
-	<fieldset>
-		<legend><?php echo __('Agregar Pago a terceros'); ?></legend>
-                <br>
-                <table>
+    
+	       <table>
+             <thead>
+            <th colspan="4" style="background:#cccccc; height: 50px; font-size: 20px;">
+            <div align="center"><?php echo __('Agregar Pago a Terceros'); ?></div></th>
+            </thead>
+		
+         
                     <tr>
                         <th><?php echo $this->Form->input('dia',array('value'=>$dia)); ?></th>
                         <th><?php echo $this->Form->input('monto',array('value'=>$chequ)); ?></th>
@@ -92,11 +107,11 @@ for($i=0;$i<12;$i++){
 		echo $this->Form->input('cheque_id',array('label'=>'Monto del cheque'));
 		echo $this->Form->input('user_id',array('label'=>'Registrado por'));*/
 	?>
-	</fieldset>
+	
 <?php #echo $this->Form->end(__('Registrar')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Operaciones'); ?></h3>
+	
 	<ul>
 
 		<li><?php echo $this->Html->link(__('Lista Pago terceros'), array('action' => 'index')); ?></li>

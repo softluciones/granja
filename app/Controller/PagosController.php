@@ -53,8 +53,11 @@ class PagosController extends AppController {
                    
                     $montofijo = $cheques['Interese']['montofijo'];
                     $nuevomonto = $montos-$montopagado;
+                    if($nuevomonto<0){
+                         $this->Session->setFlash(__('El monto pagado, no debe superar .'));
+                    }else{
 
-                    if($nuevomonto<=0 && (($edocheques==2 && $estado==2) || ($edocheques==1 && $estado==2) || ($edocheques==1 && $estado==0))){
+                    if($nuevomonto==0 && (($edocheques==2 && $estado==2) || ($edocheques==2 && $estado==1) || ($edocheques==0 && $estado==1))){
                         
                         $this->Pago->query("UPDATE cheques SET deuda=1, modified=NOW() WHERE id=".$cheq);
                     }
@@ -62,13 +65,13 @@ class PagosController extends AppController {
                         FROM intereses");
 
 
-                    $montointeres=0;
+                    $montointeres = 0;
 
                         foreach($select as $inter):
                             if($nuevomonto<$inter['intereses']['maximo'] && $nuevomonto>$inter['intereses']['minimo'])
                                {
                                    $encontrado=1;
-                                   $montointeres= $inter['intereses']['montofijo'];
+                                   $montointeres = $inter['intereses']['montofijo'];
                                }
                         endforeach;
 
@@ -94,7 +97,7 @@ class PagosController extends AppController {
                              
                             if($estado==2){
                                if($edocheques==1){
-                                     $nuevomonto = $montopagado+$montoentregado;
+                                     $nuevomonto = 0;
                                     $montointeres=0;
                                     $montoentregado=$montopagado+$montoentregado;
                                     
@@ -153,6 +156,7 @@ class PagosController extends AppController {
                         $this->Session->setFlash(__('Algo está mal en esta transacción revisa de nuevo'));
                 }		
         }
+                }
         $chequeinterese = $this->Pago->Chequeinterese->find('list');
         if($id==null){
             return $this->redirect(array('controller'=>'cheques','action' => 'index'));
@@ -174,6 +178,7 @@ class PagosController extends AppController {
                                                                             'conditions'=>$conditions));
 
         }
+                
         $chequeEstadocheques = $this->Pago->ChequeEstadocheque->find('list');
         $tipopagos = $this->Pago->Tipopago->find('list');
         $pagoterceros = $this->Pago->Pagotercero->find('list');

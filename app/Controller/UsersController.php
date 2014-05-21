@@ -102,10 +102,11 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Usuario Invalido'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			$this->User->query("UPDATE users SET username='".$this->request->data['User']['username']."', 
-                            nombre='".$this->request->data['User']['nombre']."', 
-                                apellido='".$this->request->data['User']['apellido']."', 
-                                    role_id=".$this->request->data['User']['role_id']." WHERE id=".$id."");
+			$this->User->query("UPDATE users SET 
+                                            username='".$this->request->data['User']['username']."', 
+                                            nombre='".$this->request->data['User']['nombre']."', 
+                                            apellido='".$this->request->data['User']['apellido']."', 
+                                            role_id=".$this->request->data['User']['role_id']." WHERE id=".$id."");
 				$this->Session->setFlash(__('El Usuario ha sido Guardado.'));
                                 	return $this->redirect(array('action' => 'index'));
 			

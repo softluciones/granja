@@ -941,7 +941,6 @@ class ChequesController extends AppController {
                     cheque_id=".$id." ORDER BY id DESC LIMIT 1";
                  $ejecutar = $this->Cheque->query($entregado);
                 $montoentregado=$ejecutar[0]['chequeinterese']['montoentregado'];
-               
                  $this->request->data['Cheque']['modified']=date('Y-m-d H:i:s');
                  /*acá hago un cambio en cheque debido al paso donde dice options despues del if $tipo=0*/ 
                 
@@ -1065,9 +1064,11 @@ class ChequesController extends AppController {
                         for($i=0;$i<$dias-1;$i++){
                              $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
                             $fecha = date ( 'Y-m-d' , $nuevafecha );
-                       
+                       if($nuevomonto<$estavez){
                            $this->request->data['Chequeinterese']['montocheque']=$nuevomonto = $nuevomonto + $interes; 
-                           
+                       }else{
+                           $this->request->data['Chequeinterese']['montocheque']=$nuevomonto = $estavez + $interes; 
+                       }
                            }
                            $dias = $this->diferencia($modificado, $fecha);
                           $modificacheque = $this->Cheque->query("UPDATE cheques 
@@ -1207,7 +1208,7 @@ class ChequesController extends AppController {
                                }else
                                {
                                     $montocheque = $montoentregado+$fijo;
-                              $montointeres = $fijo;
+                                    $montointeres = $fijo;
                                }
                              
                           }
@@ -1436,22 +1437,7 @@ class ChequesController extends AppController {
                             $z=  $this->Cheque->query($sql);
                             $this->request->data['Solointerese']['estado']=$z[0]['e']['nomenclatura'];
 
-                            $insert="INSERT INTO 
-                                     solointereses (monto,
-                                                    montointereses,
-                                                    cheque_id,
-                                                    interese_id,
-                                                    estado,
-                                                    cobrado,
-                                                    fecha)
-                                     VALUES(".$this->request->data['Solointerese']['monto'].",
-                                            ".$this->request->data['Solointerese']['montointereses'].",
-                                            ".$this->request->data['Solointerese']['cheque_id'].",
-                                            ".$y[0]['cheques']['interese_id'].",
-                                            '".$this->request->data['Solointerese']['estado']."',
-                                            ".$y[0]['cheques']['cobrado'].",
-                                            NOW())";
-                            $this->Cheque->query($insert);
+                            
                             
                             $this->Session->setFlash(__('El cheque ha sido editado.'));
 				return $this->redirect(array('action' => 'view',$id));
