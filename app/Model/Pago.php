@@ -93,13 +93,7 @@ class Pago extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Chequeinterese' => array(
-			'className' => 'Chequeinterese',
-			'foreignKey' => 'chequeinterese_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
+		
 		'Cheque' => array(
 			'className' => 'Cheque',
 			'foreignKey' => 'cheque_id',

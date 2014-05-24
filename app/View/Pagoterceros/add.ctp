@@ -71,7 +71,7 @@ for($i=0;$i<12;$i++){
     
 	       <table>
              <thead>
-            <th colspan="4" style="background:#cccccc; height: 50px; font-size: 20px;">
+            <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
             <div align="center"><?php echo __('Agregar Pago a Terceros'); ?></div></th>
             </thead>
 		

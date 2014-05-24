@@ -54,7 +54,7 @@ class PagosController extends AppController {
                     $montofijo = $cheques['Interese']['montofijo'];
                     $nuevomonto = $montos-$montopagado;
                     if($nuevomonto<0){
-                         $this->Session->setFlash(__('El monto pagado, no debe superar .'));
+                         $this->Session->setFlash(__('El monto pagado, no debe superar el monto de la deuda.'));
                     }else{
 
                     if($nuevomonto==0 && (($edocheques==2 && $estado==2) || ($edocheques==2 && $estado==1) || ($edocheques==0 && $estado==1))){
@@ -157,7 +157,7 @@ class PagosController extends AppController {
                 }		
         }
                 }
-        $chequeinterese = $this->Pago->Chequeinterese->find('list');
+       
         if($id==null){
             return $this->redirect(array('controller'=>'cheques','action' => 'index'));
             $clientes = $this->Pago->Cliente->find('list');
@@ -186,7 +186,7 @@ class PagosController extends AppController {
         $x=$this->Pago->query("select id, username from users where id=".$this->Auth->user('id')."");
 
         $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
-        $this->set(compact('debo','otro','clientes', 'chequeinterese', 'cheques', 'chequeEstadocheques', 'tipopagos', 'pagoterceros', 'users','montos','id'));
+        $this->set(compact('debo','otro','clientes', 'cheques', 'chequeEstadocheques', 'tipopagos', 'pagoterceros', 'users','montos','id'));
 	}
         
         

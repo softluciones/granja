@@ -90,7 +90,7 @@ input[type=submit],
         <?php 
         $posiciones=count($cheque['ChequeEstadocheque']);
            $pos=count($cheque['Chequeinterese']);
-        if($cheque['Chequeinterese'][$pos-1]['montocheque']>0){
+        if($cheque['Chequeinterese'][$pos-1]['montocheque']!=0){
       # echo $cheque['ChequeEstadocheque'][$posiciones-1]['estadocheque_id'];
             if($cheque['ChequeEstadocheque'][0]['estadocheque_id']==2){
                 if($cheque['Cheque']['cobrado']!=0){
@@ -108,7 +108,12 @@ input[type=submit],
                 if($cheque['Cheque']['cobrado']==2&& $cheque['Cheque']['deuda']==0){
                     $pos=count($cheque['Chequeinterese']);
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                    if($monto>0){
                         echo "Me debe: ".h(number_format(floatval($monto),2,',','.').' Bs.');
+                    }else
+                    {
+                        echo "Le debo: ".h(number_format(floatval($monto),2,',','.').' Bs.');
+                    }
                     
                 }if($cheque['Cheque']['cobrado']==0){
                     $pos=count($cheque['Chequeinterese']);
@@ -230,7 +235,13 @@ input[type=submit],
                     $pos=count($cheque['Chequeinterese']);
                     $deuda=1;
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
+                   if($monto<0){
+                       $monto=$monto*-1;
+                        echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/1/'.$cheque['Cliente']['id'],$monto));
+                   }else{
+                       echo $this->Html->link(__('Nuevo Pago'), array('controller' => 'pagos', 'action' => 'add/'.$cheque['Cheque']['id'].'/1/0/'.$cheque['Cliente']['id'],$monto));
+                   }
+                        
                     
                 }if($cheque['Cheque']['cobrado']==0){
                     $deuda=1;
@@ -350,7 +361,10 @@ input[type=submit],
                     $pos=count($cheque['Chequeinterese']);
                     $deuda=1;
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
-                         echo $this->Html->link(__('Nuevo Cheque'), array('action' => 'add2',$cheque['Cheque']['id']));
+                     if($monto>0){
+                       echo $this->Html->link(__('Nuevo Cheque'), array('action' => 'add2',$cheque['Cheque']['id']));
+                    }
+                      
                     
                 }if($cheque['Cheque']['cobrado']==0){
                     $deuda=1;
@@ -424,7 +438,9 @@ input[type=submit],
                     $pos=count($cheque['Chequeinterese']);
                     $deuda=1;
                     $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                    if($monto>0){
                         echo $this->Html->link(__('Nueva Cobranza'), array('controller' => 'gestiondecobranzas', 'action' => 'add',$cheque['Cheque']['id'])); 
+                    }
                     
                 }if($cheque['Cheque']['cobrado']==0){
                     $deuda=1;
@@ -500,9 +516,18 @@ input[type=submit],
 </br>
 
 <?php
-
-if( $cheque['Cheque']['deuda']==0 && $cheque['Cheque']['cobrado']==2 && $cheque['ChequeEstadocheque'][0]['estadocheque_id']==2){?>
-
+ $pos=count($cheque['Chequeinterese']);
+             
+                    $monto=$cheque['Chequeinterese'][$pos-1]['montocheque'];
+                    
+if( $cheque['Cheque']['deuda']==0 && $cheque['Cheque']['cobrado']==2 && 
+       ( $cheque['ChequeEstadocheque'][0]['estadocheque_id']==2||
+        ($monto<0&& $cheque['ChequeEstadocheque'][0]['estadocheque_id']==1))){
+    if($monto<0){
+        $monto = $monto*-1;
+        }
+    ?>
+        
 	<div class="actions">
 		<ul>
 			<li  align="center"><?php echo $this->Html->link(__('Pago a terceros'), array('controller' => 'pagoterceros', 'action' => 'add/'.$cheque['Cheque']['id']."/".$monto,$cheque['Cliente']['id'])); ?> </li>

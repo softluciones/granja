@@ -104,7 +104,7 @@ class Chequeinterese extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Pago' => array(
+		/*'Pago' => array(
 			'className' => 'Pago',
 			'foreignKey' => 'chequeinterese_id',
 			'dependent' => false,
@@ -116,7 +116,7 @@ class Chequeinterese extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		)*/
 	);
 
 }

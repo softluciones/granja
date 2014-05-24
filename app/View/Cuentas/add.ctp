@@ -27,7 +27,8 @@
                 
            echo '</tr>';
             echo '<tr>';
-            echo '<th colspan="2">'; echo $this->Form->end(__('Guardar')); echo '</th>';
+            echo '<th>'; echo $this->Form->label('Cuenta Propia'); echo $this->Form->input('propia',array('div'=>false,'label'=>false,'class'=>'text','type'=>'checkbox','style'=>'width: 70px;','checked'=>'checked')); echo '</th>';
+            echo '<th>'; echo $this->Form->end(__('Guardar')); echo '</th>';
             echo '</tr>';
 	?>
 
