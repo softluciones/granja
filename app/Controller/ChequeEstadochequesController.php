@@ -65,8 +65,8 @@ class ChequeEstadochequesController extends AppController {
                 $dias=$dias+1;
                 return $dias;
          }
-         private function chequeinteresesinsert($id){
-            $chequedoid=  $this->ChequeEstadocheque->getLastInsertID();
+         private function chequeinteresesinsert($id,$edocheque){
+            $chequedoid=  $edocheque;
             $cheques=$this->ChequeEstadocheque->Cheque->find('first',array('conditions'=>array('Cheque.id'=>$id)));
             $estado = $cheques['ChequeEstadocheque'][0]['estadocheque_id'];
             $this->request->data['Chequeinterese']['estadocheque']=1;
@@ -167,8 +167,8 @@ class ChequeEstadochequesController extends AppController {
                  
 			$this->ChequeEstadocheque->create();
 			if ($this->ChequeEstadocheque->save($this->request->data)) {
-                                
-                                   $this->chequeinteresesinsert($id);
+                                $edocheque = $this->ChequeEstadocheque->getLastInsertID();
+                                   $this->chequeinteresesinsert($id,$edocheque);
                                      $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado.'));
 				return $this->redirect(array('controller'=>'cheques','action' => 'index'));
                                      
@@ -230,20 +230,18 @@ class ChequeEstadochequesController extends AppController {
 			throw new NotFoundException(__('Invalido estado de cheque'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			if ($this->ChequeEstadocheque->save($this->request->data)) {
-                                
-                                    $sql="SELECT nomenclatura FROM estadocheques e, cheque_estadocheques c 
+                     $sql="SELECT e.id as id FROM estadocheques e, cheque_estadocheques c 
                                         WHERE estadocheque_id=e.id
                                         AND cheque_id=".$res." order by c.id desc";
                                         $z=  $this->ChequeEstadocheque->query($sql);
+                                        $edocheque=$z[0]['e']['id'];
                                     
-                                    $sql="SELECT id from solointereses where cheque_id=".$res." order by id desc";
-                                    $res=  $this->ChequeEstadocheque->query($sql);
-                                    debug($res);
+			if ($this->ChequeEstadocheque->save($this->request->data)) {
+                                
+                            $this->ChequeEstadocheque->query("DELETE FROM chequeinterese WHERE cheque_id=".$res."");
+                                   $this->chequeinteresesinsert($res, $edocheque);
                                     
-                                    $sql="UPDATE solointereses SET 
-                                            estado='".$z[0]['e']['nomenclatura']."' where id=".$res[0]['solointereses']['id'];
-                                    $this->ChequeEstadocheque->query($sql);
+                                     
                                 
                                 
 				$this->Session->setFlash(__('El estado del cheque estado del cheque ha sido Modificado.'));
@@ -258,7 +256,9 @@ class ChequeEstadochequesController extends AppController {
 		}
 		$cheques = $this->ChequeEstadocheque->Cheque->find('list');
                
-		$estadocheques = $this->ChequeEstadocheque->Estadocheque->find('list');
+		$estadocheques = $this->ChequeEstadocheque->Estadocheque->find('list',array('fields'=>array('id','nombresss'),
+                                                                                            'conditions'=>array('or'=>array(array('nomenclatura'=>'R'),
+                                                                                                                            array('nomenclatura'=>'C')))));
 		$users = $this->ChequeEstadocheque->User->find('list');
                 $x=$this->ChequeEstadocheque->query("select id, username from users where id=".$this->Auth->user('id')."");
                 

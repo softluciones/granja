@@ -1187,7 +1187,7 @@ class ChequesController extends AppController {
                         
                         
                     }
-                    if($estado==2 || $estado==3) //-----------------De cliente
+                    if($estado==3) //-----------------De cliente
                     {
                         $deuda = $montoorig - $montondeuda1;
                         $sql="SELECT porcentaje, montofijo
@@ -1210,6 +1210,7 @@ class ChequesController extends AppController {
                
                 }
                 
+                
                         $sql = "UPDATE cheques SET cobrado=2, modified=NOW() WHERE id=".$id;
                         $this->Cheque->query($sql); 
                         $inserta = "INSERT INTO chequeinterese (montocheque, montodescuentointeres,montoentregado,estadocheque,created,modificado,
@@ -1217,7 +1218,39 @@ class ChequesController extends AppController {
                             VALUES(".$deuda.",0,0,
                            2, NOW(),NOW(),".$id.",".$this->Auth->user('id').")";
                         $this->Cheque->query($inserta);
-                    }                    
+                    }     
+                    if($estado==2) //-----------------De cliente
+                    {
+                        $deuda = $montoorig - $montondeuda1;
+                        $sql="SELECT porcentaje, montofijo
+                    FROM intereses I, cheques C
+                    WHERE interese_id = I.id
+                    AND C.id=".$id."";
+                $x=$this->Cheque->query($sql);
+                 $sql2="select dias, interese_id from cheques where id=".$id;
+                 $y=  $this->Cheque->query($sql2);
+                 $dias2=$y[0]['cheques']['dias'];
+                if($x[0]['I']['porcentaje']==null){
+                    $deuda= $deuda -($x[0]['I']['montofijo']);
+                }else{
+                      debug($deuda);
+                    /*debug($x[0]['I']['porcentaje']/100);
+                    debug($dias2);*/
+                    $deuda= $deuda -(($deuda*($x[0]['I']['porcentaje']/100)));
+                    #debug($deuda);
+                  
+               
+                }
+                
+                
+                        $sql = "UPDATE cheques SET cobrado=2, modified=NOW() WHERE id=".$id;
+                        $this->Cheque->query($sql); 
+                        $inserta = "INSERT INTO chequeinterese (montocheque, montodescuentointeres,montoentregado,estadocheque,created,modificado,
+                            cheque_id,user_id) 
+                            VALUES(".$deuda.",0,0,
+                           2, NOW(),NOW(),".$id.",".$this->Auth->user('id').")";
+                        $this->Cheque->query($inserta);
+                    }
                 }
                 if($cobrado==1)  //POR COBRAR Y PASA A COBRADO
                 {

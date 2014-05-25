@@ -22,7 +22,12 @@ class Cuenta extends AppModel {
  * @var array
  */
 	public $validate = array(
+            
 		'numero' => array(
+                    'between' => array(
+                                'rule'    => array('between', 20, 20),
+                                'message' => 'Nro de Cuenta debe contener 20 números'
+                                ),
 			'notempty' => array(
 				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',
