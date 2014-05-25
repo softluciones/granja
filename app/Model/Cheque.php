@@ -55,14 +55,22 @@ class Cheque extends AppModel {
 			),
 		),
 		'numerodecuenta' => array(
+                    'between' => array(
+                                'rule'    => array('between', 20, 20),
+                                'message' => 'Nro de Cuenta debe contener 20 números'
+                                ),
 			'notempty' => array(
 				'rule' => array('notempty'),
+                             
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+                    
+                    
+                    
 		),
 		'numerodecheque' => array(
 			'notempty' => array(
