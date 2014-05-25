@@ -191,7 +191,7 @@ echo $this->Form->label('Búsqueda') ?>
      <table style="width:50%;">
          <thead>
              <tr>
-                 <th colspan="4">
+                 <th colspan="5">
          <div align="center"> LEYENDA DE COLORES </div>
                  </th>
              </tr>
@@ -200,13 +200,16 @@ echo $this->Form->label('Búsqueda') ?>
              <th>Cheque cobrar en un futuro</th>
              <th>Cheque Devuelto</th>
              <th>Cheque olvidados por cobrar</th>
+             <th>Cobrados con Deuda</th>
          </tr>
          </thead>
          <tr>
+               
              <th style="background: #528CE0;"><br><br></th>
              <th style="background: #ffffff;"><br><br></th>
              <th style="background: #f00;"><br><br></th>
              <th style="background: #FECA40;"><br><br></th>
+              <th style="background: #ffcaca;"><br><br></th>
          </tr>
      </table>    
     <h2><?php #debug($sumas); 
@@ -533,7 +536,7 @@ echo $this->Form->label('Búsqueda') ?>
                     <?php }
                     
                     }
-                    if(($estado=='C' || $estado=='AbnCG' || $estado=='AbnGC')){
+                    if(($estado=='C' || $estado=='AbnGC')){
                             if($deuda==0){
                                 
                 ?>
