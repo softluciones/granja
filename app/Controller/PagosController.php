@@ -188,8 +188,64 @@ class PagosController extends AppController {
         $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
         $this->set(compact('debo','otro','clientes', 'cheques', 'chequeEstadocheques', 'tipopagos', 'pagoterceros', 'users','montos','id'));
 	}
-        
-        
+        private function diferencia($fecha1,$fecha2){
+                $format="Y-m-d";
+                $datetime1 = new DateTime($fecha1);
+                $datetime1=$datetime1->format($format);
+                $datetime2 = new DateTime($fecha2);
+                $datetime2=$datetime2->format($format);
+                $datetime1 = date_create($datetime1);
+                $datetime2 = date_create($datetime2);
+                $interval = date_diff($datetime1, $datetime2);
+                $dias=$interval->format("%R%a");
+                $dias=$dias+1;
+                return $dias;
+         }
+        public function add1($id=null) { //MONTOS ENTREGADOS CUANDO CHEQUE ES R
+            $this->Pago->recursive = 2;
+            $cheq=$this->params['pass'][0]; // id de cheque
+            
+            
+		if ($this->request->is('post')) 
+                {
+                    
+                }
+                
+                $options = array('conditions' => array('Cheque.' . $this->Cheque->primaryKey => $cheq));
+                    $cheque1 = $this->Cheque->find('first',$options);
+                 $fijo=$cheque1['Interese']['montofijo'];
+                 $porcentaje = $cheque1['Interese']['porcentaje'];
+                 $recibido = $cheque1['Cheque']['fecharecibido'];
+                 $cobro = $cheque1['Cheque']['fechacobro'];
+                 $diferencia=$this->diferencia($recibido, $cobro);
+                 $monto = $cheque1['Cheque']['monto'];
+                 $hoy=date("Y-m-d");
+                 $clie = $cheque1['Cheque']['cliente_id'];
+                 if($fijo!=NULL){
+                     $interes = $fijo;
+                     $totalinteres = $fijo*$diferencia;
+                     $entregar = $monto - $totalinteres;
+                 }
+                 if($porcentaje!=NULL){
+                     $interes = $monto * $porcentaje/100;
+                     $totalinteres = $interes*$diferencia;
+                     $entregar = $monto - $totalinteres;
+                     
+                 }
+                 $entregar = $this->redondear_a_10($entregar);
+                 $montos = $entregar;
+                 $conditions=array('Cliente.id'=>$clie);
+                  $clientes = $this->Pago->Cliente->find('list',array('fields'=>array('id','apodo'),
+                                                                            'conditions'=>$conditions));
+                  $conditions=array('Cheque.id'=>$cheq);
+                 $cheques = $this->Cheque->find('list',array('fields'=>array('numerodecheque'),
+                                                                            'conditions'=>$conditions));
+                 $tipopagos = $this->Pago->Tipopago->find('list');
+                  $x=$this->Pago->query("select id, username from users where id=".$this->Auth->user('id')."");
+
+                    $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
+                 $this->set(compact('cheques','tipopagos','clientes','montos','users'));
+	}
         
 	public function edit($id = null) {
 		if (!$this->Pago->exists($id)) {

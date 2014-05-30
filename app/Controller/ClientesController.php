@@ -126,7 +126,7 @@ class ClientesController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
                     $x=$this->request->data;
-                    debug($x);
+                  
                     
                     if ($this->Cliente->save($this->request->data)) {
                             

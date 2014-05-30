@@ -1,17 +1,4 @@
-<script>
-    $(document).ready(function(){
-        
-    
- $(function () {
 
-$("#datepicker").datepicker();
-$("#datepicker1").datepicker();
-("#datepicker").datepicker('option', { dateFormat: 'dd-mm-yy' });
-          $("#datepicker1").datepicker('option', { dateFormat: 'dd-mm-yy' });
-});
-
-  });
-  </script>
    <style>
       th{
           background: #ffffff;
@@ -23,6 +10,23 @@ $("#datepicker1").datepicker();
           text-align: center;
       }
   </style>
+<script language="javascript">
+
+    $(document).ready(function(){
+        
+    
+
+
+$("#datepicker").datepicker();
+        $("#datepicker1").datepicker();
+        $("#datepicker").datepicker('option', { dateFormat: 'dd-mm-yy' });
+          $("#datepicker1").datepicker('option', { dateFormat: 'dd-mm-yy' });
+$("#datepicker").val($("#oculto1").val());
+$("#datepicker1").val($("#oculto2").val());
+
+
+  });
+  </script>
 <div class="cheques form">
 <?php echo $this->Form->create('Cheque',array('type'=>'file'));
 
@@ -51,7 +55,9 @@ echo $this->Form->input('id',array('action'=>'edit','type'=>'hidden'));
                     <tr>
                         <th><?php echo $this->Form->input('monto'); ?></th>
                         <th><?php echo $this->Form->input('interese_id',array('label'=>'Interes')); ?></th>
-                        <th><?php echo $this->Form->input('filename',array('type'=>'file','label'=>'Imagen del Cheque')); ?></th>
+                        <th><?php echo $this->Form->input('filename',array('type'=>'file','label'=>'Imagen del Cheque'));
+                        
+                        echo $this->Form->input('dir',array('type'=>'hidden','value'=>''));?></th>
                     </tr>
                     <tr>
                         <th><?php
@@ -62,8 +68,10 @@ echo $this->Form->input('id',array('action'=>'edit','type'=>'hidden'));
                         $fechacobro =$this->data['Cheque']['fechacobro'];
                         $fechacobro = new DateTime($fechacobro);
                         $fechacobro = $fechacobro->format('d-m-Y');
-                        echo $this->Form->input('fecharecibido',array('label'=>'Fecha de Recibido','id'=>'datepicker','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly','value'=>$fecharecibido)); ?></th>
-                        <th><?php echo $this->Form->input('fechacobro',array('label'=>'Fecha de Cobro','id'=>'datepicker1','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly','value'=>$fechacobro)); ?></th>
+                        echo $this->Form->input('fecharecibido1',array('type'=>'hidden','value'=>$fecharecibido,'id'=>'oculto1'));
+                        echo $this->Form->input('fechacobro1',array('type'=>'hidden','value'=>$fechacobro,'id'=>'oculto2'));
+echo $this->Form->input('fecharecibido',array('label'=>'Fecha de Recibido','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aqui','readonly'=>'readonly','value'=>$fecharecibido,'id'=>'datepicker')); ?></th>
+                        <th><?php echo $this->Form->input('fechacobro',array('label'=>'Fecha de Cobro','type'=>'text','style'=>'width:50%;','readonly'=>'readonly','placeholder'=>'Haz Click aqui','value'=>$fechacobro,'id'=>'datepicker1')); ?></th>
                         <th><?php echo $this->Form->input('cobrado',array('options'=>array(
                                ''=>'Seleccione','1'=>'Por Cobrar','2'=>'Cobrado','0'=>'Devuelto'
                 ))); ?></th>
