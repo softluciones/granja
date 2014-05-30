@@ -355,7 +355,10 @@ echo $this->Form->label('Búsqueda') ?>
 							 
 							 <td><?php echo h('Por Cobrar'); ?></td>
 							 <td><?php echo h($estado); ?>&nbsp;</td>
-							 <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+							 <td><?php 
+                                                         
+                                                         echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id'])); 
+                                                         ?>&nbsp;</td>
 							 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 							 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 							 <td class="actions">
@@ -390,7 +393,7 @@ echo $this->Form->label('Búsqueda') ?>
 								
 								 <td><?php echo h('Por Cobrar'); ?></td>
 								 <td><?php echo h($estado); ?>&nbsp;</td>
-								 <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+								 <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 								 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 								 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 								 <td class="actions">
@@ -439,7 +442,7 @@ echo $this->Form->label('Búsqueda') ?>
 							
 							 <td><?php echo h('Devuelto'); ?></td>
 							 <td><?php echo h($estado); ?>&nbsp;</td>
-							 <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+							 <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 							 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 							 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 							 <td class="actions">
@@ -478,7 +481,7 @@ echo $this->Form->label('Búsqueda') ?>
 		
 			 <td><?php echo h('Devuelto'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
@@ -523,7 +526,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Cobrado con Deuda'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id'])); ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">                   
@@ -567,7 +570,7 @@ echo $this->Form->label('Búsqueda') ?>
 		
 			 <td><?php echo h('Cobrado con Deuda'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">                   
@@ -620,7 +623,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Por Cobrar'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
@@ -658,7 +661,7 @@ echo $this->Form->label('Búsqueda') ?>
 
 			 <td><?php echo h('Por Cobrar'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
@@ -698,7 +701,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Por Cobrar'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
@@ -738,7 +741,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Por Cobrar'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
@@ -782,7 +785,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Cobrado con Deuda'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">                   
@@ -823,7 +826,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Cobrado con Deuda'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">                   
@@ -875,7 +878,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Por Cobrar'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
@@ -915,7 +918,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Por Cobrar'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
@@ -955,7 +958,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Cobrado'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id'])); ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
@@ -992,7 +995,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Cobrado'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
@@ -1031,7 +1034,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Devuelto'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">
@@ -1070,7 +1073,7 @@ echo $this->Form->label('Búsqueda') ?>
 			 <td><?php echo h($cheque['Cheque']['fechacobro']); ?></td>
 			 <td><?php echo h('Devuelto'); ?></td>
 			 <td><?php echo h($estado); ?>&nbsp;</td>
-             <td><?php echo h($cheque['Cheque1']['numerodecheque']); ?>&nbsp;</td>
+             <td><?php echo $this->Html->link($cheque['Cheque1']['numerodecheque'], array( 'action' => 'view', $cheque['Cheque1']['id']));  ?>&nbsp;</td>
 			 <td><?php echo $this->Html->link($cheque['User']['username'], array('controller' => 'users', 'action' => 'view', $cheque['User']['id'])); ?></td>
 			 <?/*estas son las acciones para modificar si está devuelto y esas cosas*/?>
 			 <td class="actions">                   

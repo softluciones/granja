@@ -65,6 +65,8 @@ class ChequeEstadochequesController extends AppController {
                 $dias=$dias+1;
                 return $dias;
          }
+         
+         // CHEQUE POR COBRAR
          private function chequeinteresesinsert($id,$edocheque){
             $chequedoid=  $edocheque;
             $cheques=$this->ChequeEstadocheque->Cheque->find('first',array('conditions'=>array('Cheque.id'=>$id)));
@@ -80,83 +82,16 @@ class ChequeEstadochequesController extends AppController {
             $interes = $cheques['Interese']['porcentaje'];
             $fijo = $cheques['Interese']['montofijo'];
             $montocheque = $cheques['Cheque']['monto'];
-            if($dias>1){
-                if($interes==null){
-                     if($estado==1){ 
-                    for($i=0;$i<$dias;$i++){
-                        $this->request->data['Chequeinterese']['montodescuentointeres']=$fijo;
-                        $monto=$montocheque-$fijo;
-                        $montocheque=$monto;
-                        
-                            $this->request->data['Chequeinterese']['montoentregado']=$monto;
-                             $this->request->data['Chequeinterese']['montocheque']=0;
-                          
-                        
-                        $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
-                    
-                         $nuevafecha = strtotime ( '+1 day' , strtotime ( $this->request->data['Chequeinterese']['modificado'] ) ) ;
-                         $this->request->data['Chequeinterese']['modificado'] = date ( 'Y-m-d' , $nuevafecha );
-                    }
-                    $this->request->data['Chequeinterese']['modificado']=$fechacobro;
-                        $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
-                    }
-                    if($estado==2){
-                        $this->request->data['Chequeinterese']['montodescuentointeres']=0;
-                            $this->request->data['Chequeinterese']['montoentregado']=0;
-                             $this->request->data['Chequeinterese']['montocheque']=0;
-                              $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
-                              $this->request->data['Chequeinterese']['modificado']=$fechacobro;
-                        $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
-                        }
-                }else{
-                    if($estado==1){
-                    $montointeres=$this->request->data['Chequeinterese']['montodescuentointeres']=$montocheque*($interes/100);
-                   for($i=0;$i<$dias;$i++){
-                       $monto=$montocheque-$montointeres;
-                        $montocheque=$monto;
-                        
-                            $this->request->data['Chequeinterese']['montoentregado']=$monto;
-                             $this->request->data['Chequeinterese']['montocheque']=0;
-                        
-                        
-                        $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
-                       
-                         $nuevafecha = strtotime ( '+1 day' , strtotime ( $this->request->data['Chequeinterese']['modificado'] ) ) ;
-                         $this->request->data['Chequeinterese']['modificado'] = date ( 'Y-m-d' , $nuevafecha );
-                    } 
-                   $this->request->data['Chequeinterese']['modificado']=$fechacobro;
-                     $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
-                     }
-                     if($estado==2){
-                            $this->request->data['Chequeinterese']['montoentregado']=0;
-                             $this->request->data['Chequeinterese']['montocheque']=0;
-                             $this->request->data['Chequeinterese']['montodescuentointeres']=0;
-                             $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
-                             $this->request->data['Chequeinterese']['modificado']=$fechacobro;
-                            $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
-                        }
-                }
-            }else{
-               if($interes==null){
-                   $monto=$montocheque-$fijo;
-                   $this->request->data['Chequeinterese']['montodescuentointeres']=$fijo;
-               }else{
-                   $montointeres = $montocheque*($interes/100);
-                   $monto = $montocheque-$montointeres;
-                   $this->request->data['Chequeinterese']['montodescuentointeres']=$montointeres;
-               }
-               if($estado==1){
-                $this->request->data['Chequeinterese']['montoentregado']=$monto;
-                 $this->request->data['Chequeinterese']['montocheque']=0;
-              }
-                if($estado==2){
-                    $this->request->data['Chequeinterese']['montoentregado']=0;
-                     $this->request->data['Chequeinterese']['montocheque']=0;
-                     $this->request->data['Chequeinterese']['montodescuentointeres']=0;
-                }
-                $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
-                $this->request->data['Chequeinterese']['modificado']=$fechacobro;
-                $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
+            
+            if($estado==1)
+            {   //R DE GRAVIMON
+                //ABRIR PAGO PARA PODER REGISTRAR MONTO ENTREGADO
+                return $this->redirect(array('controller'=>'pagos','action' => 'add1',$id));
+                
+            }
+            if($estado==2)
+            {  //C DEL CLIENTE
+                
             }
             
             
@@ -245,7 +180,7 @@ class ChequeEstadochequesController extends AppController {
                                 
                                 
 				$this->Session->setFlash(__('El estado del cheque estado del cheque ha sido Modificado.'));
-				return $this->redirect(array('controller'=>'cheques','action' => 'index'));
+				return $this->redirect(array('controller'=>'cheques','action' => 'view',$res));
 			} else {
 				$this->Session->setFlash(__('El estado de cheque estado del cheque no ha sido Modificado. Intente nuevamente'));
 			}

@@ -315,6 +315,7 @@
                     <tr>
                         <th><?php 
                         $pos = count($cheque[0]['Chequeinterese']);
+                        #debug($cheque);
                         $monto = $cheque[0]['Chequeinterese'][$pos-1]['montocheque'];
                         $interes = $cheque[0]['Chequeinterese'][$pos-1]['montodescuentointeres'];
                         $monton = $monto;

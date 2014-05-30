@@ -56,7 +56,7 @@
         }  
         function guardar(){
             var noentra=0;
-            if($('#cedula').val()=='' || $('#nombre').val()=='' || $('#apellido').val()=='' || $('#telefonofijo').val()=='' ||  $('#apodo').val()==''){
+            if($('#cedula').val()=='' || $('#nombre').val()=='' || $('#apellido').val()=='' ||  $('#apodo').val()==''){
                 noentra=1;
             }
             if(noentra==0){
@@ -73,6 +73,9 @@
                 $('#direccion').val('xxxxxx');
             }
             if($('#celular').val()==''){
+                $('#celular').val('xxxxxx');
+            }
+            if($('#fijo').val()==''){
                 $('#celular').val('xxxxxx');
             }
             }
@@ -186,7 +189,7 @@
                 echo $this->Form->input('direccion',array('id'=>'direccion','div'=>false,'label'=>false,'style'=>'width: 100%;'));
                  echo "</div>";
                  echo "<div style='float:left;width:50%'>";
-                 echo $this->Form->label('Teléfono fijo *:');
+                 echo $this->Form->label('Teléfono fijo:');
                 echo $this->Form->input('telefonofijo',array('id'=>'telefonofijo','div'=>false,'label'=>false,'style'=>'width: 95%;'));
                  echo "</div>";
                  echo "<div style='float:left;width:50%'>";

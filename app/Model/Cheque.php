@@ -140,6 +140,7 @@ class Cheque extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
+            
 		'Cliente' => array(
 			'className' => 'Cliente',
 			'foreignKey' => 'cliente_id',
