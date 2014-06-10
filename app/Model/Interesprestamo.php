@@ -20,6 +20,9 @@ class Interesprestamo extends AppModel {
  * @var string
  */
 	public $displayField = 'id';
+	public $virtualFields = array(
+		'Valor'=>'if(tipoprestamo=1,concat(valor,"% Pago Diario"),concat(valor,"% Pago fijo"))'
+	);
 
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

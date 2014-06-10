@@ -28,6 +28,7 @@ class Prestamo extends AppModel {
  * @var string
  */
 	public $displayField = 'id';
+	
 
 /**
  * Validation rules
@@ -57,7 +58,7 @@ class Prestamo extends AppModel {
 		),
 		'fechainicio' => array(
 			'datetime' => array(
-				'rule' => array('datetime'),
+				'rule' => array('que pasa'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
