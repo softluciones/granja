@@ -32,6 +32,9 @@ class PrestamosController extends AppController {
  * @param string $id
  * @return void
  */
+	public function cuotas(){
+		
+	}
 	public function view($id = null) {
 		if (!$this->Prestamo->exists($id)) {
 			throw new NotFoundException(__('Invalid prestamo'));
@@ -48,6 +51,16 @@ class PrestamosController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Prestamo->create();
+			$fechaIncio=$this->request->data['Prestamo']['fechainicio'];
+			$fechaIncio=new DateTime($fechaIncio);
+			$fechaIncio=$fechaIncio->format('Y-m-d');
+			$fechaFin=$this->request->data['Prestamo']['fechafin'];
+			$fechaFin=new DateTime($fechaFin);
+			$fechaFin=$fechaFin->format('Y-m-d');
+			$this->request->data['Prestamo']['fechainicio']=$fechaIncio;
+			$this->request->data['Prestamo']['fechafin']=$fechaFin;
+			$this->request->data['Prestamo']['montodeuda']=$this->request->data['Prestamo']['monto'];
+			
 			if ($this->Prestamo->save($this->request->data)) {
 				$this->Session->setFlash(__('The prestamo has been saved.'));
 				return $this->redirect(array('action' => 'index'));
@@ -56,7 +69,7 @@ class PrestamosController extends AppController {
 			}
 		}
 		$clientes = $this->Prestamo->Cliente->find('list');
-		$interesprestamos = $this->Prestamo->Interesprestamo->find('list');
+		$interesprestamos = $this->Prestamo->Interesprestamo->find('list',array('fields'=>array('id','Valor'),'order'=>array('id DESC')));
 		$prestamos = $this->Prestamo->Prestamo->find('list');
 		$x=$this->Prestamo->query("select id, username from users where id=".$this->Auth->user('id'));	
 		$users=array($x[0]['users']['id']=>$x[0]['users']['username']);

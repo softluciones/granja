@@ -1,10 +1,13 @@
 <div class="interesprestamos form">
 <?php echo $this->Form->create('Interesprestamo'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Interesprestamo'); ?></legend>
+		<legend><?php echo __('Agregar Interesprestamo'); ?></legend>
 	<?php
 		echo $this->Form->input('valor');
-		echo $this->Form->input('tipoprestamo');
+		$options=array(''=>'Seleccione',
+                                    1=>'Pago Diario.',
+                                    2=>'Cuota Fija.'); 
+		echo $this->Form->input('tipoprestamo',array('options'=>$options));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
