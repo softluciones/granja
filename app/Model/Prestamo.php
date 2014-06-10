@@ -58,8 +58,8 @@ class Prestamo extends AppModel {
 		),
 		'fechainicio' => array(
 			'datetime' => array(
-				'rule' => array('que pasa'),
-				//'message' => 'Your custom message here',
+				'rule' => array('date'),
+				'message' => 'debe ser datos de fecha',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
