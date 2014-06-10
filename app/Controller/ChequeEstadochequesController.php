@@ -86,6 +86,7 @@ class ChequeEstadochequesController extends AppController {
             if($estado==1)
             {   //R DE GRAVIMON
                 //ABRIR PAGO PARA PODER REGISTRAR MONTO ENTREGADO
+                
                 return $this->redirect(array('controller'=>'pagos','action' => 'add1',$id));
                 
             }

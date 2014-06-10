@@ -174,7 +174,7 @@
                  echo "</div>";
                  echo "<div style='float:left;width:30%'>";
                  echo $this->Form->label('Apodo *:');
-                echo $this->Form->input('apodo',array('id'=>'apodo','maxlength'=>15,'div'=>false,'label'=>false,'style'=>'width: 90%;'));
+                echo $this->Form->input('apodo',array('id'=>'apodo','maxlength'=>'10','div'=>false,'label'=>false,'style'=>'width: 90%;'));
                  echo "</div>";
                   echo "<div style='float:left;width:35%'>";
                  echo $this->Form->label('Negocio:');

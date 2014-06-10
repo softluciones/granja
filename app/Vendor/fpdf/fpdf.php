@@ -376,7 +376,7 @@ function Header()
 {
 	
 	$ruta =  "../webroot/img/logo.fw.png";
-    $this->Image($ruta,30,10,15,'PNG');
+    $this->Image($ruta,30,10,120,'PNG');
 	
   
     $this->SetFont('Arial','B',15);
@@ -416,15 +416,16 @@ function Footer()
 {
 	
 	// PosiciÃ³n: a 1,5 cm del final
-    $this->SetY(-15);
+    $this->SetY(-20);
     // Arial italic 8
 	$this->SetTextColor(0); 
-    $this->SetFont('Arial','',8);
+    $this->SetFont('Arial','',7);
 	$this->SetTextColor(122); 
     // NÃºmero de pÃ¡gina
-	$cabecera = array(' (0276) 417-4546 / 394-3556 Granja Avicola La Montaña, C.A. Rif: J-29661905-0');
-	$datos[0] = array('Tariba- Táchira, Venezuela');
-   	$columnas = array(120,120);
+	$cabecera = array(' Domicilio Fiscal: VDA. PRINCIPAL FINCA EL RECREO N° S/N SECTOR EL MONZAL, ALDEA SAN ISIDRO MUNICIPIO ANDRES');
+        $datos[0]= array(' BELLO, CORDERO ESTADO TACHIRA / CORREO: gravimon@hotmail.com / ca_aves@hotmail.com');
+	$datos[1] = array(' TELEFONOS: (0276) 3943556 CELULAR: 0414-7054489 / 0414-7417531');
+   	$columnas = array(120,120,120);
 	$this->Otratabla($cabecera,$columnas,$datos);
 	
 	
@@ -539,7 +540,46 @@ function Tabla($header, $colWidth, $data) {
     } 
     
 }
-
+function Tabla1($header, $colWidth, $data) { 
+    //Colors, line width and bold font 
+    $this->SetFillColor(204,204,204); 
+    $this->SetTextColor(0); 
+    $this->SetDrawColor(204,204,204); 
+    $this->SetLineWidth(.3); 
+    $this->SetFont('','B'); 
+    //Header 
+     $this->Cell(15);
+    for($i=0;$i<count($header);$i++) 	
+ 
+        $this->Cell($colWidth[$i],7,utf8_decode($header[$i]),1,0,'C',1); 
+   
+        
+    $this->Ln(); 
+    //Color and font restoration 
+    $this->SetFillColor(248,248,248);
+    $this->SetTextColor(0); 
+    $this->SetFont('Times','',11);
+    //Data 
+    $fill=0; 
+    foreach($data as $row) { 
+        $i = 0; 
+		$this->Cell(15);
+        foreach($row as $col) { 
+		   if($i!=7){	
+                       $this->SetFont('Times','',11);
+            $this->Cell($colWidth[$i++],6,utf8_decode($col),0,0,'C',$fill); 
+                   }else{
+                       $this->SetFont('Times','',8);
+                       $this->MultiCell($colWidth[$i++],6,utf8_decode($col),0,'L',$fill); 
+                  
+        } 
+        }
+        $this->Ln(); 
+      
+     
+    
+}
+}
 function PageNo()
 {
 	// Get current page number
