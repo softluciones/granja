@@ -58,7 +58,8 @@ class PrestamosController extends AppController {
 		$clientes = $this->Prestamo->Cliente->find('list');
 		$interesprestamos = $this->Prestamo->Interesprestamo->find('list');
 		$prestamos = $this->Prestamo->Prestamo->find('list');
-		$users = $this->Prestamo->User->find('list');
+		$x=$this->Prestamo->query("select id, username from users where id=".$this->Auth->user('id'));	
+		$users=array($x[0]['users']['id']=>$x[0]['users']['username']);
 		$this->set(compact('clientes', 'interesprestamos', 'prestamos', 'users'));
 	}
 
