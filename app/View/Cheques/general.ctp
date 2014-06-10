@@ -170,7 +170,7 @@ $fpdf->AddPage();
                     $monto=number_format(floatval($pagos['Pago']['monto']),2,',','.');
                     $totalpagos+=$pagos['Pago']['monto'];
                     $data3[$i]=array($nombrecliente, $monto,$pagos['Cheque']['numerodecheque'],$pagos['Pago']['conceptode'],
-                    $pagos['Tipopago']['descripcion'],$pagos['User']['username']);
+                    $pagos['Tipopago']['nombre'],$pagos['User']['username']);
                     $i++;
 		endforeach;	
 				
@@ -189,7 +189,7 @@ $fpdf->Ln(3);
      
 //***************   Pagos a Terceros*************************************************************
 
-		$header=array('Fecha','Dia','Cheque','Monto','Concepto de','Origen','Destino','Usuario'); 
+		$header1=array('Fecha','Dia','Cheque','Monto','Origen','Destino','Usuario','Concepto de'); 
 		$i=0;
                 $totalpagos=0;
                 
@@ -200,13 +200,13 @@ $fpdf->Ln(3);
                     $fechas = $fechas->format('d/m/Y');
                     $monto=number_format(floatval($pagos['Pagotercero']['monto']),2,',','.');
                     $totalpagos+=$pagos['Pagotercero']['monto'];
-                    $data3[$i]=array($fechas, $pagos['Pagotercero']['dia'],$pagos['Cheque']['numerodecheque'],$monto,
-                    $pagos['Pagotercero']['conceptode'],$nombrecliente,$nombrecliente1,$pagos['User']['username']);
+                    $data44[$i]=array($fechas, $pagos['Pagotercero']['dia'],$pagos['Cheque']['numerodecheque'],$monto,
+                    $nombrecliente,$nombrecliente1,$pagos['User']['username'],$pagos['Pagotercero']['conceptode']);
                     $i++;
 		endforeach;	
 				
-$colWidth = array(30,30,30,30,30,30,30,35); 
-$fpdf->Tabla($header,$colWidth, $data3); 
+$colWidth1 = array(30,30,30,30,30,30,30,35); 
+$fpdf->Tabla1($header1,$colWidth1, $data44); 
 $fpdf->Ln(3); 
         $fpdf->SetFont('','B');
         $fpdf->Cell(0,1,'Total de Pagos a Terceros: '.number_format(floatval($totalpagos),2,',','.')." Bs.",0,1,'R');

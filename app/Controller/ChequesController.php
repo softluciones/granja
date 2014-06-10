@@ -65,7 +65,11 @@ class ChequesController extends AppController {
             $direccion = $this->params['pass'][6];
             else
                 $direccion='';
+            if($this->params['pass'][7]!="xxxxxx")
             $telefonofijo = $this->params['pass'][7];
+            else
+               $telefonofijo='';
+            
             if($this->params['pass'][8]!="xxxxxx")
             $celular = $this->params['pass'][8];
             else
@@ -134,7 +138,7 @@ class ChequesController extends AppController {
                 if($encontrado==0)
                     $montointeres = $intereses[0]['ci']['montodescuentointeres'];
                 
-                $modificado = $intereses[0]['ci']['created'];
+                $modificado = $intereses[0]['ci']['modificado'];
                 $fijo = $intereses[0]['i']['montofijo'];
                 $interes = $intereses[0]['i']['porcentaje'];
                 $hoy=date("Y-m-d");
