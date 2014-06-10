@@ -55,7 +55,7 @@ class GarantiasController extends AppController {
 				$this->Session->setFlash(__('The garantia could not be saved. Please, try again.'));
 			}
 		}
-		$tipogarantias = $this->Garantia->Tipogarantium->find('list');
+		$tipogarantias = $this->Garantia->Tipogarantia->find('list');
 		$prestamos = $this->Garantia->Prestamo->find('list');
 		$this->set(compact('tipogarantias', 'prestamos'));
 	}

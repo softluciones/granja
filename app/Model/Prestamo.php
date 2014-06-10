@@ -9,7 +9,7 @@ App::uses('AppModel', 'Model');
  * @property User $User
  * @property Cuota $Cuota
  * @property Garantia $Garantia
- * @property Gestiondecobranza $Gestiondecobranza
+ * @property Gestiondecobranzaprestamo $Gestiondecobranzaprestamo
  * @property Prestamo $Prestamo
  * @property Transaccionprestamointere $Transaccionprestamointere
  */
@@ -147,8 +147,8 @@ class Prestamo extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Gestiondecobranza' => array(
-			'className' => 'Gestiondecobranza',
+		'Gestiondecobranzaprestamo' => array(
+			'className' => 'Gestiondecobranzaprestamo',
 			'foreignKey' => 'prestamo_id',
 			'dependent' => false,
 			'conditions' => '',

@@ -72,8 +72,8 @@
 		<li><?php echo $this->Html->link(__('New Cuota'), array('controller' => 'cuotas', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Garantias'), array('controller' => 'garantias', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Garantia'), array('controller' => 'garantias', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Gestiondecobranzas'), array('controller' => 'gestiondecobranzas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Gestiondecobranza'), array('controller' => 'gestiondecobranzas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Gestiondecobranzaprestamos'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Gestiondecobranzaprestamo'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Transaccionprestamointeres'), array('controller' => 'transaccionprestamointeres', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Transaccionprestamointere'), array('controller' => 'transaccionprestamointeres', 'action' => 'add')); ?> </li>
 	</ul>
@@ -155,30 +155,26 @@
 	</div>
 </div>
 <div class="related">
-	<h3><?php echo __('Related Gestiondecobranzas'); ?></h3>
-	<?php if (!empty($prestamo['Gestiondecobranza'])): ?>
+	<h3><?php echo __('Related Gestiondecobranzaprestamos'); ?></h3>
+	<?php if (!empty($prestamo['Gestiondecobranzaprestamo'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Created'); ?></th>
 		<th><?php echo __('Descripcion'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th><?php echo __('Cheque Id'); ?></th>
 		<th><?php echo __('Prestamo Id'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
-	<?php foreach ($prestamo['Gestiondecobranza'] as $gestiondecobranza): ?>
+	<?php foreach ($prestamo['Gestiondecobranzaprestamo'] as $gestiondecobranzaprestamo): ?>
 		<tr>
-			<td><?php echo $gestiondecobranza['id']; ?></td>
-			<td><?php echo $gestiondecobranza['created']; ?></td>
-			<td><?php echo $gestiondecobranza['descripcion']; ?></td>
-			<td><?php echo $gestiondecobranza['user_id']; ?></td>
-			<td><?php echo $gestiondecobranza['cheque_id']; ?></td>
-			<td><?php echo $gestiondecobranza['prestamo_id']; ?></td>
+			<td><?php echo $gestiondecobranzaprestamo['id']; ?></td>
+			<td><?php echo $gestiondecobranzaprestamo['created']; ?></td>
+			<td><?php echo $gestiondecobranzaprestamo['descripcion']; ?></td>
+			<td><?php echo $gestiondecobranzaprestamo['prestamo_id']; ?></td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'gestiondecobranzas', 'action' => 'view', $gestiondecobranza['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'gestiondecobranzas', 'action' => 'edit', $gestiondecobranza['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'gestiondecobranzas', 'action' => 'delete', $gestiondecobranza['id']), null, __('Are you sure you want to delete # %s?', $gestiondecobranza['id'])); ?>
+				<?php echo $this->Html->link(__('View'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'view', $gestiondecobranzaprestamo['id'])); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'edit', $gestiondecobranzaprestamo['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'delete', $gestiondecobranzaprestamo['id']), null, __('Are you sure you want to delete # %s?', $gestiondecobranzaprestamo['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -187,7 +183,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Gestiondecobranza'), array('controller' => 'gestiondecobranzas', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New Gestiondecobranzaprestamo'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
 </div>
