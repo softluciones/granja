@@ -5,12 +5,18 @@ App::uses('AppModel', 'Model');
  *
  * @property Cliente $Cliente
  * @property Interesprestamo $Interesprestamo
+<<<<<<< HEAD
  * @property Prestamo $Prestamo
+=======
+>>>>>>> origin/master
  * @property User $User
  * @property Cuota $Cuota
  * @property Garantia $Garantia
  * @property Gestiondecobranzaprestamo $Gestiondecobranzaprestamo
+<<<<<<< HEAD
  * @property Prestamo $Prestamo
+=======
+>>>>>>> origin/master
  * @property Transaccionprestamointere $Transaccionprestamointere
  */
 class Prestamo extends AppModel {
@@ -28,7 +34,6 @@ class Prestamo extends AppModel {
  * @var string
  */
 	public $displayField = 'id';
-	
 
 /**
  * Validation rules
@@ -57,14 +62,14 @@ class Prestamo extends AppModel {
 			),
 		),
 		'fechainicio' => array(
-			'datetime' => array(
+
 				'rule' => array('date'),
-				'message' => 'debe ser datos de fecha',
+				#'message' => 'Debe estar algo mal',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+
 		),
 		'user_id' => array(
 			'numeric' => array(
@@ -100,13 +105,7 @@ class Prestamo extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Prestamo1' => array(
-			'className' => 'Prestamo',
-			'foreignKey' => 'prestamo_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
+
 		'User' => array(
 			'className' => 'User',
 			'foreignKey' => 'user_id',
@@ -161,19 +160,7 @@ class Prestamo extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Prestamo' => array(
-			'className' => 'Prestamo',
-			'foreignKey' => 'prestamo_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
+
 		'Transaccionprestamointere' => array(
 			'className' => 'Transaccionprestamointere',
 			'foreignKey' => 'prestamo_id',

@@ -162,6 +162,62 @@ li.menu{
 <div class="box">
   
              <div class="title">        
+	<strong style="color:#333; font-size:14px;"><?php echo __('Prestamos del Cliente');?></strong>
+                       </div>      
+    <div class="content pages">
+        <div class="row">
+	
+	<table cellpadding = "0" cellspacing = "0">
+            <thead>
+	<tr>
+		
+		<th><?php echo __('Codigo del prestamo'); ?></th>
+		<th><?php echo __('Monto prestado'); ?></th>
+                <th><?php echo __('Monto Deuda'); ?></th>
+                <th><?php echo __('Porcentaje'); ?></th>
+                <th><?php echo __('Dias pagados'); ?></th>
+                <th><?php echo __('Dias que debe'); ?></th>
+		<th><?php echo __('Usuario'); ?></th>
+		<th class="actions"><?php echo __('Acciones'); ?></th>
+	</tr>
+        </thead>
+	<?php foreach ($cliente['Prestamo'] as $prestamo): ?>
+		<tr>
+			
+			<?php  #debug($prestamo); exit(0); ?>
+                        <td><?php echo $prestamo['id']; ?></td>
+			<td><?php echo number_format(floatval($prestamo['monto']),2,',','.')." Bs"; ?></td>
+                        <td><?php echo number_format(floatval($prestamo['montodeuda']),2,',','.')." Bs"; ?></td>
+			<td><?php echo $prestamo['Interesprestamo']['valor']; ?></td>
+                        <td><?php echo $prestamo['diaspagados']; ?></td>
+                        <td><?php echo ($prestamo['diaspagados']-$prestamo['diascalculados']); ?></td>
+                        <td><?php echo $prestamo['User']['username']; ?></td>
+			<td class="acciones">
+                            <?php 
+                            echo $this->Html->image("pagar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Pagar','url' => array('controller'=>'pagodeprestamos','action' => 'add',$prestamo['id'])));    
+                            echo $this->Html->image("ver.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Ver','url' => array('controller'=>'prestamos','action' => 'view', $prestamo['id'])));
+ ?>
+				
+				<?php
+                                 echo $this->Html->image("editar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Editar','url' => array('controller'=>'prestamos','action' => 'edit', $prestamo['id'])));
+                            ?>
+                            </td>
+		</tr>
+	<?php endforeach; ?>
+	</table>
+
+            </div>
+	<div class="actions">
+		<ul>
+			<li><?php echo $this->Html->link(__('Nueva Cuenta'), array('controller' => 'cuentas', 'action' => 'add',$cliente['Cliente']['id'])); ?> </li>
+		</ul>
+	</div>
+</div>
+    </div>
+<br>
+<div class="box">
+  
+             <div class="title">        
 	<strong style="color:#333; font-size:14px;"><?php echo __('Cuentas del Cliente');?></strong>
                        </div>      
     <div class="content pages">

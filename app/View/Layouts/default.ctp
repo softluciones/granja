@@ -61,8 +61,8 @@ $("#datepicker").datepicker();
          </li>
          <li class='has-sub'><a href='#'><span>Prestamos</span></a>
             <ul>
-               <li><?php echo $this->Html->link("Nuevo Prestamo", array('controller'=>'cheques','action' => 'add'), array('escape' => false));?></li>
-               <li><?php echo $this->Html->link("Relación diaria prestamo", array('controller'=>'cheques','action' => 'index'), array('escape' => false));?></li>
+               <li><?php echo $this->Html->link("Nuevo Prestamo", array('controller'=>'prestamos','action' => 'add'), array('escape' => false));?></li>
+               <li><?php echo $this->Html->link("Relación diaria prestamo", array('controller'=>'prestamos','action' => 'index'), array('escape' => false));?></li>
              
                
             </ul>

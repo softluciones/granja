@@ -112,7 +112,9 @@ class Cliente extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
+		),
+                
+            
 	);
 
 /**
@@ -121,7 +123,20 @@ class Cliente extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Cheque' => array(
+		'Prestamo' => array(
+			'className' => 'Prestamo',
+			'foreignKey' => 'cliente_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+                'Cheque' => array(
 			'className' => 'Cheque',
 			'foreignKey' => 'cliente_id',
 			'dependent' => false,
@@ -134,6 +149,7 @@ class Cliente extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+                
 		'Cuenta' => array(
 			'className' => 'Cuenta',
 			'foreignKey' => 'cliente_id',

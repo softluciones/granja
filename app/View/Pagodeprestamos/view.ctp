@@ -21,11 +21,7 @@
 			<?php echo h($pagodeprestamo['Pagodeprestamo']['nroreferencia']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Cuotas'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($pagodeprestamo['Cuotas']['id'], array('controller' => 'cuotas', 'action' => 'view', $pagodeprestamo['Cuotas']['id'])); ?>
-			&nbsp;
-		</dd>
+
 		<dt><?php echo __('Diaspagados'); ?></dt>
 		<dd>
 			<?php echo h($pagodeprestamo['Pagodeprestamo']['diaspagados']); ?>
@@ -56,6 +52,13 @@
 			<?php echo $this->Html->link($pagodeprestamo['User']['username'], array('controller' => 'users', 'action' => 'view', $pagodeprestamo['User']['id'])); ?>
 			&nbsp;
 		</dd>
+
+		<dt><?php echo __('Prestamo'); ?></dt>
+		<dd>
+			<?php echo $this->Html->link($pagodeprestamo['Prestamo']['id'], array('controller' => 'prestamos', 'action' => 'view', $pagodeprestamo['Prestamo']['id'])); ?>
+			&nbsp;
+		</dd>
+
 	</dl>
 </div>
 <div class="actions">
@@ -65,12 +68,15 @@
 		<li><?php echo $this->Form->postLink(__('Delete Pagodeprestamo'), array('action' => 'delete', $pagodeprestamo['Pagodeprestamo']['id']), null, __('Are you sure you want to delete # %s?', $pagodeprestamo['Pagodeprestamo']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Pagodeprestamos'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Pagodeprestamo'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cuotas'), array('controller' => 'cuotas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cuotas'), array('controller' => 'cuotas', 'action' => 'add')); ?> </li>
+
 		<li><?php echo $this->Html->link(__('List Tipopagos'), array('controller' => 'tipopagos', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Tipopago'), array('controller' => 'tipopagos', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
+
+		<li><?php echo $this->Html->link(__('List Prestamos'), array('controller' => 'prestamos', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Prestamo'), array('controller' => 'prestamos', 'action' => 'add')); ?> </li>
+
 		<li><?php echo $this->Html->link(__('List Transaccionprestamointeres'), array('controller' => 'transaccionprestamointeres', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Transaccionprestamointere'), array('controller' => 'transaccionprestamointeres', 'action' => 'add')); ?> </li>
 	</ul>
