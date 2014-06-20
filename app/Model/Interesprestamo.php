@@ -21,7 +21,7 @@ class Interesprestamo extends AppModel {
  */
 	public $displayField = 'id';
 	public $virtualFields = array(
-		'Valor'=>'if(tipoprestamo=1,concat(valor,"% Pago Diario"),concat(valor,"% Pago fijo"))'
+		'valor'=>'if(tipoprestamo=1,concat(valor,"% Pago Diario"),concat(valor,"% Pago fijo"))'
 	);
 
 
