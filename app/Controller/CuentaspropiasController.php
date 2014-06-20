@@ -1,0 +1,122 @@
+<?php
+App::uses('AppController', 'Controller');
+/**
+ * Cuentaspropias Controller
+ *
+ * @property Cuentaspropia $Cuentaspropia
+ * @property PaginatorComponent $Paginator
+ * @property SessionComponent $Session
+ */
+class CuentaspropiasController extends AppController {
+
+/**
+ * Components
+ *
+ * @var array
+ */
+	public $components = array('Paginator', 'Session');
+
+/**
+ * index method
+ *
+ * @return void
+ */
+	public function index() {
+		$this->Cuentaspropia->recursive = 0;
+		$this->set('cuentaspropias', $this->Paginator->paginate());
+	}
+        
+        
+        public function getcodigo() {
+             if ($this->request->is('ajax')) { 
+              $idEspecie = $this->params['data']['idEspecie'];
+              $razas = $raza->find('all',array(
+               'fields' => array('Raza.id', 'Raza.nombre'), 
+               'conditions'=>array('Raza.id_especie'=>$idEspecie)));
+              $this->RequestHandler->respondAs('json');
+              $this->autoRender = false;      
+              echo json_encode ( $razas );      
+             }
+        }
+
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function view($id = null) {
+		if (!$this->Cuentaspropia->exists($id)) {
+			throw new NotFoundException(__('Invalid cuentaspropia'));
+		}
+		$options = array('conditions' => array('Cuentaspropia.' . $this->Cuentaspropia->primaryKey => $id));
+		$this->set('cuentaspropia', $this->Cuentaspropia->find('first', $options));
+	}
+
+/**
+ * add method
+ *
+ * @return void
+ */
+	public function add() {
+		if ($this->request->is('post')) {
+			$this->Cuentaspropia->create();
+			if ($this->Cuentaspropia->save($this->request->data)) {
+				$this->Session->setFlash(__('The cuentaspropia has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The cuentaspropia could not be saved. Please, try again.'));
+			}
+		}
+		$bancos = $this->Cuentaspropia->Banco->find('list');
+		$this->set(compact('bancos'));
+	}
+
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		if (!$this->Cuentaspropia->exists($id)) {
+			throw new NotFoundException(__('Invalid cuentaspropia'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Cuentaspropia->save($this->request->data)) {
+				$this->Session->setFlash(__('The cuentaspropia has been saved.'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The cuentaspropia could not be saved. Please, try again.'));
+			}
+		} else {
+			$options = array('conditions' => array('Cuentaspropia.' . $this->Cuentaspropia->primaryKey => $id));
+			$this->request->data = $this->Cuentaspropia->find('first', $options);
+		}
+		$bancos = $this->Cuentaspropia->Banco->find('list');
+		$this->set(compact('bancos'));
+	}
+
+/**
+ * delete method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		$this->Cuentaspropia->id = $id;
+		if (!$this->Cuentaspropia->exists()) {
+			throw new NotFoundException(__('Invalid cuentaspropia'));
+		}
+		$this->request->onlyAllow('post', 'delete');
+		if ($this->Cuentaspropia->delete()) {
+			$this->Session->setFlash(__('The cuentaspropia has been deleted.'));
+		} else {
+			$this->Session->setFlash(__('The cuentaspropia could not be deleted. Please, try again.'));
+		}
+		return $this->redirect(array('action' => 'index'));
+	}
+}

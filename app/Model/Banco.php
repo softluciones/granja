@@ -14,7 +14,7 @@ class Banco extends AppModel {
  *
  * @var string
  */
-	public $displayField = 'codigo';
+	public $displayField = 'nombre';
 
 /**
  * Validation rules

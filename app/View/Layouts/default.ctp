@@ -114,7 +114,8 @@ $("#datepicker").datepicker();
          <li class='has-sub'><a href='#'><span>Totales en Cuentas</span></a>
             <ul>
                
-               <li><?php echo $this->Html->link("Agregar Cuenta Interna", array('controller'=>'cheques','action' => 'index'), array('escape' => false));?></li>
+               <li><?php echo $this->Html->link("Agregar Cuenta Interna", array('controller'=>'cuentaspropias','action' => 'add'), array('escape' => false));?></li>
+               <li><?php echo $this->Html->link("Listar Cuentas Propias", array('controller'=>'cuentaspropias','action' => 'index'), array('escape' => false));?></li>
              <li><?php echo $this->Html->link("Registrar Montos", array('controller'=>'cheques','action' => 'devueltos'), array('escape' => false));?></li>         
          <li><?php echo $this->Html->link("Retiro de Cuenta", array('controller'=>'cheques','action' => 'index2'), array('escape' => false));?></li>
           <li><?php echo $this->Html->link("Deposito en Cuenta", array('controller'=>'cheques','action' => 'index2'), array('escape' => false));?></li>

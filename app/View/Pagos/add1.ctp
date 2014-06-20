@@ -58,7 +58,8 @@
          echo '<tr>';
         
          echo '<th>'; echo $this->Form->input('tipopago_id',array('id'=>'selector','label'=>"Forma de Entrega")); echo '</th>';
-         
+         echo '<th>'; echo '</th>';
+         echo '<th>'; echo '</th>';
          echo '<th>';  
          echo '<div id="referencias" style="display:none">';
          echo $this->Form->input('nrotransferencia',array('id'=>'referencia1','label'=>"Nro. Referencia o Deposito"));
@@ -67,8 +68,7 @@
          echo $this->Form->label('Descuenta Caja Chica');
          echo '</div>';
          echo '</th>';      
-         echo '<th>'; echo '</th>';
-                echo '<th>'; echo '</th>';
+         
          echo '</tr>';
          
        
