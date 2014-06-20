@@ -3,9 +3,9 @@ App::uses('AppModel', 'Model');
 /**
  * Pagodeprestamo Model
  *
- * @property Cuotas $Cuotas
  * @property Tipopago $Tipopago
  * @property User $User
+ * @property Prestamo $Prestamo
  * @property Transaccionprestamointere $Transaccionprestamointere
  */
 class Pagodeprestamo extends AppModel {
@@ -41,8 +41,8 @@ class Pagodeprestamo extends AppModel {
 			),
 		),
 		'fecha' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
+			'date' => array(
+				'rule' => array('date'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -50,16 +50,7 @@ class Pagodeprestamo extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'montodeuda' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+		
 		'tipopago_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
@@ -80,6 +71,16 @@ class Pagodeprestamo extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'prestamo_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -90,13 +91,6 @@ class Pagodeprestamo extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Cuotas' => array(
-			'className' => 'Cuotas',
-			'foreignKey' => 'cuotas_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
 		'Tipopago' => array(
 			'className' => 'Tipopago',
 			'foreignKey' => 'tipopago_id',
@@ -107,6 +101,13 @@ class Pagodeprestamo extends AppModel {
 		'User' => array(
 			'className' => 'User',
 			'foreignKey' => 'user_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Prestamo' => array(
+			'className' => 'Prestamo',
+			'foreignKey' => 'prestamo_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
