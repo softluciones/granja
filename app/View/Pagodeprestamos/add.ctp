@@ -25,7 +25,7 @@
 <div class="pagodeprestamos form">
 <?php echo $this->Form->create('Pagodeprestamo'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Pagodeprestamo'); ?></legend>
+	
 
                 <table>
                     <thead>

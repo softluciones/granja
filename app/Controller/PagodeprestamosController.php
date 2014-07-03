@@ -69,22 +69,31 @@ class PagodeprestamosController extends AppController {
             return $fecha;
             
         }
-        public function montodeudas($montopagado,$id,$pago_id,$dias){
-            /*busco la deuda actual en la tabla prestamo*/
+        public function montodeudas($pagodeprestamos_id,$id,$montopagado,$dias,$fecha){
+            /*vamos a modificar la tabla prestamo*/
             $sql="select * from prestamo where id=".$id;
-            $prestamo=$this->Pagodeprestamo->query($sql);
-            $prestamo=$prestamo[0];
-            /*resto la deuda actual, con el monto de cuotas pagados*/
-            $montototal=$prestamo['prestamo']['montodeuda']-$montopagado;
-            
-            /*modifico la tabla prestamo con el nuevo monto que debe*/
-            $sql="update prestamo set montodeuda=".$montototal.",diaspagados=".$dias." where id=".$id;
+            $prestamo=  $this->Pagodeprestamo->query($sql);
+            $dif=$prestamo[0]['prestamo']['diascalculados']-($prestamo[0]['prestamo']['diaspagados']+$dias);
+            if($dif>0){
+                $sql="update prestamo set diaspagados=".($prestamo[0]['prestamo']['diaspagados']+$dias).", montodeuda=".($prestamo[0]['prestamo']['montodeuda']-$montopagado)." where id=".$id;
+                $this->Pagodeprestamo->query($sql);
+            }  else {
+                if($dif<0){
+                    $this->Session->setFlash(__('no puedes pagar mas intereses de lo que le queda, revisa de nuevo'));
+                    return $this->redirect(array('action' => 'index'));
+                }else{
+                    if($dif==0){
+                        $sql="update prestamo set diaspagados=".($prestamo[0]['prestamo']['diaspagados']+$dias).", montodeuda=".($prestamo[0]['prestamo']['montodeuda']-$montopagado)." where id=".$id;
+                        $this->Pagodeprestamo->query($sql);
+                        
+                    }
+                }
+            }
+            /*ahora modificamos las transacciones*/
+            $sql="insert into transaccionprestamointeres (prestamo_id, fecha, montodeuda, pagodeprestamo_id) values(".$id.",'".$fecha."',".($prestamo[0]['prestamo']['montodeuda']-$montopagado).",".$pagodeprestamos_id.")";
             $this->Pagodeprestamo->query($sql);
-            /*hago insercion en el monto nuevo*/
-            $sql="insert into transaccionprestamointeres(prestamo_id, montointeres,fecha,montodeuda,pagodeprestamo_id) values(".$id.",".$montopagado.",now(),".$montototal.",".$pago_id.")";
-            $this->Pagodeprestamo->query($sql);
-            
-            /*ahora guardo un nuevo pago en la tabla transaccionprestamointeres con la nueva deuda*/
+            $this->Session->setFlash(__('El pago de prestamo ha sido Guardado'));
+            return $this->redirect(array('action' => 'index'));
             
         }
         
@@ -102,12 +111,11 @@ class PagodeprestamosController extends AppController {
                         
 			if ($this->Pagodeprestamo->save($this->request->data)) {
                                 $pagodeprestamos_id=  $this->Pagodeprestamo->getLastInsertID();
-                                $this->montodeudas($montopagado, $id, $pagodeprestamos_id,$dias);
+                                $this->montodeudas($pagodeprestamos_id,$id,$montopagado,$dias,$fecha);
 
-				$this->Session->setFlash(__('The pagodeprestamo has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				
 			} else {
-				$this->Session->setFlash(__('The pagodeprestamo could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('El pago del prestamo no ha sido procesado, Revisa de nuevo.'));
 			}
 		}
 
@@ -117,19 +125,30 @@ class PagodeprestamosController extends AppController {
 		$tipopagos = $this->Pagodeprestamo->Tipopago->find('list');
                 
 		$users = $this->Pagodeprestamo->User->find('list');
-                $sql="select fechaini,montocuota  from cuotas where prestamo_id=".$id;
-                $cuotas= $this->Pagodeprestamo->query($sql);
-                $fecha=date("Y-m-d");
-                $valor=$this->diferenciaFechas($cuotas[0]['cuotas']['fechaini'],$fecha);
-                $cuotas=$cuotas[0]['cuotas']['montocuota'];
-                $cuotas=$cuotas*$valor;
+                /*selecciono la fecha de la ultima transacción*/
+                $sql="select * from transaccionprestamointeres where prestamo_id=".$id;
+                $transacciones=$this->Pagodeprestamo->query($sql);
+                $x=count($transacciones);
+                $transacciones=$transacciones[$x-1]['transaccionprestamointeres'];
+                $nuevafecha=$transacciones['fecha'];
+                $fecha=$hoy=date('Y-m-d');
+                /*saco un valor de diferencia de la fecha de transaccion y la fecha de hoy*/
+                $valor=  $this->diferenciaFechas($nuevafecha, $hoy);
+                /*busco el monto de la cuota diaria que se paga*/
+                $sql="select * from cuotas where prestamo_id=".$id;
+                $cuotas=  $this->Pagodeprestamo->query($sql);
+                $x=count($cuotas);
+                $cuotas=$cuotas[$x-1]['cuotas'];
+                /*multiplico su monto de cuotas por la diferecia de la fecha de transaccion menos la fecha de hoy*/
+                $cuotas=$cuotas['montocuota']*$valor;
+                
                 $x=$this->Pagodeprestamo->query("select id, username from users where id=".$this->Auth->user('id')."");
                 $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
 		#$prestamos = $this->Pagodeprestamo->Prestamo->find('list');
 		$this->set(compact('tipopagos', 'users', 'prestamos','cuotas','fecha','valor'));
 
 	}
-
+        
 /**
  * edit method
  *

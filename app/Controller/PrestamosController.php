@@ -20,7 +20,18 @@ class PrestamosController extends AppController {
  *
  * @return void
  */
-	public function index() {
+        public function diasnopagados(){
+            /*seleccionamos la fecha de las transacciones*/
+            $sql="select * from transaccionprestamointeres";
+            $transacciones=$this->Prestamo->query($sql);
+            $transacciones=$transacciones[0];
+            /*seleccionamos la fecha fin de prestamos*/
+            $sql="select * from prestamos";
+            $prestamo=$this->Prestamo->query($sql);
+            $prestamo=$prestamo[0];
+            
+        }
+        public function index() {
 		$this->Prestamo->recursive = 0;
 		$this->set('prestamos', $this->Paginator->paginate());
 	}
@@ -116,6 +127,10 @@ class PrestamosController extends AppController {
                 $dias=$interval->format("%R%a");
                 $dias++;
                 $dias--;
+                if($dias==0){
+                    $dias++;
+                }
+                   
                 return $dias;
         }
         public function montodeuda($valor,$porcentaje){
@@ -138,6 +153,12 @@ class PrestamosController extends AppController {
             return $fecha;
             
         }
+        public function formatofechan($fecha){
+            $fecha=new DateTime($fecha);
+            $fecha=$fecha->format('d-m-Y');
+            return $fecha;
+            
+        }
         public function transaccion($prestamo_id,$montointeres,$montodeuda){
             $sql="insert into transaccionprestamointeres(prestamo_id,montointeres,fecha,montodeuda) values(".$prestamo_id.",".$montointeres.",now(),".$montodeuda.")";
             $this->Prestamo->query($sql);
@@ -157,23 +178,21 @@ class PrestamosController extends AppController {
                         $this->request->data['Prestamo']['fechafin']=$fechafin;
                         /*colocando el monto de la deuda*/
                         $dias=  $this->diferenciaFechas($fechainicio, $fechafin);
-                         $this->request->data['Prestamo']['diascalculados']=$dias;
-                         $this->request->data['Prestamo']['diaspagados']=0;
-                        
+                        $this->request->data['Prestamo']['diascalculados']=$dias;
+                        $this->request->data['Prestamo']['diaspagados']=0;
+                        /*porcentaje*/
                         $porcen=$this->interesesprestamo($this->request->data['Prestamo']['interesprestamo_id']);
                         $ver=$this->montodeuda($this->request->data['Prestamo']['monto'],$porcen);
                         $this->request->data['Prestamo']['montodeuda']=$ver;
                         /*agregando campo en la tabla cuotas*/
-                        
 			if ($this->Prestamo->save($this->request->data)) {
                                 $prestamo_id=$this->Prestamo->getLastInsertID();
                                 $this->cuotas($prestamo_id, $dias, $ver,$fechainicio,$fechafin);
-                                
                                 $this->transaccion($prestamo_id, 0, $ver);
-				$this->Session->setFlash(__('The prestamo has been saved.'));
+				$this->Session->setFlash(__('El prestamo ha sido Guardado con éxito'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The prestamo could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('El prestamo no ha sido Guardado con éxito. Revisa de nuevo a ver que falta'));
 			}
 		}
 		$clientes = $this->Prestamo->Cliente->find('list');
@@ -196,8 +215,15 @@ class PrestamosController extends AppController {
 
 	public function cuotasmodificar($prestamo_id,$dias,$monto,$f1,$f2){
             $montocuotas=($monto/$dias);
-            
+            /*debug($monto);
+            debug($dias);
+            debug($montocuotas);
+            exit(0);*/
             $sql="update cuotas set fechaini='".$f1."',  fechafin='".$f2."',  nrocuotas=".$dias.",  montocuota=".$montocuotas."  where prestamo_id=".$prestamo_id;
+            $this->Prestamo->query($sql);
+        }
+        public function transaccionmodificar($prestamo_id,$montointeres,$montodeuda,$fecha){
+            $sql="update  transaccionprestamointeres set montointeres=".$montointeres.",fecha='".$fecha."',montodeuda=".$montodeuda." where prestamo_id=".$prestamo_id."";
             $this->Prestamo->query($sql);
         }
         public function edit($id = null) {
@@ -221,16 +247,19 @@ class PrestamosController extends AppController {
                         
                         $porcen=$this->interesesprestamo($this->request->data['Prestamo']['interesprestamo_id']);
                         $ver=$this->montodeuda($this->request->data['Prestamo']['monto'],$porcen);
+                        
                         $this->request->data['Prestamo']['montodeuda']=$ver;
                        # debug($this->request->data); exit(0);
 			if ($this->Prestamo->save($this->request->data)) {
 				$prestamo_id=$this->request->data['Prestamo']['id'];
                                 $this->cuotasmodificar($prestamo_id, $dias, $ver, $fechainicio, $fechafin);
-                                $this->Session->setFlash(__('The prestamo has been saved.'));
+                                debug($ver);
+                                $this->transaccionmodificar($prestamo_id, $montointeres=0, $ver,$fechainicio);
+                                $this->Session->setFlash(__('El prestamo ha sido modificado.'));
 
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The prestamo could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('El prestamo no ha sido modificado, Intenta de nuevo.'));
 			}
 		} else {
 			$options = array('conditions' => array('Prestamo.' . $this->Prestamo->primaryKey => $id));
@@ -242,9 +271,15 @@ class PrestamosController extends AppController {
 		$users = $this->Prestamo->User->find('list');
                 $sql="select fechainicio,fechafin from prestamo where id=".$id;
                 $fechas=  $this->Prestamo->query($sql);
-                $fecha2=$fechas[0]['prestamo'];                
+                $fecha2=$fechas[0]['prestamo'];
+                $fechainicio=  $this->formatofechan($fecha2['fechainicio']);
+                $fechafin = $this->formatofechan($fecha2['fechafin']);
                 
-		$this->set(compact('clientes', 'interesprestamos', 'users','fecha2'));
+                $fecha2="";
+                $fecha2=array('fechainicio'=>$fechainicio,'fechafin'=>$fechafin);
+                
+
+        $this->set(compact('clientes', 'interesprestamos', 'users','fecha2'));
 
 	}
 

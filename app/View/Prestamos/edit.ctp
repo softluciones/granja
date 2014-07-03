@@ -1,4 +1,3 @@
-
 <style>
       th{
           background: #ffffff;
@@ -23,7 +22,7 @@
           cursor:pointer;
       }
   </style>
-  
+
   <script language="javascript">
     $(document).ready(function(){
         $("#datepicker").datepicker();
@@ -46,6 +45,7 @@
              });
          
     });
+
     function client(){
                 $('#divcliente').dialog("open");
         }  
@@ -208,76 +208,63 @@
            
 </div>
 <div class="prestamos form">
-<?php echo $this->Form->create('Prestamo'); 
-echo $this->Form->input('id',array('type'=>'hidden'));
-?>
+<?php echo $this->Form->create('Prestamo'); ?>
 	<fieldset>
-		
+		<legend><?php echo __('Add Prestamo'); ?></legend>
                 <table>
                     <thead>
-                        <th colspan="3" style="background:#07add5; height: 50px; font-size: 20px;">
-                        <div align="center" style="color:#ffffff;"> Editar Prestamo </div>
+                        <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
+                        <div align="center" style="color:#000;"> Agregar Nuevo Prestamo </div>
                         </th>
                     </thead>
                     <tr>
                         <td><?php  echo "<div style='float:left;width:50%' >";?>
-            
-                    <div id="listacliente">
-                         <?php echo $this->Form->input('cliente_id',array('div'=>null));
-                         echo " ";
-                         echo $this->Html->image("anade.fw.png", array("id"=>"cliente","alt" => "Agregar Cliente",'width' => '20', 'heigth' => '20','title'=>'Agregar Cheque','onClick' => "client();"));
-                         echo "</div>";                       
-                        ?>
-                    </div></td>
-                        <td><?php echo $this->Form->input('monto'); ?></td>
+                        <div id="listacliente">
+                             <?php echo $this->Form->input('cliente_id',array('label'=>'Cliente','div'=>null));
+                             echo " ";
+                             echo $this->Html->image("anade.fw.png", array("id"=>"cliente","alt" => "Agregar Cliente",'width' => '20', 'heigth' => '20','title'=>'Agregar Cheque','onClick' => "client();"));
+                             echo "</div>";                       
+                            ?>
+                        </div></td>
+                        <td><?php echo $this->Form->input('monto'); ?><?php echo $this->Form->input('id',array('type','hidden')); ?></td>
                         <td>          
-                        
-                                    <div id="listainteres">
-                                    <?php 
-                                      echo $this->Form->input('interesprestamo_id',array('label'=>'Interes','div'=>null)); 
-                                        echo " ";
-                                       echo $this->Html->image("anade.fw.png", array("id"=>"binteres","alt" => "Agregar Interes",'width' => '20', 'heigth' => '20','title'=>'Agregar Interes','onClick' => "interes();"));
-                                     echo "</div>";  
-                                      ?>
+                      <div id="listainteres">
+                      <?php 
+                        echo $this->Form->input('interesprestamo_id',array('label'=>'Interes','div'=>null)); 
+                          echo " ";
+                         echo $this->Html->image("anade.fw.png", array("id"=>"binteres","alt" => "Agregar Interes",'width' => '20', 'heigth' => '20','title'=>'Agregar Interes','onClick' => "interes();"));
+                       echo "</div>";  
+                        ?>
                         </td>
                     </tr>
-                    <tr>
-                        <?php 
-                        $fecha2['fechainicio']=new DateTime($fecha2['fechainicio']);
-                        $fecha2['fechainicio']=$fecha2['fechainicio']->format("d-m-Y");
-                        $fecha2['fechafin']=new DateTime($fecha2['fechafin']);
-                        $fecha2['fechafin']=$fecha2['fechafin']->format('d-m-Y');
-                         ?>
-                        <td><?php echo $this->Form->input('fechainicio',array('value'=>$fecha2['fechainicio'],'label'=>'Fecha Inicio','id'=>'datepicker','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly')); ?></td>
-            <td><?php echo $this->Form->input('fechafin',array('value'=>$fecha2['fechafin'],'label'=>'Fecha Fin','id'=>'datepicker1','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly')); ?></td>
-                        <td></td>
+                    <tr><?php $aux=$fecha2['fechainicio'];$aux2=$fecha2['fechafin'];
+                    
+                    ?>
+                        <td><?php echo $this->Form->input('fechainicio',array('value'=>$aux,'label'=>'Fecha Inicio','id'=>'datepicker','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly')); ?></td>
+                        <td><?php echo $this->Form->input('fechafin',array('value'=>$aux2,'label'=>'Fecha Fin','id'=>'datepicker1','type'=>'text','style'=>'width:50%;','placeholder'=>'Haz Click aquí','readonly'=>'readonly')); ?></td>
+                        <td><?php echo $this->Form->input('montodeuda',array('type'=>'hidden')); ?></td>
                     </tr>
                     <tr>
                         <td><?php echo $this->Form->input('user_id'); ?></td>
-                        <td><?php echo $this->Form->end(__('Editar')); ?></td>
+                        <td><?php echo $this->Form->end(__('Guardando')); ?></td>
                         <td></td>
                     </tr>
-                </table>        
+                </table>
 	<?php
-		
-		
-		
 	?>
 	</fieldset>
-
+<?php  ?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-
-		<li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Prestamo.id')), null, __('Seguro de borrar el prestamo # %s?', $this->Form->value('Prestamo.id'))); ?></li>
+		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Prestamo.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Prestamo.id'))); ?></li>
 		<li><?php echo $this->Html->link(__('List Prestamos'), array('action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Interesprestamos'), array('controller' => 'interesprestamos', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Interesprestamo'), array('controller' => 'interesprestamos', 'action' => 'add')); ?> </li>
-
 		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Cuotas'), array('controller' => 'cuotas', 'action' => 'index')); ?> </li>
