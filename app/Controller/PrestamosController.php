@@ -133,11 +133,14 @@ class PrestamosController extends AppController {
             $this->Prestamo->query($sql);
         }
         public function formatofecha($fecha){
-            
             $fecha=new DateTime($fecha);
             $fecha=$fecha->format('Y-m-d');
             return $fecha;
             
+        }
+        public function transaccion($prestamo_id,$montointeres,$montodeuda){
+            $sql="insert into transaccionprestamointeres(prestamo_id,montointeres,fecha,montodeuda) values(".$prestamo_id.",".$montointeres.",now(),".$montodeuda.")";
+            $this->Prestamo->query($sql);
         }
 
         public function add() {
@@ -165,7 +168,8 @@ class PrestamosController extends AppController {
 			if ($this->Prestamo->save($this->request->data)) {
                                 $prestamo_id=$this->Prestamo->getLastInsertID();
                                 $this->cuotas($prestamo_id, $dias, $ver,$fechainicio,$fechafin);
-
+                                
+                                $this->transaccion($prestamo_id, 0, $ver);
 				$this->Session->setFlash(__('The prestamo has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {

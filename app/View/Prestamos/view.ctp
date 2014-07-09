@@ -1,128 +1,77 @@
 <div class="prestamos view">
-<h2><?php echo __('Prestamo'); ?></h2>
+
 
 <table>
+    <thead>
+            <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
+                <div align="center" style="color:#fff;"> Prestamo N°: <?php echo h($prestamo['Prestamo']['id']); ?> </div>
+            </th>
+    </thead>
     <tr>
         <td><?php echo __('Codigo del Prestamo:')." ".h($prestamo['Prestamo']['id']); ?></td>
         <td><?php echo __('Cliente:')." ".$this->Html->link($prestamo['Cliente']['nombre'], array('controller' => 'clientes', 'action' => 'view', $prestamo['Cliente']['id'])); ?></td>
         <td><?php echo __('Monto:')." ".h($prestamo['Prestamo']['monto']); ?></td>
     </tr>
     <tr>
-        <td></td>
+        <td><?php echo __('Fechainicio:')." ".h($prestamo['Prestamo']['fechainicio']); ?></td>
         <td><?php echo __('Fechafin:')." ".h($prestamo['Prestamo']['fechafin']); ?></td>
+        <td><?php echo __('Montodeuda:')." ".h($prestamo['Prestamo']['montodeuda']);; ?></td>
+    </tr>
+    <tr>
+        <td><?php echo __('Dias Calculados:')." ".h($prestamo['Prestamo']['diascalculados']); ?></td>
+        <td><?php echo __('Dias Pagados:')." ".h($prestamo['Prestamo']['diaspagados']); ?></td>
         <td></td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
+        <td><?php echo __('Interesprestamo:')." ".$this->Html->link($prestamo['Interesprestamo']['valor'], array('controller' => 'interesprestamos', 'action' => 'view', $prestamo['Interesprestamo']['id']));; ?></td>
+        <td><?php echo __('Registrado por:')." ".$this->Html->link($prestamo['User']['username'], array('controller' => 'users', 'action' => 'view', $prestamo['User']['id'])); ?></td>
         <td></td>
     </tr>
+    
 </table>
 <br><br>
-<br><br>
-<br><br>
-        <dl>
-	
-		
-		<dt></dt>
-		<dd>
-			<?php  ?>
-
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Fechainicio'); ?></dt>
-		<dd>
-			<?php echo h($prestamo['Prestamo']['fechainicio']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Montodeuda'); ?></dt>
-		<dd>
-			<?php echo h($prestamo['Prestamo']['montodeuda']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Interesprestamo'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($prestamo['Interesprestamo']['id'], array('controller' => 'interesprestamos', 'action' => 'view', $prestamo['Interesprestamo']['id'])); ?>
-			&nbsp;
-		</dd>
-
-		<dt><?php echo __('Aprobarprestamo'); ?></dt>
-		<dd>
-			<?php echo h($prestamo['Prestamo']['aprobarprestamo']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('User'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($prestamo['User']['username'], array('controller' => 'users', 'action' => 'view', $prestamo['User']['id'])); ?>
-			&nbsp;
-		</dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Prestamo'), array('action' => 'edit', $prestamo['Prestamo']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Prestamo'), array('action' => 'delete', $prestamo['Prestamo']['id']), null, __('Are you sure you want to delete # %s?', $prestamo['Prestamo']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Prestamos'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Prestamo'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Interesprestamos'), array('controller' => 'interesprestamos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Interesprestamo'), array('controller' => 'interesprestamos', 'action' => 'add')); ?> </li>
-
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cuotas'), array('controller' => 'cuotas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cuota'), array('controller' => 'cuotas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Garantias'), array('controller' => 'garantias', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Garantia'), array('controller' => 'garantias', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Gestiondecobranzaprestamos'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Gestiondecobranzaprestamo'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Transaccionprestamointeres'), array('controller' => 'transaccionprestamointeres', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Transaccionprestamointere'), array('controller' => 'transaccionprestamointeres', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
 <div class="related">
-	<h3><?php echo __('Related Cuotas'); ?></h3>
+	<h3></h3>
 	<?php if (!empty($prestamo['Cuota'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
+        <thead>
+            <th colspan="4" style="background:#cccccc; height: 50px; font-size: 20px;">
+                <div align="center" style="color:#fff;"> Cuotas a pagar diarias </div>
+            </th>
+        </thead>    
 	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Fechaini'); ?></th>
-		<th><?php echo __('Fechafin'); ?></th>
-		<th><?php echo __('Nrocuotas'); ?></th>
-		<th><?php echo __('Montocuota'); ?></th>
-		<th><?php echo __('Prestamo Id'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
+		
+		<th><?php echo __('Fecha inicio'); ?></th>
+		<th><?php echo __('Fecha fin'); ?></th>
+		<th><?php echo __('Nro cuotas'); ?></th>
+		<th><?php echo __('Monto cuota diaria'); ?></th>
+		
+		
 	</tr>
 	<?php foreach ($prestamo['Cuota'] as $cuota): ?>
 		<tr>
-			<td><?php echo $cuota['id']; ?></td>
+		
 			<td><?php echo $cuota['fechaini']; ?></td>
 			<td><?php echo $cuota['fechafin']; ?></td>
 			<td><?php echo $cuota['nrocuotas']; ?></td>
 			<td><?php echo $cuota['montocuota']; ?></td>
-			<td><?php echo $cuota['prestamo_id']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'cuotas', 'action' => 'view', $cuota['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'cuotas', 'action' => 'edit', $cuota['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'cuotas', 'action' => 'delete', $cuota['id']), null, __('Are you sure you want to delete # %s?', $cuota['id'])); ?>
-			</td>
+			
+			
 		</tr>
 	<?php endforeach; ?>
+                <tr>
+                    <th colspan="4">
+                    <div class="actions">
+                        <ul>
+                            <li><?php echo $this->Html->link(__('New Cuota'), array('controller' => 'cuotas', 'action' => 'add')); ?> </li>
+                        </ul>
+                    </div> </th>
+                    
+                </tr>
 	</table>
 <?php endif; ?>
 
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Cuota'), array('controller' => 'cuotas', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
+	
 </div>
 <div class="related">
 	<h3><?php echo __('Related Garantias'); ?></h3>
@@ -234,3 +183,30 @@
 		</ul>
 	</div>
 </div>
+       
+</div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('Edit Prestamo'), array('action' => 'edit', $prestamo['Prestamo']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete Prestamo'), array('action' => 'delete', $prestamo['Prestamo']['id']), null, __('Are you sure you want to delete # %s?', $prestamo['Prestamo']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List Prestamos'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Prestamo'), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Interesprestamos'), array('controller' => 'interesprestamos', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Interesprestamo'), array('controller' => 'interesprestamos', 'action' => 'add')); ?> </li>
+
+		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Cuotas'), array('controller' => 'cuotas', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Cuota'), array('controller' => 'cuotas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Garantias'), array('controller' => 'garantias', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Garantia'), array('controller' => 'garantias', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Gestiondecobranzaprestamos'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Gestiondecobranzaprestamo'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Transaccionprestamointeres'), array('controller' => 'transaccionprestamointeres', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Transaccionprestamointere'), array('controller' => 'transaccionprestamointeres', 'action' => 'add')); ?> </li>
+	</ul>
+</div>
+

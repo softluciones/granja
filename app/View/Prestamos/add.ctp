@@ -208,7 +208,7 @@
            
 </div>
 <div class="prestamos form">
-<?php echo $this->Form->create('Prestamo'); ?>
+
 	<fieldset>
 	
         <table>
