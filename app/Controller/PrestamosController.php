@@ -45,7 +45,8 @@ class PrestamosController extends AppController {
  */
 
 	public function view($id = null) {
-		if (!$this->Prestamo->exists($id)) {
+		$this->Prestamo->recursive = 2;
+                if (!$this->Prestamo->exists($id)) {
 			throw new NotFoundException(__('Invalid prestamo'));
 		}
 		$options = array('conditions' => array('Prestamo.' . $this->Prestamo->primaryKey => $id));
