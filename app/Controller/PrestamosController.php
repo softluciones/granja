@@ -26,7 +26,7 @@ class PrestamosController extends AppController {
             $fecha = date_create($fecha);
             date_add($fecha, date_interval_create_from_date_string($numerodecuotas.' days'));
             $fecha=new DateTime($fecha);
-            $fecha=$fecha->format('Y-m-d')            ; 
+            $fecha=$fecha->format('Y-m-d'); 
             exit(0);
         }
                 
@@ -62,6 +62,18 @@ class PrestamosController extends AppController {
             $sql="insert into prestamo (cliente_id, monto, fechainicio, fechafin, montodeuda,interesprestamo_id, diascalculados, diaspagados,user_id) "
                     . "values(".$prestamo['prestamo']['cliente_id'].",".$montodeuda.",'".date('Y-m-d')."',DATE_ADD('".date('Y-m-d')."', INTERVAL ".$numerodecuotas." DAY),$nuevadeuda,".$prestamointeres['interesprestamo']['id'].",".$numerodecuotas.",0,".$this->Auth->user('id').")";
             $this->Prestamo->query($sql);
+            
+            $sql="select * from prestamo";
+            $prestamo=$this->Prestamo->query($sql);
+            debug($prestamo);
+            $prestamo=$prestamo[$x-1];
+            $fechainicio=$prestamo['prestamo']['fechainicio'];
+            $fechafin=$prestamo['prestamo']['fechafin'];
+            $dias=  $this->diferenciaFechas($fechainicio, $fechafin);
+            $this->request->data['Prestamo']['diascalculados']=$dias;
+            $this->request->data['Prestamo']['diaspagados']=0;
+            
+            
             return $this->redirect(array('action' => 'index'));
             
         }
@@ -165,8 +177,7 @@ class PrestamosController extends AppController {
                 $dias--;
                 if($dias==0){
                     $dias++;
-                }
-                   
+                }        
                 return $dias;
         }
         public function montodeuda($valor,$porcentaje){
@@ -214,6 +225,21 @@ class PrestamosController extends AppController {
                         $this->request->data['Prestamo']['fechafin']=$fechafin;
                         /*colocando el monto de la deuda*/
                         $dias=  $this->diferenciaFechas($fechainicio, $fechafin);
+                        if($dias>30&&$dias<32){
+                            $x[0]=$fechafin[8];
+                            $x[1]=$fechafin[9];
+                            if($x[1]==0){
+                                $x[1]=9;
+                                $x[0]=$x[0]-1;
+                                $fechafin[8]=$x[0];
+                                $fechafin[9]=$x[1];
+                            }else{
+                                $x[1]=$x[1]-1;
+                                $fechafin[9]=$x[1];
+                            }
+                            $dias=$this->diferenciaFechas($fechainicio, $fechafin);
+                        }
+                        $this->request->data['Prestamo']['fechafin']=$fechafin;
                         $this->request->data['Prestamo']['diascalculados']=$dias;
                         $this->request->data['Prestamo']['diaspagados']=0;
                         /*porcentaje*/
