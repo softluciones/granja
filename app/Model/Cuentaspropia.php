@@ -20,7 +20,9 @@ class Cuentaspropia extends AppModel {
  * @var string
  */
 	public $displayField = 'nrocuenta';
-
+public $virtualFields = array(
+    'montos' => 'CONCAT(Cuentaspropia.nrocuenta, " / ", Cuentaspropia.montoencuenta," Bs.")'
+);
 /**
  * Validation rules
  *
@@ -29,12 +31,9 @@ class Cuentaspropia extends AppModel {
 	public $validate = array(
 		'nrocuenta' => array(
 			'between' => array(
-				'rule' => array('between'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'rule' => array('between', 20, 20),
+                                'message' => 'Nro de Cuenta debe contener 20 números'
+				
 			),
 		),
 	);

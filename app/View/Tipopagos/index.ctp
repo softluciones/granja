@@ -82,10 +82,4 @@ li.menu{
              </div>
      </div>
 </div>
-<br></br>
-<div class="actions">
-	
-	<ul>
-            <li class="menu"><?php echo $this->Html->link(__('Nuevo'), array('action' => 'add')); ?></li>
-		</ul>
-</div>
+

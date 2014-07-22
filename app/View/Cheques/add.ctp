@@ -46,6 +46,25 @@
                 title:'AGREGAR INTERES',
                 autoOpen:false
              });
+             
+         
+ 
+ 
+ 
+         $('#bancos').change(function(){
+          var selected = $(this).val();
+     
+          if(selected!=null){
+          $.ajax({
+               type: "GET",
+                     
+                     url: "getcodigo/"+selected,
+                     success: function(msg){
+                        $('#cuenta').html(msg);
+                    }
+        });
+          }
+});
          
     });
     function client(){
@@ -243,7 +262,7 @@
                     <thead>
        
                  <th colspan="3" style="background:#cccccc; height: 50px; font-size: 20px;">
-         <div align="center" style="color:#fff;"> Agregar Cheque </div>
+         <div align="center" style="color:#000;"> Agregar Cheque </div>
           </th>
             
          </thead>
@@ -251,7 +270,7 @@
                <?php  echo "<div style='float:left;width:40%' >";?>
                 <th colspan="3">
                     <div id="listacliente">
-                         <?php echo $this->Form->input('cliente_id',array('label'=>'Cliente','div'=>null));
+                         <?php echo $this->Form->input('cliente_id',array('label'=>'Cliente','div'=>null,'empty'=>'Seleccione'));
                          echo " ";
                          echo $this->Html->image("anade.fw.png", array("id"=>"cliente","alt" => "Agregar Cliente",'width' => '20', 'heigth' => '20','title'=>'Agregar Cheque','onClick' => "client();"));
                          echo "</div>";                       
@@ -261,9 +280,14 @@
                 </th>
                     </tr>
                     <tr>
-                        <th><?php echo $this->Form->input('banco_id'); ?></th>
-                        <th><?php echo $this->Form->input('numerodecuenta',array('label'=>'Nro. de Cuenta')); ?></th>
-                        <th><?php echo $this->Form->input('numerodecheque',array('label'=>'Nro. de Cheque')); ?></th>
+                        <th><?php echo $this->Form->input('banco_id', array('id'=>'bancos','empty'=>'Seleccione')); ?></th>
+                        <th><?php 
+                        echo '<div id="cuenta">';
+                        echo $this->Form->input('numerodecuenta',array('id'=>'nrocuenta','label'=>'Nro. de Cuenta','maxlength'=>'20'));
+                        echo '</div>';
+                        ?></th>
+                        
+                        <th><?php echo $this->Form->input('numerodecheque',array('label'=>'Nro. de Cheque','maxlength'=>'15')); ?></th>
                     </tr>
                     <tr>
                         <th><?php echo $this->Form->input('monto'); ?></th>
@@ -271,7 +295,7 @@
                         
                       <div id="listainteres">
                       <?php 
-                        echo $this->Form->input('interese_id',array('label'=>'Interes','div'=>null)); 
+                        echo $this->Form->input('interese_id',array('label'=>'Interes','div'=>null,'empty'=>'Seleccione')); 
                           echo " ";
                          echo $this->Html->image("anade.fw.png", array("id"=>"binteres","alt" => "Agregar Interes",'width' => '20', 'heigth' => '20','title'=>'Agregar Interes','onClick' => "interes();"));
                        echo "</div>";  

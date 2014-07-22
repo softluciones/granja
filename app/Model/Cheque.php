@@ -43,44 +43,47 @@ class Cheque extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
-		'cliente_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
+                    'notempty' => array(
+				'rule' => array('notempty'),
+                             
+				'message' => 'Seleccione Banco',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+		),
+		'cliente_id' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+                    'notempty' => array(
+				'rule' => array('notempty'),
+                             
+				'message' => 'Seleccione Cliente',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+                    
 		),
 		'numerodecuenta' => array(
                     'between' => array(
                                 'rule'    => array('between', 20, 20),
                                 'message' => 'Nro de Cuenta debe contener 20 números'
                                 ),
-			'notempty' => array(
-				'rule' => array('notempty'),
-                             
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+			
                     
                     
                     
 		),
 		'numerodecheque' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
                     'unique' => array(
 				'rule' => array('isUnique'),
 				'message' => 'Número de cheque ya fue registrado, ingrese otro',
@@ -104,6 +107,15 @@ class Cheque extends AppModel {
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+                    'notempty' => array(
+				'rule' => array('notempty'),
+                             
+				'message' => 'Seleccione Interes',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
