@@ -125,6 +125,17 @@ $("#datepicker").datepicker();
             </ul>
              
          </li>
+          <li class='has-sub'><a href='#'><span>Caja</span></a>
+            <ul>
+               
+               <li><?php echo $this->Html->link("Cierre de Caja", array('controller'=>'cuentaspropias','action' => 'add'), array('escape' => false));?></li>
+               <li><?php echo $this->Html->link("Deposito de Caja en Banco", array('controller'=>'cuentaspropias','action' => 'index'), array('escape' => false));?></li>
+               <li><?php echo $this->Html->link("Entrada de dinero", array('controller'=>'cuentaspropias','action' => 'index'), array('escape' => false));?></li>
+            
+               
+            </ul>
+             
+         </li>
          <li><?php echo $this->Html->link("Inventario", array('controller'=>'cheques','action' => 'index'), array('escape' => false));?></li>
           <li class='has-sub'><a href='#'><span>Reportes Capital</span></a>
             <ul>
