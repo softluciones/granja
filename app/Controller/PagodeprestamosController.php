@@ -129,7 +129,11 @@ class PagodeprestamosController extends AppController {
                 $sql="select * from transaccionprestamointeres where prestamo_id=".$id;
                 $transacciones=$this->Pagodeprestamo->query($sql);
                 $x=count($transacciones);
+                if($x!=0)
                 $transacciones=$transacciones[$x-1]['transaccionprestamointeres'];
+                else{
+                    $transacciones=$transacciones[0]['transaccionprestamointeres'];
+                }
                 $nuevafecha=$transacciones['fecha'];
                 $fecha=$hoy=date('Y-m-d');
                 /*saco un valor de diferencia de la fecha de transaccion y la fecha de hoy*/
@@ -138,7 +142,12 @@ class PagodeprestamosController extends AppController {
                 $sql="select * from cuotas where prestamo_id=".$id;
                 $cuotas=  $this->Pagodeprestamo->query($sql);
                 $x=count($cuotas);
+                if($x!=0)
                 $cuotas=$cuotas[$x-1]['cuotas'];
+                else{
+                    $cuotas=$cuotas[0]['cuotas'];
+                }
+                
                 /*multiplico su monto de cuotas por la diferecia de la fecha de transaccion menos la fecha de hoy*/
                 $cuotas=$cuotas['montocuota']*$valor;
                 

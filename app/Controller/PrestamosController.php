@@ -20,19 +20,54 @@ class PrestamosController extends AppController {
  *
  * @return void
  */
-        public function diasnopagados(){
-            /*seleccionamos la fecha de las transacciones*/
-            $sql="select * from transaccionprestamointeres";
-            $transacciones=$this->Prestamo->query($sql);
-            $transacciones=$transacciones[0];
-            /*seleccionamos la fecha fin de prestamos*/
-            $sql="select * from prestamos";
+        
+        public function sumar($fecha,$numerodecuotas){
+
+            $fecha = date_create($fecha);
+            date_add($fecha, date_interval_create_from_date_string($numerodecuotas.' days'));
+            $fecha=new DateTime($fecha);
+            $fecha=$fecha->format('Y-m-d')            ; 
+            exit(0);
+        }
+                
+        public function refinanciamiento($id){
+            /*vamos a calcular las cuotas que debe*, para ello, hacemos una consulta sql a la tabla prestamo*/
+            $sql="select *,date_format(now(),'%Y-%m-%d') fecha from prestamo where id=".$id;
             $prestamo=$this->Prestamo->query($sql);
             $prestamo=$prestamo[0];
+            #debug($prestamo);
+            /*ahora calculamos cuanto nos debe el cliente*/
+            $cuotaquedebe=$prestamo['prestamo']['diascalculados']-$prestamo['prestamo']['diaspagados'];
+            #debug($cuotaquedebe);
+            /*consulto la tabla cuotas para ver cual es su cuota*/
+            $sql="select * from cuotas where prestamo_id=".$prestamo['prestamo']['id'];
+            $cuotas=  $this->Prestamo->query($sql);
+            $cuotas=$cuotas[0];
+            $montodeuda=$cuotaquedebe*$cuotas['cuotas']['montocuota'];
+            #debug($montodeuda);
+            /*ahora calculo los intereses de retrasos*/
+            $sql="select * from interesprestamo where id=".$prestamo['prestamo']['interesprestamo_id'];
+            $prestamointeres=  $this->Prestamo->query($sql);
+            $prestamointeres=$prestamointeres[0];
+            $interesderetraso=$montodeuda*($prestamointeres['interesprestamo']['valor']/100);
+            /*ahora calculamos la nueva deuda con intereses*/
+            $nuevadeuda=$montodeuda+$interesderetraso;
+            #debug($nuevadeuda);
+            $numerodecuotas=$nuevadeuda/$cuotas['cuotas']['montocuota'];
+             #debug($numerodecuotas);
+            $fecha=date('Y-m-d');
+            #$this->sumar($fecha,$numerodecuotas);
+            
+            /*nuevo prestamo en insercion*/
+            $sql="insert into prestamo (cliente_id, monto, fechainicio, fechafin, montodeuda,interesprestamo_id, diascalculados, diaspagados,user_id) "
+                    . "values(".$prestamo['prestamo']['cliente_id'].",".$montodeuda.",'".date('Y-m-d')."',DATE_ADD('".date('Y-m-d')."', INTERVAL ".$numerodecuotas." DAY),$nuevadeuda,".$prestamointeres['interesprestamo']['id'].",".$numerodecuotas.",0,".$this->Auth->user('id').")";
+            $this->Prestamo->query($sql);
+            return $this->redirect(array('action' => 'index'));
             
         }
         public function index() {
-		$this->Prestamo->recursive = 0;
+            #$this->refinanciamiento();
+                $this->Prestamo->recursive = 0;
 		$this->set('prestamos', $this->Paginator->paginate());
 	}
 
