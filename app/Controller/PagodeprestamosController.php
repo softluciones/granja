@@ -59,7 +59,6 @@ class PagodeprestamosController extends AppController {
                 $interval = date_diff($datetime1, $datetime2);
                 $dias=$interval->format("%R%a");
                 $dias++;
-                $dias--;
                 return $dias;
         }
         public function formatofecha($fecha){

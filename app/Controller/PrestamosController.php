@@ -20,16 +20,70 @@ class PrestamosController extends AppController {
  *
  * @return void
  */
-        
-        public function sumar($fecha,$numerodecuotas){
-
-            $fecha = date_create($fecha);
-            date_add($fecha, date_interval_create_from_date_string($numerodecuotas.' days'));
-            $fecha=new DateTime($fecha);
-            $fecha=$fecha->format('Y-m-d'); 
-            exit(0);
-        }
                 
+                        /*intereses*/
+        public function interesesacumulados(){
+            $sql="select * from interesprestamo where tipoprestamo=2";
+            $interesprestamos=  $this->Prestamo->query($sql);
+            #debug($interesprestamos);
+            $totalinteres=count($interesprestamos);
+            
+            for($i=0;$i<$totalinteres;$i++){
+                $sql="select * from prestamo where interesprestamo_id=".$interesprestamos[$i]['interesprestamo']['id'];
+                $prestamo[$i]=  $this->Prestamo->query($sql);
+                
+            }
+            for($i=0;$i<$totalinteres;$i++){
+                $totalprestamo=count($prestamo[$i]);
+                for($j=0;$j<$totalprestamo;$j++){
+                    $sql="select * from cuotas where prestamo_id=".$prestamo[$i][$j]['prestamo']['id'];
+                    $cuotas[$j]=$this->Prestamo->query($sql);
+                }
+            }
+            for($i=0;$i<$totalinteres;$i++){
+                for($j=0;$j<$totalprestamo;$j++){
+                    $sql="select * from transaccionprestamointeres where prestamo_id=".$prestamo[$i][$j]['prestamo']['id'];
+                    $transaccion[$j]=$this->Prestamo->query($sql);
+                }
+            }
+            for($i=0;$i<$totalinteres;$i++){
+                $totalprestamo=count($prestamo[$i]);
+                for($j=0;$j<$totalprestamo;$j++){
+                    $totaltransaccion=count($transaccion[$j]);
+                    $fechahoy=date('Y-m-d');
+                    if(($transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['fechamodificacion']<$fechahoy)&&($totaltransaccion==1)){
+                        $fechamodificacion=$transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['fechamodificacion'];
+                        $dias=$this->diferenciaFechas($fechamodificacion, $fechahoy);
+                        $totalcuotas=count($cuotas[$j]);
+                        $montointereses=$dias*$cuotas[$j][$totalcuotas-1]['cuotas']['montocuota'];
+                        $fecha = $fechamodificacion;
+                        $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
+                        $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+                        $fechamodificacion=$nuevafecha;
+                        if($totaltransaccion==1){
+                            $sql="insert into transaccionprestamointeres(prestamo_id, montointeres, fecha,fechamodificacion, montodeuda) values(".$transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['prestamo_id'].",".$montointereses.",'".$fechamodificacion."','".$fechahoy."',".$transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['montodeuda'].")";
+                            $this->Prestamo->query($sql);
+                        }
+                    }else{
+                        if($transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['fechamodificacion']<$fechahoy){
+                            debug($transaccion[$j][$totaltransaccion-1]);
+                            $fechamodificacion=$transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['fechamodificacion'];
+                            $dias=$this->diferenciaFechas($fechamodificacion, $fechahoy);
+                            debug($dias);
+                            $totalcuotas=count($cuotas[$j]);
+                            debug($cuotas[$j][$totalcuotas-1]);
+                            $montointereses=$transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['montointeres'];
+                            $montointereses=$montointereses+($dias*$cuotas[$j][$totalcuotas-1]['cuotas']['montocuota']);
+                            debug($montointereses);
+                            $id=$transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['id'];
+                            $sql="UPDATE transaccionprestamointeres SET montointeres=".$montointereses.", fechamodificacion='".$fechahoy."' WHERE id=".$id;
+                            $this->Prestamo->query($sql);
+                        }
+                    }
+                }
+            }            
+            
+        }
         public function refinanciamiento($id){
             /*vamos a calcular las cuotas que debe*, para ello, hacemos una consulta sql a la tabla prestamo*/
             $sql="select *,date_format(now(),'%Y-%m-%d') fecha from prestamo where id=".$id;
@@ -72,16 +126,14 @@ class PrestamosController extends AppController {
             $fechafin=$prestamo['prestamo']['fechafin'];
             $dias=  $this->diferenciaFechas($fechainicio, $fechafin);
             $diascalculados=$dias;
-            $diaspagados=0;
-            
+            $diaspagados=0;    
             $this->cuotas($prestamo['prestamo']['id'], $dias, $nuevadeuda,$fechainicio,$fechafin);
             $this->transaccion($prestamo['prestamo']['id'], 0, $nuevadeuda);
-            
             return $this->redirect(array('action' => 'index'));
             
         }
         public function index() {
-            #$this->refinanciamiento();
+                $this->interesesacumulados();
                 $this->Prestamo->recursive = 0;
 		$this->set('prestamos', $this->Paginator->paginate());
 	}
@@ -224,7 +276,7 @@ class PrestamosController extends AppController {
         }
 
         public function transaccion($prestamo_id,$montointeres,$montodeuda){
-            $sql="insert into transaccionprestamointeres(prestamo_id,montointeres,fecha,montodeuda) values(".$prestamo_id.",".$montointeres.",now(),".$montodeuda.")";
+            $sql="insert into transaccionprestamointeres(prestamo_id,montointeres,fecha,montodeuda,fechamodificacion) values(".$prestamo_id.",".$montointeres.",now(),".$montodeuda.",now())";
             $this->Prestamo->query($sql);
         }
 
