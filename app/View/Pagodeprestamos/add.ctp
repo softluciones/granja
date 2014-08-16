@@ -25,7 +25,7 @@
 <div class="pagodeprestamos form">
 <?php echo $this->Form->create('Pagodeprestamo'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Pagodeprestamo'); ?></legend>
+	
 
                 <table>
                     <thead>
@@ -51,7 +51,11 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><?php echo $this->Form->end(__('Guardar Cambios')); ?></td>
+                        <td><?php 
+                        if($cuotas!=0)
+                        echo $this->Form->end(__('Guardar Cambios'));
+                        else
+                            echo "EL CLIENTE YA HA PAGADO EL DIA DE HOY, REGRESE MAÑANA Y PAGA LA CUOTA CORRESPONDIENTE";?></td>
                         <td></td>
                     </tr>
                 </table>
