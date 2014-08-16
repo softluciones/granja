@@ -1,5 +1,5 @@
 <div class="prestamos view">
-<?php foreach ($prestamo['Cuota'] as $cuota): ?>
+
 <table>
     <thead>
        
@@ -39,7 +39,7 @@
             } ?>
     </tr>
 </table>
-    <?php endforeach; ?>
+
 <br><br><br>
 
 <div class="related"> 
@@ -103,7 +103,7 @@
 	</tr>
 	<?php foreach ($prestamo['Gestiondecobranzaprestamo'] as $gestiondecobranzaprestamo): ?>
 		<tr>
-			<td><?php echo $gestiondecobranzaprestamo['Codigo']; ?></td>
+			<td><?php echo $gestiondecobranzaprestamo['id']; ?></td>
 			<td><?php echo $gestiondecobranzaprestamo['created']; ?></td>
 			<td><?php echo $gestiondecobranzaprestamo['descripcion']; ?></td>
 		</tr>
@@ -124,6 +124,7 @@
 	<tr>
 		<th><?php echo __('Registro de transaccion'); ?></th>
 		<th><?php echo __('Monto interes'); ?></th>
+                <th><?php echo __('Dias en intereses'); ?>
 		<th><?php echo __('Fecha inicio acumulación'); ?></th>
                 <th><?php echo __('Fecha Modificación'); ?></th>
 		<th><?php echo __('Monto deuda capital'); ?></th>
@@ -131,11 +132,17 @@
 		<th><?php echo __('Registro de pago #'); ?></th>
 		<th class="actions"><?php #echo __('Actions'); ?></th>
 	</tr>
-	<?php  foreach ($prestamo['Transaccionprestamointere'] as $transaccionprestamointere):                   
+	<?php 
+        if($porcen['tipoprestamo']==2)
+        $i=0;  
+        foreach ($prestamo['Transaccionprestamointere'] as $transaccionprestamointere):                   
             ?>
 		<tr>
 			<td><?php echo $transaccionprestamointere['id']; ?></td>
 			<td><?php echo $transaccionprestamointere['montointeres']; ?></td>
+                        <td><?php 
+                        if($porcen['tipoprestamo']==2)
+                        echo $dia[$i] ?></td>
 			<td><?php echo $transaccionprestamointere['fecha']; ?></td>
                         <td><?php echo $transaccionprestamointere['fechamodificacion']; ?></td>
 			<td><?php echo $transaccionprestamointere['montodeuda']; ?></td>
@@ -149,7 +156,13 @@
 				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'transaccionprestamointeres', 'action' => 'delete', $transaccionprestamointere['id']), null, __('Are you sure you want to delete # %s?', $transaccionprestamointere['id']));*/ ?>
 			</td>
 		</tr>
-	<?php endforeach; ?>
+                
+	<?php 
+        if($porcen['tipoprestamo']==2){
+        $i++;
+        }
+        
+        endforeach; ?>
 	</table>
 <?php endif; ?>
 

@@ -66,15 +66,15 @@ class PrestamosController extends AppController {
                         }
                     }else{
                         if($transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['fechamodificacion']<$fechahoy){
-                            debug($transaccion[$j][$totaltransaccion-1]);
+                #            debug($transaccion[$j][$totaltransaccion-1]);
                             $fechamodificacion=$transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['fechamodificacion'];
                             $dias=$this->diferenciaFechas($fechamodificacion, $fechahoy);
-                            debug($dias);
+                 #           debug($dias);
                             $totalcuotas=count($cuotas[$j]);
-                            debug($cuotas[$j][$totalcuotas-1]);
+                  #          debug($cuotas[$j][$totalcuotas-1]);
                             $montointereses=$transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['montointeres'];
                             $montointereses=$montointereses+($dias*$cuotas[$j][$totalcuotas-1]['cuotas']['montocuota']);
-                            debug($montointereses);
+                   #         debug($montointereses);
                             $id=$transaccion[$j][$totaltransaccion-1]['transaccionprestamointeres']['id'];
                             $sql="UPDATE transaccionprestamointeres SET montointeres=".$montointereses.", fechamodificacion='".$fechahoy."' WHERE id=".$id;
                             $this->Prestamo->query($sql);
@@ -133,9 +133,10 @@ class PrestamosController extends AppController {
             
         }
         public function index() {
-                $this->interesesacumulados();
-                $this->Prestamo->recursive = 0;
+                
+                $this->Prestamo->recursive = 1;
 		$this->set('prestamos', $this->Paginator->paginate());
+                $this->set(compact('intereses'));
 	}
 
 /**
@@ -147,14 +148,42 @@ class PrestamosController extends AppController {
  */
 
 	public function view($id = null) {
-		$this->Prestamo->recursive = 2;
+		
+                $this->Prestamo->recursive = 2;
                 if (!$this->Prestamo->exists($id)) {
-			throw new NotFoundException(__('Invalid prestamo'));
+			throw new NotFoundException(__('Prestamo Invalido'));
 		}
-		$options = array('conditions' => array('Prestamo.' . $this->Prestamo->primaryKey => $id));
-		$this->set('prestamo', $this->Prestamo->find('first', $options));
-	}
+                $sql="select * from prestamo where id=".$id;
+                $prestamoss=  $this->Prestamo->query($sql);
+                $porcen=$this->interesesprestamo($prestamoss[0]['prestamo']['interesprestamo_id']);
+                $sql="select * from cuotas where prestamo_id=".$id;
+                $cuota=  $this->Prestamo->query($sql);
+                $totale=count($cuota);
+                $cuota=$cuota[$totale-1]['cuotas'];
+                if($porcen['tipoprestamo']==2){
+                    $this->interesesacumulados();
+                    $sql="select * from transaccionprestamointeres where prestamo_id=".$id;
+                    $transaccionprestamo=$this->Prestamo->query($sql);
+                    $total=count($transaccionprestamo);
+                    for($i=0;$i<$total;$i++){
+                        $transaccionprestamos=$transaccionprestamo[$i]['transaccionprestamointeres'];
+                        $fecha1=$transaccionprestamos['fecha'];
+                        $fecha2=$transaccionprestamos['fechamodificacion'];
+                        $dias=  $this->diferenciaFechas($fecha1, $fecha2);
+                        if($i!=0)
+                            $dias++;
+                        $dia[$i]=$dias;
 
+                    }
+                    $options = array('conditions' => array('Prestamo.' . $this->Prestamo->primaryKey => $id));
+                    $this->set('prestamo', $this->Prestamo->find('first', $options));
+                    $this->set(compact('dia','porcen','cuota'));
+                }else{
+                    $options = array('conditions' => array('Prestamo.' . $this->Prestamo->primaryKey => $id));
+                    $this->set('prestamo', $this->Prestamo->find('first', $options));
+                    $this->set(compact('porcen','cuota'));
+                }
+	}
 /**
  * add method
  *
@@ -291,7 +320,6 @@ class PrestamosController extends AppController {
                             $fechafin=$this->request->data['Prestamo']['fechafin'];
                             $fechainicio=$this->formatofecha($fechainicio);
                             $fechafin=$this->formatofecha($fechafin);
-
                             $this->request->data['Prestamo']['fechainicio']=$fechainicio;
                             $this->request->data['Prestamo']['fechafin']=$fechafin;
                             /*colocando el monto de la deuda*/
@@ -321,7 +349,6 @@ class PrestamosController extends AppController {
                             $fechafin=$this->request->data['Prestamo']['fechafin'];
                             $fechainicio=$this->formatofecha($fechainicio);
                             $fechafin=$this->formatofecha($fechafin);
-
                             $this->request->data['Prestamo']['fechainicio']=$fechainicio;
                             $this->request->data['Prestamo']['fechafin']=$fechafin;
                             /*colocando el monto de la deuda*/
@@ -345,12 +372,9 @@ class PrestamosController extends AppController {
                             $this->request->data['Prestamo']['diaspagados']=0;
                             $ver=  $this->montodeudafijo($this->request->data['Prestamo']['monto'],$dias,$porcen);
                             $total=$ver;
-                            
                             $ver=$total[1];
                             //$ver=$this->montodeuda($this->request->data['Prestamo']['monto'],$porcen);
                             $this->request->data['Prestamo']['montodeuda']=$ver;
-                            
-                            
                         }
                         /*agregando campo en la tabla cuotas*/
 			if ($this->Prestamo->save($this->request->data)) {
@@ -372,13 +396,11 @@ class PrestamosController extends AppController {
 			}
 		}
 		$clientes = $this->Prestamo->Cliente->find('list');
-
 		$interesprestamos = $this->Prestamo->Interesprestamo->find('list',array('fields'=>array('id','valor'),'order'=>array('id DESC')));
 		$users = $this->Prestamo->User->find('list');
                 $x=$this->Prestamo->query("select id, username from users where id=".$this->Auth->user('id')."");
                 $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
 		$this->set(compact('clientes', 'interesprestamos', 'users'));
-
 	}
 
 /**

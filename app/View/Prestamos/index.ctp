@@ -23,6 +23,7 @@
 	</tr>
 	<?php foreach ($prestamos as $prestamo): ?>
 	<tr>
+            <?php #debug($prestamo); exit(0);?>
             <?php $var=date('Y-m-d');
             #debug($var<$prestamo['Prestamo']['fechafin']&&$prestamo['Prestamo']['diascalculados']>$prestamo['Prestamo']['diaspagados']);
             if($var<$prestamo['Prestamo']['fechafin']&&$prestamo['Prestamo']['diascalculados']>$prestamo['Prestamo']['diaspagados']){
@@ -47,7 +48,10 @@
 			<?php echo $this->Html->link($prestamo['User']['username'], array('controller' => 'users', 'action' => 'view', $prestamo['User']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->image("pagar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Pagar','url' => array('controller'=>'pagodeprestamos','action' => 'add',$prestamo['Prestamo']['id'])));     ?>
+			<?php 
+                            echo $this->Html->image("pagar.fw.png", array("alt" => "Ver",'width' => '18', 'heigth' => '18','title'=>'Pagar','url' => array('controller'=>'pagodeprestamos','action' => 'add'.'/'.$prestamo['Prestamo']['id'],$prestamo['Interesprestamo']['tipoprestamo'])));     
+                        ?>
+                    
                         <?php echo $this->Html->link(__('View'), array('action' => 'view', $prestamo['Prestamo']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $prestamo['Prestamo']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $prestamo['Prestamo']['id']), null, __('Desea borrar el prestamo # %s?', $prestamo['Prestamo']['id'])); ?>
