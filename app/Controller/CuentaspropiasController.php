@@ -15,29 +15,35 @@ class CuentaspropiasController extends AppController {
  * @var array
  */
 	public $components = array('Paginator', 'Session');
-
+     
 /**
  * index method
  *
  * @return void
  */
+        
+        public function getcuentas(){
+             $this->layout='ajax';
+           
+                      $idbanco = $this->params['pass'][0];
+                      $monto = $this->params['pass'][1];
+                      $cuenta = $this->Cuentaspropia->find('list',array(
+                       'fields' => array('Cuentaspropia.montos'), 
+                       'conditions'=>array('AND'=>
+                           array('Cuentaspropia.banco_id'=>$idbanco),
+                           array('Cuentaspropia.montoencuenta >='=>$monto))));
+                                       
+                     
+                     
+                    $this->set(compact('cuenta')); 
+        }
 	public function index() {
 		$this->Cuentaspropia->recursive = 0;
 		$this->set('cuentaspropias', $this->Paginator->paginate());
 	}
         
         
-        public function getcodigo() {
-             if ($this->request->is('ajax')) { 
-              $idEspecie = $this->params['data']['idEspecie'];
-              $razas = $raza->find('all',array(
-               'fields' => array('Raza.id', 'Raza.nombre'), 
-               'conditions'=>array('Raza.id_especie'=>$idEspecie)));
-              $this->RequestHandler->respondAs('json');
-              $this->autoRender = false;      
-              echo json_encode ( $razas );      
-             }
-        }
+       
 
 /**
  * view method
@@ -62,8 +68,10 @@ class CuentaspropiasController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Cuentaspropia->create();
+                        $this->request->data['Cuentaspropia']['nrocuenta']=$this->request->data['numerodecuenta'];
+                       
 			if ($this->Cuentaspropia->save($this->request->data)) {
-				$this->Session->setFlash(__('The cuentaspropia has been saved.'));
+				$this->Session->setFlash(__('Su cuenta ha sido registrada.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The cuentaspropia could not be saved. Please, try again.'));

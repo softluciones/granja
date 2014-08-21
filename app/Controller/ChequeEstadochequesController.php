@@ -72,6 +72,7 @@ class ChequeEstadochequesController extends AppController {
             $cheques=$this->ChequeEstadocheque->Cheque->find('first',array('conditions'=>array('Cheque.id'=>$id)));
             $estado = $cheques['ChequeEstadocheque'][0]['estadocheque_id'];
             $this->request->data['Chequeinterese']['estadocheque']=1;
+              $fechacobro = $cheques['Cheque']['fechacobro'];
              $this->request->data['Chequeinterese']['modificado']= $cheques['Cheque']['fecharecibido'];
             $this->request->data['Chequeinterese']['user_id'] = $this->Auth->user('id');
             $this->request->data['Chequeinterese']['cheque_id'] = $id;
@@ -92,7 +93,12 @@ class ChequeEstadochequesController extends AppController {
             }
             if($estado==2)
             {  //C DEL CLIENTE
-                
+                $this->request->data['Chequeinterese']['montodescuentointeres']=0;
+                $this->request->data['Chequeinterese']['montoentregado']=0;
+                $this->request->data['Chequeinterese']['montocheque']=0;
+               $this->ChequeEstadocheque->Cheque->Chequeinterese->create();
+                $this->request->data['Chequeinterese']['modificado']=$fechacobro;
+                $this->ChequeEstadocheque->Cheque->Chequeinterese->save($this->request->data);
             }
             
             
@@ -106,7 +112,7 @@ class ChequeEstadochequesController extends AppController {
                                 $edocheque = $this->ChequeEstadocheque->getLastInsertID();
                                    $this->chequeinteresesinsert($id,$edocheque);
                                      $this->Session->setFlash(__('El cheque estado del cheque ha sido guardado.'));
-				return $this->redirect(array('controller'=>'cheques','action' => 'index'));
+				return $this->redirect(array('controller'=>'cheques','action' => 'view',$id));
                                      
                                    
                                 

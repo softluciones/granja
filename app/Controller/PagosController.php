@@ -5,7 +5,7 @@ class PagosController extends AppController {
 
 
 	public $components = array('Paginator');
-        public $uses = array('Cheque', 'Pago');
+        public $uses = array('Cheque', 'Pago','Banco');
 
 	public function index() {
 		$this->Pago->recursive = 0;
@@ -201,15 +201,67 @@ class PagosController extends AppController {
                 $dias=$dias+1;
                 return $dias;
          }
-        public function add1($id=null) { //MONTOS ENTREGADOS CUANDO CHEQUE ES R
+         private function descuenta($cuentapropia, $monto, $observacion){
+             $montoencta=$this->Pago->query("SELECT montoencuenta FROM cuentaspropias WHERE id=".$cuentapropia."");
+             $montoencta = $montoencta[0]['cuentaspropias']['montoencuenta'];
+             $montoactual = $montoencta-$monto;
+             $this->Pago->query("INSERT INTO montocuentas (monto, fecha,cuentaspropia_id,observacion) VALUES 
+                 (".$montoactual.",NOW(),".$cuentapropia.",'".$observacion."')");
+             $this->Pago->query("UPDATE cuentaspropias SET montoencuenta=".$montoactual." WHERE id=".$cuentapropia."");
+             
+         }
+         public function add1($id=null) { //MONTOS ENTREGADOS CUANDO CHEQUE ES R
             $this->Pago->recursive = 2;
             $cheq=$this->params['pass'][0]; // id de cheque
             
             
 		if ($this->request->is('post')) 
                 {
+                    $this->request->data['Pago']['cuentaspropia_id']= $this->request->data['Cuentaspropia']['id'];
                     
+                    $datos=$this->request->data; 
+                     
+                    #debug($montoencta);exit(0);
+                  if($this->Pago->save($this->request->data))
+                    {
+                        $usuario = $datos['Pago']['user_id'];
+                        $pagoid=  $this->Pago->getLastInsertID();
+                        $montocheque=0;
+                        $montoentregado = $datos['Pago']['monto'];
+                        $chequeid = $datos['Pago']['cheque_id'];
+                        $montooriginal = $this->Pago->query("SELECT c.monto, i.montofijo, i.porcentaje, c.numerodecheque, 
+                            CONCAT(cl.nombre,' ',cl.apellido) as nombre
+                            FROM cheques as c, intereses as i, clientes as cl WHERE 
+                            c.id='".$chequeid."' AND c.interese_id=i.id AND cl.id=c.cliente_id");
+            
+                        $cliente = $montooriginal[0][0]['nombre'];
+                        $nrocheque=$montooriginal[0]['c']['numerodecheque'];
+                       $porcentaje = $montooriginal[0]['i']['porcentaje'];
+                       $montofijo = $montooriginal[0]['i']['montofijo'];
+                        $montooriginal = $montooriginal[0]['c']['monto'];
+                        $interes=0;
+                        if($montofijo!=null){
+                            $interes = $montofijo;
+                        }
+                        if($porcentaje!=null){
+                            $interes=$montooriginal*$porcentaje/100;
+                        }
+                       
+                        $this->Pago->query("INSERT INTO chequeinterese 
+                            (montocheque, montodescuentointeres, montoentregado, estadocheque,created, modified,
+                            cheque_id, user_id,modificado, pago_id) 
+                            VALUES (".$montocheque.",".$interes.", ".$montoentregado.",1,NOW(),NOW(),".$chequeid.",
+                                ".$usuario.",NOW(),".$pagoid.")");
+                        $observacion = "Se entregó el pago del cheque ".$nrocheque." al cliente ".$cliente." ".$datos['Pago']['conceptode'];
+                        $this->descuenta($datos['Pago']['cuentaspropia_id'],$montoentregado, $observacion);
+                   $this->Session->setFlash(__('El pago ha sido efectuado.'));
+                        return $this->redirect(array('controller'=>'cheques','action' => 'view',$chequeid));
+                } else {
+                        $this->Session->setFlash(__('Algo está mal en esta transacción revisa de nuevo'));
+                }		
                 }
+                
+                
                 
                 $options = array('conditions' => array('Cheque.' . $this->Cheque->primaryKey => $cheq));
                     $cheque1 = $this->Cheque->find('first',$options);
@@ -242,9 +294,9 @@ class PagosController extends AppController {
                                                                             'conditions'=>$conditions));
                  $tipopagos = $this->Pago->Tipopago->find('list');
                   $x=$this->Pago->query("select id, username from users where id=".$this->Auth->user('id')."");
-
+                  $banco = $this->Banco->find('list');
                     $users=array($x[0]['users']['id']=>$x[0]['users']['username']);
-                 $this->set(compact('cheques','tipopagos','clientes','montos','users'));
+                 $this->set(compact('cheques','tipopagos','clientes','montos','users','banco'));
 	}
         
 	public function edit($id = null) {
