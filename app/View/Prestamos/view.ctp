@@ -84,17 +84,19 @@
                             </ul>
                         </div>
                     </td>
-                </tr>
-                    
+                </tr>        
     </table>
-
-
-	
 </div>
 <div class="related">
-	<h3><?php echo __('Gestion de cobranza'); ?></h3>
-	<?php if (!empty($prestamo['Gestiondecobranzaprestamo'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
+        <thead>
+                <th colspan="6" style="background:#cccccc; height: 50px; font-size: 20px;">
+                <div align="center" style="color:#000000;"> Gestión de cobranza </div>
+                </th>
+        </thead>
+        <br>
+	<?php if (!empty($prestamo['Gestiondecobranzaprestamo'])): ?>
+	
 	<tr>
 		<th><?php echo __('Codigo'); ?></th>
 		<th><?php echo __('Fecha'); ?></th>
@@ -108,19 +110,30 @@
 			<td><?php echo $gestiondecobranzaprestamo['descripcion']; ?></td>
 		</tr>
 	<?php endforeach; ?>
-	</table>
+                
+	
 <?php endif; ?>
 
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('Gestión de Cobranza'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
+            <tr>
+                <td colspan="6">
+                    <div class="actions">
+                        <ul>
+                            <li><?php echo $this->Html->link(__('Gestión de Cobranza'), array('controller' => 'gestiondecobranzaprestamos', 'action' => 'add')); ?> </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+      </table>
 </div>
 <div class="related">
-	<h3><?php echo __('Transaccion de prestamo'); ?></h3>
+        <table cellpadding = "0" cellspacing = "0">
+        <thead>
+                <th colspan="9" style="background:#cccccc; height: 50px; font-size: 20px;">
+                <div align="center" style="color:#000000;"> Transaccion de prestamo </div>
+                </th>
+        </thead>
+        <br>
 	<?php if (!empty($prestamo['Transaccionprestamointere'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Registro de transaccion'); ?></th>
 		<th><?php echo __('Monto interes'); ?></th>
@@ -134,7 +147,7 @@
 	</tr>
 	<?php 
         if($porcen['tipoprestamo']==2)
-        $i=0;  
+            $i=0;  
         foreach ($prestamo['Transaccionprestamointere'] as $transaccionprestamointere):                   
             ?>
 		<tr>
@@ -142,7 +155,7 @@
 			<td><?php echo $transaccionprestamointere['montointeres']; ?></td>
                         <td><?php 
                         if($porcen['tipoprestamo']==2)
-                        echo $dia[$i] ?></td>
+                        echo $dia[$i]; ?></td>
 			<td><?php echo $transaccionprestamointere['fecha']; ?></td>
                         <td><?php echo $transaccionprestamointere['fechamodificacion']; ?></td>
 			<td><?php echo $transaccionprestamointere['montodeuda']; ?></td>
