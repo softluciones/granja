@@ -65,14 +65,17 @@ class PrestamosController extends AppController {
             
             $sql="select * from prestamo";
             $prestamo=$this->Prestamo->query($sql);
-            debug($prestamo);
+            
+            $x=count($prestamo);
             $prestamo=$prestamo[$x-1];
             $fechainicio=$prestamo['prestamo']['fechainicio'];
             $fechafin=$prestamo['prestamo']['fechafin'];
             $dias=  $this->diferenciaFechas($fechainicio, $fechafin);
-            $this->request->data['Prestamo']['diascalculados']=$dias;
-            $this->request->data['Prestamo']['diaspagados']=0;
+            $diascalculados=$dias;
+            $diaspagados=0;
             
+            $this->cuotas($prestamo['prestamo']['id'], $dias, $nuevadeuda,$fechainicio,$fechafin);
+            $this->transaccion($prestamo['prestamo']['id'], 0, $nuevadeuda);
             
             return $this->redirect(array('action' => 'index'));
             
