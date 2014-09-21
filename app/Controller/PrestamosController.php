@@ -192,8 +192,11 @@ class PrestamosController extends AppController {
             $veamos=$this->Prestamo->query($x);
             return $veamos[0]['interesprestamo'];
         }
-        public function cuotas($prestamo_id,$dias,$monto,$f1,$f2){
+        public function cuotas($prestamo_id,$dias,$monto,$f1,$f2,$aja){
+            if($aja==0)
             $montocuotas=($monto/$dias);
+            else
+            $montocuotas=$monto;
             $sql="insert into cuotas (fechaini,fechafin,nrocuotas,montocuota,prestamo_id) values('".$f1."','".$f2."',".$dias.",".$montocuotas.",".$prestamo_id.")";
             $this->Prestamo->query($sql);
         }
@@ -209,6 +212,17 @@ class PrestamosController extends AppController {
             return $fecha;
             
         }
+        public function montodeudafijo($valor,$dias,$porcen){
+            
+            $montoparcial=($valor*($porcen['valor']/100))*$dias;
+            $montodiario=($valor*($porcen['valor']/100));
+            $monto=$valor-$montoparcial;
+            $montos[0]=$montoparcial;
+            $montos[1]=$monto;
+            $montos[2]=$montodiario;
+            return $montos;
+        }
+
         public function transaccion($prestamo_id,$montointeres,$montodeuda){
             $sql="insert into transaccionprestamointeres(prestamo_id,montointeres,fecha,montodeuda) values(".$prestamo_id.",".$montointeres.",now(),".$montodeuda.")";
             $this->Prestamo->query($sql);
@@ -219,41 +233,86 @@ class PrestamosController extends AppController {
 			
                         $this->Prestamo->create();
                         /*modificando forma y formato de insertar la fecha*/
-                        $fechainicio=$this->request->data['Prestamo']['fechainicio'];
-                        $fechafin=$this->request->data['Prestamo']['fechafin'];
-                        $fechainicio=$this->formatofecha($fechainicio);
-                        $fechafin=$this->formatofecha($fechafin);
-                        
-                        $this->request->data['Prestamo']['fechainicio']=$fechainicio;
-                        $this->request->data['Prestamo']['fechafin']=$fechafin;
-                        /*colocando el monto de la deuda*/
-                        $dias=  $this->diferenciaFechas($fechainicio, $fechafin);
-                        if($dias>30&&$dias<32){
-                            $x[0]=$fechafin[8];
-                            $x[1]=$fechafin[9];
-                            if($x[1]==0){
-                                $x[1]=9;
-                                $x[0]=$x[0]-1;
-                                $fechafin[8]=$x[0];
-                                $fechafin[9]=$x[1];
-                            }else{
-                                $x[1]=$x[1]-1;
-                                $fechafin[9]=$x[1];
-                            }
-                            $dias=$this->diferenciaFechas($fechainicio, $fechafin);
-                        }
-                        $this->request->data['Prestamo']['fechafin']=$fechafin;
-                        $this->request->data['Prestamo']['diascalculados']=$dias;
-                        $this->request->data['Prestamo']['diaspagados']=0;
-                        /*porcentaje*/
                         $porcen=$this->interesesprestamo($this->request->data['Prestamo']['interesprestamo_id']);
-                        $ver=$this->montodeuda($this->request->data['Prestamo']['monto'],$porcen);
-                        $this->request->data['Prestamo']['montodeuda']=$ver;
+                        if($porcen['tipoprestamo']==1){//pago diario
+                            $fechainicio=$this->request->data['Prestamo']['fechainicio'];
+                            $fechafin=$this->request->data['Prestamo']['fechafin'];
+                            $fechainicio=$this->formatofecha($fechainicio);
+                            $fechafin=$this->formatofecha($fechafin);
+
+                            $this->request->data['Prestamo']['fechainicio']=$fechainicio;
+                            $this->request->data['Prestamo']['fechafin']=$fechafin;
+                            /*colocando el monto de la deuda*/
+                            $dias=  $this->diferenciaFechas($fechainicio, $fechafin);
+                            if($dias>30&&$dias<32){
+                                $x[0]=$fechafin[8];
+                                $x[1]=$fechafin[9];
+                                if($x[1]==0){
+                                    $x[1]=9;
+                                    $x[0]=$x[0]-1;
+                                    $fechafin[8]=$x[0];
+                                    $fechafin[9]=$x[1];
+                                }else{
+                                    $x[1]=$x[1]-1;
+                                    $fechafin[9]=$x[1];
+                                }
+                                $dias=$this->diferenciaFechas($fechainicio, $fechafin);
+                            }
+                            $this->request->data['Prestamo']['fechafin']=$fechafin;
+                            $this->request->data['Prestamo']['diascalculados']=$dias;
+                            $this->request->data['Prestamo']['diaspagados']=0;
+                            /*porcentaje*/
+                            $ver=$this->montodeuda($this->request->data['Prestamo']['monto'],$porcen);
+                            $this->request->data['Prestamo']['montodeuda']=$ver;
+                        }else{//pago fijo
+                            $fechainicio=$this->request->data['Prestamo']['fechainicio'];
+                            $fechafin=$this->request->data['Prestamo']['fechafin'];
+                            $fechainicio=$this->formatofecha($fechainicio);
+                            $fechafin=$this->formatofecha($fechafin);
+
+                            $this->request->data['Prestamo']['fechainicio']=$fechainicio;
+                            $this->request->data['Prestamo']['fechafin']=$fechafin;
+                            /*colocando el monto de la deuda*/
+                            $dias=  $this->diferenciaFechas($fechainicio, $fechafin);
+                            if($dias>30&&$dias<32){
+                                $x[0]=$fechafin[8];
+                                $x[1]=$fechafin[9];
+                                if($x[1]==0){
+                                    $x[1]=9;
+                                    $x[0]=$x[0]-1;
+                                    $fechafin[8]=$x[0];
+                                    $fechafin[9]=$x[1];
+                                }else{
+                                    $x[1]=$x[1]-1;
+                                    $fechafin[9]=$x[1];
+                                }
+                                $dias=$this->diferenciaFechas($fechainicio, $fechafin);
+                            }
+                            $this->request->data['Prestamo']['fechafin']=$fechafin;
+                            $this->request->data['Prestamo']['diascalculados']=$dias;
+                            $this->request->data['Prestamo']['diaspagados']=0;
+                            $ver=  $this->montodeudafijo($this->request->data['Prestamo']['monto'],$dias,$porcen);
+                            $total=$ver;
+                            
+                            $ver=$total[1];
+                            //$ver=$this->montodeuda($this->request->data['Prestamo']['monto'],$porcen);
+                            $this->request->data['Prestamo']['montodeuda']=$ver;
+                            
+                            
+                        }
                         /*agregando campo en la tabla cuotas*/
 			if ($this->Prestamo->save($this->request->data)) {
                                 $prestamo_id=$this->Prestamo->getLastInsertID();
-                                $this->cuotas($prestamo_id, $dias, $ver,$fechainicio,$fechafin);
-                                $this->transaccion($prestamo_id, 0, $ver);
+                                if($porcen['tipoprestamo']==1){
+                                    $this->cuotas($prestamo_id, $dias, $ver,$fechainicio,$fechafin,0);
+                                    $this->transaccion($prestamo_id, 0, $ver);
+                                }else{
+                                    $ver=$total[2];
+                                    $this->cuotas($prestamo_id, $dias, $ver,$fechainicio,$fechafin,1);
+                                    $ver=$total[1];
+                                    $this->transaccion($prestamo_id, $total[0], $ver);
+                                    
+                                }
 				$this->Session->setFlash(__('El prestamo ha sido Guardado con éxito'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
